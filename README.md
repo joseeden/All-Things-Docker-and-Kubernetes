@@ -12,6 +12,318 @@ Ayt, going full steam ahead!
 </p>
 
 
+## Pre-requisites
+
+It's important to note that you can't run Linux containers without a Linux kernel. This means you still need a runtime interpreter to emulate the Linux kernel system calls.
+
+<details><summary> Install Docker </summary>
+ 
+### Install Docker
+
+With the introduction of Hyper-V, this gave way for **Docker Desktop for Windows** which under the hood, uses WSL2's to launch a VM as the host Linux operating system.
+
+**NOTE:** Running containers on Windows machines is suited for local development purposes only and is NOT RECOMMENDED FOR PRODUCTION USE.
+
+<details><summary> Install Docker on WSL2 without Docker Desktop </summary>
+
+#### Install Docker on WSL2 without Docker Desktop 
+
+Note on [Docker Desktop's changing to paid subscription](https://www.docker.com/legal/docker-subscription-service-agreement/):
+
+> After January 31, 2022, Docker Desktop will require a paid subscription.
+> Commercial use of Docker Desktop in larger enterprises requires a Docker Pro, Team or Business subscription for as little as 5 USD per user per month.
+> The existing Docker Free subscription has been renamed Docker Personal. Docker Desktop remains free for personal use, education, non-commercial open source projects, and small businesses (fewer than 250 employees AND less than 10M USD in annual revenue).
+
+ 
+A quick Google search shows how to [install Docker in WSL2 without Docker desktop:](https://dev.solita.fi/2021/12/21/docker-on-wsl2-without-docker-desktop.html)
+
+Remove old Docker installations.
+
+```bash
+$ sudo apt remove docker \
+docker-engine \
+docker.io \
+containerd runc 
+```
+
+Install some pre-requisites.
+
+```bash
+$ sudo apt update 
+$ sudo apt install -y --no-install-recommends \
+apt-transport-https ca-certificates curl gnupg2
+```
+
+Configure package repository
+
+```bash
+$ source /etc/os-release 
+$ curl -fsSL https://download.docker.com/linux/${ID}/gpg | sudo apt-key add -
+$ echo "deb [arch=amd64] https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/docker.list
+$ sudo apt update
+```
+
+Install Docker.
+
+```bash
+$ sudo apt install -y docker-ce docker-ce-cli containerd.io
+```
+
+Add user to group
+
+```bash
+$ sudo usermod -aG docker $USER 
+```
+
+Configure dockerd
+
+```bash
+$ DOCKER_DIR=/mnt/wsl/shared-docker
+$ mkdir -pm o=,ug=rwx "$DOCKER_DIR"
+$ sudo chgrp docker "$DOCKER_DIR"
+$ sudo mkdir /etc/docker
+$ sudo vi /etc/docker/daemon.json 
+
+    {
+    "hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]
+    }
+```
+
+Test if it works. Run the command below. It should return "API listen on.." message.
+
+```bash
+$ sudo dockerd 
+
+API listen on /mnt/wsl/shared-docker/docker.sock
+```
+
+Do another test. Open another terminal and run the command below.
+
+```bash
+$ docker -H unix:///mnt/wsl/shared-docker/docker.sock run --rm hello-world
+```
+
+It should return this output.
+
+<details><summary> run hello-world </summary>
+ 
+```bash
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+ 
+</details>
+</br>
+
+The next step is to create a launch script for dockerd. You can do this in two ways:
+
+<details><summary> Manual </summary>
+
+Add the following to .bashrc or .profile 
+
+```bash
+$ cat >> ~/.bashrc
+
+DOCKER_SOCK="/mnt/wsl/shared-docker/docker.sock"
+test -S "$DOCKER_SOCK" && export DOCKER_HOST="unix://$DOCKER_SOCK"
+```
+ 
+</details>
+
+<details><summary> Automatic </summary>
+
+Add the following to .bashrc or .profile 
+```bash
+$ cat >> ~/.bashrc
+
+DOCKER_DISTRO=$(cat /etc/os-release | grep PRETTY_NAME | cut -c14- | cut -d ' ' -f1,2)
+DOCKER_DIR=/mnt/wsl/shared-docker
+DOCKER_SOCK="$DOCKER_DIR/docker.sock"
+export DOCKER_HOST="unix://$DOCKER_SOCK"
+
+if [ ! -S "$DOCKER_SOCK" ]; then
+   mkdir -pm o=,ug=rwx "$DOCKER_DIR"
+   sudo chgrp docker "$DOCKER_DIR"
+   /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+fi
+```
+ 
+</details>
+
+
+</details>
+
+
+<details><summary> Install on RHEL/CentOS </summary>
+ 
+#### Install on RHEL/CentOS
+
+These steps are the ones I followed to install docker on RHEL 8/CentOS in an Amazon EC2 instance. Detailed steps can be found on [Docker's official documentation](https://docs.docker.com/engine/install/centos/).
+
+Check version.
+
+```bash
+ll /etc/*release
+cat /etc/*release
+```
+
+Update base image
+
+```bash
+sudo yum -y update
+```
+
+Uninstall older versions of docker - if one exists
+
+```bash
+sudo yum remove -y docker \
+docker-client \
+docker-client-latest \
+docker-common \
+docker-latest \
+docker-latest-logrotate \
+docker-logrotate \
+docker-engine
+```
+
+To install Docker, you can do it in two ways:
+
+<details><summary> Install from a package </summary>
+
+Install from a package - Setup repository and install from there.
+
+Choose your OS version in https://download.docker.com/linux/centos/, head to **x86_64/stable/Packages/**, and download the **.rpm** file.
+
+Go to the directory where the rpm file is downloaded and do the installation.
+
+```bash
+$ cd <path-to>/package.rpm
+$ sudo yum install -y package.rpm
+```
+
+Start docker and verify version.
+
+```bash
+$ sudo systemctl start docker 
+$ docker version 
+```
+
+Run a simple "hello-world" container.
+
+```bash
+$ sudo docker run hello-world 
+```
+ 
+</details>
+
+<details><summary> Install from a script </summary>
+
+Install from a script - Use the convenience scripts
+This method is NOT RECOMMENDED for production environments
+
+Do a preview first of the changes before actually applying them.
+
+```bash
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ DRY_RUN=1 sh ./get-docker.sh 
+```
+
+Download the script and install the latest release.
+
+```bash
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh 
+```
+
+Start docker and verify version.
+
+```bash
+$ sudo systemctl start docker 
+$ docker version 
+```
+
+Run a simple "hello-world" container.
+
+```bash
+$ sudo docker run hello-world 
+```
+
+</details>
+</details>
+
+<details><summary> Install on Ubuntu </summary>
+
+#### Install on Ubuntu
+
+This is a summary of the command that you can run to install docker on Ubuntu.
+
+```bash
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &&
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" &&
+$ sudo apt-get update -y 
+$ sudo sudo apt-get install docker-ce docker-ce-cli containerd.io -y 
+$ sudo usermod -aG docker ubuntu 
+```
+  
+</details>
+
+<details><summary> Install on Ubuntu using Terraform </summary>
+
+#### Install on Ubuntu using Terraform
+
+Whether you've dabbled around in Terraform or not, this is the fastest way to provision a resource in AWS with Docker installed. This will provision the following:
+
+- a VPC
+- an EC2 instance with Docker installed
+
+For more details, check this [repository](https://github.com/joseeden/101-Terraform-Projects/tree/master/lab12_Docker_Kubernetes_Env).
+
+</details>
+
+</details>
+
+<details><summary> Error: Cannot connect to the Docker daemon </summary>
+
+### Error: Cannot connect to the Docker daemon
+
+In case you encounter this message when you test Docker for the first time:
+
+```bash
+docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+```
+
+To resolve this, start the docker service and docker daemon.
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+```
+```bash
+sudo dockerd
+```
+
+You can checkout this [Stackoverflow discussion](https://stackoverflow.com/questions/44678725/cannot-connect-to-the-docker-daemon-at-unix-var-run-docker-sock-is-the-docker) to know more.
+
+</details>
+
 ## Docker Basics
 
 Whether you're entirely new to the world of containers or you just simply want to do a quick refresher, feel free to select the topic you're interested in and browse through the bite-sized information.
@@ -763,317 +1075,7 @@ services:
 
 </details>
 
-## Pre-requisites
 
-It's important to note that you can't run Linux containers without a Linux kernel. This means you still need a runtime interpreter to emulate the Linux kernel system calls.
-
-<details><summary> Install Docker </summary>
- 
-### Install Docker
-
-With the introduction of Hyper-V, this gave way for **Docker Desktop for Windows** which under the hood, uses WSL2's to launch a VM as the host Linux operating system.
-
-**NOTE:** Running containers on Windows machines is suited for local development purposes only and is NOT RECOMMENDED FOR PRODUCTION USE.
-
-<details><summary> Install Docker on WSL2 without Docker Desktop </summary>
-
-#### Install Docker on WSL2 without Docker Desktop 
-
-Note on [Docker Desktop's changing to paid subscription](https://www.docker.com/legal/docker-subscription-service-agreement/):
-
-> After January 31, 2022, Docker Desktop will require a paid subscription.
-> Commercial use of Docker Desktop in larger enterprises requires a Docker Pro, Team or Business subscription for as little as 5 USD per user per month.
-> The existing Docker Free subscription has been renamed Docker Personal. Docker Desktop remains free for personal use, education, non-commercial open source projects, and small businesses (fewer than 250 employees AND less than 10M USD in annual revenue).
-
- 
-A quick Google search shows how to [install Docker in WSL2 without Docker desktop:](https://dev.solita.fi/2021/12/21/docker-on-wsl2-without-docker-desktop.html)
-
-Remove old Docker installations.
-
-```bash
-$ sudo apt remove docker \
-docker-engine \
-docker.io \
-containerd runc 
-```
-
-Install some pre-requisites.
-
-```bash
-$ sudo apt update 
-$ sudo apt install -y --no-install-recommends \
-apt-transport-https ca-certificates curl gnupg2
-```
-
-Configure package repository
-
-```bash
-$ source /etc/os-release 
-$ curl -fsSL https://download.docker.com/linux/${ID}/gpg | sudo apt-key add -
-$ echo "deb [arch=amd64] https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/docker.list
-$ sudo apt update
-```
-
-Install Docker.
-
-```bash
-$ sudo apt install -y docker-ce docker-ce-cli containerd.io
-```
-
-Add user to group
-
-```bash
-$ sudo usermod -aG docker $USER 
-```
-
-Configure dockerd
-
-```bash
-$ DOCKER_DIR=/mnt/wsl/shared-docker
-$ mkdir -pm o=,ug=rwx "$DOCKER_DIR"
-$ sudo chgrp docker "$DOCKER_DIR"
-$ sudo mkdir /etc/docker
-$ sudo vi /etc/docker/daemon.json 
-
-    {
-    "hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]
-    }
-```
-
-Test if it works. Run the command below. It should return "API listen on.." message.
-
-```bash
-$ sudo dockerd 
-
-API listen on /mnt/wsl/shared-docker/docker.sock
-```
-
-Do another test. Open another terminal and run the command below.
-
-```bash
-$ docker -H unix:///mnt/wsl/shared-docker/docker.sock run --rm hello-world
-```
-
-It should return this output.
-
-<details><summary> run hello-world </summary>
- 
-```bash
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/get-started/
-```
- 
-</details>
-</br>
-
-The next step is to create a launch script for dockerd. You can do this in two ways:
-
-<details><summary> Manual </summary>
-
-Add the following to .bashrc or .profile 
-
-```bash
-$ cat >> ~/.bashrc
-
-DOCKER_SOCK="/mnt/wsl/shared-docker/docker.sock"
-test -S "$DOCKER_SOCK" && export DOCKER_HOST="unix://$DOCKER_SOCK"
-```
- 
-</details>
-
-<details><summary> Automatic </summary>
-
-Add the following to .bashrc or .profile 
-```bash
-$ cat >> ~/.bashrc
-
-DOCKER_DISTRO=$(cat /etc/os-release | grep PRETTY_NAME | cut -c14- | cut -d ' ' -f1,2)
-DOCKER_DIR=/mnt/wsl/shared-docker
-DOCKER_SOCK="$DOCKER_DIR/docker.sock"
-export DOCKER_HOST="unix://$DOCKER_SOCK"
-
-if [ ! -S "$DOCKER_SOCK" ]; then
-   mkdir -pm o=,ug=rwx "$DOCKER_DIR"
-   sudo chgrp docker "$DOCKER_DIR"
-   /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
-fi
-```
- 
-</details>
-
-
-</details>
-
-
-<details><summary> Install on RHEL/CentOS </summary>
- 
-#### Install on RHEL/CentOS
-
-These steps are the ones I followed to install docker on RHEL 8/CentOS in an Amazon EC2 instance. Detailed steps can be found on [Docker's official documentation](https://docs.docker.com/engine/install/centos/).
-
-Check version.
-
-```bash
-ll /etc/*release
-cat /etc/*release
-```
-
-Update base image
-
-```bash
-sudo yum -y update
-```
-
-Uninstall older versions of docker - if one exists
-
-```bash
-sudo yum remove -y docker \
-docker-client \
-docker-client-latest \
-docker-common \
-docker-latest \
-docker-latest-logrotate \
-docker-logrotate \
-docker-engine
-```
-
-To install Docker, you can do it in two ways:
-
-<details><summary> Install from a package </summary>
-
-Install from a package - Setup repository and install from there.
-
-Choose your OS version in https://download.docker.com/linux/centos/, head to **x86_64/stable/Packages/**, and download the **.rpm** file.
-
-Go to the directory where the rpm file is downloaded and do the installation.
-
-```bash
-$ cd <path-to>/package.rpm
-$ sudo yum install -y package.rpm
-```
-
-Start docker and verify version.
-
-```bash
-$ sudo systemctl start docker 
-$ docker version 
-```
-
-Run a simple "hello-world" container.
-
-```bash
-$ sudo docker run hello-world 
-```
- 
-</details>
-
-<details><summary> Install from a script </summary>
-
-Install from a script - Use the convenience scripts
-This method is NOT RECOMMENDED for production environments
-
-Do a preview first of the changes before actually applying them.
-
-```bash
-$ curl -fsSL https://get.docker.com -o get-docker.sh
-$ DRY_RUN=1 sh ./get-docker.sh 
-```
-
-Download the script and install the latest release.
-
-```bash
-$ curl -fsSL https://get.docker.com -o get-docker.sh
-$ sudo sh get-docker.sh 
-```
-
-Start docker and verify version.
-
-```bash
-$ sudo systemctl start docker 
-$ docker version 
-```
-
-Run a simple "hello-world" container.
-
-```bash
-$ sudo docker run hello-world 
-```
-
-</details>
-</details>
-
-<details><summary> Install on Ubuntu </summary>
-
-#### Install on Ubuntu
-
-This is a summary of the command that you can run to install docker on Ubuntu.
-
-```bash
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &&
-$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" &&
-$ sudo apt-get update -y 
-$ sudo sudo apt-get install docker-ce docker-ce-cli containerd.io -y 
-$ sudo usermod -aG docker ubuntu 
-```
-  
-</details>
-
-<details><summary> Install on Ubuntu using Terraform </summary>
-
-#### Install on Ubuntu using Terraform
-
-Whether you've dabbled around in Terraform or not, this is the fastest way to provision a resource in AWS with Docker installed. This will provision the following:
-
-- a VPC
-- an EC2 instance with Docker installed
-
-For more details, check this [repository](https://github.com/joseeden/101-Terraform-Projects/tree/master/lab12_Docker_Kubernetes_Env).
-
-</details>
-
-</details>
-
-<details><summary> Error: Cannot connect to the Docker daemon </summary>
-
-### Error: Cannot connect to the Docker daemon
-
-In case you encounter this message when you test Docker for the first time:
-
-```bash
-docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-```
-
-To resolve this, start the docker service and docker daemon.
-```bash
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo systemctl status docker
-```
-```bash
-sudo dockerd
-```
-
-You can checkout this [Stackoverflow discussion](https://stackoverflow.com/questions/44678725/cannot-connect-to-the-docker-daemon-at-unix-var-run-docker-sock-is-the-docker) to know more.
-
-</details>
 
 ## Cloud-Native
 
