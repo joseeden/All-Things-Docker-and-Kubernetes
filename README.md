@@ -1173,3 +1173,28 @@ Adding this section soon!
 <p align=center>
     <img src="Images/comingsoon.png" width=500>
 </p>
+
+## Resources
+
+Useful courses on Docker:
+
+- [Docker in Production Using Amazon Web Services](https://www.pluralsight.com/courses/docker-production-using-amazon-web-services)
+- [Building, Deploying, and Running Containers in Production](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/#)
+
+Learn more about Dockerfile best practices:
+
+- [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#from)
+- [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+
+Read about the available options when building the image and running containers:
+
+- [Docker Build command](https://docs.docker.com/engine/reference/commandline/build/)
+- [Docker Run command](https://docs.docker.com/engine/reference/commandline/run/)
+
+Check out Docker registries, alternatives to package an application, and OCI standards:
+
+- [Introduction to Docker registry](https://docs.docker.com/registry/introduction/)
+- [Docker Tag command](https://docs.docker.com/engine/reference/commandline/tag/)
+- [Docker Push command](https://docs.docker.com/engine/reference/commandline/push/)
+- [Open Container Initiative (OCI) Specifications](https://www.docker.com/blog/demystifying-open-container-initiative-oci-specifications/)
+- [Buildpacks: An App’s Brief Journey from Source to Image](https://buildpacks.io/docs/app-journey/)
