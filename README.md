@@ -344,7 +344,7 @@ While it has proved to be useful, it still has its own disadvantages:
 
 ![](Images/us-5-vm-containers.png)
 
-**Enters containers.** To further optimize the usage of the server, container can be used to *virtualized the operating system.* Through containers, we won't need to run replicated OS. Regardless of how many containers we run on the machine, they will all use the same underlying operating system of the physical machine itself.
+**Enter containers.** To further optimize the usage of the server, container can be used to *virtualized the operating system.* Through containers, we won't need to run replicated OS. Regardless of how many containers we run on the machine, they will all use the same underlying operating system of the physical machine itself.
 
 To facilitate the creation and management of the containers, we can use a container engine tool, such as **Docker.** 
 
