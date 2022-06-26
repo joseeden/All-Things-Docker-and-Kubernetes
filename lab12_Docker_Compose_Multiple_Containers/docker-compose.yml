@@ -1,0 +1,12 @@
+# There are three versions, v3 support docker swarm.
+version: '3'
+
+services:
+
+  redis-server:
+    image: 'redis'
+
+  node-app:
+    build: .
+    ports: 
+      - "4001:8081"
