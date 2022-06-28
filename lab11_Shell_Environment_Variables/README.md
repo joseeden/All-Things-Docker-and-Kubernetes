@@ -24,7 +24,7 @@ Create the **templates** directory and the simple **hello.html** inside it.
 
 ```bash
 $ mkdir templates
-$ vim templates/ hello.html 
+$ vim templates/hello.html 
 ```
 
 <details><summary> hello.html </summary>

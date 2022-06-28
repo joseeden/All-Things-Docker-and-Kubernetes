@@ -1,0 +1,14 @@
+version: '3'
+services:
+  proj-eden-frontend:
+    
+    build: 
+      context: .
+      dockerfile: dockerfile.dev
+    
+    ports:
+      - "4002:3000"
+    
+    volumes:
+      - /app/node_modules
+      - .:/app 
