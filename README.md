@@ -517,6 +517,26 @@ You can read more about the installation process in this [freeCodeCamp article.]
 
 </details>
 
+<details><summary> Sign-up for a Github Account (optional) </summary>
+
+### Sign-up for a Github Account (optional)
+
+This is not required for running containers but since we will be implementing CICD in some of the labs, we will need to have this setup. Github is a free to use code reopsitory and easy to start with.
+
+To sign up for a Github account, click [here](https://github.com/signup).
+
+</details>
+
+<details><summary> Sign-up for an AWS Account (optional) </summary>
+
+### Sign-up for an AWS Account (optional)
+
+This is not required for running containers but we will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
+
+To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/free/).
+
+</details>
+
 ## Docker Basics
 
 Whether you're entirely new to the world of containers or you just simply want to do a quick refresher, feel free to select the topic you're interested in and browse through the bite-sized information.
