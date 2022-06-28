@@ -1,4 +1,4 @@
-## Lab 13: Really Big Project - Part 1: Create a Production-Grade Workflow
+# Lab 13: Really Big Project - Part 1: Create a Production-Grade Workflow
 
 > *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
 
@@ -8,7 +8,7 @@ Before we begin, make sure you've setup the following pre-requisites
   - [Install Node and NPM](../README.md#pre-requisites)
   <!-- - [Install Go](../README.md#pre-requisites) -->
 
-### Introduction
+## Introduction
 
 In this lab, we'll walk through a production-grade workflow which will use Docker to deploy an application. Remember that an application will not be deployed just one time. Changes will be introduced to an application, additional features will be develop to improve the application, and we will need to re-deploy the changes made. This is why we need to follow a workflow that allows a continuous development, testing, and deployment.
 
@@ -27,7 +27,7 @@ You might find this entire lab to be exhaustingly long as there are a lot of ste
 
 I've condensed the pages and contained them into collapsible sections so you can easily jump from one section to another by clicking the ▶ button. Once you're done with one section, you can simply collapse it and move to the next one.
 
-### The Workflow
+## The Workflow
 
 Before we get into the dirty work, let's understand first the development workflow that we'll follow for this project and for the rest of the other succeeding labs.
 
@@ -57,7 +57,9 @@ Here's another way to look at it:
  
 </details>
 
-### The Project - Application
+______________________________________________
+
+## The Project - Application
 
 We'll work on a fairly simple React code and deploy it in a container. We'll be focusing less on the actual code and more on how we can wrap it in Docker. 
 
@@ -133,7 +135,7 @@ drwxrwxr-x 6 ubuntu ubuntu 4096 Jun 27 10:00 proj-eden-frontend
 
 </details>
 
-#### 01 - Running NPM Commands 
+### 01 - Running NPM Commands 
 
 We'll be running these three commands multiple times during the whole project.
 
@@ -155,7 +157,7 @@ Let's go back to our React app, **proj-eden-frontend**.
 $ cd proj-eden-frontend
 ```
 
-##### npm run test
+#### npm run test
 
 Let's try running tests. Run the command below and enter "a" to run all tests. Press "q" to quit.
 
@@ -169,7 +171,7 @@ $ npm run test
 <img src="../Images/lab13npmruntest2.png">
 </p>
 
-##### npm run build 
+#### npm run build 
 
 Now try to run **build.**
 
@@ -223,7 +225,7 @@ $ ll build/index.html
 $ ll build/src/App.js
 ```
 
-##### npm run start 
+#### npm run start 
 
 Finally, let's start a development server.
 
@@ -251,7 +253,7 @@ You should now see the React page.
 
 </details>
 
-#### 02 - Node modules are heavy files 
+### 02 - Node modules are heavy files 
 
 When we run the **tree** command inside the project directory, we saw that there are 4000+ files inside it. 
 
@@ -277,7 +279,7 @@ When you check in your browser again, you should now see error messages. This is
 
 </details>
 
-#### 03 - Multiple Dockerfiles
+### 03 - Multiple Dockerfiles
 
 Since we'll have a development and a production environment,  we will need to create separate dockerfiles for each.
 
@@ -291,7 +293,9 @@ Here's what we'll try to do:
 
 </details>
 
-### Time to Go DEV
+______________________________________________
+
+## Time to Go DEV
 
 We'll start with working on the our code and deploy it inside a container in a development (DEV) environment. After that, we'll run simple tests on the environment.
 
@@ -309,13 +313,13 @@ To understand how our containerized application will work in a DEV environment,
 
 </details>
 
-#### 01 - Using the Dockerfile
+### 01 - Using the Dockerfile
 
 Let's start with creating the dockerfile for DEV inside our project directory.
 
 <details><summary> Click me to read more! </summary>
 
-##### Create the Dockerfile and Build the Image
+#### Create the Dockerfile and Build the Image
 
 ```bash
 $ vim dockerfile.dev
@@ -367,7 +371,7 @@ proj-eden-frontend   latest    332f15e15139   2 minutes ago   532MB
 node                 alpine    515db77e67c7   10 days ago     174MB 
 ```
 
-##### Run the Container 
+#### Run the Container 
 
 Start a container from the dockerfile. We'll also expose the container's port 3000 and map it to our local machine's port 4002. You can choose any port in your machine but we'll use 4002 here.
 
@@ -420,7 +424,7 @@ We will need to build a new image everytime we introduce changes to the files th
 Make changes, re-build the image, run new containers.
 
 
-##### Map the Volumes 
+#### Map the Volumes 
 
 To ensure that changes are immediately reflected to the application, we would need to isolate the project files from the container. This means that instead of copying the projects files to the container, we'll store it in a volume outside the container and then reference that volume when the container is ran.
 
@@ -465,7 +469,7 @@ To make sure that the container doesn't look for the **node_modules** folder out
 $ docker run -p 4002:3000 -v /app/node_modules -v $(pwd):/app <image-id> 
 ```
 
-##### Let's now test this 
+#### Let's now test this 
 
 We want to make sure that any changes we make to the project files will automatically be displayed on the application that's running inside the container.
 
@@ -586,7 +590,7 @@ To infinity and beyond!
 </details>
 
 
-#### 02 - Using Docker-compose
+### 02 - Using Docker-compose
 
 We've managed to containerize the React application and map the volume to a directory inside the container. We've also isolated the Javascript file being served inside our browser so that it doesn't get copied onto the container. 
 
@@ -696,7 +700,7 @@ The answer is, we don't. We can remove the 'COPY . .' and the container would st
 
 </details>
 
-#### 03 - Run Tests inside the Container 
+### 03 - Run Tests inside the Container 
 
 We've containerize the React App and manage to run the containers with both the dockerfile option and docker-compose. We'll now shift our focus on running tests on the project.
 
@@ -728,13 +732,13 @@ Press "Enter" to trigger a test run. To quit, press 'Q'.
 
 </details>
 
-#### 04 - Updating Test Files
+### 04 - Updating Test Files
 
 We've run the provided tests on our application. Now let's check if we can modify the tests and see if this will affect the containers we ran.
 
 <details><summary> Click me to read more! </summary>
 
-##### Method 1: Live Updating Tests
+#### Method 1: Live Updating Tests
 
 Similar with updating the project files, we could also update the test files. However, remember that the container basically a "snapshot" which means it uses the original test files and will not reflect any changes done to the test files unless you rebuild the image again and run a new container. 
 
@@ -812,7 +816,7 @@ Try adding 5 more tests to the **App.test.js** then reduce it to just 3 test. Th
 Note that this isn't the most efficient way to reflect the changes to the test files since you'll have to re-attach to the running container and run 'npm run test' again each time you modify the test files.
 
 
-##### Method 2: Docker-Compose for Running Tests 
+#### Method 2: Docker-Compose for Running Tests 
 
 We sort of did used docker-compose in the first approach when we spin up the containers but we just attached to the running container and run the 'npm run test' again to make sure that the changes in the test files are applied.
 
@@ -878,7 +882,9 @@ $ docker ps
 
 </details>
 
-### Time to Go Prod
+______________________________________________
+
+## Time to Go Prod
 
 We're now done with implementing the **npm run start** and **npm run test** in a development environment. We saw how we can deploy an application inside a container and run tests on them. 
 
@@ -891,7 +897,7 @@ We achieved this by isolating the files outside the container and instructing th
 
 </details>
 
-#### 01 - How Applications Runs in Different Environments
+### 01 - How Applications Runs in Different Environments
 
 We've discussed before how application runs in a DEV environment. To recap, the containerized application runs a dev server inside it which facilitates all the requests coming in and serving the project files. 
 
@@ -914,7 +920,7 @@ We'll be creating a separate dockerfile for our production environment. This doc
 
 </details>
 
-#### 02 - Multi-Step Docker Builds   
+### 02 - Multi-Step Docker Builds   
 
 We'll repeat the same steps that we did for our DEV environment, but with some slight adjustments. 
 
@@ -927,7 +933,7 @@ But first, let's understand once again the steps that we'll have to do using thi
 <img src="../Images/lab13prodflowchart.png">
 </p>
 
-##### Do we need to install all dependencies?
+#### Do we need to install all dependencies?
 
 Recall when we install the dependencies during the project generation, it created a directory with over 4000+ folder inside, with majority of the files in the **node_modules** folder. This dependencies were required to run "npm run build" command which builds the application. After this is done, the dependencies are not required anymore. 
 
@@ -941,7 +947,7 @@ drwxrwxr-x 2 ubuntu ubuntu 4096 Jun 28 04:12 public//
 drwxrwxr-x 2 ubuntu ubuntu 4096 Jun 28 04:12 src// 
 ```
 
-##### Where do we get NGINX?
+#### Where do we get NGINX?
 
 We'll be using the [official NGINX container image from Dockerhub.](https://hub.docker.com/_/nginx).
 
@@ -955,7 +961,7 @@ We'll now be using two base images: "node:alpine" and "nginx". To do this, we'll
 <img src="../Images/lab13multidockerbuild.png">
 </p>
 
-#### 03 - Using the Dockerfile
+### 03 - Using the Dockerfile
 
 Let's create our **dockerfile.prod** file. Notice that we now have two "FROM" statements here. Consider one "FROM" block as a step, so after the first "FROM" block is done running, Docker will proceed with running the second "FROM" block.
 
@@ -993,7 +999,7 @@ The "/usr/share/nginx/html" is a default directory where NGINX checks for any ap
 
 </details>
 
-#### 04 - Run the Container 
+### 04 - Run the Container 
 
 This is the final step for the Part 1 of "Really Big Project". It actually took me around three days to complete Part 1 but I've actually learned a lot during the whole process. While it is not completely done yet, I have gained a lot more insights about containerizing application.
 
@@ -1028,19 +1034,21 @@ Open your web browser and navigate to your IP address through port 8080. You sho
  
 </details>
 
-### What's Next 
+______________________________________________
+
+## What's Next 
 
 Proceed to the next lab to deploy our containerized app to the outside world. But first, go get yourself a drink.
 
 You've done well.
 
-### Issues Encountered for Windows-based Machines 
+## Issues Encountered for Windows-based Machines 
 
 Below are just some of errors you may encounter if you're doing this lab in a Windows machine.
 
 <details><summary> Click me to read more! </summary>
 
-#### npm start doesn't detect changes
+### npm start doesn't detect changes
 
 You may encounter some issues where the Create-React-App can't detect files that are changed on Windows-based machines. You can try out the following:
 
@@ -1055,7 +1063,7 @@ You may encounter some issues where the Create-React-App can't detect files that
 Read more about it [here](https://create-react-app.dev/docs/troubleshooting/#npm-start-doesn-t-detect-changes).
 
 
-#### npm ERR - enoent ENOENT - no such file or directory
+### npm ERR - enoent ENOENT - no such file or directory
 
 You may encounter this error if you're using VirtualBox inside a Windows machine and you're trying to run the command below:
 
