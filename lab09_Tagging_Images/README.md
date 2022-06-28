@@ -1,4 +1,3 @@
-
 ## Lab 09: Tagging Images
 
 > *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*
@@ -60,7 +59,9 @@ For this example, we would need to [create a free account in Dockerhub.](https:/
 
 Once you have your account setup, create a repository. I'm using "centos-java-1" as my repository name.
 
-![](Images/lab08-dockerhub100.png)  
+<p align=center>
+<img src="../Images/lab08-dockerhub100.png">
+</p>
 
 Back in your terminal, login to dockerhub. Enter your username and password.
 
@@ -115,9 +116,13 @@ $ sudo docker push edenjose/centos-java-1:v1
 
 Checking in Dockerhub,
 
-![](Images/lab08-dockerhubcentosjava1.png)  
+<p align=center>
+<img src="../Images/lab08-dockerhubcentosjava1.png">
+</p>
 
-![](Images/lab08-dockerhubcentosjava2.png)  
+<p align=center>
+<img src="../Images/lab08-dockerhubcentosjava2.png">
+</p>
 
 ### Example 3: Multiple Tags
 

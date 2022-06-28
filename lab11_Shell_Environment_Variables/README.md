@@ -1,4 +1,3 @@
-
 ## Lab 11: Shell Environment Variables 
 
 Before we begin, make sure you've setup the following pre-requisites
@@ -236,7 +235,9 @@ Open a web browser and navigate to the IP address followed by the port number, l
 
 You should see the website displayed.
 
-![](Images/lab11appblue.png)  
+<p align=center>
+<img src="../Images/lab11appblue.png">
+</p>
 
 Back in your terminal, hit **Ctrl-C** to quit and run the container again. Specify "red" this time.
 
@@ -246,7 +247,9 @@ $ docker run -p 82:8080 -e APP_COLOR=red my-flask-app
 
 The website color should now change to red.
 
-![](Images/lab11appred.png)  
+<p align=center>
+<img src="../Images/lab11appred.png">
+</p>
 
 Try running containers and use different colors. Note that the code only accepts eleven colors. If you specified a color that is not declared in the code, you'll get the error message below:
 
@@ -264,7 +267,9 @@ Color not supported. Received 'darkblue' expected one of red,orange,yellow,green
 $ docker run -p 82:8080 my-flask-app 
 ```
 
-![](Images/lab11apprandomcolor.png)  
+<p align=center>
+<img src="../Images/lab11apprandomcolor.png">
+</p>
 
 As seen, the website will randomly choose a color from declared list of colors. Note that this catch-all is defined in the application code so that it won't return an error if it doesn't find any "color".
 

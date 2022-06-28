@@ -1,4 +1,3 @@
-
-# Ignore master notes file
-Notes-Docker-Kubernetes.*
+# Ignore archived and scribbles pages
 Archived*
+Scribbles*

@@ -60,6 +60,7 @@ func main() {
 	http.HandleFunc("/host/", hostHandler)
 	http.ListenAndServe(":8080",nil)
 }
+
 ```
 
 </details>
@@ -128,7 +129,9 @@ $ curl ipecho.net/plain; echo
 
 Open your web browser and navigate to the IP, followed by the port.
 
-![](Images/lab05-bindportdynamic.png)  
+<p align=center>
+<img src="../Images/lab-5-bindportdynamic.png">
+</p>
 
 ### Map to a Specific Port and Run the Container
 

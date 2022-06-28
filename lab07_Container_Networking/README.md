@@ -1,5 +1,7 @@
 ## Lab 07: Container Networking
 
+<details><summary> Read more... </summary>
+
 > *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*
 
 Before we begin, make sure you've setup the following pre-requisites
@@ -385,3 +387,5 @@ Finally, remove all images.
 ```bash
 $ docker image prune -af 
 ```
+
+</details>

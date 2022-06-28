@@ -1,6 +1,5 @@
-
 ## Lab 08: Persistent Storage
- 
+
 > *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*
 
 Before we begin, make sure you've setup the following pre-requisites
@@ -9,7 +8,7 @@ Before we begin, make sure you've setup the following pre-requisites
   - [Install Go](../README.md#pre-requisites)
 
 ### Introduction
-
+  
 In this lab, we'll explore the storage options available for Docker containers. Let's start with creating the project directory where we'll create our files.
 
 ```bash

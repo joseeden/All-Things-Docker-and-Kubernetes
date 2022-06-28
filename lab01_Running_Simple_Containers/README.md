@@ -1,7 +1,5 @@
-
 ## Lab 01: Running Simple Containers
-
-
+ 
 > *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*
 
 Before we begin, make sure you've setup the following pre-requisites
@@ -73,7 +71,9 @@ Run the command below. It will pull the image from Dockerhub and run it locally.
 $ sudo docker run -it --rm --name nyancat 06kellyjac/nyancat
 ```
 
-![](../Images/0619nyancat.png)  
+<p align=center>
+<img src="../Images/0619nyancat.png">
+</p>
 
 To exit out of the animation, hit Ctrl-C.
 
@@ -230,6 +230,7 @@ Once all containers have "Exited" status, remove them.
 ```bash
 $ docker ps  -a 
 ```
+
 ```bash
 $ docker container prune -f 
 ```
@@ -239,4 +240,3 @@ Finally, remove all images.
 ```bash
 $ docker image prune -af 
 ```
-

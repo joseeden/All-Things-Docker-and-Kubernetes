@@ -1,4 +1,3 @@
-
 ## Lab 05: Deploy a NodeJS Application
 
 > *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
@@ -11,7 +10,9 @@ Before we begin, make sure you've setup the following pre-requisites
 
 In this lab, we'll be deploying a website written in NodeJS on a container. We'll also make sure that it is accesible from a browser running on our local machine. Here's an outline of the steps:
 
-![](Images/lab05nodejssteps.png)  
+<p align=center>
+<img src="../Images/lab05nodejssteps.png">
+</p>
 
 Let's start with creating the project directory where we'll create our files.
 
@@ -60,14 +61,21 @@ app.listen(8080, () => {
 
 Here are the two commands that we need to know to install the dependencies and start the application. This is important to know since we have to define these steps in our dockerfile.
 
-![](Images/runningnodejscommands.png)  
+<p align=center>
+<img src="../Images/runningnodejscommands.png">
+</p>
 
 Create the dockerfile. Note that for the base image, we can use **Alpine** image but it has limited functionalities and we'll encounter an issue like "npm not found" when we try to build the image from the dockerfile. 
 
 Having said, we could install the other dependencies need for npm or we can simply look for an existing docker image with Node pre-installed. A quick Google search shows us an [official Node image from Dockerhub](https://hub.docker.com/_/node).
 
-![](Images/dockerhubnodeimage.png)  
-![](Images/dockerhubnodeimagetags.png)  
+<p align=center>
+<img src="../Images/dockerhubnodeimage.png">
+</p>
+
+<p align=center>>
+<img src="../Images/dockerhubnodeimagetags.png">
+</p>
 
 We'll use this Node image, specifically version 16. When the image is build, it uses the base image, runs <code>npm install</code>, and looks for the package.json. This file currently only exists in our local machine and not inside the container. To copy the files onto the container, use the **COPY** instruction.
 
@@ -164,7 +172,9 @@ How are you doing
 
 Open a web browser and navigate to your machine's IP and add the port at the end.
 
-![](Images/lab05nodejsappworking.png)  
+<p align=center>
+<img src="../Images/lab05nodejsappworking.png">
+</p>
 
 ### Verify that the Working Directory is created
 
@@ -215,3 +225,4 @@ Finally, remove all images.
 ```bash
 $ docker image prune -af 
 ```
+

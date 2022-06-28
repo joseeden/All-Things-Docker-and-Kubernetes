@@ -1,4 +1,3 @@
-
 ## Lab 03: Create an Image from an Existing Container
 
 > *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*

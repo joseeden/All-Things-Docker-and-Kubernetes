@@ -1,6 +1,5 @@
-
 ## Lab 10: Running a Jenkins Container
-
+ 
 Before we begin, make sure you've setup the following pre-requisites
 
   - [Install Docker](../README.md#pre-requisites)
@@ -67,7 +66,9 @@ Open a web browser and navigate to the IP address of your local machine followed
 
 You should see the "Unlock Jenkins" page. Before we can use Jenkins, we would need to get the password from the terminal first.
 
-![](Images/lab10unlockjenkins.png)  
+<p align=center>
+<img src="../Images/lab10unlockjenkins.png">
+</p>
 
 Back in our terminal, use the **exec** instruction to **cat** the file specified. Notice that we don't need to specify the entire container ID and just the first three since no other container IDs have the same first three containers, in fact there are no other containers running.
 
@@ -86,7 +87,9 @@ a1abcdefghijklmnop123456789qrst
 
 Paste the password to the "Unlock Jenkins" page. It should succeed and you should now see the "Customize Jenkins" page.
 
-![](Images/lab10unlockjenkinspw.png)  
+<p align=center>
+<img src="../Images/lab10unlockjenkinspw.png">
+</p>
 
 We've successfully deployed a Jenkins container and we've verified that it is running by accessing the Jenkins UI console. We'll end this lab here for now but we'll have an entire set of labs for Jenkins in another repository which I will link here soon.
 

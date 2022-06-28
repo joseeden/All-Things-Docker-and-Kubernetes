@@ -1,4 +1,3 @@
-
 ## Lab 04: Serving a Golang Application through Docker 
 
 > *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*
@@ -90,7 +89,9 @@ $ docker run --name advisor -p 80:5000 flask-content-advisor
 
 Open an internet browser and navigate to the IP that you just saved.
 
-![](../Images/lab04flaskwebsiteworking.png)  
+<p align=center>
+<img src="../Images/lab04flaskwebsiteworking.png">
+</p>
 
 
 ### Cleanup 

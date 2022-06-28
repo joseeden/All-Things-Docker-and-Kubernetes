@@ -1,4 +1,3 @@
-
 ## Lab 12: Docker Compose for Multiple Local Containers
 
 > *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
@@ -17,7 +16,9 @@ In this lab, we'll containerize a web application that displays (inside a web br
 
 For future scaling, we will use this architecture where we have multiple Node server connecting to a single instance of a Redis container.
 
-![](Images/lab10-diagram.png)
+<p align=center>
+<img src="../Images/lab10-diagram.png">
+</p>
 
 Let's start with creating the project directory where we'll create our files.
 
@@ -30,7 +31,9 @@ $ cd lab12_Docker_Compose_Multiple_Containers
 
 For the first iteration of this lab, we don't need to think about scaling just yet so we'll create a single container for the Node application and a single container for the Redis server.
 
-![](Images/lab10-diagram-2.png)
+<p align=center>
+<img src="../Images/lab10-diagram-2.png">
+</p>
 
 ### Create the App Server code
 
@@ -131,7 +134,9 @@ Of the two, docker-compose is mostly used since it's much easier to define the c
 
 Note that docker-compose isn't only used to setup networking between containers but it is extremely useful when you're starting up and managing multiple containers at the same time. 
 
-![](Images/lab10-dockercompose.png)  
+<p align=center>
+<img src="../Images/lab10-dockercompose.png">
+</p>
 
 Create the **docker-compose.yml.** We define the "redis" and "node-app" as **services**. Since Redis has an available image from Dockerhub, we can use it.
 
@@ -245,9 +250,17 @@ Open a web browser and navigate to the IP address followed by the port number, l
 
 You should see the "Number of visits" is initially set to 0. Refresh it a couple of time to see it updating.
 
-![](Images/lab12visits0.png)  
-![](Images/lab12visits8.png)  
-![](Images/lab12visits20.png)  
+<p align=center>
+<img src="../Images/lab12visits0.png">
+</p>
+
+<p align=center>>
+<img src="../Images/lab12visits8.png">
+</p>
+
+<p align=center>>
+<img src="../Images/lab12visits20.png">
+</p>
 
 To run the containers in the background,
 
@@ -300,7 +313,9 @@ $ docker-compose down
 
 Let's say we intentionally want to cause an error by modifying the code. We're adding new variable called **process** and we'll force the code to return a "0" code whenever the site is visited. This is an exit status code.
 
-![](Images/lab11statuscode0.png)  
+<p align=center>
+<img src="../Images/lab11statuscode0.png">
+</p>
 
 <details><summary> index.js </summary>
  
@@ -348,7 +363,9 @@ $ docker-compose up --build
 
 Open your web browser again and enter your local machine's IP address and port. It should display an error.
 
-![](Images/lab12dockercomposecrashintended.png)  
+<p align=center>
+<img src="../Images/lab12dockercomposecrashintended.png">
+</p>
 
 Back in our terminal, we should see this message returned,
 
@@ -369,7 +386,9 @@ CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS       
 
 To make sure that our containers will restart if it crashes, we can define a restart policy in the docker-compose file. As a recall, here are the restart policies that we can set:
 
-![](Images/dockerbasics-restartpolicies.png)  
+<p align=center>
+<img src="../Images/dockerbasics-restartpolicies.png">
+</p>
 
 Set the **docker-compose.yml** to always restart when containers crash.
 
@@ -400,7 +419,9 @@ Run the containers again and then try to open your web browser again. Notice tha
 $ docker-compose up --build 
 ```
 
-![](Images/lab12dockercomposecrashintended.png)  
+<p align=center>
+<img src="../Images/lab12dockercomposecrashintended.png">
+</p>
 
 
 Back in our terminal, we see that the node container attempts to restart.
