@@ -1,4 +1,4 @@
-## Lab 13: Really Big Project - Part 1: "Create a Production-Grade Workflow"
+## Lab 13: Really Big Project - Part 1: Create a Production-Grade Workflow
 
 > *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
 
