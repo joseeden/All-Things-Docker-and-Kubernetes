@@ -384,7 +384,7 @@ $ curl ipecho.net/plain; echo
 Open your web browser and navigate to the IP address through port 4002. You should see the React app landing page.
 
 <p align=center>
-<img src="../Images/lab13containerizedreactapp.pn">
+<img src="../Images/lab13containerizedreactapp.png">
 </p>
 
 Going back to our dockerfile, notice that after copying the package.json, we also copied the rest of the other files onto the container, include the main javascript file and the HTml files that'll be served through the hosting provider.
