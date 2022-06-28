@@ -19,8 +19,8 @@ In this lab, we'll walk through a production-grade workflow which will use Docke
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab13_Production_Grade_Workflows 
-$ cd lab13_Production_Grade_Workflows
+$ mkdir lab13_Big_Project 
+$ cd lab13_Big_Project
 ```
 
 You might find this entire lab to be exhaustingly long as there are a lot of steps to do here, lots of setups to build, and of course lots of stuff to break!
