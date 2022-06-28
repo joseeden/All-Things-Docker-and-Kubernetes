@@ -952,7 +952,7 @@ We'll be using the [official NGINX container image from Dockerhub.](https://hub.
 We'll now be using two base images: "node:alpine" and "nginx". To do this, we'll be doing a **Multi-step Docker Build.** We'll understand this more when we create our dockerfile for PRD.
 
 <p align>
-<img src=![](../Images/lab13multidockerbuild.png)  >
+<img src="../Images/lab13multidockerbuild.png">
 </p>
 
 #### 03 - Using the Dockerfile
