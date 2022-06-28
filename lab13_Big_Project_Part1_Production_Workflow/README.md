@@ -57,7 +57,7 @@ Here's another way to look at it:
  
 </details>
 
-______________________________________________
+<br>
 
 ## The Project - Application
 
@@ -293,7 +293,7 @@ Here's what we'll try to do:
 
 </details>
 
-______________________________________________
+<br>
 
 ## Time to Go DEV
 
@@ -882,7 +882,7 @@ $ docker ps
 
 </details>
 
-______________________________________________
+<br>
 
 ## Time to Go Prod
 
@@ -1034,7 +1034,7 @@ Open your web browser and navigate to your IP address through port 8080. You sho
  
 </details>
 
-______________________________________________
+<br>
 
 ## What's Next 
 
