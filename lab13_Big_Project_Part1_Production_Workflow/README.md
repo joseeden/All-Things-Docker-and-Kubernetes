@@ -27,6 +27,8 @@ You might find this entire lab to be exhaustingly long as there are a lot of ste
 
 I've condensed the pages and contained them into collapsible sections so you can easily jump from one section to another by clicking the ▶ button. Once you're done with one section, you can simply collapse it and move to the next one.
 
+<br>
+
 ## The Workflow
 
 Before we get into the dirty work, let's understand first the development workflow that we'll follow for this project and for the rest of the other succeeding labs.
