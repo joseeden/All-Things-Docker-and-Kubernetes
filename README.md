@@ -606,20 +606,57 @@ Docker uses a **client-server** architecture, where:
 <img src="Images/dockerclient-dockerserver.png">
 </p>
 
-
 <p align=center>
 <img src="Images/dockerdaemonanddockerbinary.png">
 </p>
 
 #### Docker daemon
 
-The docker daemon handles the docker objects, which includes the docker images, containers, and networking. It exposes a REST API that the client consumes over Unix socket or a network interface.
+The docker daemon handles the docker objects, which includes the docker images, containers, and networking. It exposes a REST API that the client consumes over Unix socket or a network interface. Major functions:
+- Image management; building images
+- Running APIs
+- Networking
+- Authentication 
+- Security
+- Orchestration
+
 
 #### Docker Binary
 
 The docker binaries are basically the docker commands. This means when you're using issuing the docker commands, you're using the client. It's basically the primary way to interact with the Docker daemon.
 
 </details>
+
+<details><summary> Other Components </summary>
+
+#### Other Components
+
+**runc**
+This is the reference implementataion of OCI runtime specs.
+- creates the containers
+- wrapper for libcontainer
+
+**containerd**
+This is a code originally from the daemon but is removed.
+- manages container operations (start, stop,pause, remove, etc.)
+- works with runc and daemon
+
+</details>
+
+
+<details><summary> Docker Engine - Process </summary>
+
+#### Docker Engine - Process
+
+1. User types in commands, client receives this commands.
+2. Commands are converted to REST API calls.
+3. Daemon received the API calls.
+4. Daemon runs containerd with the API parameters.
+5. containerd forwards image to runc instance and starts containers
+
+
+</details>
+
 
 <details><summary> Linux Kernel Features </summary>
 
