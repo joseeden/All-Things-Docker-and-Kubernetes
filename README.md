@@ -539,7 +539,7 @@ To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/fre
 
 ## Docker Basics
 
-Whether you're entirely new to the world of containers or you just simply want to do a quick refresher, feel free to select the topic you're interested in and browse through the bite-sized information.
+Whether you're entirely new to the world of containers or just simply wanting to do a quick refresher, feel free to select the topic you're interested in and browse through the bite-sized sections.
 
 <details><summary> From VMs to Containers </summary>
 
@@ -587,6 +587,13 @@ Once you have implemented the software, the next phase would be to release it. T
 - package the source code, config files, and dependencies in a container
 - deploy it using a container manage
 
+What are its benefits from a developer's standpoint?
+
+- accelerate developer onboarding 
+- eliminate app conflicts and run multiple versions
+- environment consistency, solves the "but it works on my machine"  dilemma
+- ships software faster 
+
 </details>
 
 <details><summary> The Docker Architecture </summary>
@@ -610,7 +617,9 @@ Docker uses a **client-server** architecture, where:
 <img src="Images/dockerdaemonanddockerbinary.png">
 </p>
 
-#### Docker daemon
+In addition to this, Docker leverages a container runtime which serves as engine behind the container solutions. It is also the the intermediate layer between the host and the containers.
+
+#### Docker Daemon
 
 The docker daemon handles the docker objects, which includes the docker images, containers, and networking. It exposes a REST API that the client consumes over Unix socket or a network interface. Major functions:
 - Image management; building images
@@ -627,33 +636,38 @@ The docker binaries are basically the docker commands. This means when you're us
 
 </details>
 
-<details><summary> Other Components </summary>
+<details><summary> Container Engine  </summary>
 
-#### Other Components
+#### Container Engine
 
-**runc**
-This is the reference implementataion of OCI runtime specs.
-- creates the containers
-- wrapper for libcontainer
+Under the hood, the container engine takes a container image and turns it into a container. It typically containes a runtime, a CLI tool, and sometimes a daemon.
 
-**containerd**
-This is a code originally from the daemon but is removed.
-- manages container operations (start, stop,pause, remove, etc.)
-- works with runc and daemon
-
-</details>
-
-
-<details><summary> Docker Engine - Process </summary>
-
-#### Docker Engine - Process
+A more detailed flow is described below:
 
 1. User types in commands, client receives this commands.
 2. Commands are converted to REST API calls.
 3. Daemon received the API calls.
 4. Daemon runs containerd with the API parameters.
-5. containerd forwards image to runc instance and starts containers
+5. containerd forwards image to runc instance and starts containers.
 
+</details>
+
+
+<details><summary> Container Runtime </summary>
+
+#### Container Runtime
+
+The container runtime is a specific part of the container engine.
+
+**runc**
+This is the default implementataion defined by OCI runtime specs. It's responsible for:
+- creating the containers
+- wrapping for libcontainer
+
+**containerd**
+This is a code originally from the daemon but is removed.
+- manages container operations (start, stop,pause, remove, etc.)
+- works with runc and daemon
 
 </details>
 
@@ -746,11 +760,10 @@ When we installed Docker for Windows/Mac, we actually installed a Linux virtual 
 ### Docker Objects
 
 <p align=center>
-<img src="Images/docker-basics-docker-objects-2.png">
+<img src="Images/docker-objects.png">
 </p>
 
-There three docker objects which you need to know here:
-the 
+There three docker objects which you need to know are:
 - dockerfile
 - docker image
 - docker registry
@@ -839,10 +852,19 @@ CMD [ "python", "app.py" ]
 
 ### Docker Image
 
-After we've created the dockerfile, we can now create the docker image. 
+After we've created the dockerfile, we can now create the docker image. A docker image is
 - read-only template
-- creates a runnable instance of the application
+- made up of **overlay filesystem**
+- also creates a runnable instance of the application
 - used to run the container
+
+#### Overlay Filesystem
+
+A docker image has different layers, with the first layer as the base image that the image will use and the layers on top as packages being installed. 
+
+The last layer is a writeable layer which applications will use. If a container is started without defining a specific storage option, any data written to the default storage by an application running in a container will be removed as soon as it is stopped.  
+
+#### Building from the dockerfile
 
 A Docker image can be built from an existing Dockerfile using the docker build command. Below is the syntax for this command:
 
@@ -884,12 +906,25 @@ You can read more about the docker basic commands in the succeeding sections.
 Once you've package the application, tested it locally, and proved that it's meeting the expected behavior, You are now ready to store and distribute it.
 
 To do this, you can push the image to a public Docker image registry, such as
+
 - DockerHub
 - Harbor
 - Amazon ECR (Elastic Container Registry)
 - Google Container Registry
+- Quay(https://quay.io)
 
-You can also store the image to a private registries and make it available to authorized parties. 
+You can also store the image to a private registries and make it available to authorized parties. To be access the registry, you would need to be authenticated by setting up an account.
+
+#### Authenticating to the Registry
+
+You can login to Dockerhub in your terminal.
+dockerhub. Note that you need to [set up an account.](https://hub.docker.com/signup).
+
+```bash
+$ docker login
+```
+
+Now that we've access our registry, we're now ready to push our images. However, it is best practice to tag all your images before sharing them.
 
 </details>
 
@@ -913,7 +948,7 @@ You can also store the image to a private registries and make it available to au
 
 ### Pushing/Pulling an Image to/from a Container Registry
 
-An example of a container registry is Dockerhub. Start with logging-in to Dockerhub in your terminal.
+An example of a container registry is Dockerhub. Once you've [set up a Dockerhub account.](https://hub.docker.com/signup), you can now login through the terminal.
 
 ```bash
 $ docker login
@@ -1142,11 +1177,11 @@ $ sudo docker exec <container-name> cat /etc/hosts
 
 </details>
 
-<details><summary> Attach Mode </summary>
+<details><summary> Attach and Detach Mode </summary>
 
-### Attach Mode
+### Attach and Detach Mode
 
-You can run a container is an **ATTACH** mode - this means process will run in the foreground. You cannot do anything else while process is attached to the console until container exits The console won't response to any input, except if you stop it by running Ctrl-C
+You can run a container in an **ATTACH** mode - this means process will run in the foreground. You cannot do anything else while process is attached to the console until container exits The console won't response to any input, except if you stop it by running Ctrl-C
 
 As an example, we can run a simple web-server that listens on port 8080.
 
@@ -1163,13 +1198,7 @@ CONTAINER ID   IMAGE                     COMMAND           CREATED          STAT
 734e84936864   kodekloud/simple-webapp   "python app.py"   30 seconds ago   Up 29 seconds   8080/tcp   relaxed_grothendieck
 ```
 
-</details>
-
-<details><summary> Detach Mode </summary>
-
-### Detach Mode
-
-You can run a container in the background mode by using the "-d" flag. By doing this, you can still work on the console while container runs in the background.
+On the other hand, running containers in **DETACH** mode means the container is running in the background. This can be done by using the "-d" flag. 
 
 ```bash
 $ sudo docker run -d ubuntu sleep 60 
@@ -1646,6 +1675,10 @@ Another technology that comes to mind when you talk about containers is the conc
  
 ### What the heck is Cloud Native?
 
+<p align=center>
+<img width=700 src="Images/udacity-suse-1.JPG">
+</p>
+
 As defined by [Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/about/charter/) 
 
 > *Cloud native technologies empower organizations to build and run scalable applications in modern, dynamic environments such as public, private, and hybrid clouds. Containers, service meshes, microservices, immutable infrastructure, and declarative APIs exemplify this approach.*
@@ -1668,7 +1701,7 @@ The third key thing: **containers**.
 <img src="Images/udacity-suse-1-container.png">
 </p>
 
-To recall, containers are simply **processes** but are treated as the smallest unit of an application. They are closely associated with cloud native applications as containers are a great way to deploy applications quickly and resiliently given their lightweight feature.
+To recall, containers are simply **processes** which wraps the dependencies and libraries so that it can be shipped as runnable applications across different platforms. THey are closely associated with cloud native applications as containers are a great way to deploy applications quickly and resiliently given their lightweight feature.
 
 Now, when you hear containers, it is also often followed by another buzzword: **microservices**.
 
@@ -1676,7 +1709,7 @@ Now, when you hear containers, it is also often followed by another buzzword: **
 <img src="Images/udacity-suse-1-microservices.png">
 </p>
 
-This will have its own section but for now, just know that microservices are simply a collection of small, independent, and containerized applications.
+Microservices are simply a collection of small, independent, and containerized applications.
 
 </details>
 
@@ -1735,34 +1768,708 @@ From a technical perspective, the adoption of cloud-native tooling represents:
 
 ## Kubernetes
 
-Adding this section soon!
+I've always seen Kubernetes as an entire universe in itself and it's just too impossible to have a 100% grasp on it.
+
+Having said, I've included a section of bite-sized and easy-to-digect nuggets for each Kubernetes topic. Go through the topics that interests you, or just dive straight to the labs, your choice! 😀
+
+
+<details><summary> Container Management Challenges </summary>
+
+### Container Management Challenges 
+
+Since you've reached this Kubernetes section, I'm assuming that you've work around some of these topics:
+
+- TCP/IP Networking 
+- Linux 
+- Containers
+
+As a recap, containers are a way to isolate and ship applications with dependencies and runtimes tied to it. In addition to this, containers:
+
+- are considered as "Linux processes" under the hood which exits when the application has done its purpose.
+- allows mapping to external volumes to persist data.
+- can publish ports which allows access to the application running inside the container.
+
+<p align=center>
+<img width=700 src="Images/udacity-suse-1-container.png">
+</p>
+
+While containers have indeed revolutionized ways on how software can be delivered, it still had some challenges:
+
+- How do we keep track of which port goes to which container on which host?
+
+- How should we efficiently allocate containers to hosts?
+
+- Given that microservices scale horizontally, how do we map service dependencies?
+
+- Given that applications are frequently updated and container ports are randomized, how do we account for frequent changes?
+
+As an example, check the diagram below. Here we have three NGINX containers running on the same underlying server. To serve the website, we can map ports on the container to the host ports. This enables port-forwarding and will direct any traffic that access the arbitrary host port and forward it to the mapped port on the container.
+
+<p align=center>
+<img src="Images/Server.png">
+</p>
+
+This can be done by manually mapping ports. We could also simply utilize dynamic mapping by specifying the "-P" flag when running the containers. To create three containers, we can run the command below three times. Each container will have a dynamic port assigned to it.
+
+```bash
+docker run -d -P nginx 
+```
+
+We can also throw in some basic scripting so that we can run the containers in one swoop.
+
+```bash
+for i in $(seq 3) ; do docker run -d -P nginx; done
+```
+
+It is still manageable when you have a small number of applications running on single host. However, this becomes more problematic when you add more applications and more hosts. In addition to this, things becomes more complicated when you have dependencies between applications.
+
+<p align=center>
+<img src="Images/manydockers.png">
+</p>
+
+We can simply use the command below to run this setup but as you can see, we would need a much better solution of managing this kind of situation.
+
+```bash
+for i in $(seq 6); do
+    for j in $(seq 3); do
+        ssh node0$i docker run -d -P app${i}-${j};
+    done;
+done 
+```
+
+From a developer's perspective, it would be just nice if we can:
+
+- just package up an app and let something else manage it for us 
+- don't have to  worry about the management of containers 
+- eliminate single points of failure 
+- scale containers
+- update containers without bringing down the application 
+- have a robust networking and persistent storage options
+
+Enter Kubernetes.
+
+</details>
+
+
+<details><summary> What is Kubernetes </summary>
+
+### What is Kubernetes
+
+As we've previously seen, the advent of containers called for much better tools to manage and maintain them. Some of the container orchestrator tools that are being used is the market are Kubernetes, Apache Mesos, and Docker Swarm, with Kubernetes being the leading tool in deploying containerized workloads.
+
+<p align=center>
+<img src="Images/udacity-suse-1-kubernetes.png">
+</p>
+
+What does Kubernetes do?
+
+- starts and stops container-based application
+- handles workload placement
+- automation of configuration, management, and scalability
+- zero downtime with automated rollouts/rollbacks
+- abstracts infrastructure by handling it under the hood
+- follows *desired state* - which means we can define in code what we want our end state to look like
+
+<p align=center>
+<img src="Images/pluralsightwhatiskubernetesfordevs.png">
+</p>
+
+Besides automation, what are its other functionalities?
+
+* Runtime
+* Networking
+* Storage orchestration
+* self-healing
+* Service Mesh
+* Logs and metrics
+* secrets management
+* Tracing
+
+What are its benefits from an administrator's standpoint?
+
+- Speed of deployment
+- Ability to absorb change quickly
+- Ability to recover quickly (self-healing)
+- scale containers
+- orchestrate containers
+- Hide complexity in the cluster    
+- ensure secrets/config are working properly
+
+What are its benefits from a developer's standpoint?
+
+- zero-downtime deployments
+- ability to emulate production locally 
+- ability to create an end-to-end testing environment
+- performance testing scenarios, determining what are the limits of our application
+- workload scenarios, for multiple builds in your CICD pipeline
+- leverage different deployment options (AB, canary, etc.)
+
+Dive into the succeeding sections to learn more one of main principles of Kubernetes, the use of a single Kubernetes API server.
+
+</details>
+
+
+
+<details><summary> Kubernetes API Server </summary>
+
+### Kubernetes API Server
+
+This is the main way to interact with the cluster. It is a RESTful API that runs over HTTP or HTTPS using JSON. 
+
+- composed of **API Objects**, which are a collection of primitives to represent your system's state
+
+- Enables to declaratively configuring the state, which means we define what we want the end result to look like instead of defining the individual steps.
+
+- information exchanged with the cluster are persisted and serialized to the data store
+
+Next up, learn about the four Kubernetes API Objects.
+
+</details>
+
+
+
+<details><summary> Kubernetes API Objects </summary>
+
+### Kubernetes API Objects
+
+<p align=center>
+<img src="Images/k8s-object.png">
+</p>
+
+#### Pods 
+
+A single or a collection of containers deployed as a single unit. From the standpoint of Kubernetes, this is the mmost basic unit of work.
+
+- atomic unit of scheduling
+- These are basically our container-based application
+- When we define a pod, we also define the resources it needs
+- **Ephemeral**, which means no pod is ever re-deployed, a new pod is always used
+- **Atomicity**, which means pod is no longer available if a container inside it dies
+- 
+
+Kubernetes handles the pod by managing the:
+
+- **state** - is the pod running?
+- **health** - is the application inside the pod running?
+- **liveness probes** - are we getting the appropriate response back?
+
+A Pod has 1 IP address:
+
+- this means containers inside the Pod share the same IP address
+- containers within the same Pod talk via localhost
+- Pods coordinate ports
+
+
+#### Controllers
+
+These keep the system in our desired state. 
+
+- creates and manages Pods
+- ensures the desired state is maintained
+- responds to a Pod state and health
+
+Controllers include the following:
+
+- **ReplicaSet** - allows us to define the number of replicas for a Pod that we want to be running at all times
+
+- **Deployment** - manages the transition between two ReplicaSets
+
+There are a lot more controllers that Kubernetes offers and the two mentioned above are just some that are based on Pods.
+
+#### Services 
+
+Services provide a persistent axis point to the applications provided by the pods. This basically add persistency based on the state of the system.
+
+- networking abstraction for Pod access
+- allocates IP and DNS name for the service
+- redeployed Pods are automatically updated
+- updates routing information to the Pods
+- scales application by adding or removing Pods
+- enables loadbalancing to distribute load across the Pods
+
+Essentially, a virtual IP address,
+
+- this virtual IP address is mapped to various Pods
+- ensures that external services accessing the Pods only needs to know a single IP
+
+#### Storage
+
+Storage objects serves as persistent storage to keep the data.
+
+- **Volumes**, a storage backed by physical media which is tightly coupled to the Pods
+
+- **Persistent Volume**, a Pod-independent storage defined at the cluster level using a *Persistent Volume Claim*
+
+</details>
+
+
+
+<details><summary> Kubernetes Cluster </summary>
+
+### Kubernetes Cluster 
+
+<p align=center>
+<img src="Images/k8sclustercomponentsbigpicture2.png">
+</p>
+
+A **Cluster** is a collection of distributed physical or virtual servers or *nodes*, which is used to host and manage workloads.
+ 
+It has two types:
+
+- **Master node (control plane)**
+    Makes global decisions about the cluster. Its components are:
+    - *kube-apiserver* - exposes the Kubernetes API
+    - *kube-scheduler* - decides which node will handle workload
+    - *kube-control-manager* - ensures resources are up-to-date
+    - *etcd* - backs-up and keeping manifests for the entire cluster
+
+- **Worker nodes (data plane)**
+    Used to host application workloads. Note that both component below are running on **all** nodes - both on master and work nodes.
+    - *kubelet* - agent that runs on every node,  notifies the kube- apiserver that this node is part of the cluster
+    - *kubeproxy* - network proxy that ensures the reachability and accessibility of workloads places on this specific node
+
+#### Master Node - Control Plane
+
+<p align=center>
+<img src="Images/controlplanecomponents.png">
+</p>
+
+The master implements the core control functions fo a cluster.
+- primary access point for cluster administration
+- coordinates cluster operations
+- handles monitoring and scheduling
+- only runs system Pods, which includes the API server, Cluster Store, Scheduler, and Control Manager
+- workloads are always forwarded on the Pods on the nodes
+
+The master is composed of the following:
+
+##### API Server
+
+- essentially the commmunication hub
+- core to all the operationa
+- all configuration changes pass through the API server
+- simple REST API interface
+- verifies the operation and updates the etcd
+
+##### etcd (Cluster store)
+
+- persists the state of the Kubernetes objects
+- objects are persisted into a key-value store called **etcd**
+- implements watches on the stored keys
+- all other services are stateless and grab from API server
+
+##### Scheduler
+
+- manages which Nodes to start Pods on
+- watches the API server for unsceduled Pods,
+- evaluates the resources required by a Pod,
+- handles the resource constraints that we define,
+- and then schedule the Pods on nodes
+- 2-steps process
+
+    - **Filtering** - find feasible nodes where resources could fit 
+    - **Score** - Rank each node to choose the most suitable Pod placement
+
+##### Controller Manager
+
+- handles lifecycle functions of the Controllers
+- constantly running the controller loops
+- watch the current state of the system
+- update the API server based on the desired state
+- types:
+
+    - **Node controller** - noticing and responding to nodes 
+    - **Replication Controller** - maintain the correct number of Pods 
+    - **Endpoints Controller** - populates endpoint objects (join servces and Pods)
+    - **Service Account and Token Controllers** - create default accounts and API access tokens for namespaces
+
+##### Cloud Controller Manager (for EKS Setup only)
+
+- handles communication with AWS
+- autoscaling for bringing up more nodes 
+- provision EBS to back container volumes 
+- provision loadbalancers
+
+In addition to these five, we'll also mention **kubectl**, which isn't a part of the control plane but is necessary to interact with the API Server.
+
+#### Worker Node  
+
+<p align=center>
+<img src="Images/k8snode.png">
+</p>
+
+The node is responsible for starting the pod and ensuring Pods are up and running.
+- handles networking
+- clusters comprised of multiple nodes
+
+The node is composed of:
+
+##### Kubelet
+
+- this is the node agent that talks to API server which provides the scheduling
+- starts and stops up Pods based on the API server 
+- if Pods are scheduled for a node, kubelet starts it up
+- reports Nore and Pod state
+- executes **liveness probes** which monitors the state of the application and Pods themselves
+
+##### Kube-proxy
+
+- network proxy that runs on each nodes that provides rules for cluster IPs
+- handles the Pod networking
+- talks to API server, which provides the networking information
+- if there are changes in networking, the kube-proxy handles the modifications
+- use **network proxy iptables**
+- handles services abstraction 
+- routes traffic to Pods
+- manages the loadbalancing
+
+##### Container Runtime
+
+- actual runtime environment for the container image
+- pulls the container image from the registry
+- provides the environment for the image to run
+- default runtime is Docker but there are many others
+
+#### Scheduled/Add-Ons
+
+These are Pods that provide special services to the cluster.
+- an example is the DNS Pods, which handles DNS operations
+- IP of DNS Pod is in the network configuration
+- DNS Pod is used for service discovery inside of the cluster
+- other examples are ingres controllers and dashboard for web-based administration
+
+</details>
+
+
+
+
+<details><summary> Pod Operations </summary>
+
+### Pod Operations
+
+Let's say we deployed a cluster with a ReplicaSet of 5 using kubectl. The process would look like this:
+
+<p align=center>
+<img src="Images/k8sscenario1.png">
+</p>
+
+1. Request is submitted by the kubectl to the API Server.
+2. The API Server stores the information to the cluster store.
+3. The Controller Manager spins up the 5 pods based on the ReplicaSet requirements and sends this request to the Scheduler.
+4. The Scheduler checks the nodes and schedules the two nodes where the Pods will be spun up.
+5. On the Node side, the kubelet asks the API Server for any updates. 
+6. It will then see that on Node1, three Pods will be spun up. Another two Pods will be spun up on the second node.
+7. The Controller Manager monitors the state of the Replicas.
+
+Let's say Node 2 goes down. 
+
+<p align=center>
+<img src="Images/node2goesdownk8sscenario.png">
+</p>
+
+1. Node 2 will stop reporting to the Controller Manager, which then determines that the current state is now different with the desired state.
+2. The Controller Manager send another request to the Scheduler.
+3. The Scheduler checks the number of nodes on which to spin up the two pods, which in this case will be Node 1.
+4. The kubelet in node1 seees a state change which will then spin up the two additional Pods. 
+
+</details>
+
+
+
+
+<details><summary> Kubernetes Networking </summary>
+
+### Kubernetes Networking
+
+Here are some basic rules to know when it comes to Kubernetes networking.
+
+1. All Pods can communicate with each other on all nodes.
+2. All nodes can communicate with all Pods.
+3. No Network Address Translation (NAT).
+
+#### Inside a Pod
+
+Let's use the scenario below. We have multi-container Pod inside our node. These two containers inside the Pod will communicate with each other over the localhost using namespaces.
+
+<p align=center>
+<img src="Images/k8snetworkinginsideapod2.png" width=380>
+</p>
+
+#### Pod to Pod within a Node
+
+We'll now add two more Pods to the mix. For the three Pods to talk to each other, they'll use the real IP addresses to communicate over the Layer-2 software bridge on the node.
+
+<p align=center>
+<img src="Images/k8snetworkingpodtopodinsidenode.png">
+</p>
+
+#### Pod to Pod on Another Node
+
+So far we've only spun up Pods in a single node. Let's add a node 2 that contains a single Pod. For Pods in Node 1 to talk talk to the Pod in Node 2, they will also leverage the IP addresses of the Pods and talk over the Layer 2 or Layer connection, which would involve the underlying network facility.
+
+<p align=center>
+<img src="Images/pod-to-pod-to-another-node.png" width=500>
+</p>
+
+
+#### Overlay Network
+
+Another common scenario is an **overlay network** where you don't control the underlying network infrastructure. This would allow the Pods to be "included in the same network". More of this will be discussed in the succeeding sections.
+
+
+#### External Services 
+
+Lastly, we also have **External Services** where we have an application in our cluster that we want to expose to the public internet using an HTTP service.
+
+<p align=center>
+<img src="Images/k8sexternalserviceshttp.png">
+</p>
+
+</details>
+
+
+<details><summary> Setting up the Cluster </summary>
+
+### Setting up the Cluster
+
+To provision a cluster, we must ensure that the control plane and data plane is up and running, which is known as **bootstraping the cluster**. This can be done manually but there's a risk for misconfiguration since we would need to run independent components separately.
+
+There are multiple ways to setup a kubernetes cluster. 
+
+- A local cluster (on your machine)
+
+- A production cluster on the cloud
+
+- A on-prem, cloud-agnostic cluster
+
+- A managed production cluster on AWS using EKS
+
+There are available tools to automate bootstrapping clusters on on-premise and public cloud platforms.
+
+For **production-grade cluster**:
+- kubeadm
+- Kubespray
+- Kops
+- K3s
+
+For **development-grade cluster,** (testing):
+- minikube
+- k3d
+
+**k3s** is a lightweight version of kubernetes that can be installed using one binary.
+
+- operational 1-node cluster
+- instals *kubectl* - CLI tool
+
+Here are some ways to run Kubernetes on your local machine.
+
+- Minikube
+- Docker Desktop
+- kind
+- kubeadm
+
+
+</details>
+
+
+
+
+<details><summary> xxxxxx </summary>
+
+### xxxxxx
+
+</details>
+
+
+
+<details><summary> xxxxxx </summary>
+
+### xxxxxx
+
+</details>
+
+
+
+<details><summary> xxxxxx </summary>
+
+### xxxxxx
+
+</details>
+
+
+
+<details><summary> xxxxxx </summary>
+
+### xxxxxx
+
+</details>
+
+
+
+<details><summary> xxxxxx </summary>
+
+### xxxxxx
+
+</details>
+
+
+
+
+<details><summary> Cheatsheet: Kubernetes Commands </summary>
+
+### Cheatsheet: Kubernetes Commands
+
+Command | Description
+---------|----------
+| <code> kubectl get pod </code> | Get information about all running pods
+| <code> kubectl describe pod <pod> </code> | Describe one pod
+| <code> kubectl expose pod <pod> --port=444 --name=frontend </code> | Expose the port of a pod (creates a new service)
+| <code> kubectl port-forward <pod> 8080 </code> | Port forward the exposed pod port to your local machine
+| <code> kubectl attach <podname> -i </code> | Attach to the pod
+| <code> kubectl exec <pod> -- command </code> | Execute a command on the pod
+| <code> kubectl label pods <pod> mylabel=awesome </code> | Add a new label to a pod
+| <code> kubectl run -i --tty busybox --image=busybox --restart=Never -- sh </code> | Run a shell in a pod - very useful for debugging
+| <code> kubectl get deployments </code> | Get information on current deployments
+| <code> kubectl get rs </code> | Get information about the replica sets
+| <code> kubectl get pods --show-labels </code> | get pods, and also show labels attached to those pods
+| <code> kubectl rollout status deployment/helloworld-deployment </code> | Get deployment status
+| <code> kubectl set image deployment/helloworld-deployment k8s-demo=k8s-demo </code> |2 </code> | Run k8s-demo with the image label version 2
+| <code> kubectl edit deployment/helloworld-deployment </code> | Edit the deployment object
+| <code> kubectl rollout status deployment/helloworld-deployment </code> | Get the status of the rollout
+| <code> kubectl rollout history deployment/helloworld-deployment </code> | Get the rollout history
+| <code> kubectl rollout undo deployment/helloworld-deployment </code> | Rollback to previous version
+| <code> kubectl rollout undo deployment/helloworld-deployment --to-revision=n </code> | Rollback to any version version
+
+</details>
+
+
+
+
+<details><summary> Environment Options </summary>
+
+### Environment Options
+
+#### EKS - Elastic Kubernetes Service
+
+This is the Kubernetes offering from AWS which allows users to deploy a management plane. AWS basically provides the control plane and all it components, and it's up to the users to provision where their workload will run. The workloads can run on Fargate or EC2.
+
+Benefits of EKS:
+
+- no control plane to manage
+- built-in loadbalancing, networking, volume storage 
+- easy to turn on and off
+- integrations with other AWS components to build applications (S3, Redshift, RDS, Lambda, COgnito, etc.)
+
+#### ECS and Fargate
+
+ECS is a proprietary Docker management service developed first to compete with Kubernetes.
+
+- uses JSON task definition
+- similar with EKS in many ways but the main difference is that it's proprietary 
+
+Fargate, on the other hand, is a container service that is ddone in a serverless fashion.
+
+- this means no EC2 instance is needed
+- Fargate can be used with EKS and ECS
+- No scaling management
+- JSON task definition
+
+</details>
+
+
+
+
+
+
+<!-- Adding this section soon!
 
 <p align=center>
 <img src="Images/comingsoon.png" width=500>
-</p>
+</p> -->
 
 ## Resources
 
 Useful courses on Docker:
 
 - [Docker in Production Using Amazon Web Services](https://www.pluralsight.com/courses/docker-production-using-amazon-web-services)
+
 - [Building, Deploying, and Running Containers in Production](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/#)
+
 - [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)
 
-Learn more about Dockerfile best practices:
+- [Docker in Production Using Amazon Web Services](https://www.pluralsight.com/courses/docker-production-using-amazon-web-services)
+
+- [The Complete Practical Docker Guide](https://www.oreilly.com/library/view/the-complete-practical/9781803247892/)
+
+- [Complete AWS ECS Bootcamp (Beginner friendly)](https://www.udemy.com/course/aws-ecs-devops-masterclass/)
+
+Useful courses on Kubernetes:
+
+- [Getting Started with Kubernetes LiveLessons, 2nd Edition](https://www.oreilly.com/library/view/getting-started-with/9780136787709/)
+
+- [Hands-on Kubernetes](https://www.oreilly.com/library/view/hands-on-kubernetes/9780136702887/)
+
+- [Learning Path - Kubernetes Administration](https://www.pluralsight.com/paths/kubernetes-administration)
+
+- [Learning Path - Using Kubernetes as a Developer](https://www.pluralsight.com/paths/using-kubernetes-as-a-developer)
+
+- [Learn DevOps: The Complete Kubernetes Course](https://www.udemy.com/course/learn-devops-the-complete-kubernetes-course/)
+
+- [Cloud Native Fundamentals by SUSE](https://www.udacity.com/course/cloud-native-fundamentals--ud064)
+
+- [Running Kubernetes on AWS (EKS)](https://www.linkedin.com/learning/running-kubernetes-on-aws-eks)
+
+- [Hands-On Amazon Elastic Kubernetes Service (EKS) LiveLessons: Running Microservices](https://www.oreilly.com/library/view/hands-on-amazon-elastic/9780137446667/)
+
+Resources on Docker that you may find helpful:
 
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#from)
+
 - [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
-Read about the available options when building the image and running containers:
-
 - [Docker Build command](https://docs.docker.com/engine/reference/commandline/build/)
+
 - [Docker Run command](https://docs.docker.com/engine/reference/commandline/run/)
 
-Check out Docker registries, alternatives to package an application, and OCI standards:
-
 - [Introduction to Docker registry](https://docs.docker.com/registry/introduction/)
+
 - [Docker Tag command](https://docs.docker.com/engine/reference/commandline/tag/)
+
 - [Docker Push command](https://docs.docker.com/engine/reference/commandline/push/)
+
 - [Open Container Initiative (OCI) Specifications](https://www.docker.com/blog/demystifying-open-container-initiative-oci-specifications/)
+
 - [Buildpacks: An App’s Brief Journey from Source to Image](https://buildpacks.io/docs/app-journey/)
+
+Resources on Kubernetes that you may find helpful:
+
+- [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+
+- [Custom Resources or CRDs](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+
+- [Autoscaling in Kubernetes](https://kubernetes.io/blog/2016/07/autoscaling-in-kubernetes/)
+
+- [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
+
+Github repositories:
+
+- [kubernetes/kops](https://github.com/kubernetes/kops)
+
+- [wardviaene/kubernetes-course](https://github.com/wardviaene/kubernetes-course)
+
+- [wardviaene/devops-box (devops box with pre-built tools)](https://github.com/wardviaene/devops-box)
+
+
+Free DNS Service using [freedns](https://freedns.afraid.org/)
+
+- Sign up at http://freedns.afraid.org/
+- Choose for subdomain hosting
+- Enter the AWS nameservers given to you in route53 as nameservers for the subdomain
+
+Free DNS Service using [dot.tk](http://www.dot.tk)
+
+- provides a free .tk domain name you can use
+- you can point it to the amazon AWS nameservers
+
+Free DNS Service using [Namecheap](https://www.namecheap.com/)
+- often has promotions for tld’s like .co for just a couple of bucks
