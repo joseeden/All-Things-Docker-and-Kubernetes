@@ -1275,11 +1275,11 @@ $ netstat -tulpn
 ```
 </details>
 
-<details><summary> Data Persistence </summary>
+<details><summary> Persisting Data </summary>
 
-### Data Persistence
+### Persisting Data
 
-A docker image has different layers, with the first layer as the base image that the image will use and the layers on top as packages being installed. 
+Recall that a docker image has different layers, with the first layer as the base image that the image will use and the layers on top as packages being installed. 
 
 The last layer is a writeable layer which applications will use. If a container is started without defining a specific storage option, any data written to the default storage by an application running in a container will be removed as soon as it is stopped.  
 
@@ -1295,17 +1295,17 @@ For this scenario, Docker provides three storage options.
 
 #### Bind mounts 
 
-Bind mounts work by mounting a directory (that's on the host) to the container. This is a good storage option since the data lives on a directory outside of the container. When the container is stopped or terminated, the data is perfectly safe andd intact in the directory residing on the host.
+Bind mounts work by mounting a directory (that's on the host) to the container. This is a good storage option since the data lives on a directory outside of the container. When the container is stopped or terminated, the data is perfectly safe and intact in the directory residing on the host.
 
 It is important to note that you will need the fully qualified path of the directory on the host to mount it inside the directory.
 
-<p align=center>
-<img src="Images/dp-bind-mount-use-case.png">
-</p>
+Use cases:
 
-<p align=center>
-<img src="Images/dp-st1-bindmounts.png">
-</p>
+- **Sharing config files between host and containers** - allows DNS resolution to container by mounting */etc/resolv.conf* into each container 
+
+- **Sharing source code/build artifacts between host and container** - Dockerfile copies artifacts directly into the image, instead of relying on the bind mounts
+
+- **Consistent bindmounts** - when the file/directory structure of the host is consistent with the bind mounts the containers require
 
 #### Volumes 
 
@@ -1313,9 +1313,39 @@ Another option is to use volumes which is similar to bindmounts but docker manag
 
 Volumes also allow you to use external storage mechanisms using different drivers, which means you are not limited to the local volume.
 
-<p align=center>
-<img src="Images/dp-st2-volume-persistent-storage.png">
-</p>
+In addition,
+
+- if not explicitly created, volumes are created when you mount them for the first time
+
+- volumes are only removed when you explicitly remove them
+
+Use cases:
+
+- **Sharing data between containers** - allows multiple containers to mount the same volum simultaenously, either read-write or read-only 
+
+- **File/directory structure not guaranteed on the host** - decouples host configuration from the container runtime
+
+- **Remote Storage** - storing the data on a remote host or cloud provider, instead of storing locally 
+
+- **Backup, restore, or migrate** - ensuring data has copies on another host 
+
+To add a local volume to a container:
+
+```bash
+$ docker run -d \
+    -v <name>:</path/on/node> \ 
+    --name <name>
+    <image>
+```
+
+To mount existing directory to a container:
+
+```bash
+$ docker run -d \
+    -mount type=bind, source=</path/on/node>, target=<name>
+    --name <name>
+    <image>
+```
 
 #### tmpfs (Temporary filesystem)
 
@@ -1331,11 +1361,28 @@ This is an in-memory filesystem, which is basically inside the container. This i
 
 ### Logs
 
-To see the logs, you can simply use the logs command
+To see the logs, you can simply use the logs command:
 
 ```bash
 $ docker ps
 $ docker logs <container-id>
+```
+
+Another way to see logs related to Docker:
+
+```bash
+$ journalctl -u docker.service 
+```
+
+You may also view the logs in the directory:
+
+```bash
+# Linux
+/var/log
+```
+```
+# Windows
+~AppData\Local\Docker
 ```
 
 </details>
@@ -1424,6 +1471,103 @@ You can also override the entrypoint during runtime by using the "--entrypoint" 
 ```bash
 docker run --entrypoint sleep2.0 ubuntu-sleeper 60
 ```
+
+</details>
+
+
+<details><summary> Docker Networking </summary>
+
+### Docker Networking
+
+#### Container Network Model 
+
+Docker follows the **Container Network Model** which breaks up networking into components:
+
+- **Sandboxes** - containers running on the same Docker node won't be able to talk to each other
+
+- **Endpoints** - virtual NICs created for each container
+
+- **Networks** - creates a 'fake' network and attach the containers using the nedpoints
+
+- **libnetwork** - made up of the 'control' and 'management' planes
+
+#### Driver
+
+Drivers enable networking in containers. These are the available drivers in Linux:
+
+- **bridge** - default driver, functions as a NAT
+
+- **host** - allows container to access network stacj of the underlying node without NAT 
+
+- **overlay** - creates networks that span multiple nodes, allowing secure, encrypted communication between containers 
+
+- **macvlan** - allows attaching a container to internal LAN, container will have own IP, MAC, like any other device
+
+
+To create a separate network:
+
+```bash
+docker network create -d driver <name> 
+```
+
+#### Network Types
+
+**Single-host Bridge Network**
+
+- containers run on a single node
+- uses bridge driver 
+
+**Single-host Host Network**
+
+- containers run on a single node 
+- uses host driver
+- bypasses network isolation, allowing container to access the node's network stack
+
+**Multi-host Overlay Network**
+
+- containers run on multiple nodes 
+- virtual switch spans all the hosts (VXLAN)
+- uses overlay driver 
+
+**Existing Network**
+
+- containers run on multiple nodes 
+- can connect container to local network infrastructure
+- does not work on public cloud (promiscuous mode)
+- uses macvlan or transparent driver
+
+#### Overlay Networks
+
+In an overlay network, we have containers running on multiple nodes.
+
+- virtual switch that spans all the hosts (VXLAN)
+- uses overlay driver
+- sets the stage for "swarms"
+- control plane is encrypted by default
+- data plane can be encrypted using "-o encrypted"
+
+To create an overlay network:
+
+```bash
+$ docker network create -d  overlay <name> 
+```
+
+To create services for swarms:
+
+```bash
+$ docker service create --name <name>  \
+    --network <name> \
+    --replicas 2 \ 
+    <image>
+```
+
+#### VXLAN 
+
+Overlay networks uses VXLAN. The idea is to create a layer 2 network on top of layer 3.
+
+- created as-needed on top of the existing L3 network 
+- uses encapsulation to add VXLAN informaton to a L3 packet
+- VXLAN Tunnel Endpoint (VTEP), tunnel is created between containers 
 
 </details>
 
@@ -2225,12 +2369,31 @@ Lastly, we also have **External Services** where we have an application in our c
 <img src="Images/k8sexternalserviceshttp.png">
 </p>
 
+#### Cluster Network Ports 
+
+On the Master node:
+
+Components | Ports (TCP) | Used By
+---------|----------|---------
+API                 | 6443      | All
+etcd                | 2379-2380 | API server and other instances of etcd
+Scheduler           | 10251     | Itself, not exposed to outside world 
+Controller Manager  | 10252     | Itself, not exposed to outside world 
+Kubelet             | 10250     | Control Plane 
+
+On the Worker nodes:
+
+Components | Ports (TCP) | Used By
+---------|----------|---------
+Kubelet             | 10250         | Control Plane 
+NodePort            | 30000-32767   | All 
+
 </details>
 
 
-<details><summary> Setting up the Cluster </summary>
+<details><summary> Ways to Start Kubernetes </summary>
 
-### Setting up the Cluster
+### Ways to Start Kubernetes
 
 To provision a cluster, we must ensure that the control plane and data plane is up and running, which is known as **bootstraping the cluster**. This can be done manually but there's a risk for misconfiguration since we would need to run independent components separately.
 
@@ -2272,19 +2435,103 @@ Here are some ways to run Kubernetes on your local machine.
 </details>
 
 
+<details><summary> Picking the Right Solution </summary>
 
+### Picking the Right Solution
 
-<details><summary> xxxxxx </summary>
+Before we start running Kubernetes, we must review some considerations. 
 
-### xxxxxx
+**Where to install?**
+
+- **Cloud**
+    Kubernetes is a cloud-native tool and we could leverage the available services from cloud platforms.
+
+    - Using virtual machines (IaaS)
+    - Using managed service (PaaS)
+
+- **On-prem**
+    - Bare metal
+    - VirtuaL machines 
+
+**Which one should we choose?**
+
+- it all depends on the strategy of the organization
+- depends on the skillset and expertise of people in the organization
+
+**We've decided where to run Kubernetes, what's next?**
+
+- Cluster Networking 
+- Scalability
+- High Availability 
+- Disaster Recovery
+
+Checkout these resources to learn more about installation considerations:
+
+- [Picking the Right Solution](https://jamesdefabia.github.io/docs/getting-started-guides/)
+
+- [Getting started](https://kubernetes.io/docs/setup/)
+
 
 </details>
 
 
 
-<details><summary> xxxxxx </summary>
+<details><summary> Installing Kubernetes (On-prem) </summary>
 
-### xxxxxx
+### Installing Kubernetes (On-prem)
+
+This section discuss how to install Kubernetes on virtual machines or bare metal servers.
+
+#### Requirements 
+
+**System Requirements**
+- Linux OS
+- 2 CPUs 
+- 2 GB RAM 
+- Disable Swap 
+
+**Container Runtime** 
+- Anything that's compatible with CRI (Container Runtime Interface)
+- We can also use Docker 
+
+**Networking**
+- Established connectivity between all nodes
+
+#### Cluster Network Ports 
+
+On the Master node:
+
+Components | Ports (TCP) | Used By
+---------|----------|---------
+API                 | 6443      | All
+etcd                | 2379-2380 | API server and other instances of etcd
+Scheduler           | 10251     | Itself, not exposed to outside world 
+Controller Manager  | 10252     | Itself, not exposed to outside world 
+Kubelet             | 10250     | Control Plane 
+
+On the Worker nodes:
+
+Components | Ports (TCP) | Used By
+---------|----------|---------
+Kubelet             | 10250         | Control Plane 
+NodePort            | 30000-32767   | All 
+
+#### Building the Cluster 
+
+Here are the steps we'll follow:
+
+1. Install Kubernetes from packages 
+2. Create the cluster (specifically the master node)
+3. Configure Pod networking
+4. Join additional nodes to our cluster
+
+Required packages (will be installed on ALL nodes):
+
+- kubelet
+- kubeadm 
+- kubectl 
+- container runtime (docker)
+
 
 </details>
 
@@ -2421,6 +2668,7 @@ Useful courses on Kubernetes:
 
 - [Hands-On Amazon Elastic Kubernetes Service (EKS) LiveLessons: Running Microservices](https://www.oreilly.com/library/view/hands-on-amazon-elastic/9780137446667/)
 
+
 Resources on Docker that you may find helpful:
 
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#from)
@@ -2458,6 +2706,8 @@ Github repositories:
 - [wardviaene/kubernetes-course](https://github.com/wardviaene/kubernetes-course)
 
 - [wardviaene/devops-box (devops box with pre-built tools)](https://github.com/wardviaene/devops-box)
+
+- [kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
 
 
 Free DNS Service using [freedns](https://freedns.afraid.org/)
