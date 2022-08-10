@@ -14,7 +14,7 @@ Ayt, going full steam ahead!
 
 ## Pre-requisites
 
-It's important to note that you can't run Linux containers without a Linux kernel. This means you still need a runtime interpreter to emulate the Linux kernel system calls.
+For the Docker labs:
 
 <details><summary> Install Docker </summary>
  
@@ -273,7 +273,7 @@ $ sudo docker run hello-world
 
 #### Install on Ubuntu
 
-This is a summary of the command that you can run to install docker on Ubuntu.
+This is a summary of the commands that you can run to install docker on Ubuntu.
 
 ```bash
 $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &&
@@ -338,13 +338,162 @@ sudo dockerd
 You can checkout this [Stackoverflow discussion](https://stackoverflow.com/questions/44678725/cannot-connect-to-the-docker-daemon-at-unix-var-run-docker-sock-is-the-docker) to know more.
 
 </details>
+<br>
 
+
+For the Kubernetes labs:
+
+<details><summary> Install Kubernetes </summary>
+
+### Install Kubernetes
+
+This section discuss how to install Kubernetes on virtual machines or bare metal servers.
+
+#### Requirements 
+
+**System Requirements**
+- Linux OS
+- 2 CPUs 
+- 2 GB RAM 
+- Disable Swap 
+
+**Container Runtime** 
+- Anything that's compatible with CRI (Container Runtime Interface)
+- We can also use Docker 
+
+**Networking**
+- Connectivity between all nodes 
+
+#### installation
+
+Required packages (will be installed on ALL nodes):
+
+- kubelet
+- kubeadm 
+- kubectl 
+- container runtime (docker)
+
+Note that we have to do all these steps on ALL the nodes that will be part of the Kubernetes cluster.
+
+Begin with installing the packages, which includes adding the signing key and the repository.
+
+```bash
+$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add 
+$ sudo bash -c 'cat <<EOF >/etc/apt/sources.list.d/kubernetes.list 
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF'
+```
+
+We can inspect the versions available in the repository using apt-cache.
+
+```bash
+$ sudo apt-get update
+```
+```bash
+$ apt-cache policy kubelet | head -20
+$ apt-cache policy docker.io | head -20
+```
+
+Install the Kubernetes tools.
+```bash
+$ sudo apt-get install -y kubeadm kubelet kubectl docker.io 
+$ sudo apt-mark hold kubeadm kubelet kubectl docker.io
+```
+
+Disable the swap.
+
+```bash
+$ swapoff -a  
+```
+
+Check the status of the kubelet and docker. Notice that kubelet will show an "activating" status. This will stay in this status until a work is assigned to the kubelet.
+
+```bash
+$ sudo systemctl status kubelet 
+$ sudo systemctl status docker 
+```
+
+</details>
+
+
+<details><summary> Install CLI Tools </summary>
+
+### Install CLI Tools
+
+Install the following tools by clicking the tool name. The link should bring you to the official installation pages. Follow the steps provided.
+
+- [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - used by eksctl to grab authentication token
+- [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) - setup and operation of EKS cluster 
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) - interaction with K8S API server
+
+If you're using WSL on a Windows laptop, you may simply use the command below.
+
+```bash
+# aws cli
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+```bash
+# eksctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+```
+```bash
+# kubectl
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo apt-get install -y apt-transport-https
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+```
+
+To verify the AWS CLI version:
+
+```bash
+$ aws --version 
+```
+
+To verify the eksctl version:
+
+```bash
+$ eksctl version 
+```
+
+To verify the kubectl version:
+
+```bash
+$ kubectl version --output=json  
+```
+
+Note that after installing AWS CLI, you will need to configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
+
+You would also need to [create an access key in the AWS Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).
+
+```bash
+# /home/user/.aws/credentials
+
+[default]
+aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
+region = ap-southeast-1
+output = json
+```
+
+</details>
+
+
+</details>
+<br>
+
+
+Some of the labs in this repository uses the tools below. However, they are not necessary for running containers.
 
 <details><summary> Install Go (optional) </summary>
 
 ### Install Go (optional)
-
-This is not required for running containers but since we will be using custom binary written in Go in some of the labs, we will need to have this installed.
 
 Doing a quick Google search, we find a link on [how to install Go (golang) on Ubunt](https://www.cyberciti.biz/faq/how-to-install-gol-ang-on-ubuntu-linux/)u:
 
@@ -431,7 +580,7 @@ ubuntu , Let's be friends!
 
 ### Install Node and NPM (optional)
 
-This is not required for running containers but since we will use a custom binary that utilizes NPM and NodeJS in some of the labs, we will need to have this installed.
+Since we will use a custom binary that utilizes NPM and NodeJS in some of the labs, we will need to install this.
 
 #### NodeJS
 
@@ -521,7 +670,7 @@ You can read more about the installation process in this [freeCodeCamp article.]
 
 ### Sign-up for a Github Account (optional)
 
-This is not required for running containers but since we will be implementing CICD in some of the labs, we will need to have this setup. Github is a free to use code reopsitory and easy to start with.
+Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code reopsitory.
 
 To sign up for a Github account, click [here](https://github.com/signup).
 
@@ -531,7 +680,9 @@ To sign up for a Github account, click [here](https://github.com/signup).
 
 ### Sign-up for an AWS Account (optional)
 
-This is not required for running containers but we will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
+We will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
+
+Note that an AWS account is also need for the ECS and EKS labs in this repository.
 
 To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/free/).
 
@@ -540,6 +691,8 @@ To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/fre
 ## Docker Basics
 
 Whether you're entirely new to the world of containers or just simply wanting to do a quick refresher, feel free to select the topic you're interested in and browse through the bite-sized sections.
+
+<details><summary> Read more.. </summary>
 
 <details><summary> From VMs to Containers </summary>
 
@@ -1333,8 +1486,8 @@ To add a local volume to a container:
 
 ```bash
 $ docker run -d \
-    -v <name>:</path/on/node> \ 
-    --name <name>
+    -v <name>:</path/on/container> \ 
+    --name <name> \
     <image>
 ```
 
@@ -1342,8 +1495,8 @@ To mount existing directory to a container:
 
 ```bash
 $ docker run -d \
-    -mount type=bind, source=</path/on/node>, target=<name>
-    --name <name>
+    -mount type=bind, source=</path/on/node>, target=<name> \
+    --name <name> \
     <image>
 ```
 
@@ -1577,6 +1730,8 @@ Overlay networks uses VXLAN. The idea is to create a layer 2 network on top of l
 
 Instead of running multiple RUN commands of different images, we could use **docker compose**. In this example, we'll use a sample voting app with result app architecture.
 
+We can see below the comparison between the two approaches.
+
 **First method - multiple RUN**
 
 ```bash 
@@ -1606,7 +1761,7 @@ services:
 
 As we can see, the second method is much cleaner and is a more precise way to run containers. To run the entire stack defined in the docker-compose.yml, run the command below.
 
-**NOTE: This is only applicable if you're running multiple containers in a SINGLE DOCKER HOST.
+**NOTE**: This is only applicable if you're running multiple containers in a SINGLE DOCKER HOST.
 
 ```bash
 $ docker-compose up 
@@ -1643,6 +1798,7 @@ services:
           - db
           - redis
 ```
+<br>
 
 Check out the labs in this repository to learn more about docker compose.
  
@@ -1811,9 +1967,146 @@ Check out the labs for Docker Compose in this repository to see how restart poli
 
 </details>
 
+
+<details><summary> Docker Swarms </summary>
+
+### Docker Swarms
+
+A swarm is a cluster of nodes that work together. This is DOcker's official orchestration system and is similar with Kubernetes.
+
+- provides an API
+- uses services instead of running containers individually
+- encrypts some services by default:
+
+    - distributed cluster store 
+    - networks 
+    - TLS
+    - cluster joining tokens
+    - PKI
+
+#### Types of Nodes 
+
+**Manager Node**
+
+- responsible for running the cluster
+- cluster state
+- schedules services
+- receives API commands and converts them to actions 
+- recommended to have "odd" number of nodes for HA 
+- if you have "even" number of nodes (ex: 4 nodes), it's possible to have *split brain* issue
+- maximum of 7 nodes 
+
+**Worker Nodes**
+
+- runs the containers
+- needs at least 1 manager node 
+
+To see all the nodes in your swarm:
+
+```bash
+$ docker node ls 
+```
+
+#### Creating a Swarm 
+
+Initialize on the first manager node:
+
+```bash
+$ docker swarm init \
+    --advertise-addr <private-ip>:2377 \
+    --listen-addr <private-ip>:2377
+```
+
+After initializing, create a token:
+
+```bash
+$ docker swarm join-token manager 
+```
+
+You can then use this token to join another manager node to the swarm.
+
+To create a token for the worker nodes:
+
+```bash
+$ docker swarm join-token worker 
+```
+
+Use this token to join a node as a worker node to the swarm.
+
+```bash
+$ docker swarm join \
+    --token <worker-node-token> \
+    --advertise-addr <private-ip>:2377 \ 
+    --listen-addr <private-ip>:2377
+```
+
+
+#### Locking a Node 
+
+Note that if a node goes down for some time and restarts, its data may be in conflict with the data in the swarm. To prevent this, enable locking to stops the restarted node from rejoining the swarm and require an administrator password first.
+
+```bash
+$ docker swarm init --autolock 
+```
+```bash
+$ docker swarm update --autolock=true 
+```
+
+Note that is better to delete and recreate the node so that it gets the recent copy of the data.
+
+#### Creating Services 
+
+Define the image to be used and then the service will run the container for you.
+
+- also specify the desired state (replicas, etc.)
+- *replicate mode* by default, containers are distributed evenly 
+- *global mode*, a single replica on each node
+- scaling up/down
+
+</details>
+
+<details><summary> Docker Security </summary>
+
+### Docker Security
+
+These are the security features that Docker uses under the hood.
+
+**Swarm mode** 
+
+- security settings are turned-on by default
+- uses PKI infrastructure for handling certificates 
+- tunnel are created between endpoints on the containers
+
+**Docker Content Trust** 
+
+- Sign images for integrity verification
+
+    ```bash
+    export DOCKER_CONTENT_TRUST=1 
+    ```
+
+**Security Scanning**
+
+- scans images for vulnerabilities
+
+**Secrets**
+
+- data is encrypted and stored
+
+    ```bash
+    docker secret 
+    ```
+
+</details>
+
+</details>
+
+
 ## Cloud-Native
 
 Another technology that comes to mind when you talk about containers is the concept of cloud-native applications. 
+
+<details><summary> Read more.. </summary>
 
 <details><summary> What the heck is Cloud Native? </summary>
  
@@ -1831,6 +2124,14 @@ As defined by [Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/abo
 
 In its simplest terms, Cloud native refers to building and managing applications at scale using either private, public, or hybrid cloud platforms.
 
+Now, when we hear containers, it is also often followed by another buzzword: **microservices**.
+
+<p align=center>
+<img src="Images/udacity-suse-1-microservices.png">
+</p>
+
+Microservices are simply a collection of small, independent, and containerized applications. Read below to learn about the difference between monolitic applications and microservices.
+
 </details>
 
 <details><summary> Containers and being Cloud Native </summary>
@@ -1846,14 +2147,6 @@ The third key thing: **containers**.
 </p>
 
 To recall, containers are simply **processes** which wraps the dependencies and libraries so that it can be shipped as runnable applications across different platforms. THey are closely associated with cloud native applications as containers are a great way to deploy applications quickly and resiliently given their lightweight feature.
-
-Now, when you hear containers, it is also often followed by another buzzword: **microservices**.
-
-<p align=center>
-<img src="Images/udacity-suse-1-microservices.png">
-</p>
-
-Microservices are simply a collection of small, independent, and containerized applications.
 
 </details>
 
@@ -1910,12 +2203,193 @@ From a technical perspective, the adoption of cloud-native tooling represents:
 
 </details>
 
+
+<details><summary> Design Considerations </summary>
+
+### Design Considerations
+
+It is necessary to allocate time at the start to identifying the design factors ensure that the application will be built and maintained with minimal engineering effort.
+
+1. **List all requirements**
+    In this phase, we determine the following:
+    - Stakeholders - *who will sponsor the project?*
+    - Functionalities - *what functions should be included?*
+    - End users - *For whom is this service?*
+    - Input and Output Process - *What will be the flow?*
+    - Engineering Teams - *Who are needed in doing the project?*
+
+
+2. **List all available resources**
+    Here we determine what is the context of implementing these functionalities.
+    - Engineering resources - *Who can work on the project?*
+    - Financial resources - *How much is the budget?*
+    - Timeframes - *How soon do we want the project to finish?*
+
+</details>
+
+
+<details><summary> Monoliths and Microservices </summary>
+
+### Monoliths and Microservices
+
+After the requirements are carefully reviewed, we can now start deciding which model we'll use: **monoliths** or **microservices**.
+
+![](Images/udacity-suse-2-monoliths-micro.png)
+
+Typically, there will be three tiers in an application:
+
+<!-- ![](Images/udacity-suse-2-apptier.png) -->
+
+- **UI (User Interface)** - handles HTTP requests and responses
+- **Business logic** - contains code that provides service to the users
+- **Data layer** - implements access and storage of data objects
+
+
+In a monolithic architecture, application tiers can be described as:
+
+- part of the same unit
+- managed in a single repository
+- sharing existing resources (e.g. CPU and memory)
+- developed in one programming language
+- released using a single binary
+
+![](Images/udacity-suse-2-monolith.png)
+
+In a microservice architecture, application tiers can be described as
+
+- tiers aremanaged independently
+- managed in a separate repository
+- own allocated resources (e.g. CPU and memory)
+- well-defined APIs for connecting to other units
+- implemented using the programming language of choice
+- released using its own binary
+
+![](Images/udaicty-suse-2-microservices.png)
+
+</details>
+
+
+<details><summary> Tradeoffs </summary>
+
+### Tradeoffs
+
+Depending on which model we choose, each one will have their own set of tradeoffs:
+
+ Tradeoffs | Description | Monoliths | Microservices
+---------|----------|---------|---------
+**Development Complexity** | Effort required to deploy and manage an application. | <ul><li>one programming language</li><li>one repository</li><li>enables sequential development </li></ul> | <ul><li>multiple programming languages</li><li>multiple repositories</li><li>enables concurrent development </li></ul> |
+**Scalability**  | Scaling up or down, based on the incoming traffic. | <ul><li>entire stack is replicated</li><li>heavy on resource consumption</li></ul> | <ul><li>single unit is replicated</li><li>on-demand consumption of resources</li></ul> |
+**Time to deploy** | Time to deploy encapsulates the build of a delivery pipeline that is used to ship features. | <ul><li>one delivery pipeline that deploys the entire stack</li><li>more risk with each deployment leading to a lower velocity rate</li></ul> | <ul><li>multiple delivery pipelines that deploy separate units</li><li>less risk with each deployment leading to a higher feature development rate</li></ul> |
+**Flexibility** | Ability to adapt to new technologies and introduce new functionalities. | <ul><li>low rate</li><li>entire application stack might need restructuring to incorporate new functionalities</li></ul> | <ul><li>high rate</li><li>since changing an independent unit is straightforward</li></ul> |
+**Operational Cost** | Represents the cost of necessary resources to release a product. | <ul><li>low initial cost</li><li>one code base and one pipeline should be managed</li><li>cost increases exponentially when the application needs to operate at scale</li></ul> | <ul><li>high initial cost</li><li>multiple repositories and pipelines require management</li><li>to scale, the cost remains proportional to the consumed resources at that point in time</li></ul>
+**Reliability** | Reliability captures practices for an application to recover from failure and tools to monitor an application.| <ul><li>in a failure scenario, the entire stack needs to be recovered</li><li>the visibility into each functionality is low, since all the logs and metrics are aggregated together</li></ul> | <ul><li>in a failure scenario, only the failed unit needs to be recovered</li><li>there is high visibility into the logs and metrics for each unit</li></ul>
+
+</details>
+
+
+
+<details><summary> Best Practices for Application Deployments </summary>
+
+### Best Practices for Application Deployments
+
+<p align=center>
+<img src="Images/udacity-suse-2-bestpractices.png">
+</p>
+
+The appropriate model has been decided and we've carefully reviewed the requirements against the monoliths vs. microservices, so what's next? Implementation.
+
+It is essential to understand best practices and follow them during the release and maintenance phases when building solution. Of course, there is no one-size-fits-all strategy and each organization works differently, but knowin these best practices ensures we have resiliency and high availability.
+
+#### Health Checks
+
+Refers to the status of the application and ensuring the expected behavior to take on the traffic is met. 
+- normally HTTP endpoints such as <code>/health</code> or <code>status</code>
+- returns HTTP response codes to let you know if the application is healthy.
+
+#### Metrics
+
+Measures the performance of an application.
+- include statistics collected on the services 
+- number of logins, number of active users, number of reqeusts handled, CPU utilization, memory, etc.
+- usually  returned via an HTTP endpoint such as <code>/metrics</code>.
+
+#### Logs
+
+Logs aggregation provides significant insights on the application's operation on a particular timeframe
+- like metrics, Logs are extremely useful in troubleshooting
+- used for debugging application issues. 
+- usually collected through *standard out*(STDOUT) or *standard error* (STDERR) 
+- collected through a passive logging mechanism and then sent to the shell
+- can be collected through logging tools such as Splunk and stored at the backend
+- can also go directly to the backend storage without a monitoring tool by using *active logging*.
+- common practice to associate each log line with a **timestamp**, that will exactly record when an operation was invoked
+
+| **Logging Levels** | Meaning |
+|---|---|
+| **DEBUG** | record fine-grained events of application processes |
+| **INFO** | provide coarse-grained information about an operation 
+| **WARN** | records a potential issue with the service
+| **ERROR** | notifies an error has been encountered, however, the application is still running
+| **FATAL** | represents a critical situation, when the application is not operational |
+
+
+#### Tracing
+
+Helpful for understanding the full journey of a request.
+- includes all the invoked functions
+- usually integrated through a library
+- can be utilized by the developer to record each time a service is invoked. 
+- records for individual services are defined as spans
+- A collection of spans define a trace that recreates the entire lifecycle of a request.
+
+#### Resource Consumption
+
+Refers to how much resources an application uses to perform its operations.
+- usually CPU, memory, network throughput, and number of concurrent requests.
+
+</details>
+
+
+<details><summary> Product is Released, What's Next? </summary>
+
+### Product is Released, What's Next?
+
+After an engineering team has successfully released a product, with both monolith and microservices, the next phase in the application lifecycle is maintenance. 
+- product responses to customer feedback and emerging technologies
+- new features are added and new tools are integrated
+- the application structure and functionalities may change
+- architecture of an application is not static, but rather in constant movement
+
+#### Extensibility over Flexibility
+
+During Day 2 operations (maintenance phase), it is more efficient to manage multiple services with a well-defined and simple functionality (as in the case of microservices), rather than add more abstraction layers to support new services (as we’ve seen with the monoliths). 
+
+These are some of most common operations you'll encounter after a product goes live.
+
+![](Images/udacity-suse-2-edgecase.png)
+
+- **split** operation - applied if a service covers too many functionalities and it's complex to manage. Having smaller, manageable units is preferred in this context.
+
+- **merge** operation - applied if units are too granular or perform closely interlinked operations, and it provides a development advantage to merge these together. For example, merging 2 separate services for log output and log format in a single service.
+
+- **replace** operation - adopted when a more efficient implementation is identified for a service. For example, rewriting a Java service in Go, to optimize the overall execution time.
+
+- **stale** operation - performed for services that are no longer providing any business value, and should be archived or deprecated. For example, services that were used to perform a one-off migration process.
+
+These operations are inevitable and you will perform these as your application grows. At the end of the day, the application exists to provide value to customers and to be easily managed by the technical team. 
+
+</details>
+
+
+</details>
+
+
+
 ## Kubernetes
 
-I've always seen Kubernetes as an entire universe in itself and it's just too impossible to have a 100% grasp on it.
+Kubernetes is an entire universe in itself. Below are bite-sized and easy-to-digect sections for each Kubernetes topic. Go through the topics that interests you, or just dive straight to the labs, your choice! 😀
 
-Having said, I've included a section of bite-sized and easy-to-digect nuggets for each Kubernetes topic. Go through the topics that interests you, or just dive straight to the labs, your choice! 😀
-
+<details><summary> Read more.. </summary>
 
 <details><summary> Container Management Challenges </summary>
 
@@ -2284,9 +2758,6 @@ These are Pods that provide special services to the cluster.
 
 </details>
 
-
-
-
 <details><summary> Pod Operations </summary>
 
 ### Pod Operations
@@ -2358,8 +2829,7 @@ So far we've only spun up Pods in a single node. Let's add a node 2 that contain
 
 #### Overlay Network
 
-Another common scenario is an **overlay network** where you don't control the underlying network infrastructure. This would allow the Pods to be "included in the same network". More of this will be discussed in the succeeding sections.
-
+Another common scenario is an **overlay network** where you (as a developer) don't have control on the underlying network infrastructure. Overlay networks allow the Pods to be "included in the same network". More of this will be discussed in the succeeding sections.
 
 #### External Services 
 
@@ -2391,9 +2861,9 @@ NodePort            | 30000-32767   | All
 </details>
 
 
-<details><summary> Ways to Start Kubernetes </summary>
+<details><summary> Creating the Cluster: Where to Start? </summary>
 
-### Ways to Start Kubernetes
+### Creating the Cluster, Where to Start?
 
 To provision a cluster, we must ensure that the control plane and data plane is up and running, which is known as **bootstraping the cluster**. This can be done manually but there's a risk for misconfiguration since we would need to run independent components separately.
 
@@ -2435,9 +2905,9 @@ Here are some ways to run Kubernetes on your local machine.
 </details>
 
 
-<details><summary> Picking the Right Solution </summary>
+<details><summary> Creating the Cluster: Which is the Right Solution? </summary>
 
-### Picking the Right Solution
+### Creating the Cluster, Which is the Right Solution?
 
 Before we start running Kubernetes, we must review some considerations. 
 
@@ -2475,66 +2945,62 @@ Checkout these resources to learn more about installation considerations:
 </details>
 
 
+<details><summary> Creating the Cluster, Finally </summary>
 
-<details><summary> Installing Kubernetes (On-prem) </summary>
+### Creating the Cluster, Finally
 
-### Installing Kubernetes (On-prem)
-
-This section discuss how to install Kubernetes on virtual machines or bare metal servers.
-
-#### Requirements 
-
-**System Requirements**
-- Linux OS
-- 2 CPUs 
-- 2 GB RAM 
-- Disable Swap 
-
-**Container Runtime** 
-- Anything that's compatible with CRI (Container Runtime Interface)
-- We can also use Docker 
-
-**Networking**
-- Established connectivity between all nodes
-
-#### Cluster Network Ports 
-
-On the Master node:
-
-Components | Ports (TCP) | Used By
----------|----------|---------
-API                 | 6443      | All
-etcd                | 2379-2380 | API server and other instances of etcd
-Scheduler           | 10251     | Itself, not exposed to outside world 
-Controller Manager  | 10252     | Itself, not exposed to outside world 
-Kubelet             | 10250     | Control Plane 
-
-On the Worker nodes:
-
-Components | Ports (TCP) | Used By
----------|----------|---------
-Kubelet             | 10250         | Control Plane 
-NodePort            | 30000-32767   | All 
-
-#### Building the Cluster 
-
-Here are the steps we'll follow:
+Here are the outline of steps to create a Kubernetes cluster
 
 1. Install Kubernetes from packages 
 2. Create the cluster (specifically the master node)
-3. Configure Pod networking
-4. Join additional nodes to our cluster
+3. Disable the swap space on the nodes.
+4. Configure Pod networking
+5. Join additional nodes to our cluster
 
-Required packages (will be installed on ALL nodes):
-
-- kubelet
-- kubeadm 
-- kubectl 
-- container runtime (docker)
-
+You should be able to install Kubernetes by following the steps in the pre-requisites section above. Once that's done, we can proceed with bootstrapping our Kubernetes cluster using kubeadm.
 
 </details>
 
+<details><summary> Bootsrapping a Cluster with kubeadm </summary>
+
+### Bootsrapping a Cluster with kubeadm 
+
+We'll use kubeadm to create our cluster. The phases include:
+
+1. We'll run <code>kubeadm init</code>.
+2. kubeadm does **pre-flight checks** which ensure the appropraite permissions and system resources are in place.
+3. kubeadm creates a **certificate authority** for authentication and encryption.
+4. kubeadm generates **kubeconfig files** for authenticating the components against the API server.
+5. kubeadm generates **Static Pod Manifests** which are monitored by the kubelet.
+6. kubeadm starts up the control plane.
+7. kubeadm taints the master, ensuring pods are only scheduled on worker nodes.
+8. kubeadm generates a **Bootstrap Token** for joining nodes to the cluster.
+9. kubeadm starts **Add-on Pods: DNS and kube-proxy**
+
+Note that the process defined above can be customized by specifying parameter.
+
+</details>
+
+
+<details><summary> Certificate Authority </summary>
+
+### Certificate Authority
+
+By default, kubeadm creates a self-signed certificate authority (CA)
+
+- CA can also be created to be a part of an external PKI
+- used to secure cluster communications 
+- generates certificates used by API server to encrypt HTTPS
+- generates certificates for authenticating users and kubelets
+- certificates will be distributed to each node
+
+The CA files will be stored in:
+
+```bash
+$ /etc/kubernetes/pki  
+```
+
+</details>
 
 
 <details><summary> xxxxxx </summary>
@@ -2545,6 +3011,43 @@ Required packages (will be installed on ALL nodes):
 
 
 
+<details><summary> Stateless vs. Stateful </summary>
+
+### Stateless Applications 
+
+This means application that doesn't have a state and doesn't write any local files.
+
+- also cannot keep local session 
+- if same app is ran multiple times, it won't change state
+- scales horizontally 
+- session management is done outside the container
+- files that need to be saved cannot be saved locally on the container
+
+### Stateful Applications
+
+Includes traditional databases such as PostgreSQL and MySQL which have database files that can't be split over multiple instances.
+
+- cannot horizontally scale
+- can be ran on a single container and scale vertically
+- use volumes to save data
+
+</details>
+
+
+
+<details><summary> Scaling </summary>
+
+### Scaling
+
+Scaling in Kubernetes is done using the **Replication Controller.**
+
+- ensures specified number of replicas ran at all times 
+- pods are automatically replaced if they fail, get deleted, or are terminated
+- recommended to use even if you're only running 1 pod to ensure pod is always running
+
+</details>
+
+
 <details><summary> xxxxxx </summary>
 
 ### xxxxxx
@@ -2552,6 +3055,12 @@ Required packages (will be installed on ALL nodes):
 </details>
 
 
+<details><summary> xxxxxx </summary>
+
+### xxxxxx
+
+</details>
+
 
 <details><summary> xxxxxx </summary>
 
@@ -2560,6 +3069,76 @@ Required packages (will be installed on ALL nodes):
 </details>
 
 
+<details><summary> Kubernetes in the Cloud </summary>
+
+### Kubernetes in the Cloud
+
+#### EKS - Elastic Kubernetes Service
+
+This is the Kubernetes offering from AWS which allows users to deploy a management plane. 
+
+AWS basically provides the control plane and all it components, and it's up to the users to provision where their workload will run. The workloads can run on Fargate or EC2.
+
+Benefits of EKS:
+
+- no control plane to manage
+- built-in loadbalancing, networking, volume storage 
+- easy to turn on and off
+- integrations with other AWS components to build applications (S3, Redshift, RDS, Lambda, COgnito, etc.)
+
+#### ECS and Fargate
+
+ECS is a proprietary Docker management service developed first to compete with Kubernetes.
+
+- uses JSON task definition
+- similar with EKS in many ways but the main difference is that it's proprietary 
+
+Fargate, on the other hand, is a container service that is ddone in a serverless fashion.
+
+- this means no EC2 instance is needed
+- Fargate can be used with EKS and ECS
+- No scaling management
+- JSON task definition
+
+</details>
+
+
+<details><summary> Amazon EKS (Elastic Kubernetes Service) </summary>
+
+### Amazon EKS (Elastic Kubernetes Service)
+
+This is the Kubernetes offering from AWS which allows users to deploy a management plane. 
+
+AWS basically provides the control plane and all it components, and it's up to the users to provision where their workload will run. The workloads can run on Fargate or EC2.
+
+![](Images/eks-banner2.png)  
+
+Traditionally, you'll have to setup and deploy Kubernetes yourself:
+- deploy master nodes
+- deploy etcd
+- setup CA for TLS encryption 
+- setup monitoring, auto-scaling, auto-healing
+- setup authentication 
+- setup worker nodes  
+
+With EKS:
+- no control plane to manage
+- built-in loadbalancing, networking, volume storage 
+- easy to turn on and off
+- authentication is handled through IAM
+- integrations with other AWS components to build applications (S3, Redshift, RDS, Lambda, Cognito, etc.)
+- AMI for nodes can be customized
+- container images can be stored through ECR
+
+When you create you EKS cluster, AWS takes care of all of these under the hood:
+1. master node is set up for HA
+2. etcd is set up  for HA.
+3. IAM plugin is setup.
+4. CA is setup for TLS.
+5. Autoscaling is set up.
+6. Loadbalancers are provisioned (NLB and ELB)
+
+</details>
 
 
 <details><summary> Cheatsheet: Kubernetes Commands </summary>
@@ -2590,38 +3169,8 @@ Command | Description
 </details>
 
 
-
-
-<details><summary> Environment Options </summary>
-
-### Environment Options
-
-#### EKS - Elastic Kubernetes Service
-
-This is the Kubernetes offering from AWS which allows users to deploy a management plane. AWS basically provides the control plane and all it components, and it's up to the users to provision where their workload will run. The workloads can run on Fargate or EC2.
-
-Benefits of EKS:
-
-- no control plane to manage
-- built-in loadbalancing, networking, volume storage 
-- easy to turn on and off
-- integrations with other AWS components to build applications (S3, Redshift, RDS, Lambda, COgnito, etc.)
-
-#### ECS and Fargate
-
-ECS is a proprietary Docker management service developed first to compete with Kubernetes.
-
-- uses JSON task definition
-- similar with EKS in many ways but the main difference is that it's proprietary 
-
-Fargate, on the other hand, is a container service that is ddone in a serverless fashion.
-
-- this means no EC2 instance is needed
-- Fargate can be used with EKS and ECS
-- No scaling management
-- JSON task definition
-
 </details>
+
 
 
 
@@ -2669,7 +3218,7 @@ Useful courses on Kubernetes:
 - [Hands-On Amazon Elastic Kubernetes Service (EKS) LiveLessons: Running Microservices](https://www.oreilly.com/library/view/hands-on-amazon-elastic/9780137446667/)
 
 
-Resources on Docker that you may find helpful:
+Other resources on Docker:
 
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#from)
 
@@ -2689,7 +3238,7 @@ Resources on Docker that you may find helpful:
 
 - [Buildpacks: An App’s Brief Journey from Source to Image](https://buildpacks.io/docs/app-journey/)
 
-Resources on Kubernetes that you may find helpful:
+Other resources on Kubernetes:
 
 - [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 
@@ -2708,6 +3257,19 @@ Github repositories:
 - [wardviaene/devops-box (devops box with pre-built tools)](https://github.com/wardviaene/devops-box)
 
 - [kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+
+
+Metrics, Logging, Health Checks, and Tracing:
+
+- [Pattern: Health Check API](https://microservices.io/patterns/observability/health-check-api.html)
+
+- [Best Practice on Metric Naming](https://prometheus.io/docs/instrumenting/writing_exporters/#metrics)
+
+- [How to Log a Log: Application Logging Best Practices](https://logz.io/blog/logging-best-practices/)
+
+- [log4j - Logging Levels](https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm)
+
+- [Enabling Distributed Tracing for Microservices With Jaeger in Kubernetes](https://containerjournal.com/topics/container-ecosystems/enabling-distributed-tracing-for-microservices-with-jaeger-in-kubernetes/)
 
 
 Free DNS Service using [freedns](https://freedns.afraid.org/)

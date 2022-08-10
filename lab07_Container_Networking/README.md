@@ -117,7 +117,7 @@ ubuntu              16.04     b6f507652425   9 months ago     135MB
 
 ### Bridge Network
 
-Here we'll explore a new command - **docker network.**
+Here we'll explore a new command, **docker network.**
 
 To see the existing networks,
 
@@ -211,20 +211,6 @@ IP address of container 2.
 
 Run a third one and detach. We'll call this container 3.
 
-```bash
-$ docker run -it ubuntu_networking
-root@2cbde76af881:/#
-root@2cbde76af881:/# ip addr show
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-10: eth0@if11: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
-    link/ether 02:42:ac:11:00:04 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-    inet 172.17.0.4/16 brd 172.17.255.255 scope global eth0
-       valid_lft forever preferred_lft forever 
-```
-
 IP address of container 3.
 
 ```bash
@@ -304,7 +290,11 @@ Let's spin up a fourth container which will use the host network. It'll also run
 We'll call this container 4.
 
 ```bash
-$ docker run -d --name container_4 --network=host ubuntu_networking /webapp 
+$ docker run -d \
+    --name container_4 \
+    --network=host \
+    ubuntu_networking \
+    /webapp 
 ```
 
 ```bash
@@ -330,10 +320,15 @@ Content-Type: text/html; charset=utf-8
 
 ### None Network
 
-The third type is **None** - whihc actually means the container doesn't belong in any network.
+The third type is **None** - which actually means the container doesn't belong in any network.
 
 ```bash
-$ docker run -it --network=none --name=container_5 ubuntu_networking /bin/bash
+$ docker run -it \
+    --network=none \
+    --name=container_5 \
+    ubuntu_networking \
+    /bin/bash
+
 root@60e87613ae29:/#
 ```
 
