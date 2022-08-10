@@ -338,8 +338,7 @@ sudo dockerd
 You can checkout this [Stackoverflow discussion](https://stackoverflow.com/questions/44678725/cannot-connect-to-the-docker-daemon-at-unix-var-run-docker-sock-is-the-docker) to know more.
 
 </details>
-<br>
-
+<!-- <br> -->
 
 For the Kubernetes labs:
 
