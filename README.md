@@ -14,11 +14,11 @@ Ayt, going full steam ahead!
 
 ## Pre-requisites
 
-For the Docker labs:
+### For the Docker labs:
 
 <details><summary> Install Docker </summary>
  
-### Install Docker
+#### Install Docker
 
 With the introduction of Hyper-V, this gave way for **Docker Desktop for Windows** which under the hood, uses WSL2's to launch a VM as the host Linux operating system.
 
@@ -26,7 +26,7 @@ With the introduction of Hyper-V, this gave way for **Docker Desktop for Windows
 
 <details><summary> Install Docker on WSL2 without Docker Desktop </summary>
 
-#### Install Docker on WSL2 without Docker Desktop 
+##### Install Docker on WSL2 without Docker Desktop 
 
 Note on [Docker Desktop's changing to paid subscription](https://www.docker.com/legal/docker-subscription-service-agreement/):
 
@@ -174,7 +174,7 @@ fi
 
 <details><summary> Install on RHEL/CentOS </summary>
  
-#### Install on RHEL/CentOS
+##### Install on RHEL/CentOS
 
 These steps are the ones I followed to install docker on RHEL 8/CentOS in an Amazon EC2 instance. Detailed steps can be found on [Docker's official documentation](https://docs.docker.com/engine/install/centos/).
 
@@ -271,7 +271,7 @@ $ sudo docker run hello-world
 
 <details><summary> Install on Ubuntu </summary>
 
-#### Install on Ubuntu
+##### Install on Ubuntu
 
 This is a summary of the commands that you can run to install docker on Ubuntu.
 
@@ -287,7 +287,7 @@ $ sudo usermod -aG docker ubuntu
 
 <details><summary> Install on Ubuntu using Terraform </summary>
 
-#### Install on Ubuntu using Terraform
+##### Install on Ubuntu using Terraform
 
 Whether you've dabbled around in Terraform or not, this is the fastest way to provision a resource in AWS with Docker installed. This will provision the following:
 
@@ -302,7 +302,7 @@ For more details, check this [repository](https://github.com/joseeden/All-Things
 
 <details><summary> Install Docker Compose</summary>
  
-### Install Docker Compose
+##### Install Docker Compose
 
 If you're using Ubuntu, you can install docker-compose by simply running the two commands below:
 
@@ -317,7 +317,7 @@ Read more about it in [Install Docker Compose CLI plugin page.](https://docs.doc
 
 <details><summary> Error: Cannot connect to the Docker daemon </summary>
 
-### Error: Cannot connect to the Docker daemon
+##### Error: Cannot connect to the Docker daemon
 
 In case you encounter this message when you test Docker for the first time:
 
@@ -338,17 +338,16 @@ sudo dockerd
 You can checkout this [Stackoverflow discussion](https://stackoverflow.com/questions/44678725/cannot-connect-to-the-docker-daemon-at-unix-var-run-docker-sock-is-the-docker) to know more.
 
 </details>
-<!-- <br> -->
 
-For the Kubernetes labs:
+### For the Kubernetes labs:
 
 <details><summary> Install Kubernetes </summary>
 
-### Install Kubernetes
+#### Install Kubernetes
 
 This section discuss how to install Kubernetes on virtual machines or bare metal servers.
 
-#### Requirements 
+##### Requirements 
 
 **System Requirements**
 - Linux OS
@@ -363,7 +362,7 @@ This section discuss how to install Kubernetes on virtual machines or bare metal
 **Networking**
 - Connectivity between all nodes 
 
-#### installation
+##### installation
 
 Required packages (will be installed on ALL nodes):
 
@@ -417,7 +416,7 @@ $ sudo systemctl status docker
 
 <details><summary> Install CLI Tools </summary>
 
-### Install CLI Tools
+#### Install CLI Tools
 
 Install the following tools by clicking the tool name. The link should bring you to the official installation pages. Follow the steps provided.
 
@@ -485,18 +484,18 @@ output = json
 
 
 </details>
-<br>
 
+### Optional Tools:
 
 Some of the labs in this repository uses the tools below. However, they are not necessary for running containers.
 
 <details><summary> Install Go (optional) </summary>
 
-### Install Go (optional)
+#### Install Go (optional)
 
 Doing a quick Google search, we find a link on [how to install Go (golang) on Ubunt](https://www.cyberciti.biz/faq/how-to-install-gol-ang-on-ubuntu-linux/)u:
 
-#### Method 1: Using Snap 
+##### Method 1: Using Snap 
 
 ```bash
 $ sudo snap install go --classic 
@@ -506,7 +505,7 @@ You should see the following output returned.
 go 1.18.3 from Michael Hudson-Doyle (mwhudson) installed 
 ```
 
-#### Method 2: Using apt-get/apt
+##### Method 2: Using apt-get/apt
 
 ```bash
 $ sudo apt update
@@ -526,7 +525,7 @@ $ go version
 go version go1.18.3 linux/amd64 
 ```
 
-#### Test
+##### Test
 
 Create a simple **hello-world.go** program.
 
@@ -577,11 +576,11 @@ ubuntu , Let's be friends!
 
 <details><summary> Install Node and NPM (optional) </summary>
 
-### Install Node and NPM (optional)
+#### Install Node and NPM (optional)
 
 Since we will use a custom binary that utilizes NPM and NodeJS in some of the labs, we will need to install this.
 
-#### NodeJS
+##### NodeJS
 
 If you try to use *apt-package* manager to install the latest version of node, there's a chance that you'll download the latest version in the Ubuntu app storee and not the lastest release version of NodeJS.
 
@@ -599,7 +598,7 @@ To install the lastest release version of NodeJS, do a quick google search for "
 <img src="Images/lab13currentversionofnodejs.png">
 </p>
 
-#### Use NVM to install NodeJS
+##### Use NVM to install NodeJS
 
 Let's install **nvm** first. This will allow us to use different versions of node.
 
@@ -631,7 +630,7 @@ If you have multiple node versions in your machine, you can switch between them.
 $ nvm use <version-number> 
 ```
 
-#### Use Nodesource to install NodeJS
+##### Use Nodesource to install NodeJS
 
 We can also use Nodesource to install the NodeJS package.
 
@@ -649,7 +648,7 @@ $ npm -v
 
 If it is not installed, follow the next steps.
 
-#### NPM
+##### NPM
 
 ```bash
 sudo apt install -y 
@@ -667,7 +666,7 @@ You can read more about the installation process in this [freeCodeCamp article.]
 
 <details><summary> Sign-up for a Github Account (optional) </summary>
 
-### Sign-up for a Github Account (optional)
+#### Sign-up for a Github Account (optional)
 
 Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code reopsitory.
 
@@ -677,7 +676,7 @@ To sign up for a Github account, click [here](https://github.com/signup).
 
 <details><summary> Sign-up for an AWS Account (optional) </summary>
 
-### Sign-up for an AWS Account (optional)
+#### Sign-up for an AWS Account (optional)
 
 We will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
 
