@@ -2383,7 +2383,7 @@ These operations are inevitable and you will perform these as your application g
 
 
 
-## Kubernetes
+## Kubernetes - In-progress
 
 Kubernetes is an entire universe in itself. Below are bite-sized and easy-to-digect sections for each Kubernetes topic. Go through the topics that interests you, or just dive straight to the labs, your choice! 😀
 
