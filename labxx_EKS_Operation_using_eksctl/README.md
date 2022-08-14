@@ -22,9 +22,9 @@ We will need to do the following before we can create clusters and perform EKS o
 
 
 Step | Choose this value | 
----------|----------|---------
+---------|----------|
 Trusted entity type | AWS service | 
-Use case | KS (Allow EKS to manage clusters in your behalf | C2
+Use case | KS (Allow EKS to manage clusters in your behalf |
 Permission policies | AmazonEKSServiceRolePolicy
 
 For the keypair, store it inside <code>~/.ssh</code> directory.
