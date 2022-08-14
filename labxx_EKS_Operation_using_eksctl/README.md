@@ -21,11 +21,11 @@ We will need to do the following before we can create clusters and perform EKS o
 - [Create a service-linked role](https://us-east-1.console.aws.amazon.com/iamv2/home#/roles)
 
 
-Step | Choose this value | 
----------|----------|
-Trusted entity type | AWS service | 
-Use case | KS (Allow EKS to manage clusters in your behalf |
-Permission policies | AmazonEKSServiceRolePolicy
+    Step | Choose this value | 
+    ---------|----------|
+    Trusted entity type | AWS service | 
+    Use case | KS (Allow EKS to manage clusters in your behalf) |
+    Permission policies | AmazonEKSServiceRolePolicy
 
 For the keypair, store it inside <code>~/.ssh</code> directory.
 
