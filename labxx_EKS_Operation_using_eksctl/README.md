@@ -21,11 +21,11 @@ We will need to do the following before we can create clusters and perform EKS o
 - [Create a service-linked role](https://us-east-1.console.aws.amazon.com/iamv2/home#/roles)
 
 
-    Step | Choose this value | 
-    ---------|----------|---------
-    Trusted entity type | AWS service | 
-    Use case | KS (Allow EKS to manage clusters in your behalf | C2
-    Permission policies | AmazonEKSServiceRolePolicy
+Step | Choose this value | 
+---------|----------|---------
+Trusted entity type | AWS service | 
+Use case | KS (Allow EKS to manage clusters in your behalf | C2
+Permission policies | AmazonEKSServiceRolePolicy
 
 For the keypair, store it inside <code>~/.ssh</code> directory.
 
@@ -37,7 +37,7 @@ Install the following tools by clicking the links:
 - [eksctl](../README.md#pre-requisites) - setup and operation of EKS cluster 
 - [kubectl](../README.md#pre-requisites) - interaction with K8S API server
 
-Once you've installed aws cli, a <code>.aws/credentials</code> file should be automatically created in your home directory. Configure it with the access key for the "k8s-user" that you just created.
+Once you've installed aws cli, a <code>.aws/credentials</code> file should be automatically created in your home directory. You can also create the file yourself. Configure it with the access key for the "k8s-user" that you just created.
 
 ```bash
 # /home/user/.aws/credentials
