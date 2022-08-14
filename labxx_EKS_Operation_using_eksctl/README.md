@@ -73,7 +73,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-    name: eksops-cluster
+    name: eksops
     region: ap-southeast-1 
 
 nodeGroups:
@@ -106,11 +106,11 @@ saved kubeconfig as "/home/joseeden/.kube/config
 
 At the AWS Console, go to the EKS page to verify if the cluster is created.
 
-![](../Images/labxx-eksctldone.png)  
+<!-- ![](../Images/labxx-eksctldone.png)   -->
 
-EKS uses Cloudformation to provision the resources under the hood.
+Recall that Amazon EKS uses Cloudformation to provision the resources under the hood. You can see the stack created in the CloudFormation console.
 
-![](../Images/labxx-eksctl-cfdone.png)  
+<!-- ![](../Images/labxx-eksctl-cfdone.png)   -->
 
 
 To check the running nodes,
@@ -133,10 +133,17 @@ $ eksctl get nodegroup --cluster
 
 ## Scaling Nodegroups
 
+It's always good practice to check the running cluster and nodes.
+
+```bash
+$ eksctl get cluster 
+$ eksctl get nodegroup --cluster eksops
+```
+
 Initially, we set the *desiredCapacity* to 3 in the YAML file. To scale the number of nodes to 5,
 
 ```bash
-$  eksctl scale nodegroup --cluster=eksops-cluster --name=ng-1 --nodes=5
+$  eksctl scale nodegroup --cluster=eksops --name=ng-1 --nodes=5
 ```
 
 Back at the EC2 Console, you should see two additional ndoes being initiallized.
@@ -150,5 +157,12 @@ At the Cloudformation console, you'll see an update in progress.
 We could also scale in to reduce the number of nodes. 
 
 ```bash
-$  eksctl scale nodegroup --cluster=eksops-cluster --name=ng-1 --nodes=2
+$  eksctl scale nodegroup --cluster=eksops --name=ng-1 --nodes=2
 ```
+
+
+## Adding a Nodegroup
+
+
+
+## Deleting a Nodegroup

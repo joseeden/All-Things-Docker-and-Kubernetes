@@ -11,8 +11,17 @@ Ayt, going full steam ahead!
 <img src="Images/docker-6.jpg" width=500>
 </p>
 
+## How to Use this repo
+
+Simply go to your favorite terminal and clone it. You can now browse the different labs and perform each one. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
+
+```bash
+git clone https://github.com/joseeden/All-Things-Docker-and-Kubernetes.git
+```
 
 ## Pre-requisites
+
+Here are some pre-requisites before we can perform the labs. 
 
 ### For the Docker labs:
 
@@ -487,7 +496,7 @@ output = json
 
 ### Optional Tools:
 
-Some of the labs in this repository uses the tools below. However, they are not necessary for running containers.
+Some of the labs in this repository uses the tools below. However, they are not necessary for running containers and Kubernetes.
 
 <details><summary> Install Go (optional) </summary>
 
@@ -2859,11 +2868,11 @@ NodePort            | 30000-32767   | All
 </details>
 
 
-<details><summary> Creating the Cluster: Where to Start? </summary>
+<details><summary> Installation Options </summary>
 
-### Creating the Cluster, Where to Start?
+### Installation Options
 
-To provision a cluster, we must ensure that the control plane and data plane is up and running, which is known as **bootstraping the cluster**. This can be done manually but there's a risk for misconfiguration since we would need to run independent components separately.
+> *The rest of succeeding sections is focused on on-premise implementation of Kubernetes. If you prefer to use cloud platforms such as AWS to run Kubernetes, you may jump to the Kubernetes in the Cloud section.*
 
 There are multiple ways to setup a kubernetes cluster. 
 
@@ -2899,13 +2908,12 @@ Here are some ways to run Kubernetes on your local machine.
 - kind
 - kubeadm
 
-
 </details>
 
 
-<details><summary> Creating the Cluster: Which is the Right Solution? </summary>
+<details><summary> Which is the Right Solution? </summary>
 
-### Creating the Cluster, Which is the Right Solution?
+### Which is the Right Solution?
 
 Before we start running Kubernetes, we must review some considerations. 
 
@@ -2939,7 +2947,6 @@ Checkout these resources to learn more about installation considerations:
 
 - [Getting started](https://kubernetes.io/docs/setup/)
 
-
 </details>
 
 
@@ -2962,6 +2969,8 @@ You should be able to install Kubernetes by following the steps in the pre-requi
 <details><summary> Bootsrapping a Cluster with kubeadm </summary>
 
 ### Bootsrapping a Cluster with kubeadm 
+
+Before we can provision a cluster, we must ensure that the control plane and data plane is up and running, which is known as **bootstraping the cluster**. This can be done manually but there's a risk for misconfiguration since we would need to run independent components separately.
 
 We'll use kubeadm to create our cluster. The phases include:
 
@@ -3060,9 +3069,31 @@ Scaling in Kubernetes is done using the **Replication Controller.**
 </details>
 
 
-<details><summary> xxxxxx </summary>
+<details><summary> CNCF Projects </summary>
 
-### xxxxxx
+### CNCF Projects   
+
+Cloud Native Computing Foundation (CNCF) is the open source, vendor-neutral hub of cloud native computing, hosting projects like Kubernetes and Prometheus to make cloud native universal and sustainable. 
+
+CNCF manages different projects which extends the Kubernetes solution to provide more features. Here's some of the projects:
+
+- **CRI-O** - A Kubernetes container runtime that manages the containers.
+
+- **CNI** - pluggable common network interface
+
+- **Jaeger** - an operator for packaging, deploying, and managing applications
+
+- **Rook** - a storage orchestrator for Kubernetes 
+
+You can read about their organizations and the projects that they maintain [here](https://www.cncf.io/).
+
+Each of these projects will have different statuses as defined by CNCF.
+
+- **Sandbox** - project is new and used by innovators only 
+- **Incubating** - projects are slowly being adopted
+- **Graduated** - project becomes a part of the K8s environment
+
+
 
 </details>
 
@@ -3127,6 +3158,10 @@ With EKS:
 - integrations with other AWS components to build applications (S3, Redshift, RDS, Lambda, Cognito, etc.)
 - AMI for nodes can be customized
 - container images can be stored through ECR
+
+In the image below, we can see which components that Amazon EKS takes care for us and which components we need to manage as users.
+
+![](Images/whateksmanages.png)  
 
 When you create you EKS cluster, AWS takes care of all of these under the hood:
 1. master node is set up for HA
