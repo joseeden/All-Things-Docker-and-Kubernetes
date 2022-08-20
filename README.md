@@ -3,12 +3,13 @@
 
 This repository will contain my notes, drafts, and projects on containerization and orchestration.
 
-It's still at an early stage, but building (and breaking) and deploying containerized workloads are one of the targets I have on my list for ~~2021~~ the present.
+It's still at an early stage, but building (and breaking) and deploying containerized workloads are one of the targets I have on my list for ~~2021~~ the present. Ayt, full steam ahead!
 
-Ayt, going full steam ahead!
-
-<p align=center>
+<!-- <p align=center>
 <img src="Images/docker-6.jpg" width=500>
+</p> -->
+<p align=center>
+<img src="Images/us-7-banner.png" width=900>
 </p>
 
 ## How to Use this repo
@@ -311,7 +312,7 @@ For more details, check this [repository](https://github.com/joseeden/All-Things
 
 <details><summary> Install Docker Compose</summary>
  
-##### Install Docker Compose
+#### Install Docker Compose
 
 If you're using Ubuntu, you can install docker-compose by simply running the two commands below:
 
@@ -326,7 +327,7 @@ Read more about it in [Install Docker Compose CLI plugin page.](https://docs.doc
 
 <details><summary> Error: Cannot connect to the Docker daemon </summary>
 
-##### Error: Cannot connect to the Docker daemon
+#### Error: Cannot connect to the Docker daemon
 
 In case you encounter this message when you test Docker for the first time:
 
@@ -371,7 +372,7 @@ This section discuss how to install Kubernetes on virtual machines or bare metal
 **Networking**
 - Connectivity between all nodes 
 
-##### installation
+##### Installation
 
 Required packages (will be installed on ALL nodes):
 
@@ -427,9 +428,9 @@ $ sudo systemctl status docker
 
 #### Install CLI Tools
 
-Install the following tools by clicking the tool name. The link should bring you to the official installation pages. Follow the steps provided.
+Install the following tools by clicking the tool name. The link should bring you to the official installation pages. Note that only the kubectl is necessary for running Kubernetes locally but I recommend installing the other CLI tools too. 
 
-- [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - used by eksctl to grab authentication token
+- [aws cli v2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - used by eksctl to grab authentication token
 - [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) - setup and operation of EKS cluster 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) - interaction with K8S API server
 
@@ -475,19 +476,6 @@ To verify the kubectl version:
 $ kubectl version --output=json  
 ```
 
-Note that after installing AWS CLI, you will need to configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
-
-You would also need to [create an access key in the AWS Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).
-
-```bash
-# /home/user/.aws/credentials
-
-[default]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-```
 
 </details>
 
@@ -498,9 +486,9 @@ output = json
 
 Some of the labs in this repository uses the tools below. However, they are not necessary for running containers and Kubernetes.
 
-<details><summary> Install Go (optional) </summary>
+<details><summary> Go </summary>
 
-#### Install Go (optional)
+#### Install Go 
 
 Doing a quick Google search, we find a link on [how to install Go (golang) on Ubunt](https://www.cyberciti.biz/faq/how-to-install-gol-ang-on-ubuntu-linux/)u:
 
@@ -583,9 +571,9 @@ ubuntu , Let's be friends!
 </details>
 
 
-<details><summary> Install Node and NPM (optional) </summary>
+<details><summary> Node and NPM  </summary>
 
-#### Install Node and NPM (optional)
+#### Install Node and NPM 
 
 Since we will use a custom binary that utilizes NPM and NodeJS in some of the labs, we will need to install this.
 
@@ -673,19 +661,19 @@ You can read more about the installation process in this [freeCodeCamp article.]
 
 </details>
 
-<details><summary> Sign-up for a Github Account (optional) </summary>
+<details><summary> Github Account </summary>
 
-#### Sign-up for a Github Account (optional)
+#### Create a Github Account 
 
-Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code reopsitory.
+Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code repository.
 
 To sign up for a Github account, click [here](https://github.com/signup).
 
 </details>
 
-<details><summary> Sign-up for an AWS Account (optional) </summary>
+<details><summary> AWS Account </summary>
 
-#### Sign-up for an AWS Account (optional)
+#### Create an AWS Account 
 
 We will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
 
@@ -694,6 +682,131 @@ Note that an AWS account is also need for the ECS and EKS labs in this repositor
 To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/free/).
 
 </details>
+
+<details><summary> AWS CLI </summary>
+
+#### AWS CLI
+
+To install AWS CLI (along with other CLI tools), you can check out the [Install CLI Tools](#install-cli-tools) section.
+
+If you've installed AWS CLI before then there is a chance that you're using the version 1. You can do either of the following:
+
+- [Replace version 1 with version 2](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-instructions.html#cliv2-migration-instructions-migrate) 
+- [Install both version side-by-side](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-instructions.html#cliv2-migration-instructions-migrate)
+
+For this lab, I did a side-by-side install by retaining the V1 and creating an alias for it.
+
+```bash
+$ sudo su -
+$ which aws 
+$ cd /usr/bin && mkdir aws1 && mv aws aws1 
+```
+
+Then I [installed AWS CLI version 2](#install-cli-tools).
+
+```bash
+$ aws --version
+aws-cli/2.7.22 Python/3.9.11 Linux/5.10.102.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.20 prompt/off 
+```
+
+</details>
+
+<details><summary> IAM User, Access Key, Credentials, and Policies </summary>
+
+#### IAM User, Access Key, Credentials File, and Policies
+
+
+**Create the IAM Policy**
+
+Create the **EKSFullAccess** policy that allows us access to EKS and ECR.
+
+1. Go to IAM console.
+2. In the left panel, click Policies.
+3. Click Create Policy.
+4. Choose the JSON tab and paste the policy below.
+5. Click Review Policy.
+6. Give the policy the name and description.
+
+    Name: EKSFullAccess
+    Description: Allows access to EKS and ECR resources.
+
+7. Finally, click Create Policy.
+
+
+**Create the IAM User, Access Key, and Keypair**
+
+Refer to the links below.
+
+- [Create a "k8s-kp.pem" keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
+
+- [Create a "k8s-user" user with admin access](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
+
+- [Create an access key for "k8s-user"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
+
+For the keypair, store it inside <code>~/.ssh</code> directory.
+
+
+**Create the IAM Group**
+
+Create the **EKS-lab** group.
+
+1. Go to IAM console.
+2. In the left panel, click User Groups.
+3. Click Create group
+4. Give it a user group name: EKS-lab
+5. Scroll below to the Attach User section. Choose "k8s-user" and the current user you're signed in to.
+6. Scroll below to the Attach permission policies.
+7. Filter and add the following policy.
+
+    - AmazonEC2FullAccess
+    - AmazonS3FullAccess
+    - AmazonVPCFullAccess
+    - IAMReadOnlyAccess
+    - AWSCloudFormationFullAccess
+    - EKSFullAccess (recently created)
+    - AmazonSNSReadOnlyAccess (for CloudFormation)
+
+8. Finally, click Create group.
+
+
+
+**Create the Service-linked Role**
+
+Refer to the link below.
+
+- [Create a service-linked role](https://us-east-1.console.aws.amazon.com/iamv2/home#/roles)
+
+
+    Step | Choose this value | 
+    ---------|----------|
+    Trusted entity type | AWS service 
+    Use case | KS (Allow EKS to manage clusters in your behalf) 
+    Permission policies | AmazonEKSServiceRolePolicy
+
+
+**Configure the Credentials File**
+
+In your terminal, configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
+
+```bash
+# /home/user/.aws/credentials
+
+[eksprofile]
+aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
+region = ap-southeast-1
+output = json
+``` 
+
+Use this profile be setting the variable.
+
+```bash
+ 
+```
+
+
+</details>
+
 
 ## Docker Basics
 
@@ -3055,18 +3168,18 @@ Scaling in Kubernetes is done using the **Replication Controller.**
 </details>
 
 
-<details><summary> xxxxxx </summary>
+<!-- <details><summary> xxxxxx </summary>
 
 ### xxxxxx
 
-</details>
+</details> -->
 
 
-<details><summary> xxxxxx </summary>
+<!-- <details><summary> xxxxxx </summary>
 
 ### xxxxxx
 
-</details>
+</details> -->
 
 
 <details><summary> CNCF Projects </summary>
@@ -3170,6 +3283,143 @@ When you create you EKS cluster, AWS takes care of all of these under the hood:
 4. CA is setup for TLS.
 5. Autoscaling is set up.
 6. Loadbalancers are provisioned (NLB and ELB)
+
+</details>
+
+<details><summary> Amazon EKS - Cluster AutoScaler </summary>
+
+### Amazon EKS - Cluster AutoScaler
+
+The Cluster AutoScaler is responsible for dynamically scaling (in and out) the nodes within a nodegroup.
+
+- not specific to AWS, this is a general Kubernetes concept
+- can be based on availability/requests,
+- can scale if node is under-utilized
+- also possible to have a mixture of on-demand and spot instances
+- avaialble RAM and number of CPUs should be similar throughout the noes
+
+For stateful workloads:
+
+- use a nodegroup with single availability zone (AZ)
+- underlying EBS volume cannot be shared across AZ
+
+For stateless workloads:
+
+- use a nodegroup with multiple availability zones (AZs)
+
+To learn more, check out this [Github repository](https://github.com/kubernetes/autoscaler).
+
+</details>
+
+
+<details><summary> Error: Cannot View Kubernetes Nodes  </summary>
+
+## Error: Cannot View Kubernetes Nodes 
+
+You might get the following error when checking the EKS cluster through the AWS Console.
+
+```bash
+Your current user or role does not have access to Kubernetes objects on this EKS cluster 
+```
+
+You may need to attach the inline policy to the group.
+
+![](../Images/labxx-attachinlinepolicytogroupjson.png)  
+
+In the next page, choose the JSON tab and enter the following policy. Make sure to replace 111122223333 with your account ID.
+
+```bash
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:ListFargateProfiles",
+                "eks:DescribeNodegroup",
+                "eks:ListNodegroups",
+                "eks:ListUpdates",
+                "eks:AccessKubernetesApi",
+                "eks:ListAddons",
+                "eks:DescribeCluster",
+                "eks:DescribeAddonVersions",
+                "eks:ListClusters",
+                "eks:ListIdentityProviderConfigs",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ssm:GetParameter",
+            "Resource": "arn:aws:ssm:*:111122223333:parameter/*"
+        }
+    ]
+}   
+```
+
+Click **Review Policy**, then in the next page, create a name for the policy. Click **Create Policy.** 
+
+Next, create a rolebinding. If you need to change the Kubernetes group name, namespace, permissions, or any other configuration in the file, then download the file and edit it before applying it to your cluster
+
+```bash
+$ curl -o eks-console-full-access.yaml https://s3.us-west-2.amazonaws.com/amazon-eks/docs/eks-console-full-access.yaml
+```
+```bash
+$ curl -o eks-console-restricted-access.yaml https://s3.us-west-2.amazonaws.com/amazon-eks/docs/eks-console-restricted-access.yaml 
+```
+
+You can apply any of the two YAML files.
+
+```bash
+$ kubectl apply -f eks-console-full-access.yaml
+```
+```bash
+$ kubectl apply -f eks-console-restricted-access.yaml
+```
+
+Lastly, map the IAM user or role to the Kubernetes user or group in the aws-auth ConfigMap using eksctl.
+
+```bash
+export MYCLUSTER=<put-name-of-the-cluster-here> 
+export MYREGION=<put-region-code-here> 
+export MYACCOUNTID=<put-account-id-here>
+export MYUSER=<put-user-id-here>
+```
+
+View the current mappings.
+
+```bash
+eksctl get iamidentitymapping --cluster $MYCLUSTER --region=$MYREGION 
+```
+
+Add a mapping for a role.
+
+```bash
+eksctl create iamidentitymapping \
+    --cluster $MYCLUSTER \
+    --region=$MYREGION \
+    --arn arn:aws:iam::$MYACCOUNTID:role/my-console-viewer-role \
+    --group eks-console-dashboard-full-access-group \
+    --no-duplicate-arns 
+```
+
+Add a mapping for a user.
+
+```bash
+eksctl create iamidentitymapping \
+    --cluster $MYCLUSTER \
+    --region=$MYREGION \
+    --arn arn:aws:iam::$MYACCOUNTID:user/$MYUSER \
+    --group eks-console-dashboard-restricted-access-group \
+    --no-duplicate-arns
+```
+
+To learn more, check out these links:
+
+- [Can't see Nodes on the Compute tab or anything on the Resources tab](https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting_iam.html#security-iam-troubleshoot-cannot-view-nodes-or-workloads)
+
+- [View Kubernetes resources](https://docs.aws.amazon.com/eks/latest/userguide/view-kubernetes-resources.html#view-kubernetes-resources-permissions)
 
 </details>
 
@@ -3281,6 +3531,10 @@ Other resources on Kubernetes:
 
 - [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
 
+Other resources on Kubernetes:
+
+- [eksctl - Config file schema](https://eksctl.io/usage/schema/#config-file-schema)
+
 Github repositories:
 
 - [kubernetes/kops](https://github.com/kubernetes/kops)
@@ -3290,6 +3544,8 @@ Github repositories:
 - [wardviaene/devops-box (devops box with pre-built tools)](https://github.com/wardviaene/devops-box)
 
 - [kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+
+- [Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler)
 
 
 Metrics, Logging, Health Checks, and Tracing:

@@ -1,0 +1,29 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "IAMPassthru",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PutRolePolicy",
+                "iam:PassRole",
+                "iam:DeleteRole",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DeleteOpenIDConnectProvider",
+                "iam:CreateRole",
+                "iam:CreateServiceLinkedRole",
+                "iam:CreateOpenIDConnectProvider",
+                "iam:CreateInstanceProfile",
+                "iam:AttachRolePolicy"
+            ],
+            "Resource": [
+                "arn:aws:iam::848587260896:role/*",
+                "arn:aws:iam::848587260896:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com",
+                "arn:aws:iam::848587260896:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com/*",
+                "arn:aws:iam::848587260896:oidc-provider/oidc.eks.us-west-2.amazonaws.com",
+                "arn:aws:iam::848587260896:oidc-provider/oidc.eks.us-west-2.amazonaws.com/*"
+            ]
+        }
+    ]
+}   

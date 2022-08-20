@@ -27,7 +27,6 @@ You might find this entire lab to be exhaustingly long as there are a lot of ste
 
 I've condensed the pages and contained them into collapsible sections so you can easily jump from one section to another by clicking the ▶ button. Once you're done with one section, you can simply collapse it and move to the next one.
 
-<br>
 
 ## The Workflow
 
@@ -59,15 +58,15 @@ Here's another way to look at it:
  
 </details>
 
-<br>
 
 ## The Project - Application
 
 We'll work on a fairly simple React code and deploy it in a container. We'll be focusing less on the actual code and more on how we can wrap it in Docker. 
 
 <details><summary> Click me to read more! </summary>
+<br>
 
-> *Note: If you are using Windows machines, you might encounter some issues. You may refer to the [Issues Encountered for Windows-based Machines](#issues-encountered-for-windows-based-machines)**
+> *Note: If you are using Windows machines, you might encounter some issues. You may refer to the [Issues Encountered on Windows-based Machines](#issues-encountered-for-windows-based-machines)**
 
 Before we proceed, make sure you've installed NodeJS and NPM. You can check out the [pre-requisites section]((../README.md#pre-requisites)) to know more.
 
@@ -295,7 +294,7 @@ Here's what we'll try to do:
 
 </details>
 
-<br>
+----------------------------------------------
 
 ## Time to Go DEV
 
@@ -600,7 +599,7 @@ We've managed to containerize the React application and map the volume to a dire
 
 This allows us to modify the JS file and be applied to the application immediately without going through the entire process of rebuilding the image and running a new container.
 
-**Multiple shell parameters** We've been running the **docker run** command with the parameters and arguments. If you have a few parameters tadd, it's no problem to run them on the terminal. But this becomes tedious and is more prone to error if you're introducing several parameters when running this command.
+**Multiple shell parameters** We've been running the **docker run** command with the parameters and arguments. If you have a few parameters to add, it's no problem to run them on the terminal. But this becomes tedious and more prone to error if you're introducing several parameters when running this command.
 
 As a solution, we can define this parameters in a **docker-compose.yml** file in the same directory as the **dockerfile.dev**.
 
@@ -653,7 +652,7 @@ services:
 
 </details>
 
-Notice the attributes under **build** block. The **context** means docker-compose will look for the dockerfile in a specifc directory. In this case, it will look in the current working directory which is represented by "."
+Notice the attributes under **build** block. The **context** means docker-compose will look for the dockerfile in a specific directory. In this case, it will look in the current working directory which is represented by "."
 
 In the **volumes** block, we specify the bookmarked **node_modules** inside the container so that Docker won't need to look for this directory in the volume outside the container. We also see the ".:/app" which means the current working directory on the localhost will be mapped to the /app directory inside the container.
 
@@ -822,7 +821,7 @@ Note that this isn't the most efficient way to reflect the changes to the test f
 
 We sort of did used docker-compose in the first approach when we spin up the containers but we just attached to the running container and run the 'npm run test' again to make sure that the changes in the test files are applied.
 
-This second appraoch is slight different since we'll modify the **docker-compose.yml**. We'll add a second service that's intended for running tests only. This means it'll actuall create two containers, one for the project and a second one for testing the project. 
+This second approach is slight different since we'll modify the **docker-compose.yml**. We'll add a second service that's intended for running tests only. This means it'll actuall create two containers, one for the project and a second one for testing the project. 
 
 <details><summary> docker-compose.yml </summary>
 
@@ -884,7 +883,7 @@ $ docker ps
 
 </details>
 
-<br>
+----------------------------------------------
 
 ## Time to Go Prod
 
@@ -1036,7 +1035,7 @@ Open your web browser and navigate to your IP address through port 8080. You sho
  
 </details>
 
-<br>
+----------------------------------------------
 
 ## What's Next 
 
@@ -1044,7 +1043,9 @@ Proceed to the next lab to deploy our containerized app to the outside world. Bu
 
 You've done well.
 
-## Issues Encountered for Windows-based Machines 
+----------------------------------------------
+
+## Issues Encountered on Windows-based Machines 
 
 Below are just some of errors you may encounter if you're doing this lab in a Windows machine.
 
