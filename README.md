@@ -1,4 +1,5 @@
 
+
 # All Things Docker and Kubernetes #
 
 This repository will contain my notes, drafts, and projects on containerization and orchestration.
@@ -479,14 +480,25 @@ $ kubectl version --output=json
 
 </details>
 
+<details><summary> Setup EKS Access on AWS </summary>
+
+#### Setup EKS Access on AWS
+
+This is needed if you're going to run Kubernetes using the Amazon EKS (Elastic Kubernetes Service).
+
+Having said, I've added this under the **Optional Tools** section. Scroll down and check out this page: 
+
+![IAM User, Access Key, Credentials File, and Policies](#iam-user-access-key-credentials-file-and-policies)
 
 </details>
+
+<!-- </details> -->
 
 ### Optional Tools:
 
 Some of the labs in this repository uses the tools below. However, they are not necessary for running containers and Kubernetes.
 
-<details><summary> Go </summary>
+<details><summary> Install Go </summary>
 
 #### Install Go 
 
@@ -571,7 +583,7 @@ ubuntu , Let's be friends!
 </details>
 
 
-<details><summary> Node and NPM  </summary>
+<details><summary> Install Node and NPM  </summary>
 
 #### Install Node and NPM 
 
@@ -661,7 +673,7 @@ You can read more about the installation process in this [freeCodeCamp article.]
 
 </details>
 
-<details><summary> Github Account </summary>
+<details><summary> Create a Github Account </summary>
 
 #### Create a Github Account 
 
@@ -669,9 +681,55 @@ Since we will be implementing CICD in some of the labs, we will need to set this
 
 To sign up for a Github account, click [here](https://github.com/signup).
 
+
 </details>
 
-<details><summary> AWS Account </summary>
+<details><summary> Setup Git Locally </summary>
+
+#### Setup Git Locally
+
+In addition to creating the Github account, you will also need to setup Git in your machine.
+
+- [Add your SSH keys to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+- [Install Git on your computer](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+- [Configure Git](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
+
+</details>
+
+
+<details><summary> Setup Travis CI </summary>
+
+#### Setup Travis CI 
+
+Travis CI is an opensource CI tool which we can use to build and test our project. Wherever changes are pushed to our Github repo, Travis CI automatically pulls the code and allows us to run tests on it.
+
+Once the code passed the test, Travis CI can automatically deploy our code to AWS.
+
+To setup Travis CI, Go to the [Travis CI site](https://app.travis-ci.com/signup) and sign up using your SCM account. Choose **Sign up with Github**.
+
+![](../Images/lab14signuptravisci.png)  
+
+In the next page, choose **Authorize Travis CI.**
+You may need to confirm your account through the email sent to your email address.
+
+In the upper right, click your profile avatar and select Settings. 
+
+We will need to select a plan before we can use Travis CI. Choose the **Free Trial plan** and fill up your personal details. A valid credit/debit card number is also needed to proceed. 
+
+![](../Images/lab14selectfreeplantravisci.png)  
+
+In the Repositories tab, click the green **Activate** button to integrate Travis CI with your Github account. In the next page, click **Approve and install.**
+
+![](../Images/lab14travisciactivate.png)  
+
+Click on the Dashboard tab at the top to view all the Github repositories that are synced with Travis CI.
+
+</details>
+
+
+<details><summary> Create an AWS Account </summary>
 
 #### Create an AWS Account 
 
@@ -683,9 +741,9 @@ To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/fre
 
 </details>
 
-<details><summary> AWS CLI </summary>
+<details><summary> Install AWS CLI </summary>
 
-#### AWS CLI
+#### Install AWS CLI
 
 To install AWS CLI (along with other CLI tools), you can check out the [Install CLI Tools](#install-cli-tools) section.
 
@@ -711,12 +769,11 @@ aws-cli/2.7.22 Python/3.9.11 Linux/5.10.102.1-microsoft-standard-WSL2 exe/x86_64
 
 </details>
 
-<details><summary> IAM User, Access Key, Credentials, and Policies </summary>
+<details><summary> Setup IAM User, Access Key, Credentials, and Policies </summary>
 
 #### IAM User, Access Key, Credentials File, and Policies
 
-
-**Create the IAM Policy**
+##### Create the IAM Policy
 
 Create the **EKSFullAccess** policy that allows us access to EKS and ECR.
 
@@ -730,23 +787,40 @@ Create the **EKSFullAccess** policy that allows us access to EKS and ECR.
     Name: EKSFullAccess
     Description: Allows access to EKS and ECR resources.
 
+    ```bash
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "EKSFullAccess",
+                "Effect": "Allow",
+                "Action": [
+                    "eks:*",
+                    "ecr:*"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }    
+    ```
+
 7. Finally, click Create Policy.
 
 
-**Create the IAM User, Access Key, and Keypair**
+##### Create the IAM User, Access Key, and Keypair
 
 Refer to the links below.
 
 - [Create a "k8s-kp.pem" keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
 
-- [Create a "k8s-user" user with admin access](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
+- [Create a "k8s-user"](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
 
 - [Create an access key for "k8s-user"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
 
 For the keypair, store it inside <code>~/.ssh</code> directory.
 
 
-**Create the IAM Group**
+##### Create the IAM Group
 
 Create the **EKS-lab** group.
 
@@ -763,14 +837,15 @@ Create the **EKS-lab** group.
     - AmazonVPCFullAccess
     - IAMReadOnlyAccess
     - AWSCloudFormationFullAccess
+    - AmazonEKSServicePolicy
+    - AmazonEKSClusterPolicy
     - EKSFullAccess (recently created)
     - AmazonSNSReadOnlyAccess (for CloudFormation)
 
 8. Finally, click Create group.
 
 
-
-**Create the Service-linked Role**
+##### Create the Service-linked Role
 
 Refer to the link below.
 
@@ -784,24 +859,33 @@ Refer to the link below.
     Permission policies | AmazonEKSServiceRolePolicy
 
 
-**Configure the Credentials File**
+##### Configure the Credentials File
 
 In your terminal, configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
 
 ```bash
 # /home/user/.aws/credentials
 
-[eksprofile]
+[ekslab]
 aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
 aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
 region = ap-southeast-1
 output = json
 ``` 
 
-Use this profile be setting the variable.
+You can use a different profile name. To use the profile, export it as a variable.
 
 ```bash
- 
+$ export AWS_PROFILE=ekslab
+```
+
+To verify, we can run the commands below:
+
+```bash
+$ aws configure list 
+```
+```bash
+$ aws sts get-caller-identity 
 ```
 
 
@@ -3235,12 +3319,19 @@ ECS is a proprietary Docker management service developed first to compete with K
 - uses JSON task definition
 - similar with EKS in many ways but the main difference is that it's proprietary 
 
-Fargate, on the other hand, is a container service that is ddone in a serverless fashion.
+Fargate, on the other hand, is a container service that is done in a serverless fashion.
 
-- this means no EC2 instance is needed
-- Fargate can be used with EKS and ECS
+- no node to manage
 - No scaling management
+- Fargate can be used with EKS and ECS
 - JSON task definition
+- only pay for active pods, not active node
+
+Now, if you decide to go for Fargate, here are some important reminders:
+
+- container service needs to map tp Fargate CPU or memory tier
+- mapping is based on largest sum of resources
+- mapping also consumes 250M cores, and 512Mi memory
 
 </details>
 
@@ -3314,7 +3405,7 @@ To learn more, check out this [Github repository](https://github.com/kubernetes/
 
 <details><summary> Error: Cannot View Kubernetes Nodes  </summary>
 
-## Error: Cannot View Kubernetes Nodes 
+### Error: Cannot View Kubernetes Nodes 
 
 You might get the following error when checking the EKS cluster through the AWS Console.
 
@@ -3378,7 +3469,7 @@ $ kubectl apply -f eks-console-full-access.yaml
 $ kubectl apply -f eks-console-restricted-access.yaml
 ```
 
-Lastly, map the IAM user or role to the Kubernetes user or group in the aws-auth ConfigMap using eksctl.
+Next, map the IAM user or role to the Kubernetes user or group in the aws-auth ConfigMap using eksctl.
 
 ```bash
 export MYCLUSTER=<put-name-of-the-cluster-here> 

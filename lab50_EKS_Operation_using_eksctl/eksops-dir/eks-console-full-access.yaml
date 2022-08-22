@@ -3,8 +3,7 @@ kind: ClusterRole
 metadata:
   name: eks-console-dashboard-full-access-clusterrole
 rules:
-- apiGroups:
-  - ""
+- apiGroups: [""]
   resources:
   - nodes
   - namespaces
@@ -21,6 +20,7 @@ rules:
   - serviceaccounts
   - services
   verbs:
+  - watch
   - get
   - list
 - apiGroups:
@@ -111,7 +111,6 @@ metadata:
 subjects:
 - kind: Group
   name: eks-console-dashboard-full-access-group
-  #name: Admin
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -152,7 +152,7 @@ This run tests associated with the project. All tests should pass before we can 
 **npm run build**
 This concatenates all the Javascript projects files into one single file. This file will then be served to the production environment.
 
-Let's go back to our React app, **proj-eden-frontend**.
+Let's go now to our React app, **proj-eden-frontend**.
 
 ```bash
 $ cd proj-eden-frontend
@@ -223,7 +223,7 @@ These are the two files which we'll serve as a website.
 
 ```bash
 $ ll build/index.html 
-$ ll build/src/App.js
+$ ll src/App.js
 ```
 
 #### npm run start 
@@ -298,7 +298,7 @@ Here's what we'll try to do:
 
 ## Time to Go DEV
 
-We'll start with working on the our code and deploy it inside a container in a development (DEV) environment. After that, we'll run simple tests on the environment.
+We'll now start working on the code and deploy it inside a container in a development (DEV) environment. After that, we'll run simple tests on the environment.
 
 <details><summary> Click me to read more! </summary>
 
@@ -321,6 +321,12 @@ Let's start with creating the dockerfile for DEV inside our project directory.
 <details><summary> Click me to read more! </summary>
 
 #### Create the Dockerfile and Build the Image
+
+Make sure you're on the correct directory.
+
+```bash
+$ cd ~/lab13_Big_Project/proj-eden-frontend
+```
 
 ```bash
 $ vim dockerfile.dev
@@ -356,16 +362,16 @@ CMD ["npm", "run", "start"]
 </details>
 <br>
 
-Build the image. Give it a image name using the "-t" flag followed by the name. 
+Build the image. Give it a image name using the "-t" flag followed by the name. This would take a few minutes
 
 ```bash
-$ docker build . -t proj-eden-frontend -f dockerfile.dev 
+$ sudo docker build . -t proj-eden-frontend -f dockerfile.dev 
 ```
 
-You should see two images created.
+You should see two images created. The **node** image is the base image for the **proj-eden-frontend** image.
 
 ```bash
-$ docker images
+$ sudo docker images
 
 REPOSITORY           TAG       IMAGE ID       CREATED         SIZE
 proj-eden-frontend   latest    332f15e15139   2 minutes ago   532MB
@@ -374,10 +380,10 @@ node                 alpine    515db77e67c7   10 days ago     174MB
 
 #### Run the Container 
 
-Start a container from the dockerfile. We'll also expose the container's port 3000 and map it to our local machine's port 4002. You can choose any port in your machine but we'll use 4002 here.
+Start a container from the dockerfile. We'll also expose the container's port 3000 and map it to our local machine's port 4002. You can choose any port in your machine but we'll use 4002 here. Also, run the container in detached mode so it doesn't take over the terminal.
 
 ```bash
-$ docker run -p 4002:3000 proj-eden-frontend
+$ sudo docker run -d -p 4002:3000 proj-eden-frontend
 ```
 
 If you haven't recorded your local machine's IP address, you can check them again.
@@ -392,7 +398,7 @@ Open your web browser and navigate to the IP address through port 4002. You shou
 <img src="../Images/lab13containerizedreactapp.png">
 </p>
 
-Going back to our dockerfile, notice that after copying the package.json, we also copied the rest of the other files onto the container, include the main javascript file and the HTml files that'll be served through the hosting provider.
+Going back to our dockerfile, notice that after copying the package.json, we also copied the rest of the other files onto the container, include the main javascript file and the HTML files that'll be served through the hosting provider.
 
 <details><summary> dockerfile.dev </summary>
 
@@ -407,16 +413,23 @@ WORKDIR '/app'
 COPY package.json .
 
 # Installs npm
-RUN npm install
+RUN npm install --silent
 
 # Copy the remaining files
 COPY . .
 
+# If you're using Ubuntu, uncomment the two line below.
+# This is because Ubuntu mounts volumes using the root user.
+# If you're using different linux distro, comment out these two lines
+RUN chown -R node /app/node_modules
+USER node
+
 # Starts development server 
 CMD ["npm", "run", "start"]
 ```
+ 
 </details>
-<br>
+</br>
 
 The problem with this approach is when we need to edit the Javascript file locally, it will not be automatically reflected to the application running inside the container. This is because the container is launched from the dockerfile that uses the unmodified Javascript file.
 
@@ -436,7 +449,7 @@ To ensure that changes are immediately reflected to the application, we would ne
 To map a directory inside the container to a directory on the local host(can be anywhere, as long as it's outside the container and the container can access it), we can use the commmand below:
 
 ```bash
-$ docker run -p 4002:3000 -v /app/node_modules -v $(pwd):/app <image-id> 
+$ sudo docker run -d -p 4002:3000 -v /app/node_modules -v $(pwd):/app <image-id> 
 ```
 <p align=center>
 <img src="../Images/lab13mapvolumes2.png">
@@ -455,7 +468,7 @@ In the command above, we have following arguments:
 Recall that we deleted the **node_modules** folder awhile back. Now when we start up the container using the command below,
 
 ```bash
-$ docker run -p 4002:3000 -v $(pwd):/app <image-id> 
+$ sudo docker run -d -p 4002:3000 -v $(pwd):/app <image-id> 
 ```
 
 It will look for the modules folder outside the container. It won't find any of the modules and this will return an error.
@@ -467,14 +480,25 @@ It will look for the modules folder outside the container. It won't find any of 
 To make sure that the container doesn't look for the **node_modules** folder outside the container and instead use the **node_modules** that will be installed inside the container, we add a "bookmark" to the modules directory inside the container,
 
 ```bash
-$ docker run -p 4002:3000 -v /app/node_modules -v $(pwd):/app <image-id> 
+$ sudo docker run -d -p 4002:3000 -v /app/node_modules -v $(pwd):/app <image-id> 
 ```
 
 #### Let's now test this 
 
 We want to make sure that any changes we make to the project files will automatically be displayed on the application that's running inside the container.
 
-Let's try to modify a javascript file. Replace the:
+Let's try to modify a javascript file. Inside Vim, display the line number by typing the second command.
+
+```bash
+$ vim src/App.js 
+```
+```bash 
+:set nu 
+```
+
+Type "i" to enter insert mode. This will allow you to edit the file.
+
+In line 10, replace the:
 
 ```bash
 Edit <code>src/App.js</code> and save to reload. 
@@ -519,66 +543,48 @@ export default App;
 ```
 
 </details>
+<br>
 
-**Note:** If you're using Ubuntu, you may need to modify your **dockerfile.dev**. You can check out this [Stackoverflow discussion](https://stackoverflow.com/questions/67087735/eacces-permission-denied-mkdir-usr-app-node-modules-cache-how-can-i-creat?answertab=trending#tab-top) for more details.
+Press the ESC tab and type the command below to save.
 
-<details><summary> dockerfile.dev </summary>
- 
 ```bash
-# Uses node:alpine as base image
-FROM node:alpine
-
-# Creates working directory
-WORKDIR '/app' 
-
-# Copies file to working directory 
-COPY package.json .
-
-# Installs npm
-RUN npm install --silent
-
-# Copy the remaining files
-COPY . .
-
-# If you're using Ubuntu, uncomment the two line below.
-# This is because Ubuntu mounts volumes using the root user.
-# If you're using different linux distro, comment out these two lines
-RUN chown -R node /app/node_modules
-USER node
-
-# Starts development server 
-CMD ["npm", "run", "start"]
+:wq! 
 ```
- 
-</details>
-</br>
 
-Re-build the image again, but just this time.
+Going back to the browser, do a refresh. We see that the change is not reflected on the application.
+
+<p align=center>
+<img src="../Images/lab13containerizedreactapp.png">
+</p>
+
+As we've seen, the changes isn't applied because this application is still spun up from the first image.
+
+Re-build the image again. 
 
 ```bash
-$ docker build . -t proj-eden-frontend -f dockerfile.dev 
+$ sudo docker build . -t proj-eden-frontend -f dockerfile.dev 
 ```
 ```bash
-$ docker images
+$ sudo docker images
 REPOSITORY           TAG       IMAGE ID       CREATED         SIZE
 proj-eden-frontend   latest    c6b96a053685   3 seconds ago   532MB
 <none>               <none>    332f15e15139   3 hours ago     532MB
 node                 alpine    515db77e67c7   10 days ago     174MB 
 ```
 
-Run the container with the two "-v" flag.
+Leave the first container running and create a second container with the two "-v" flag. Map this container to port 4003. 
 
 ```bash
-$ docker run -p 4002:3000 -v /app/node_modules -v $(pwd):/app proj-eden-frontend
+$ sudo docker run -d -p 4003:3000 -v /app/node_modules -v $(pwd):/app proj-eden-frontend
 ```
 
-Going back to the browser, navigate to your IP address through port 4002. It should how display the new message.
+Going back to the browser, navigate to your IP address through port 4003. It should now display the new message.
 
 <p align>
 <img src="../Images/lab13reactappneedforspeed.png">
 </p>
 
-Edit the **App.js** again and change the message to:
+Back in your terminal, edit the **src/App.js** again and change the message to:
 
 ```bash
 To infinity and beyond! 
@@ -587,6 +593,13 @@ To infinity and beyond!
 <p align=center>
 <img src="../Images/lab13reactappinfinityandbeyond.png">
 </p>
+
+
+To stop all the running containers,
+
+```bash
+$ sudo docker stop $(sudo docker ps) 2> /dev/null
+```
 
 </details>
 
@@ -599,7 +612,9 @@ We've managed to containerize the React application and map the volume to a dire
 
 This allows us to modify the JS file and be applied to the application immediately without going through the entire process of rebuilding the image and running a new container.
 
-**Multiple shell parameters** We've been running the **docker run** command with the parameters and arguments. If you have a few parameters to add, it's no problem to run them on the terminal. But this becomes tedious and more prone to error if you're introducing several parameters when running this command.
+**Multiple shell parameters** 
+
+We've been running the **docker run** command with the parameters and arguments. If you have a few parameters to add, it's no problem to run them on the terminal. But this becomes tedious and more prone to error if you're introducing several parameters when running this command.
 
 As a solution, we can define this parameters in a **docker-compose.yml** file in the same directory as the **dockerfile.dev**.
 
@@ -618,13 +633,12 @@ services:
     volumes:
       - /app/node_modules
       - .:/app 
-      
 ```
 
 Run the container. 
 
 ```bash
-$ docker-compose up 
+$ sudo docker-compose up 
 ```
 
 Inside your web browser. You should be able to naviaget to your IP machine's IP address through port 4002. Edit the **App.js** and reload the site inside your web browser to see the changes appear immediately.
@@ -651,6 +665,7 @@ services:
 ```
 
 </details>
+<br>
 
 Notice the attributes under **build** block. The **context** means docker-compose will look for the dockerfile in a specific directory. In this case, it will look in the current working directory which is represented by "."
 
@@ -693,10 +708,11 @@ CMD ["npm", "run", "start"]
 ```
 
 </details>
+<br>
 
 **If the container can just reference the project files that are outside the container, why do we need to still copy them onto the container?**
 
-The answer is, we don't. We can remove the 'COPY . .' and the container would still be launched and the application would still work. But if we decide to change the process or use a different tool other than docker-compose in the distant future, this COPY command ensure that the dockerfile would still work without docker-compose.
+The answer is, we don't. We can remove the 'COPY . .' and the container would still be launched and the application would still work. But if we decide to change the process or use a different tool other than docker-compose in the distant future, this COPY command ensures that the dockerfile would still work without docker-compose.
 
 
 </details>
@@ -710,13 +726,13 @@ We've containerize the React App and manage to run the containers with both the 
 Running tests on the container is straightforward. Make sure to build the image first. Note that we tagged the image with "proj-eden-frontend".
 
 ```bash
-$ docker build . -t proj-eden-frontend -f dockerfile.dev 
+$ sudo docker build . -t proj-eden-frontend -f dockerfile.dev 
 ```
 
 Now to run tests, it will be done when we run the container itself. Make sure to include "-it" and the command "npm run test" at the end. 
 
 ```bash
-$ docker run -it proj-eden-frontend npm run test
+$ sudo docker run -it proj-eden-frontend npm run test
 ```
 
 You should see an interactive terminal returned. 
@@ -725,7 +741,7 @@ You should see an interactive terminal returned.
 <img src="../Images/lab13runtestsinsidethecontainerdocker.png">
 </p>
 
-Press "Enter" to trigger a test run. To quit, press 'Q'.
+Press "Enter" to trigger a test run. To quit, press 'q'.
 
 <p align=center>
 <img src="../Images/lab13runteststriggerruntests.png">
@@ -748,34 +764,27 @@ There are two ways to make sure that the container reflects the changes on the t
 Start with launching the container again. We'll use **docker-compose** to spin up the container so that we don't have to enter a lot of parameters. 
 
 ```bash
-$ docker-compose up --build 
+$ sudo docker-compose up --build -d
 ```
 ```bash
-$ docker ps -a 
+$ sudo docker ps -a 
 ```
 
 Open a second terminal and attach to the running container and run the test again. This can be done by running "exec -it" on the container, followed by the 'npm run test'.
 
 ```bash
-$ docker exec -it <container-d> npm run test 
+$ sudo docker exec -it <container-id> npm run test 
 ```
 
 'Enter' to trigger tests runs. It will show 'Tests: 1 passed'. 
 
+<p align=center>
+<img src="../Images/lab13runteststriggerruntests.png">
+</p>
+
 Open a third terminal and go inside the **proj-eden-frontend** directory again. The test file that we need to edit is "src/App.test.js".
 
-```js
-import { render, screen } from '@testing-library/react';
-import App from './App';
-
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
-```
-
-Edit the testfile by duplicating the **test** block. Save the changes. This should now appear as 2 tests.
+Edit the testfile by duplicating the **test** block. Save the changes. 
 
 <details><summary> App.test.js </summary>
 
@@ -851,20 +860,20 @@ services:
  
 </details>
 <br>
-Notice that we used the exact same blocks for the service **test** except for the volume mapping since the test will just run in the background. We also added the **command** attribute where we specify the 'npm run test'.
+Notice that we used the exact same blocks for the service **test** except for the port mapping since the test will just run in the background. We also added the **command** attribute where we specify the 'npm run test'.
 
 Before we proceed, let's clean up the stopped containers firs so we have a fresh slate. 
 
 ```bash
-$ docker ps -a
-$ docker container prune -f
-$ docker ps -a 
+$ sudo docker ps -a
+$ sudo docker container prune -f
+$ sudo docker ps -a 
 ```
 
 Let's now test.
 
 ```bash
-$ docker-compose up --build 
+$ sudo docker-compose up --build 
 ```
 
 You should see an output like this:
@@ -876,7 +885,7 @@ You should see an output like this:
 On a second terminal, check the running containers. You should see two.
 
 ```bash
-$ docker ps 
+$ sudo docker ps 
 ```
 
 **The downside of this approach**. The first approach provides us with an interactive terminal where we can press 'Enter' to re-run tests and other options as well. With this second one, we don't have a connection to the standard input (stdin) so there's no way to interact with the test suite.
@@ -964,7 +973,7 @@ We'll now be using two base images: "node:alpine" and "nginx". To do this, we'll
 
 ### 03 - Using the Dockerfile
 
-Let's create our **dockerfile.prod** file. Notice that we now have two "FROM" statements here. Consider one "FROM" block as a step, so after the first "FROM" block is done running, Docker will proceed with running the second "FROM" block.
+Let's create our **dockerfile.prd** file. Notice that we now have two "FROM" statements here. Consider one "FROM" block as a step, so after the first "FROM" block is done running, Docker will proceed with running the second "FROM" block.
 
 ```bash
 # This is the build-phase
@@ -980,7 +989,7 @@ FROM nginx
 COPY --from=build-phase /app/build /usr/share/nginx/html 
 ```
 
-On the **build phase**, we see the FROM is appended with "as build-phase". This is basically an alias, which tells Docker that the first FROM block is for the build phase, which is the first step of the docker build process.
+On the **build phase**, we see the FROM is appended with "as build-phase". This is basically an alias, which tells Docker that the first FROM block is for the "build phase" and this block will be referenced by second block, the run-phase.
 
 On the **run phase**, we see the COPY line. The "--from" parameter actually pulls data from another step, which in this case is from the **build-phase**. It follows these format:
 
@@ -1012,7 +1021,7 @@ Speaking of containerizing applications, let's now run our container!
 But first, build the image. We'll give the name "proj-prd".
 
 ```bash
-$ docker build . -f dockerfile.prd -t proj-prd 
+$ sudo docker build . -f dockerfile.prd -t proj-prd 
 ```
 
 Get your machine's IP address.
@@ -1021,10 +1030,10 @@ Get your machine's IP address.
 $ curl ipecho.net/plain; echo 
 ```
 
-Now run the container. Let's map our local machine's port 8080 to the container's port 80.
+Now run the container in detached mode. Let's map our local machine's port 8080 to the container's port 80.
 
 ```bash
-$ docker run -p 8080:80 proj-prd 
+$ sudo docker run -d -p 8080:80 proj-prd 
 ```
 
 Open your web browser and navigate to your IP address through port 8080. You should now see the React page.
@@ -1039,9 +1048,12 @@ Open your web browser and navigate to your IP address through port 8080. You sho
 
 ## What's Next 
 
-Proceed to the next lab to deploy our containerized app to the outside world. But first, go get yourself a drink.
+Proceed to the next lab to deploy our containerized app to the outside world. But first, go get yourself a drink. Cheers!
 
-You've done well.
+
+<p align=center>
+<img width=700 src="../Images/lab13cheers.png" >
+</p>
 
 ----------------------------------------------
 
@@ -1071,7 +1083,7 @@ Read more about it [here](https://create-react-app.dev/docs/troubleshooting/#npm
 You may encounter this error if you're using VirtualBox inside a Windows machine and you're trying to run the command below:
 
 ```bash
-$ docker-compose up --build 
+$ sudo docker-compose up --build 
 
 npm ERR! enoent ENOENT: no such file or directory, open '/app/package.json
 ```
@@ -1085,8 +1097,8 @@ To resolve this:
 2. If you're still having issues, try to do a complete detroy and build again. Also make sure that your project files are located in C:\Users and not on a remote or external drive.
 
     ```bash
-    $ docker-compose down
-    $ docker-compose up --build
+    $ sudo docker-compose down
+    $ sudo docker-compose up --build
     ```
 
 </details>

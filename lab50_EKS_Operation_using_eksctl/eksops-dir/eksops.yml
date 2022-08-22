@@ -15,6 +15,7 @@ nodeGroups:
         maxSize: 5
         ssh: 
             publicKeyName: "k8s-kp"
+    # Uncomment the code below to add a second nodegroup
     # -   name: ng-mix
     #     instancesDistribution:
     #         maxPrice: 0.2
