@@ -1,0 +1,76 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  version: "1.22"
+  name: green-line
+  region: ap-southeast-1 
+
+nodeGroups:
+
+  - name: ng-dover
+    instanceType: m5.large
+    desiredCapacity: 3
+    ssh: #use existing ec2-key
+      publicKeyName: k8s-kp
+
+  - name: scale-clementi-1a
+    instanceType: t3.large
+    desiredCapacity: 1
+    maxSize: 10
+    availabilityZones: ["ap-southeast-1a"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateful-workload 
+      instance-type: onDemand
+    ssh: #use existing ec2-key
+      publicKeyName: k8s-kp
+
+  - name: scale-clementi-1b
+    instanceType: t3.large
+    desiredCapacity: 1
+    maxSize: 10
+    availabilityZones: ["ap-southeast-1b"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateful-workload 
+      instance-type: onDemand    
+    ssh: #use existing ec2-key
+      publicKeyName: k8s-kp
+
+  - name: scale-spot
+    desiredCapacity: 1
+    maxSize: 10
+    instancesDistribution:
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      instanceTypes: [
+        "t3.large",
+        "t2.xlarge",
+        "m5.xlarge"
+      ]
+
+    availabilityZones: [
+      "ap-southeast-1a",
+      "ap-southeast-1b",
+      "ap-southeast-1c"
+      ]
+
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateless-workload 
+      instance-type: spot    
+    ssh: #use existing ec2-key
+      publicKeyName: k8s-kp
+
+availabilityZones: [
+      "ap-southeast-1a",
+      "ap-southeast-1b",
+      "ap-southeast-1c"
+      ]       
