@@ -1,0 +1,17 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rolebind-prodviewer
+  namespace: prod
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: k8s-user-prodviewer # "name" is case sensitive
+  apiGroup: ""
+#   apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: role-prodviewer # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: ""
+#   apiGroup: rbac.authorization.k8s.io

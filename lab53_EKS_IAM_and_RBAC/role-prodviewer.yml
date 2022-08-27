@@ -1,0 +1,19 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    name: role-prodviewer
+    namespace: prod
+rules:
+- apiGroups: [  # "" indicates the core API group
+    "",
+    "extensions",
+    "apps"
+    ] 
+  resources: [  # can be further limited, e.g. pods, deployments
+    "*"
+    ]
+  verbs: [
+    "get", 
+    "watch", 
+    "list"
+    ]
