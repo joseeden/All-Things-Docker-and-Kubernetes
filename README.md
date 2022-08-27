@@ -2,9 +2,7 @@
 
 # All Things Docker and Kubernetes #
 
-This repository will contain my notes, drafts, and projects on containerization and orchestration.
-
-It's still at an early stage, but building (and breaking) and deploying containerized workloads are one of the targets I have on my list for ~~2021~~ the present. Ayt, full steam ahead!
+This repository will contain my notes and projects on containerization and orchestration that I'm working on in ~~2021~~ the present. 
 
 <!-- <p align=center>
 <img src="Images/docker-6.jpg" width=500>
@@ -13,9 +11,9 @@ It's still at an early stage, but building (and breaking) and deploying containe
 <img src="Images/us-7-banner.png" width=900>
 </p>
 
-## How to Use this repo
+## How to Use this Repo
 
-Simply go to your favorite terminal and clone it. You can now browse the different labs and perform each one. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
+Simply go to your favorite terminal and clone this repository. You can also go through the **Docker** and **Kubernetes** sections below for a quick walkthrough.
 
 ```bash
 git clone https://github.com/joseeden/All-Things-Docker-and-Kubernetes.git
@@ -25,7 +23,7 @@ git clone https://github.com/joseeden/All-Things-Docker-and-Kubernetes.git
 
 Here are some pre-requisites before we can perform the labs. 
 
-### For the Docker labs:
+### 01 - For the Docker labs:
 
 <details><summary> Install Docker </summary>
  
@@ -350,7 +348,7 @@ You can checkout this [Stackoverflow discussion](https://stackoverflow.com/quest
 
 </details>
 
-### For the Kubernetes labs:
+### 02 - For the Kubernetes labs:
 
 <details><summary> Install Kubernetes </summary>
 
@@ -477,8 +475,29 @@ To verify the kubectl version:
 $ kubectl version --output=json  
 ```
 
+We can also enable eksctl bash completion:
+
+```bash
+eksctl completion bash >> ~/.bash_completion
+. /etc/profile.d/bash_completion.sh
+. ~/.bash_completion 
+```
 
 </details>
+
+
+<details><summary> Install Helm </summary>
+
+#### Install Helm
+
+Helm is the Kubernetes package manager which helps us manage Kubernetes applications. To learn more, visit the official [Helm website.](https://helm.sh/)
+
+Helm can be installed either from a source, or from pre-built binary releases. Detailed setup instructions for different OS can be found in the [Installing Helm](https://helm.sh/docs/intro/install/) page.
+
+
+</details>
+
+
 
 <details><summary> Setup EKS Access on AWS </summary>
 
@@ -488,15 +507,235 @@ This is needed if you're going to run Kubernetes using the Amazon EKS (Elastic K
 
 Having said, I've added this under the **Optional Tools** section. Scroll down and check out this page: 
 
-![IAM User, Access Key, Credentials File, and Policies](#iam-user-access-key-credentials-file-and-policies)
+[IAM User, Access Key, Credentials File, and Policies](#iam-user-access-key-credentials-file-and-policies)
+
 
 </details>
 
 <!-- </details> -->
 
-### Optional Tools:
+### 03 - Optional Tools:
 
-Some of the labs in this repository uses the tools below. However, they are not necessary for running containers and Kubernetes.
+<details><summary> Create an AWS Account </summary>
+
+#### Create an AWS Account 
+
+We will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
+
+Note that an AWS account is also need for the ECS and EKS labs in this repository.
+
+To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/free/).
+
+</details>
+
+<details><summary> Install AWS CLI </summary>
+
+#### Install AWS CLI
+
+To install AWS CLI (along with other CLI tools), you can check out the [Install CLI Tools](#install-cli-tools) section.
+
+If you've installed AWS CLI before then there is a chance that you're using the version 1. You can do either of the following:
+
+- [Replace version 1 with version 2](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-instructions.html#cliv2-migration-instructions-migrate) 
+- [Install both version side-by-side](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-instructions.html#cliv2-migration-instructions-migrate)
+
+For this lab, I did a side-by-side install by retaining the V1 and creating an alias for it.
+
+```bash
+$ sudo su -
+$ which aws 
+$ cd /usr/bin && mkdir aws1 && mv aws aws1 
+```
+
+Then I [installed AWS CLI version 2](#install-cli-tools).
+
+```bash
+$ aws --version
+aws-cli/2.7.22 Python/3.9.11 Linux/5.10.102.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.20 prompt/off 
+```
+
+</details>
+
+<details><summary> IAM User, Access Key, Credentials, and Policies </summary>
+
+#### IAM User, Access Key, Credentials File, and Policies
+
+##### Create the IAM Policy
+
+Create the **EKSFullAccess** policy that allows us access to EKS and ECR.
+
+1. Go to IAM console.
+2. In the left panel, click Policies.
+3. Click Create Policy.
+4. Choose the JSON tab and paste the [EKSFullAccess](other-files/EKSFullAccess.json) policy.
+5. Click Review Policy.
+6. Give the policy the name and description.
+
+    Name: EKSFullAccess
+    Description: Allows full admin access for EKS and ECR resources.
+
+    ```bash
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "EKSFullAccess",
+                "Effect": "Allow",
+                "Action": [
+                    "eks:*",
+                    "ecr:*"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }    
+    ```
+
+7. Finally, click Create Policy.
+
+##### Create the Service-linked Role
+
+To [create a service-linked role](https://us-east-1.console.aws.amazon.com/iamv2/home#/roles):
+
+1. Log-in to your AWS Management Console and go to IAM dashboard.
+2. in the left menu, click *Roles* > *Create Role*
+3. In the *Select trusted entity page*, choose *AWS Service.*
+4. In the *Use cases for other AWS services*, type EKS.
+5. Select the *EKS (Allow EKS to manage clusters in your behalf)* then click Next > Next
+6. In the *Name, review, and create* step, click *Create role*.
+
+Back at the Roles page, click the role you just created to show the details. Copy the ARN. We'll be using it in the IAM Policy next.
+
+```bash
+arn:aws:iam::1234567890:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS 
+```
+
+
+##### Create the IAM User, Access Key, and Keypair
+
+Refer to the links below.
+
+- [Create a "k8s-kp.pem" keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
+
+- [Create a "k8s-admin"](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
+
+- [Create an access key for "k8s-admin"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
+
+For the keypair, store it inside <code>~/.ssh</code> directory.
+
+
+##### Create the IAM Group
+
+Create the **k8s-lab** group.
+
+1. Go to IAM console.
+2. In the left panel, click User Groups.
+3. Click Create group
+4. Give it a user group name: *k8s-lab*
+5. Scroll below to the Attach User section. Choose "k8s-admin" and the current user you're signed in to.
+6. Scroll below to the Attach permission policies.
+7. Filter and add the following policy.
+
+    - EKSFullAccess (recently created)
+    - AmazonEC2FullAccess
+    - AmazonEKSClusterPolicy
+    - AmazonEKSWorkerNodePolicy
+    - AmazonS3FullAccess
+    - AmazonSNSReadOnlyAccess (for CloudFormation)
+    - AmazonEKSServicePolicy
+    - AWSCloudFormationFullAccess
+    <!-- - IAMReadOnlyAccess -->
+
+8. Finally, click Create group.
+
+##### Configure the Credentials File
+
+In your terminal, configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
+
+```bash
+# /home/user/.aws/credentials
+
+[k8s-admin]
+aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
+region = ap-southeast-1
+output = json
+``` 
+
+You can use a different profile name. To use the profile, export it as a variable.
+
+```bash
+$ export AWS_PROFILE=k8s-admin
+```
+
+To verify, we can run the commands below:
+
+```bash
+$ aws configure list 
+```
+```bash
+$ aws sts get-caller-identity 
+```
+
+
+</details>
+
+
+<details><summary> Create a Github Account </summary>
+
+#### Create a Github Account 
+
+Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code repository.
+
+To sign up for a Github account, click [here](https://github.com/signup).
+
+
+</details>
+
+<details><summary> Setup Git Locally </summary>
+
+#### Setup Git Locally
+
+In addition to creating the Github account, you will also need to setup Git in your machine.
+
+- [Add your SSH keys to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+- [Install Git on your computer](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+- [Configure Git](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
+
+</details>
+
+
+<details><summary> Setup Travis CI </summary>
+
+#### Setup Travis CI 
+
+Travis CI is an opensource CI tool which we can use to build and test our project. Wherever changes are pushed to our Github repo, Travis CI automatically pulls the code and allows us to run tests on it.
+
+Once the code passed the test, Travis CI can automatically deploy our code to AWS.
+
+To setup Travis CI, Go to the [Travis CI site](https://app.travis-ci.com/signup) and sign up using your SCM account. Choose **Sign up with Github**.
+
+![](../Images/lab14signuptravisci.png)  
+
+In the next page, choose **Authorize Travis CI.**
+You may need to confirm your account through the email sent to your email address.
+
+In the upper right, click your profile avatar and select Settings. 
+
+We will need to select a plan before we can use Travis CI. Choose the **Free Trial plan** and fill up your personal details. A valid credit/debit card number is also needed to proceed. 
+
+![](../Images/lab14selectfreeplantravisci.png)  
+
+In the Repositories tab, click the green **Activate** button to integrate Travis CI with your Github account. In the next page, click **Approve and install.**
+
+![](../Images/lab14travisciactivate.png)  
+
+Click on the Dashboard tab at the top to view all the Github repositories that are synced with Travis CI.
+
+</details>
+
 
 <details><summary> Install Go </summary>
 
@@ -673,228 +912,9 @@ You can read more about the installation process in this [freeCodeCamp article.]
 
 </details>
 
-<details><summary> Create a Github Account </summary>
-
-#### Create a Github Account 
-
-Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code repository.
-
-To sign up for a Github account, click [here](https://github.com/signup).
-
-
-</details>
-
-<details><summary> Setup Git Locally </summary>
-
-#### Setup Git Locally
-
-In addition to creating the Github account, you will also need to setup Git in your machine.
-
-- [Add your SSH keys to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
-
-- [Install Git on your computer](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-
-- [Configure Git](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
-
-</details>
-
-
-<details><summary> Setup Travis CI </summary>
-
-#### Setup Travis CI 
-
-Travis CI is an opensource CI tool which we can use to build and test our project. Wherever changes are pushed to our Github repo, Travis CI automatically pulls the code and allows us to run tests on it.
-
-Once the code passed the test, Travis CI can automatically deploy our code to AWS.
-
-To setup Travis CI, Go to the [Travis CI site](https://app.travis-ci.com/signup) and sign up using your SCM account. Choose **Sign up with Github**.
-
-![](../Images/lab14signuptravisci.png)  
-
-In the next page, choose **Authorize Travis CI.**
-You may need to confirm your account through the email sent to your email address.
-
-In the upper right, click your profile avatar and select Settings. 
-
-We will need to select a plan before we can use Travis CI. Choose the **Free Trial plan** and fill up your personal details. A valid credit/debit card number is also needed to proceed. 
-
-![](../Images/lab14selectfreeplantravisci.png)  
-
-In the Repositories tab, click the green **Activate** button to integrate Travis CI with your Github account. In the next page, click **Approve and install.**
-
-![](../Images/lab14travisciactivate.png)  
-
-Click on the Dashboard tab at the top to view all the Github repositories that are synced with Travis CI.
-
-</details>
-
-
-<details><summary> Create an AWS Account </summary>
-
-#### Create an AWS Account 
-
-We will be deploying our containerized applications to the cloud so I highly recommend that you sign-up for a **free tier** account in AWS.
-
-Note that an AWS account is also need for the ECS and EKS labs in this repository.
-
-To sign-up for an AWS Free tier account, click [here](https://aws.amazon.com/free/).
-
-</details>
-
-<details><summary> Install AWS CLI </summary>
-
-#### Install AWS CLI
-
-To install AWS CLI (along with other CLI tools), you can check out the [Install CLI Tools](#install-cli-tools) section.
-
-If you've installed AWS CLI before then there is a chance that you're using the version 1. You can do either of the following:
-
-- [Replace version 1 with version 2](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-instructions.html#cliv2-migration-instructions-migrate) 
-- [Install both version side-by-side](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-instructions.html#cliv2-migration-instructions-migrate)
-
-For this lab, I did a side-by-side install by retaining the V1 and creating an alias for it.
-
-```bash
-$ sudo su -
-$ which aws 
-$ cd /usr/bin && mkdir aws1 && mv aws aws1 
-```
-
-Then I [installed AWS CLI version 2](#install-cli-tools).
-
-```bash
-$ aws --version
-aws-cli/2.7.22 Python/3.9.11 Linux/5.10.102.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.20 prompt/off 
-```
-
-</details>
-
-<details><summary> Setup IAM User, Access Key, Credentials, and Policies </summary>
-
-#### IAM User, Access Key, Credentials File, and Policies
-
-##### Create the IAM Policy
-
-Create the **EKSFullAccess** policy that allows us access to EKS and ECR.
-
-1. Go to IAM console.
-2. In the left panel, click Policies.
-3. Click Create Policy.
-4. Choose the JSON tab and paste the policy below.
-5. Click Review Policy.
-6. Give the policy the name and description.
-
-    Name: EKSFullAccess
-    Description: Allows access to EKS and ECR resources.
-
-    ```bash
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "EKSFullAccess",
-                "Effect": "Allow",
-                "Action": [
-                    "eks:*",
-                    "ecr:*"
-                ],
-                "Resource": "*"
-            }
-        ]
-    }    
-    ```
-
-7. Finally, click Create Policy.
-
-
-##### Create the IAM User, Access Key, and Keypair
-
-Refer to the links below.
-
-- [Create a "k8s-kp.pem" keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
-
-- [Create a "k8s-user"](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
-
-- [Create an access key for "k8s-user"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-
-For the keypair, store it inside <code>~/.ssh</code> directory.
-
-
-##### Create the IAM Group
-
-Create the **EKS-lab** group.
-
-1. Go to IAM console.
-2. In the left panel, click User Groups.
-3. Click Create group
-4. Give it a user group name: EKS-lab
-5. Scroll below to the Attach User section. Choose "k8s-user" and the current user you're signed in to.
-6. Scroll below to the Attach permission policies.
-7. Filter and add the following policy.
-
-    - AmazonEC2FullAccess
-    - AmazonS3FullAccess
-    - AmazonVPCFullAccess
-    - IAMReadOnlyAccess
-    - AWSCloudFormationFullAccess
-    - AmazonEKSServicePolicy
-    - AmazonEKSClusterPolicy
-    - EKSFullAccess (recently created)
-    - AmazonSNSReadOnlyAccess (for CloudFormation)
-
-8. Finally, click Create group.
-
-
-##### Create the Service-linked Role
-
-Refer to the link below.
-
-- [Create a service-linked role](https://us-east-1.console.aws.amazon.com/iamv2/home#/roles)
-
-
-    Step | Choose this value | 
-    ---------|----------|
-    Trusted entity type | AWS service 
-    Use case | KS (Allow EKS to manage clusters in your behalf) 
-    Permission policies | AmazonEKSServiceRolePolicy
-
-
-##### Configure the Credentials File
-
-In your terminal, configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
-
-```bash
-# /home/user/.aws/credentials
-
-[ekslab]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-``` 
-
-You can use a different profile name. To use the profile, export it as a variable.
-
-```bash
-$ export AWS_PROFILE=ekslab
-```
-
-To verify, we can run the commands below:
-
-```bash
-$ aws configure list 
-```
-```bash
-$ aws sts get-caller-identity 
-```
-
-
-</details>
-
-
 ## Docker Basics
 
-Whether you're entirely new to the world of containers or just simply wanting to do a quick refresher, feel free to select the topic you're interested in and browse through the bite-sized sections.
+Containers are where it all starts.
 
 <details><summary> Read more.. </summary>
 
@@ -1293,7 +1313,7 @@ Now that we've access our registry, we're now ready to push our images. However,
 
 **Tags as aliases.** These are simple aliases which can be given to a docker image before or after building an image. If you don't provide a tag, docker automatically gives the image a "latest" tag.
 
-**Tasgs must be an ASCII character string**. It may also include lowercase and uppercase letters, digits, underscores, periods, and dashes. In addition, the tag names must not begin with a period or a dash, and they can only contain 128 characters.
+**Tags must be an ASCII character string**. It may also include lowercase and uppercase letters, digits, underscores, periods, and dashes. In addition, the tag names must not begin with a period or a dash, and they can only contain 128 characters.
 
 **Images can also have more than one tag.** Docker images can have multiple tags assigned to them. It may appear as different images when you run the <code>docker images</code> command but notice that they all point to the same image ID.
 
@@ -2308,7 +2328,7 @@ These are the security features that Docker uses under the hood.
 
 ## Cloud-Native
 
-Another technology that comes to mind when you talk about containers is the concept of cloud-native applications. 
+When you have containers, you have cloud-native applications. 
 
 <details><summary> Read more.. </summary>
 
@@ -2591,7 +2611,7 @@ These operations are inevitable and you will perform these as your application g
 
 ## Kubernetes - In-progress
 
-Kubernetes is an entire universe in itself. Below are bite-sized and easy-to-digect sections for each Kubernetes topic. Go through the topics that interests you, or just dive straight to the labs, your choice! 😀
+Kubernetes is indeed an entire universe in itself. 
 
 <details><summary> Read more.. </summary>
 
@@ -3151,7 +3171,7 @@ Checkout these resources to learn more about installation considerations:
 
 ### Creating the Cluster, Finally
 
-Here are the outline of steps to create a Kubernetes cluster
+Here are the outline of steps to create a Kubernetes cluster.
 
 1. Install Kubernetes from packages 
 2. Create the cluster (specifically the master node)
@@ -3159,7 +3179,7 @@ Here are the outline of steps to create a Kubernetes cluster
 4. Configure Pod networking
 5. Join additional nodes to our cluster
 
-You should be able to install Kubernetes by following the steps in the pre-requisites section above. Once that's done, we can proceed with bootstrapping our Kubernetes cluster using kubeadm.
+You should be able to install Kubernetes by following the steps in the **pre-requisites section**. Once that's done, we can proceed with bootstrapping our Kubernetes cluster using kubeadm.
 
 </details>
 
@@ -3181,7 +3201,7 @@ We'll use kubeadm to create our cluster. The phases include:
 8. kubeadm generates a **Bootstrap Token** for joining nodes to the cluster.
 9. kubeadm starts **Add-on Pods: DNS and kube-proxy**
 
-Note that the process defined above can be customized by specifying parameter.
+Note that the process defined above can be customized by specifying parameters.
 
 </details>
 
@@ -3212,7 +3232,6 @@ $ /etc/kubernetes/pki
 ### xxxxxx
 
 </details>
-
 
 
 <details><summary> Stateless vs. Stateful </summary>
@@ -3252,18 +3271,112 @@ Scaling in Kubernetes is done using the **Replication Controller.**
 </details>
 
 
-<!-- <details><summary> xxxxxx </summary>
+<details><summary> xxxxxx </summary>
 
 ### xxxxxx
 
-</details> -->
+</details>
 
 
-<!-- <details><summary> xxxxxx </summary>
+<details><summary> Helm Package Manager </summary>
 
-### xxxxxx
+### Helm Package Manager
 
-</details> -->
+Helm is the Kubernetes package manager which helps us manage Kubernetes applications. To learn more, visit the official [Helm website.](https://helm.sh/)
+
+#### Concepts 
+
+- **Chart** - contains all the dependencies to deploy a Kubernetes cluster
+- **Config** - optional configs to override default configs
+- **Release** - a running instance of a chart
+
+#### Components
+
+- **Helm Client** - CLI client for managing repositories, releases, and interfacing with Helm library
+
+- **Helm Library** - responsible for Helm operations towards the API Server.
+
+#### Set up Helm 
+
+Helm can be installed either from a source, or from pre-built binary releases. The steps for setting up Helm.
+
+- [Install Helm](https://helm.sh/docs/intro/install/) 
+
+- [Initialize a Helm Chart Repository](https://helm.sh/docs/intro/quickstart/#initialize-a-helm-chart-repository)
+
+If you're using a Windows Machine with WSL2 that's running Ubuntu, you can simply run these commands:
+
+```bash
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+$ chmod 700 get_helm.sh
+
+$ ./get_helm.sh
+```
+
+#### Initialize a Repository
+
+Next, add a repository. Note that starting with Helm v3, there are no repositories installed by default. We can also add other repositories.
+
+In the command below, we named the repo "stable".
+
+```bash
+$ helm repo add stable https://charts.helm.sh/stable 
+```
+
+Let's try to add another repo and give it the name "bitnami"
+
+```bash
+$ helm repo add bitnami https://charts.bitnami.com/bitnami 
+```
+
+To check the repositories added,
+
+```bash
+$ helm repo list 
+```
+
+It's best practice to fetch the latest updates from the repo.
+
+```bash
+$ helm repo update 
+```
+
+We can take a look at all the charts contained in the repository.
+
+```bash
+$ helm search repo 
+```
+
+#### Deploy a Sample Chart 
+
+Let's try to install a redis chart and name it "my-test-redis1
+
+```bash
+$ helm install my-test-redis1 bitnami/redis 
+```
+
+Verify that the pods are running.
+
+```bash
+$ kubectl get pods 
+```
+
+To get a list of deployed charts,
+
+```bash
+$ helm ls 
+```
+
+#### Delete the Chart 
+
+Run the uninstall command and specify the chart name.
+
+```bash
+$ helm uninstall my-test-1 
+```
+
+</details>
 
 
 <details><summary> CNCF Projects </summary>
@@ -3336,13 +3449,13 @@ Now, if you decide to go for Fargate, here are some important reminders:
 </details>
 
 
-<details><summary> Amazon EKS (Elastic Kubernetes Service) </summary>
+<details><summary> Amazon EKS - Managed Kubernetes </summary>
 
-### Amazon EKS (Elastic Kubernetes Service)
+### Amazon EKS - Managed Kubernetes
 
-This is the Kubernetes offering from AWS which allows users to deploy a management plane. 
+This is the Kubernetes offering from AWS which allows users to deploy the management plane and let AWS handles the control plane and all it components. 
 
-AWS basically provides the control plane and all it components, and it's up to the users to provision where their workload will run. The workloads can run on Fargate or EC2.
+It's up to the users to provision where their workload will run. The workloads can run on Fargate or EC2.
 
 ![](Images/eks-banner2.png)  
 
@@ -3356,6 +3469,7 @@ Traditionally, you'll have to setup and deploy Kubernetes yourself:
 
 With EKS:
 - no control plane to manage
+
 - built-in loadbalancing, networking, volume storage 
 - easy to turn on and off
 - authentication is handled through IAM
@@ -3375,7 +3489,129 @@ When you create you EKS cluster, AWS takes care of all of these under the hood:
 5. Autoscaling is set up.
 6. Loadbalancers are provisioned (NLB and ELB)
 
+**The EKS Control Plane**
+
+- highly available
+- single tenant (you don't share it with other customers)
+- made of native AWS components
+- API server talks to etcd using an ALB
+- the whole control plane is fronted by an NLB with fixed IP
+
+![](Images/eksintrocontrolplanedeeptive.png)  
+
 </details>
+
+<details><summary> Amazon EKS - Pricing </summary>
+
+### Amazon EKS - Pricing
+
+What you pay for:
+
+- EKS cluster per hour
+- resources related to running your apps 
+
+What you don't pay for:
+
+- the control plane
+
+To learn more, check out the official [Amazon EKS Pricing](https://aws.amazon.com/eks/pricing/) page.
+
+</details>
+
+
+
+<details><summary> Amazon EKS - IAM and RBAC  </summary>
+
+### Amazon EKS - IAM and RBAC
+
+Kubernetes is deeply integrated with IAM and RBAC.
+
+- Authentication is managed by IAM
+- Authorization is natively managed by Kubernetes RBAC
+
+We can assign RBAC directly to IAM entities and this will allow them access to the Kubernetes clusters. 
+
+<p align=center>
+<img src="Images/eks-iam-rbac.drawio.png">
+</p>
+
+![]()  
+
+**Worker Nodes**
+
+When create a worker node, it will join the cluster and be assigned an IAM role that authorize in RBAC to let them join:
+
+- system:bootstrappers 
+- system:nodes 
+
+This can be seen in the Configmap. To edit the Configmap:
+
+```bash
+$ kubectl edit -n kube-system configmap/aws-auth 
+```
+
+<p align=center>
+<img src="Images/readmeconfigmapphoto.png">
+</p>
+
+
+**IAM Users**
+
+An example of users that we can create:
+
+- **cluster admin** - able to do all administrative operations on a cluster-level
+
+- **read-only user** - limited to a dedicated namespace
+
+We can also assign a more fine-grained policy for the user. 
+To learn more, check out this [lab](lab53_EKS_IAM_and_RBAC/README.md).
+
+You can also take a look at [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+
+</details>
+
+
+<details><summary> Amazon EKS - Loadbalancers </summary>
+
+### Amazon EKS - Loadbalancers 
+
+Amazon EKS supports the three types of Loadbalancers:
+
+Loadbalancer | Service type B | 
+---------|----------|---------
+ Classic Loadbalancer | None | 
+ Network Loadbalancer | LoadBalancer | 
+ Application Loadbalancer | Ingress Controller |
+
+
+#### AWS Load Balancer Controller 
+
+The AWS Load Balancer Controller manages AWS Elastic Load Balancers for a Kubernetes cluster. The controller provisions the following resources:
+
+- An AWS Application Load Balancer (ALB) when you create a Kubernetes Ingress.
+
+- An AWS Network Load Balancer (NLB) when you create a Kubernetes service of type LoadBalancer
+
+Note that it doesn't create AWS Classic Load Balancers. 
+It is recommended to use version *2.4.3* or above if your cluster is version *1.19* and above.
+
+To learn more AWS Load Balancer Controller, check out the links below:
+
+- [AWS User Guide on EKS](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+
+- [AWS Load Balancer Controller Github page](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
+
+#### Classic LoadBalancer
+
+By default, EKS will create a classic loadbalancers when you create a Kubernetes *Service* of type *LoadBalancer*. We can change it by adding the **annotations** in the manifest file.
+
+#### Network LoadBalancer
+
+An AWS Network Load Balancer can load balance network traffic to pods deployed to Amazon EC2 IP and instance targets or to AWS Fargate IP targets. 
+ 
+
+</details>
+
 
 <details><summary> Amazon EKS - Cluster AutoScaler </summary>
 
@@ -3403,9 +3639,33 @@ To learn more, check out this [Github repository](https://github.com/kubernetes/
 </details>
 
 
+<details><summary> Amazon EKS - Control Plane Logging to CloudWatch  </summary>
+
+### Amazon EKS - Control Plane Logging to CloudWatch
+
+Since the Control Plane is managed by AWS, we don't have access to the hosts that are serve the Control Plane and manages the logs. We can access these logs thru CloudWatch by enabling which log type to send.
+
+**Log Types**
+
+- API
+- Audit 
+- Authenticator 
+- Control Manager 
+- Scheduler 
+
+We can access the logs by going to the CloudWatch dashboard in the AWS Management Console.
+
+- each log type creates its own CloudWatch log stream 
+- prefixed with <code>/aws/eks/cluster-name</code>
+- this adds [additional costs](https://aws.amazon.com/cloudwatch/pricing/) for storage and collection
+
+</details>
+
 <details><summary> Error: Cannot View Kubernetes Nodes  </summary>
 
 ### Error: Cannot View Kubernetes Nodes 
+
+#### Problem:
 
 You might get the following error when checking the EKS cluster through the AWS Console.
 
@@ -3413,7 +3673,34 @@ You might get the following error when checking the EKS cluster through the AWS 
 Your current user or role does not have access to Kubernetes objects on this EKS cluster 
 ```
 
-You may need to attach the inline policy to the group.
+#### Cause:
+
+You might be using two different IAM user accounts:
+
+- IAM-user1 - you originally use this to log-in to the AWS Management Console 
+- IAM-user2 - this is the new user you created and generated the access key 
+
+In the terminal, you set up the CLI access to connect to your AWS resources by editing
+the credentials file. 
+
+```bash
+$ vim ~/.aws/credentials 
+```
+
+Check the identity.
+
+```bash
+$ aws sts get-caller-identity  
+```
+
+If the user returned is the same as the user currently logged-in the AWS Management Console, then you shouldn't have any issue.
+
+If they're different users, then that means the user in the CLI (this is the user you used to create the EKS cluster) has different permissions from the user logged in the console.
+
+#### Solution:
+
+You may try to log-in to the console using the same identity that you used in the CLI.
+If error still appeared, you may need to attach the inline policy to the group.
 
 ![](../Images/labxx-attachinlinepolicytogroupjson.png)  
 
@@ -3511,6 +3798,65 @@ To learn more, check out these links:
 - [Can't see Nodes on the Compute tab or anything on the Resources tab](https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting_iam.html#security-iam-troubleshoot-cannot-view-nodes-or-workloads)
 
 - [View Kubernetes resources](https://docs.aws.amazon.com/eks/latest/userguide/view-kubernetes-resources.html#view-kubernetes-resources-permissions)
+
+</details>
+
+
+<details><summary> Error: Failing to Delete CloudFormation Stack </summary>
+
+### Error: Failing to Delete CloudFormation Stack 
+
+#### Problem: 
+
+When you try to delete the cluster using the command below, you get an error that says it failed to delete the cluster.
+
+```bash
+$ eksctl delete cluster -f manifest.yml 
+```
+
+When you go to > CloudFormation dashboard > Stacks > *eksctl-yourcluster*, and then check the Events, you might see this two errors:
+
+When CloudFormation tries to create the node instance profile: 
+
+```bash
+Resource handler returned message: "User: arn:aws:iam::12345678910:user/k8s-admin is not authorized to perform: iam:RemoveRoleFromInstanceProfile on resource: instance profile eksctl-eksops-nodegroup-mynodegroup-NodeInstanceProfile-qNlJ2ojEWOdP because no identity-based policy allows the iam:RemoveRoleFromInstanceProfile action (Service: Iam, Status Code: 403, Request ID: b90e26ea-97ff-453b-8e4d-8353c39a3a9b, Extended Request ID: null)" (RequestToken: 139ad70a-2b04-9797-697d-85530cb2496b, HandlerErrorCode: GeneralServiceException) 
+```
+
+After the stack failed, CloudFormation tried to rollback but fails to delete the node instance profile:
+
+```bash
+Resource handler returned message: "User: arn:aws:iam::12345678910:user/k8s-admin is not authorized to perform: iam:CreateInstanceProfile on resource: arn:aws:iam::12345678910:instance-profile/eksctl-eksops-nodegroup-mynodegroup-NodeInstanceProfile-qNlJ2ojEWOdP because no identity-based policy allows the iam:CreateInstanceProfile action (Service: Iam, Status Code: 403, Request ID: 8f3b2448-5ff3-40b9-80c8-12aeb56eb692, Extended Request ID: null)" (RequestToken: 0b93aa73-eb81-1650-0f47-56a3a476f5b3, HandlerErrorCode: GeneralServiceException)
+```
+
+#### Cause:
+
+Your IAM user account doesn't have the needed permissions.
+
+#### Solution: 
+
+As I have had many attempts in resolving the issue, the best option is to create the cluster with the IAM user that has an *AdministratorAccess*. This isn't recommended but this completely solves the issue.
+
+You may also refer to the EKSFullAccess policy file that I have created. It contains the minimum AWS IAM permissions to do EKS operations using eksctl and kubectl.
+
+You may also check out these links:
+
+
+- [Controlling Access to the Kubernetes API](https://kubernetes.io/docs/concepts/security/controlling-access/)
+
+- [Using Node Authorization](https://kubernetes.io/docs/reference/access-authn-authz/node/)
+
+- [Manage IAM users and roles](https://eksctl.io/usage/iam-identity-mappings/)
+
+- [Configure Kubernetes Role Access](https://www.eksworkshop.com/beginner/091_iam-groups/configure-aws-auth/)
+
+- [How do I resolve an unauthorized server error when I connect to the Amazon EKS API server?](https://aws.amazon.com/premiumsupport/knowledge-center/eks-api-server-unauthorized-error/)
+
+- [Fail to create new cluster with service role error #2182](https://github.com/weaveworks/eksctl/issues/2182)
+
+- [Document minimum IAM requirements #204](https://github.com/weaveworks/eksctl/issues/204)
+
+- [usage of EKS Service IAM Role #122](https://github.com/weaveworks/eksctl/issues/122)
+
 
 </details>
 
