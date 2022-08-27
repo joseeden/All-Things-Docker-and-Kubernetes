@@ -31,9 +31,9 @@ We will need to do the following before we can create clusters and perform EKS o
 
 - [Create a "k8s-kp.pem" keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
 
-- [Create a "k8s-user" user with admin access](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
+- [Create a "k8s-admin" user with admin access](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
 
-- [Create an access key for "k8s-user"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
+- [Create an access key for "k8s-admin"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
 
 
 ## Setup CLI and Access Key
@@ -49,7 +49,7 @@ Once you've installed AWS CLI, [create an access key and setup your credentials 
 ```bash
 # /home/user/.aws/credentials
 
-[ekslab]
+[k8s-admins]
 aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
 aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
 region = ap-southeast-1
@@ -59,7 +59,7 @@ output = json
 To use this profile, export it as a variable.
 
 ```bash
-$ export AWS_PROFILE=ekslab
+$ export AWS_PROFILE=k8s-admins
 ```
 
 To verify, we can run the commands below:
@@ -446,11 +446,13 @@ $ eksctl delete nodegroup \
 
 Note that if you delete a nodegroup, any pods that might be previously running on this nodegroup will be pushed to the other nodegroup. The scheduler basically stops allocating pods to this nodegroup.
 
-## Deleting the Cluster
+## Cleanup - Deleting the Cluster
 
-To delete the cluster,
+To delete the cluster, run the command below.
 
 ```bash
 $ time eksctl delete cluster -f eksops.yml
 ```
+
+When you delete your cluster, make sure to double check the AWS Console and check the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
 
