@@ -206,13 +206,37 @@ In your terminal, check if the identity that you're using is the same as the use
 $ aws sts get-caller identity 
 ```
 
-Edit the <code>~/.kube/config</code> and add the cluster information.
+You should be able to retrieve the nodes now.
+
+```bash
+$ kubectl get nodes  
+```
+
+If you get this error,
+
+```bash
+error: You must be logged in to the server (Unauthorized)  
+```
+
+Run the command below to update the kubeconfig file.
+
+```bash
+$ aws eks update-kubeconfig \
+    --region ap-southeast-1 \
+    --name eks-buenavista 
+```
+
+If this doesn't solve the error, you may need to edit the <code>~/.kube/config</code> manually and add the cluster information. You can find all of these in the **Overview** tab of your cluster in the EKS dashboard.
+
+![](../Images/lab54eksoverviewtab.png)  
+
+Modify the kubeconfig file.
 
 ```bash
 $ vim ~/.kube/config  
 ```
 
-#### Cluster
+#### Clusters
 
 Start with the **cluster block**. You need to add the:
 - certificate-authority-data
@@ -227,9 +251,7 @@ clusters:
   name: <Cluster ARN>
 ```
 
-You can find all of these in the **Overview** tab of your cluster in the EKS dashboard.
 
-![](../Images/lab54eksoverviewtab.png)  
 
 #### Contexts 
 
@@ -272,30 +294,19 @@ Retrieve the contexts. It should now show the new cluster.
 $ kubectl config get-contexts  
 ```
 
-If you other cluster added to the config file, you can switch over to the new cluster.
+If you other cluster added to the config file, you can switch over to the new cluster. Notice that the "*" now shifts to the new cluster when you retrieve the contexts again.
 
 ```bash
 $ kubectl config use-context eks-bounavista 
+```
+```bash
+$ kubectl config get-contexts  
 ```
 
 Now try to retrieve the nodes.
 
 ```bash
 $ kubectl get nodes 
-```
-
-If you got this error,
-
-```bash
-error: You must be logged in to the server (Unauthorized)  
-```
-
-Run the command below to update the kubeconfig file.
-
-```bash
-$ aws eks update-kubeconfig \
-    --region ap-southeast-1 \
-    --name eks-buenavista 
 ```
 
 Then try to check the nodes and cluster.
