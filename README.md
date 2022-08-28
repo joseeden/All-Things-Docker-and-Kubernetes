@@ -1065,7 +1065,7 @@ In addition to the two core components of the Docker architecture, it also uses 
 
 #### Namespaces
 
-Namespaces allow for a high-level process isolation of a system's resources
+Namespaces allow for a high-level process isolation of a system's resources. These are logical separation of container workloads.
 
 ##### PID namespace
 
@@ -3167,9 +3167,9 @@ Checkout these resources to learn more about installation considerations:
 </details>
 
 
-<details><summary> Creating the Cluster, Finally </summary>
+<details><summary> Steps to Create a Cluster </summary>
 
-### Creating the Cluster, Finally
+### Steps to Create a Cluster
 
 Here are the outline of steps to create a Kubernetes cluster.
 
@@ -3179,13 +3179,11 @@ Here are the outline of steps to create a Kubernetes cluster.
 4. Configure Pod networking
 5. Join additional nodes to our cluster
 
-You should be able to install Kubernetes by following the steps in the **pre-requisites section**. Once that's done, we can proceed with bootstrapping our Kubernetes cluster using kubeadm.
-
 </details>
 
-<details><summary> Bootsrapping a Cluster with kubeadm </summary>
+<details><summary> Create a Cluster using kubeadm </summary>
 
-### Bootsrapping a Cluster with kubeadm 
+### Create a Cluster using kubeadm
 
 Before we can provision a cluster, we must ensure that the control plane and data plane is up and running, which is known as **bootstraping the cluster**. This can be done manually but there's a risk for misconfiguration since we would need to run independent components separately.
 
@@ -3202,6 +3200,125 @@ We'll use kubeadm to create our cluster. The phases include:
 9. kubeadm starts **Add-on Pods: DNS and kube-proxy**
 
 Note that the process defined above can be customized by specifying parameters.
+
+</details>
+
+
+<details><summary> Pods </summary>
+
+### Pods
+
+A **pod** can be a single container or multiple containers that always run together. If you usually run single containers, you can think of a pod as a running container. This is the same concept whether you're running containers on-premise or on the cloud.
+
+Kubernetes control plane software decides:
+
+- when and where to run your pods
+- how to manage traffic routing
+- how to scales pods based on utilization or other metrics defined. 
+
+In addition to this, Kubernetes also:
+- automatically starts pods based on resource requirements
+- automatically restarts pods if they or the instances they are running on fail
+- gives an IP address and a single DNS name to each pod
+
+To see the pods in the default namespace:
+
+```bash
+$ kubectl get pods  
+```
+
+To see the pods in all namespaces:
+
+```bash
+$ kubectl get pods -A  
+```
+
+To see the pods in a specific names, e.g. kube-system: 
+
+```bash
+$ kubectl get pods -n kube-system 
+```
+
+To get more information about the pod:
+
+```bash
+$ kubectl describe <pod-name> 
+```
+
+To see the logs of a particular pos: 
+
+```bash
+$ kubectl logs <pod-name> 
+```
+
+To learn more, check out [Pods in Kubernetes.](https://kubernetes.io/docs/concepts/workloads/pods/)
+
+
+</details>
+
+
+<details><summary> DaemonSets </summary>
+
+### DaemonSets
+
+A **DaemonSet** ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
+
+Some typical uses of a DaemonSet are:
+
+- running a cluster storage daemon on every node
+- running a logs collection daemon on every node
+- running a node monitoring daemon on every node
+
+To see the daemonsets running:
+
+```bash
+$ kubectl get ds -n kube-system 
+```
+
+To see the daemonset in a specific namespace, e.g. kube-system: 
+
+```bash
+$ kubectl get ds -n kube-system 
+```
+
+To get more information about the daemonset in a specific namespace, e.g. kube-system: 
+
+```bash
+$ kubectl describe <daemonset> -n kube-system
+```
+
+To learn more, check out [DaemonSets in Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/).
+
+
+</details>
+
+
+<details><summary> ReplicaSets </summary>
+
+### ReplicaSets 
+
+A ReplicaSet is a declarative statement of how many different pods of the same type that we want to run in the system at any given time. Since it maintains a stable set of replica Pods, it is often used to guarantee the availability of a specified number of identical Pods.
+
+Note that we don't usually create the ReplicaSet but instead we create the Deployments and specify the number of containers that we want to run. You can verify this by checking a deployment:
+
+```bash
+$ kubectl edit deployment -n kube-system
+```
+
+To see the ReplicaSets running:
+
+```bash
+$ kubectl get rs -n kube-system 
+```
+
+To see the ReplicaSetsin a specific namespace, e.g. kube-system: 
+
+```bash
+$ kubectl get rs -n kube-system 
+```
+
+To learn more, check out [ReplicaSets in Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/).
+
 
 </details>
 
@@ -3223,13 +3340,6 @@ The CA files will be stored in:
 ```bash
 $ /etc/kubernetes/pki  
 ```
-
-</details>
-
-
-<details><summary> xxxxxx </summary>
-
-### xxxxxx
 
 </details>
 
@@ -3270,25 +3380,27 @@ Scaling in Kubernetes is done using the **Replication Controller.**
 
 </details>
 
-
-<details><summary> xxxxxx </summary>
-
-### xxxxxx
-
-</details>
-
-
 <details><summary> Helm Package Manager </summary>
 
 ### Helm Package Manager
 
-Helm is the Kubernetes package manager which helps us manage Kubernetes applications. To learn more, visit the official [Helm website.](https://helm.sh/)
+Helm is the Kubernetes package manager which helps package installation in Kubernetes and manages package dependencies. 
+
+To learn more, visit the official [Helm website.](https://helm.sh/)
 
 #### Concepts 
 
 - **Chart** - contains all the dependencies to deploy a Kubernetes cluster
 - **Config** - optional configs to override default configs
 - **Release** - a running instance of a chart
+
+#### Helm 2 vs. Helm 3 
+
+There is a new Helm 3 version, which differs with Helm 2.
+
+- Helm 2 architecture is different
+- Helm 2 command line and chart structure might differ 
+- Helm 2 charts are compatible with Helm 3
 
 #### Components
 
@@ -3937,6 +4049,8 @@ Useful courses on Kubernetes:
 
 - [Hands-On Amazon Elastic Kubernetes Service (EKS) LiveLessons: Running Microservices](https://www.oreilly.com/library/view/hands-on-amazon-elastic/9780137446667/)
 
+- [Packaging Applications with Helm for Kubernetes](https://www.pluralsight.com/courses/kubernetes-packaging-applications-helm)
+
 
 Other resources on Docker:
 
@@ -3968,8 +4082,6 @@ Other resources on Kubernetes:
 
 - [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
 
-Other resources on Kubernetes:
-
 - [eksctl - Config file schema](https://eksctl.io/usage/schema/#config-file-schema)
 
 Github repositories:
@@ -3983,6 +4095,10 @@ Github repositories:
 - [kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
 
 - [Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler)
+
+- [phcollignon/helm](https://github.com/phcollignon/helm)
+
+- [phcollignon/helm3](https://github.com/phcollignon/helm3)
 
 
 Metrics, Logging, Health Checks, and Tracing:
