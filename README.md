@@ -602,7 +602,7 @@ To [create a service-linked role](https://us-east-1.console.aws.amazon.com/iamv2
 3. In the *Select trusted entity page*, choose *AWS Service.*
 4. In the *Use cases for other AWS services*, type EKS.
 5. Select the *EKS (Allow EKS to manage clusters in your behalf)* then click Next > Next
-6. In the *Name, review, and create* step, click *Create role*.
+6. In the *Name, review, and create* step, git it a name: EKSServiceRole click *Create role*.
 
 Back at the Roles page, click the role you just created to show the details. Copy the ARN. We'll be using it in the IAM Policy next.
 
