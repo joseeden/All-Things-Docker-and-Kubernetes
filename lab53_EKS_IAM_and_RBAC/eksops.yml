@@ -9,7 +9,7 @@ metadata:
 
 nodeGroups:
     -   name: ng-dover
-        instanceType: t3.large
+        instanceType: t3.small
         minSize: 1
         maxSize: 5
         desiredCapacity: 1
