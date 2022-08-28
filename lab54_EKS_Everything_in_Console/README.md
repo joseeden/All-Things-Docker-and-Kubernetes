@@ -377,11 +377,14 @@ Click **nginx-demo** to see mroe information about the pod. Scroll down below to
 ## Cleanup
 
 Before we officially close this lab, make sure to destroy all resources to prevent incurring additional costs.
+Go to the EKS dashboard and delete the nodegroup, then the cluster.
+
+![](../Images/lab54deleteekscluster.png)  
+
+Next, go to the Cloudformation dashboard and delete the two stacks.
+Note that when you delete your cluster, make sure to double check if the stacks are dropped cleanly.
 
 ![](../Images/lab54cleanup.png)  
-
-Go back to the Cloudformation dashboard and delete the two stacks.
-Note that when you delete your cluster, make sure to double check if the stacks are dropped cleanly.
 
 It could encounter an error sometimes which causes the stack to fail.
 

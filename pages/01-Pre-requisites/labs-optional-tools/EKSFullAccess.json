@@ -6,7 +6,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "VisualEditor41",
+            "Sid": "GetToken",
             "Effect": "Allow",
             "Action": [
                 "ecr:GetAuthorizationToken" 
@@ -24,6 +24,7 @@
             ]
         },
         {
+            "Sid": "EksFullAccess",
             "Effect": "Allow",
             "Action": [
                 "eks:*"
@@ -34,7 +35,7 @@
             ]
         },
         {
-            "Sid": "VisualEditor4",
+            "Sid": "EcrFullAccess",
             "Effect": "Allow",
             "Action": [
                 "ecr:*"
@@ -42,7 +43,15 @@
             "Resource": "*"
         },
         {
-            "Sid": "Cloudformation",
+            "Sid": "Ec2FullAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudformationFullAccess",
             "Effect": "Allow",
             "Action": "cloudformation:*",
             "Resource": [
@@ -66,7 +75,7 @@
             "Resource": "*"
         },
         {
-            "Sid": "VisualEditor3",
+            "Sid": "EC2-IGW",
             "Effect": "Allow",
             "Action": [
                 "ec2:AuthorizeSecurityGroupIngress",
@@ -146,7 +155,7 @@
         
         },    
         {
-            "Sid": "VisualEditor2",
+            "Sid": "DeleteIGW",
             "Effect": "Allow",
             "Action": "ec2:DeleteInternetGateway",
             "Resource": "arn:aws:ec2:*:*:internet-gateway/*"
