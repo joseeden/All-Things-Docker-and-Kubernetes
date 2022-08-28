@@ -27,7 +27,6 @@ Here's a breakdown of sections for this lab.
 
 For this lab, we'll be using ap-southeast-1 region (Singapore).
 
-----------------------------------------------
 
 ## Introduction
 

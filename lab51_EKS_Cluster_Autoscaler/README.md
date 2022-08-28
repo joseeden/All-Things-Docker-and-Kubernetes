@@ -20,8 +20,6 @@ Here's a breakdown of sections for this lab.
   - [Cleanup](#cleanup)
 
 
-----------------------------------------------
-
 ## What we will do
 
 We'll be creating dedicated nodegroups with autoscaling enabled:

@@ -31,7 +31,6 @@ Here's a breakdown of sections for this lab.
 - [Cleanup](#cleanup)
 
 
-----------------------------------------------
 
 ## Introduction 
 
