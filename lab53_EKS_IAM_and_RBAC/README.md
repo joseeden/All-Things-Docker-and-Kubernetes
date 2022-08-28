@@ -1,4 +1,4 @@
-# Lab 53: IAM and RBAC
+# Lab 53: IAM and RBAC in EKS
 
 Pre-requisites:
 
@@ -13,48 +13,63 @@ Here's a breakdown of sections for this lab.
     - [IAM](#iam)
     - [CLI Tools](#cli-tools)
     - [Launch a Simple Cluster](#launch-a-simple-cluster)
-- [Part 1: Create a cluster admin](#part-1-create-a-cluster-admin)
-    - [Create the cluster admin user](#create-the-cluster-admin-user)
+- [Part 1: Create the Users](#part-1-create-the-users)
+    - [Create the three IAM accounts with no permission](#create-the-three-iam-accounts-with-no-permission)
+    - [Verify that they still don't have cluster access via CLI](#verify-that-they-still-dont-have-cluster-access-via-cli)
+- [Part 2: Provide Cluster Admin Access](#part-2-provide-cluster-admin-access)
     - [Add the Cluster-admin user to Configmap](#add-the-cluster-admin-user-to-configmap)
-    - [Create CLI access for the Cluster-admin user](#create-cli-access-for-the-cluster-admin-user)
-    - [Test the new user's access](#test-the-new-users-access)
-- [Part 2: Create a Read-only user for a dedicated namespace](#part-2-create-a-read-only-user-for-a-dedicated-namespace)
+    - [Test the Cluster-admin access](#test-the-cluster-admin-access)
+- [Part 3: Provide Admin Access for dedicated namespace](#part-3-provide-admin-access-for-dedicated-namespace)
     - [Create the Namespace](#create-the-namespace)
-    - [Create the IAM User](#create-the-iam-user)
-    - [Create the Role and Rolebinding](#create-the-role-and-rolebinding)
-    - [Add the Read-only User to the Configmap](#add-the-read-only-user-to-the-configmap)
-    - [Create CLI access for the Read-only user](#create-cli-access-for-the-read-only-user)
-    - [Test the Read-only User's Access](#test-the-read-only-users-access)
+    - [Create a role and rolebinding for Prod-admin User](#create-a-role-and-rolebinding-for-prod-admin-user)
+    - [Map the Prod-admin User](#map-the-prod-admin-user)
+    - [Test Prod-admin Access](#test-prod-admin-access)
+- [Part 4: Provide Read-only Access for dedicated namespace](#part-4-provide-read-only-access-for-dedicated-namespace)
+    - [Create a role and rolebinding for Read-only User](#create-a-role-and-rolebinding-for-read-only-user)
+    - [Map the Read-only User](#map-the-read-only-user)
+    - [Test Read-only Access](#test-read-only-access)
 - [Cleanup](#cleanup)
+
 
 ----------------------------------------------
 
 ## Introduction 
 
-In this lab, we'll create additional users and provide them RBAC permissions to access our Kubernetes clusters. This lab has two parts:
+**New Developers joining**
 
-**Part 1: Create a cluster admin**
+Three new developers have been added to our team. They won't need IAM permissions and access to the AWS Console but since they will be collaborators, they will need programmatic access and they should have admin rights to our EKS cluster.
 
-- Create an IAM user
+- developerMax will be given the admin access 
+- developerTed will be given the prod-operator access
+- developerYung will be given the prod-read-only access 
+
+In this lab, we'll create additional users and provide them RBAC permissions to access our Kubernetes clusters. This lab has three parts:
+
+**Part 1: Create the Users**
+
+- Create an IAM user for "k8s-user-2" (admin)
+- Create an IAM user for "k8s-user-prodadmin" (admin on prod)
+- Create an IAM user for "k8s-user-prodviewer" (read-only on prod)
+- Verify that they still don't have cluster access via CLI 
+
+**Part 2: Provide Cluster Admin Access**
+
 - Map user to Kubernetes role
 - Test the setup 
 
-**Part 2: Create a Read-only user for a dedicated namespace**
+**Part 3: Provide Admin Access for dedicated namespace**
 
-- Create the namespace 
-- Create the IAM user
+- Create a role and rolebinding 
+- Map user to Kubernetes role
+- Test the setup 
+
+**Part 4: Provide Read-only Access for dedicated namespace**
+
 - Create a role and rolebinding 
 - Map user to Kubernetes role
 - Test the setup 
 
 We'll also be using **ap-southeast-1** region (Singapore).
-
-**New Developers joining**
-
-Let's assume two new developers have been added to our team.
-
-- developerMax will be given the admin access 
-- developerYung will be given the read-only access 
 
 
 ## Before we start
@@ -69,18 +84,22 @@ We need to do the following before we can perform EKS operations.
 
 For the IAM User and Group, you can use the values below. Make sure to add the user to the group.
 
-- IAM User: k8s-user
+- IAM User: k8s-admin
 - IAM Group: k8s-lab
+
+**NOTE:** I would give k8s-admin as *AdminstratorAccess* since you might run into some issues later on.
 
 Once you've created the <code>k8s-user</code>, log-in to the AWS Management Console using this IAM user.
 
 To avoid confusion, we'll label the user accounts as:
 
-- **k8s-user** - main admin user that we'll use 
+- **k8s-admin** - main admin user that we'll use 
 
 - **k8s-user-2** - a second admin user that we'll create 
 
-- **k8s-user-prodviewer** - a read-only user that we'll create
+- **k8s-user-prodadmin** - admin on prod 
+
+- **k8s-user-prodviewer** - a read-only user on prod
 
 ### CLI Tools
 
@@ -134,7 +153,7 @@ $ aws sts get-caller-identity
 {
     "UserId": "AIDxxxxxxxxxxxxxx",
     "Account": "1234567890",
-    "Arn": "arn:aws:iam::1234567890:user/k8s-user"
+    "Arn": "arn:aws:iam::1234567890:user/k8s-admin"
 } 
 ```
 
@@ -175,13 +194,13 @@ $ kubectl get nodes
 $ kubectl get pods -A
 ```
 
-## Part 1: Create a cluster admin
+## Part 1: Create the Users
 
-This is actually similar to the [Before we start](#before-we-start) section since the first user we created already has cluster-level privileges. However in Part 1 of this lab, we need to create an additional cluster admin that doesn't have console access.
+### Create the three IAM accounts with no permission 
 
-### Create the cluster admin user 
+Let's start with creating the new users in the IAM console. Note that we'll be using our own "k8s-admin"  that has an *AdministratorAccess*.
 
-We can simply follow the same steps:
+Create the *k8s-user-2* with no IAM permissions.
 
 1. Login to the AWS Management Console.
 2. Go to IAM > Users > Add users 
@@ -198,16 +217,133 @@ We can simply follow the same steps:
 5. Click **Next: Review** > **Create user**
 6. You should see the **Success** message in the last page, along with the access key ID and secret access key.
 7. Click **Download .csv** > **Close**
+8. Back at the Users page, click the user that you just created. 9. Copy and save **User ARN**. We'll be using it later on.
+
+Create the *k8s-user-prodadmin* with no IAM permissions. 
+Repeat the same steps, but change the values. Make sure to download the CSV files and save the ARN.
+
+For the username:
+
+- User name: k8s-user-prodadmin
+- Select AWS credential type: Access key - Programmatic access
+
+For the tags:
+
+- Key: Name 
+- Value: k8s-user-prodadmin
+
+Do the same for *k8s-user-prodviewer*. Make sure to download the CSV files and save the ARN.
+
+For the username:
+
+- User name: k8s-user-prodviewer
+- Select AWS credential type: Access key - Programmatic access
+
+For the tags:
+
+- Key: Name 
+- Value: k8s-user-prodviewer
 
 
-    ![](../Images/lab53successiamusercreated.png)  
+### Verify that they still don't have cluster access via CLI 
 
-Back at the Users page, click the user that you just created. Copy the **User ARN**. We'll be using it in the next step.
+Before we give the new IAM user cluster rights, let's test first the cluster access. Set a profile in the AWS credentias file then add the access key ID and secret acces key from the CSV file that's downloaded as a CSV file in the first step.
 
+```bash
+$ vim ~/.aws/credentials 
+```
+```bash
+[k8s-user-2]
+aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
+region = ap-southeast-1
+output = json
+
+[k8s-user-prodadmin]
+aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
+region = ap-southeast-1
+output = json
+
+[k8s-user-prodviewer]
+aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
+region = ap-southeast-1
+output = json
+```
+
+To use the new profile, export it as a variable then check the identity again.
+
+```bash
+$ export AWS_PROFILE=k8s-user-2 
+```
+```bash
+$ aws sts get-caller-identity 
+```
+```bash
+{
+    "UserId": "AIDxxxxxxxxxxxxxx",
+    "Account": "1234567890",
+    "Arn": "arn:aws:iam::1234567890:user/k8s-user-2"
+} 
+```
+
+Test that the new user account still doesn't have cluster access.
+
+```bash
+$ kubectl get nodes
+error: You must be logged in to the server (Unauthorized)
+```
+```bash
+$ kubectl get svc
+error: You must be logged in to the server (Unauthorized) 
+```
+
+Repeat the same for *k8s-user-prodviewer*.
+
+```bash
+$ export AWS_PROFILE=k8s-user-prodviewer 
+```
+```bash
+$ aws sts get-caller-identity 
+```
+```bash
+{
+    "UserId": "AIDxxxxxxxxxxxxxx",
+    "Account": "1234567890",
+    "Arn": "arn:aws:iam::1234567890:user/k8s-user-prodviewer"
+} 
+```
+
+```bash
+$ kubectl get nodes
+error: You must be logged in to the server (Unauthorized)
+```
+```bash
+$ kubectl get svc
+error: You must be logged in to the server (Unauthorized) 
+```
+```bash
+$ eksctl get nodegroup --cluster eksops
+Error: unable to describe cluster control plane: operation error EKS: DescribeCluster, https response error StatusCode: 403, RequestID: 7778c7b0-e3ef-41e5-9b92-14c5b558ba22, api error AccessDeniedException: User: arn:aws:iam::848587260896:user/k8s-user-2 is not authorized to perform: eks:DescribeCluster on resource: arn:aws:eks:ap-southeast-1:848587260896:cluster/eksops 
+```
+
+We now have two IAM users with no permissions to the AWS Console and no admin rights to the EKS cluster.
+
+## Part 2: Provide Cluster Admin Access
 
 ### Add the Cluster-admin user to Configmap 
 
-Verify that the COnfigmap is created in our cluster. This should return the **aws-auth**.
+Switch back to our main *k8s-admin* admin account.
+
+```bash
+$ export AWS_PROFILE=k8s-admin 
+```
+```bash
+$ aws sts get-caller-identity 
+```
+
+Verify that the Configmap is created in our cluster. This should return the **aws-auth**.
 
 ```bash
 $ kubectl -n kube-system get cm 
@@ -225,7 +361,7 @@ Another approach it to print the Configmap in YAML format and then store it in a
 $ kubectl -n kube-system get configmap aws-auth -o yaml > aws-auth-configmap.yml
 ```
 
-Edit the file. Populate the **mapUsers** block. Replace userarn with your newly created user's ARN.
+Edit the file. Populate the **mapUsers** block. Replace userarn with the ARN of *k8s-user-2*
 
 ```bash
 $ vim aws-auth-configmap.yml
@@ -237,7 +373,6 @@ mapUsers: |
     groups:
         - system:masters
 ```
-
 
 Apply the changes.
 
@@ -251,113 +386,72 @@ Check if the user was saved in the Configmap.
 $ kubectl -n kube-system describe cm aws-auth 
 ```
 
-### Create CLI access for the Cluster-admin user 
+### Test the Cluster-admin access
 
-Recall that we have two new developers added to our team. The first one is developerMax who will have given the admin access.
-
-To **k8s-user** access, he can simply create a new profile for the new user in his credentials file. After that, add the access key ID and secret acces key from the CSV file that's downloaded in the [Create the cluster admin User](#create-the-cluster-admin-user) step.
+In the CLI, switch over to the profile of *k8s-user-2*.
+Check if the new user can now access the cluster.
 
 ```bash
-$ vim ~/.aws/credentials 
-```
-```bash
-[k8s-user-2]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
+$ kubectl get nodes
+NAME                                                STATUS   ROLES    AGE   VERSION
+ip-192-168-12-34.ap-southeast-1.compute.internal   Ready    <none>   80m   v1.22.12-eks-ba74326
 ```
 
-To use the new profile, export it as a variable. Check the identity again.
-
 ```bash
-$ export AWS_PROFILE=k8s-user-2 
-```
-```bash
-$ aws sts get-caller-identity 
-```
-```bash
-{
-    "UserId": "AIDxxxxxxxxxxxxxx",
-    "Account": "1234567890",
-    "Arn": "arn:aws:iam::1234567890:user/k8s-user-2"
-} 
+$ kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.100.1.2   <none>        443/TCP   91m 
 ```
 
-### Test the new user's access
+Let's now create a manifest that will deploy NGINX in the default namespace.
 
-Check if the new user can also access the nodes and pods.
-
+<details><summary> main-nginx.yml </summary>
+ 
 ```bash
-$ kubectl get nodes 
-$ kubectl get pods
-```
-
-In addition to retrieving information about the running clusters, let's also test if the new user can perform other EKS operations.
-
-Edit the **eksops.yml** and add a second nodegroup.
-
-<details><summary> eksops.yml </summary>
-
-```bash
-apiVersion: eksctl.io/v1alpha5
-kind: ClusterConfig
-
+apiVersion: v1
+kind: Pod
 metadata:
-    version: "1.22"
-    name: eksops
-    region: ap-southeast-1 
-
-nodeGroups:
-
-    -   name: ng-dover
-        instanceType: m5.large
-        desiredCapacity: 3
-        ssh: 
-            publicKeyName: "k8s-kp"
-
-    # Uncomment the code below to add a second nodegroup
-    -   name: ng-clementi
-        instanceType: m5.large
-        desiredCapacity: 3
-        ssh: 
-            publicKeyName: "k8s-kp"   
+  name: nginx-demo
+  namespace: default
+spec:
+  containers:
+  - name: nginx-ctr
+    image: nginx:latest
+    ports:
+      - containerPort: 80
 ```
  
 </details>
 </br>
 
-Apply the changes.
+Apply the NGINX file.
 
 ```bash
-$ eksctl create nodegroup \
-    --config-file=eksops.yml \
-    --include='ng-clementi' 
+$ kubectl apply -f main-nginx.yml 
 ```
 
-Check the resources again.
+Verify that the pod was created.
 
 ```bash
-$ kubectl get nodes 
 $ kubectl get pods
+NAME         READY   STATUS    RESTARTS   AGE
+nginx-demo   1/1     Running   0          16s 
 ```
 
+## Part 3: Provide Admin Access for dedicated namespace
 
-## Part 2: Create a Read-only user for a dedicated namespace
+### Create the Namespace
 
-In Part 2, we'll create a IAM user account for our new dev, *developerYung*. The IAM user is allowed to access the **prod** namespace but is restricted from interacting with other namespaces.
+Switch back to our main *k8s-admin* admin account.
 
-Here are the steps that we'll follow:
+```bash
+$ export AWS_PROFILE=k8s-admin 
+```
+```bash
+$ aws sts get-caller-identity 
+```
 
-1. Create the namespace 
-2. Create the IAM user
-3. Create a role and rolebinding 
-4. Add the User to the Configmap
-5. Test the setup 
-
-### Create the Namespace 
-
-Simply run the command below to create a new namespace called **prod**.
+Create the new namespace.
 
 ```bash
 $ kubectl create ns prod 
@@ -369,29 +463,177 @@ Verify.
 $ kubectl get ns 
 ```
 
+### Create a role and rolebinding for Prod-admin User
 
-### Create the IAM User
+Create the **role-prodadmin.yml**. Make sure to add *prod* in the namespace field.
 
-Follow the same steps from the [Create the cluster admin User](#create-the-cluster-admin-user) step in Part 1. Use the values below.
-
-- Username: k8s-user-prodviewer
-- Select AWS credential type: Access key - Programmatic access
-
-Don't forget to click the **Dowload .csv** after creating the user.
-
-![](../Images/lab53createreadonlyuserprodviewer.png)  
-
-
-### Create the Role and Rolebinding
-
-Create a **role-prodviewer.yml**. This role allows user to retrieve information about the resources in the *prod* namespace only.
-
+<details><summary> role-prodadmin.yml </summary>
+ 
 ```bash
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-    name: role-prodviewer
     namespace: prod
+    name: role-prodviewer
+rules:
+- apiGroups: [  # "" indicates the core API group
+    "",
+    "extensions",
+    "apps"
+    ] 
+  resources: [  # can be further limited, e.g. pods, deployments
+    "*"
+    ]
+  verbs: [
+    "*"
+  ]
+```
+
+Create the **rolebind-prodadmin**. Add the user name *k8s-user-prodadmin* in the name field in the Subjects block.
+
+Under the Roleref, add the name of the role.
+
+<details><summary> rolebind-prodadmin.yml </summary>
+ 
+```bash
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rolebind-prodadmin
+  namespace: prod
+# You can specify more than one "subject"
+subjects:
+- kind: User
+  name: k8s-user-prodadmin # "name" is case sensitive
+  apiGroup: ""
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: role-prodadmin # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: ""
+```
+ 
+</details>
+</br>
+
+Apply the role and rolebindings.
+
+```bash
+$ kubectl apply -f role-prodadmin.yml 
+$ kubectl apply -f rolebind-prodadmin.yml 
+```
+
+### Map the Prod-admin User
+
+Add the *k8s-user-prodadmin* to the Configmap. 
+
+```bash
+$ kubectl edit configmap aws-auth -n kube-system 
+```
+
+```bash
+  mapUsers: |
+
+    - userarn: arn:aws:iam::848587260896:user/k8s-user-2
+      username: k8s-user-2
+      groups:
+       - system:masters
+
+    - userarn: arn:aws:iam::848587260896:user/k8s-user-prodadmin
+      username: k8s-user-prodadmin
+      groups:
+      - role-prodadmin
+```
+
+Check if the user was saved in the Configmap.
+
+```bash
+$ kubectl -n kube-system describe cm aws-auth 
+```
+
+### Test Prod-admin Access
+
+Switch over to the new profile.
+
+```bash
+$ export AWS_PROFILE=k8s-user-prodadmin 
+```
+```bash
+$ aws sts get-caller-identity 
+```
+
+Let's test if the user is able to retrieve the nodes for all namespaces. This should return an error.
+
+```bash
+$ kubectl get nodes
+error: You must be logged in to the server (Unauthorized) 
+```
+
+Let's now create a manifest that will deploy nginx in the Prod namespace.
+
+<details><summary> prod-nginx.yml </summary>
+ 
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-demo
+  namespace: prod
+spec:
+  containers:
+  - name: nginx-ctr
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+```
+
+Apply the manifest in the prod namespace.
+
+```bash
+$ kubectl apply -f prod-nginx.yml -n prod
+pod/nginx-demo created 
+```
+
+We now have NGINX running in two namespaces: in the default and in prod. *k8s-user-prodadmin* should only be able to access pods in the *prod* namespace.
+
+```bash
+$ kubectl get pods
+Error from server (Forbidden): pods is forbidden: User "k8s-user-prodadmin" cannot list resource "pods" in API group "" in the namespace "default" 
+```
+```bash
+$ kubectl get pods -n prod
+NAME         READY   STATUS    RESTARTS   AGE
+nginx-demo   1/1     Running   0          40s 
+```
+ 
+</details>
+</br>
+
+
+
+## Part 4: Provide Read-only Access for dedicated namespace
+
+### Create a role and rolebinding for Read-only User 
+
+Switch back to our main *k8s-admin* admin account.
+
+```bash
+$ export AWS_PROFILE=k8s-admin 
+```
+```bash
+$ aws sts get-caller-identity 
+```
+
+Create the **role-prodviewer.yml**. Make sure to add *prod* in the namespace field.
+
+<details><summary> role-prodviewer.yml </summary>
+ 
+```bash
+ kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    namespace: prod
+    name: role-prodviewer
 rules:
 - apiGroups: [  # "" indicates the core API group
     "",
@@ -407,9 +649,16 @@ rules:
     "list"
     ]
 ```
+ 
+</details>
+</br>
 
-Next, create the **rolebind-prodviewer.yml**. This specifies the user and the role to be attached to the user.
+Create the **rolebind-prodviewer.yml**. Add the user name *k8s-user-prodviewer* in the name field in the Subjects block.
 
+Under the Roleref, add the name of the role.
+
+<details><summary> rolebind-prodviewer.yml </summary>
+ 
 ```bash
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -427,65 +676,58 @@ roleRef:
   kind: Role #this must be Role or ClusterRole
   name: role-prodviewer # this must match the name of the Role or ClusterRole you wish to bind to
   apiGroup: ""
-#   apiGroup: rbac.authorization.k8s.io 
-```
+#   apiGroup: rbac.authorization.k8s.io
 
-Let's now create the two resources.
+```
+ 
+</details>
+</br>
+
+Apply the role and rolebindings.
 
 ```bash
 $ kubectl apply -f role-prodviewer.yml 
 $ kubectl apply -f rolebind-prodviewer.yml 
 ```
 
+### Map the Read-only User
 
-### Add the Read-only User to the Configmap
-
-Edit the configmap.
+Next, edit the the Configmap. 
 
 ```bash
-$ kubectl edit configmap aws-auth -n kube-system  
+$ kubectl edit configmap aws-auth -n kube-system 
 ```
 
-Add the user in the **mapUsers** block. For the groups, specify the role that we created. Add the user ARN and the user name as well.
+Add *k8s-user-prodviewer*.
 
 ```bash
   mapUsers: |
 
-    - groups:
-      - system:masters
-      userarn: arn:aws:iam::123456789098:user/k8s-user-2
+    - userarn: arn:aws:iam::848587260896:user/k8s-user-2
       username: k8s-user-2
+      groups:
+       - system:masters
 
-    - groups:
-      - role-prodviewer
-      userarn: arn:aws:iam::123456789098:user/k8s-user-prodviewer
-      username: k8s-user-prodviewer 
+    - userarn: arn:aws:iam::848587260896:user/k8s-user-prodadmin
+      username: k8s-user-prodadmin
+      groups:
+      - role-prodadmin
+
+    - userarn: arn:aws:iam::848587260896:user/k8s-user-prodviewer
+      username: k8s-user-prodviewer
+      groups:
+      - role-prodviewer      
 ```
 
-Verify if the user has been added.
+Check if the user was saved in the Configmap.
 
 ```bash
 $ kubectl -n kube-system describe cm aws-auth 
 ```
 
+### Test Read-only Access
 
-
-### Create CLI access for the Read-only user
-
-We can now give the user account to developerYung. He just needs to modify his AWS credentials file.
-
-```bash
-$ vim ~/.aws/credentials 
-```
-```bash
-[k8s-user-prodviewer]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-```
-
-Export as a variable then check the identity.
+We now have another user that has read-acess to the *prod* namespace only. Switch over to the new profile.
 
 ```bash
 $ export AWS_PROFILE=k8s-user-prodviewer 
@@ -493,31 +735,64 @@ $ export AWS_PROFILE=k8s-user-prodviewer
 ```bash
 $ aws sts get-caller-identity 
 ```
+
+Let's test if he's able to retrieve the nodes for all namespaces.
+
 ```bash
-{
-    "UserId": "AIDxxxxxxxxxxxxxx",
-    "Account": "1234567890",
-    "Arn": "arn:aws:iam::1234567890:user/k8s-user-prodviewer"
-} 
+$ kubectl get nodes
+Error from server (Forbidden): nodes is forbidden: User "k8s-user-prodviewer" cannot list resource "nodes" in API group "" at the cluster scope 
 ```
 
-### Test the Read-only User's Access
-
-Check if the new user can also access the nodes and pods.
-He should be getting a "not authorized" error message.
+Checking the nodes for the defailt namespace also returns an error.
 
 ```bash
-$ kubectl get nodes 
 $ kubectl get pods
+Error from server (Forbidden): pods is forbidden: User "k8s-user-prodviewer" cannot list resource "pods" in API group "" in the namespace "default" 
 ```
 
-In addition to retrieving information about the running clusters, let's also test if the new user can perform other EKS operations. He should be getting a "not authorized" error message.
+The user should be able to access pods in the *prod* namespace.
 
 ```bash
-$ eksctl get nodegroup --cluster eksops 
+$ kubectl get pods -n prod
+NAME         READY   STATUS    RESTARTS   AGE
+nginx-demo   1/1     Running   0          10m52s 
 ```
+
+Recall that this user has Read-only access. Let's try to the pod.
+
+```bash
+$ kubectl delete pod nginx-demo
+Error from server (Forbidden): pods "nginx-demo" is forbidden: User "k8s-user-prodviewer" cannot delete resource "pods" in API group "" in the namespace "default" 
+```
+
+Right, we need to specify the namespace.
+
+```bash
+$ kubectl delete pod nginx-demo -n prod
+Error from server (Forbidden): pods "nginx-demo" is forbidden: User "k8s-user-prodviewer" cannot delete resource "pods" in API group "" in the namespace "prod" 
+```
+
+How about if we try to delete it by running the command below? This should delete **all** the NGINX pods (if there's more than one pod) in the *prod* namespace.
+
+```bash
+$ kubectl delete -f prod-nginx.yml
+Error from server (Forbidden): error when deleting "prod-nginx.yml": pods "nginx-demo" is forbidden: User "k8s-user-prodviewer" cannot delete resource "pods" in API group "" in the namespace "prod"
+```
+
+As we can see, *k8s-user-prodviewer* cannot do any update or delete action to the running pods because it only has read access to the namespace.
+
+
 
 ## Cleanup
+
+Whew, that was a lot! Switch over to the main admin account.
+
+```bash
+$ export AWS_PROFILE=k8s-admin 
+```
+```bash
+$ aws sts get-caller-identity 
+```
 
 Before we officially close this lab, make sure to destroy all resources to prevent incurring additional costs.
 
