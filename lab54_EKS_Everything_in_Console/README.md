@@ -20,9 +20,6 @@ Here's a breakdown of sections for this lab.
 - [Create the Worker Nodes](#create-the-worker-nodes)
 - [Verify the Nodes](#verify-the-nodes)
 - [Access the Cluster through CLI](#access-the-cluster-through-cli)
-    - [Cluster](#cluster)
-    - [Contexts](#contexts)
-    - [Users](#users)
 - [Deploy an NGINX pod](#deploy-an-nginx-pod)
 - [Cleanup](#cleanup)
 
