@@ -8,18 +8,19 @@ Pre-requisites:
 
 Here's a breakdown of sections for this lab.
 
-<!-- TOC -->
 
 - [Introduction](#introduction)
 - [Creating the Access](#creating-the-access)
 - [Setup CLI Tools](#setup-cli-tools)
 - [Configure CLI Access](#configure-cli-access)
 - [Create the EKSClusterRole](#create-the-eksclusterrole)
-- [Create the VPC and Nodes through CloudFormation](#create-the-vpc-and-nodes-through-cloudformation)
+- [Create the VPC through CloudFormation](#create-the-vpc-through-cloudformation)
+- [Create the Nodegroup through CloudFormation](#create-the-nodegroup-through-cloudformation)
 - [Create the EKS cluster](#create-the-eks-cluster)
 - [Create the Worker Nodes](#create-the-worker-nodes)
 - [Verify the Nodes](#verify-the-nodes)
 - [Access the Cluster through CLI](#access-the-cluster-through-cli)
+
 - [Deploy an NGINX pod](#deploy-an-nginx-pod)
 - [Cleanup](#cleanup)
 
