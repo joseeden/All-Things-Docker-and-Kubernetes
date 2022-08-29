@@ -178,7 +178,6 @@ nodeGroups:
 ```
  
 </details>
-</br>
 
 Launch the cluster.
 
