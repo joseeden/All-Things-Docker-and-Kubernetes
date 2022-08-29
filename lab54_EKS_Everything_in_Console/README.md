@@ -102,7 +102,7 @@ $ export AWSREGION=ap-southeast-1
 6. Git it a name: **EKSServiceRole**.
 7. Finally, click **Create role**.
 
-## Create the VPC and Nodes through CloudFormation
+## Create the VPC through CloudFormation
 
 Let's start with creating a VPC where our EKS Cluster will reide. We'll use a Cloudformation template from the [AWS Docmentation.](https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html)
 
@@ -123,6 +123,8 @@ Let's start with creating a VPC where our EKS Cluster will reide. We'll use a Cl
     - Value: eks-lab-vpc
 
 8. Click **Next** > **Create stack.**
+
+## Create the Nodegroup through CloudFormation
 
 Next, we'll create the nodegroup.
 
