@@ -2,7 +2,7 @@
 
 # All Things Docker and Kubernetes #
 
-This repository will contain my notes and projects on containerization and orchestration that I'm working on in ~~2021~~ the present. 
+This repository contains projects on containerization and orchestration that I'm currently working on in ~~2021~~ the present. 
 
 <!-- <p align=center>
 <img src="Images/docker-6.jpg" width=500>
@@ -13,11 +13,8 @@ This repository will contain my notes and projects on containerization and orche
 
 ## How to Use this Repo
 
-Simply go to your favorite terminal and clone this repository. You can also go through the **Docker** and **Kubernetes** sections below for a quick walkthrough.
+Each lab is equipped with easy-to-follow, detailed instruction. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
 
-```bash
-git clone https://github.com/joseeden/All-Things-Docker-and-Kubernetes.git
-```
 
 ## Pre-requisites
 
@@ -160,7 +157,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Amazon EKS - Control Plane Logging to CloudWatch ](pages/04-Kubernetes/055-EKS-Control-Plane-Logging-to-CloudWatch.md) 
 
-- [Error Guide](pages/04-Kubernetes/099-Error-Guide.md)
+- [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)
 
 - [Cheatsheet: Kubernetes Commands](pages/04-Kubernetes/049-Cheatsheet-Kubernetes-Commands.md) 
 
