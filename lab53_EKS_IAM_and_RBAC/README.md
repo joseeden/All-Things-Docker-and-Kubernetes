@@ -472,7 +472,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
     namespace: prod
-    name: role-prodviewer
+    name: role-prodadmin
 rules:
 - apiGroups: [  # "" indicates the core API group
     "",
@@ -486,6 +486,8 @@ rules:
     "*"
   ]
 ```
+
+</details>
 
 Create the **rolebind-prodadmin**. Add the user name *k8s-user-prodadmin* in the name field in the Subjects block.
 
@@ -585,6 +587,8 @@ spec:
       - containerPort: 80
 ```
 
+</details>
+
 Apply the manifest in the prod namespace.
 
 ```bash
@@ -604,10 +608,6 @@ NAME         READY   STATUS    RESTARTS   AGE
 nginx-demo   1/1     Running   0          40s 
 ```
  
-</details>
-</br>
-
-
 
 ## Part 4: Provide Read-only Access for dedicated namespace
 
@@ -778,7 +778,6 @@ Error from server (Forbidden): error when deleting "prod-nginx.yml": pods "nginx
 ```
 
 As we can see, *k8s-user-prodviewer* cannot do any update or delete action to the running pods because it only has read access to the namespace.
-
 
 
 ## Cleanup
