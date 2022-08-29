@@ -1,4 +1,4 @@
-# Lab 53: IAM and RBAC in EKS
+# Lab 53: IAM and RBAC on EKS
 
 Pre-requisites:
 
