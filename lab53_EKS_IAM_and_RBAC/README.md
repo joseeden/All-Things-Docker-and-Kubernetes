@@ -420,7 +420,6 @@ spec:
 ```
  
 </details>
-</br>
 
 Apply the NGINX file.
 
@@ -514,7 +513,6 @@ roleRef:
 ```
  
 </details>
-</br>
 
 Apply the role and rolebindings.
 
@@ -649,7 +647,6 @@ rules:
 ```
  
 </details>
-</br>
 
 Create the **rolebind-prodviewer.yml**. Add the user name *k8s-user-prodviewer* in the name field in the Subjects block.
 
@@ -679,7 +676,6 @@ roleRef:
 ```
  
 </details>
-</br>
 
 Apply the role and rolebindings.
 
