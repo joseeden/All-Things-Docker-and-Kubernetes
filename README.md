@@ -13,7 +13,7 @@ This repository contains projects on containerization and orchestration that I'm
 
 ## How to Use this Repo
 
-Each lab is equipped with easy-to-follow, detailed instruction. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
+Each lab in this repo is equipped with easy-to-follow, detailed instructions. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
 
 
 ## Pre-requisites
