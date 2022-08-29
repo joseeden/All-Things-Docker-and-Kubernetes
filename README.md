@@ -125,6 +125,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Setting up Kubernetes](pages/04-Kubernetes/008-Setting-up-Kubernetes.md)
 
+- [Kubeconfig files and Static Pod Manifests](pages/04-Kubernetes/009-kubeconfig-files.md)
+
 - [Pods](pages/04-Kubernetes/009-Pods.md) 
 
 - [DaemonSets](pages/04-Kubernetes/010-DaemonSets.md) 
