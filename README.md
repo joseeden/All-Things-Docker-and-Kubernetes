@@ -125,7 +125,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Setting up Kubernetes](pages/04-Kubernetes/008-Setting-up-Kubernetes.md)
 
-- [Kubeconfig files and Static Pod Manifests](pages/04-Kubernetes/009-kubeconfig-files.md)
+- [Kubeconfig files](pages/04-Kubernetes/009-kubeconfig-files.md)
+
+- [Static Pod Manifests](pages/04-Kubernetes/009-Static-Pod-Manifests.md)
 
 - [Pods](pages/04-Kubernetes/009-Pods.md) 
 
@@ -138,6 +140,8 @@ Kubernetes is indeed an entire universe in itself.
 - Deployments 
 
 - [Certificate Authority](pages/04-Kubernetes/015-Certificate-Authority.md) 
+
+- [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
 
 - [Stateless vs. Stateful](pages/04-Kubernetes/016-Stateful-vs-Stateless.md)
 
