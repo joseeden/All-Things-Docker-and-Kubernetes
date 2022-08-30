@@ -73,4 +73,3 @@ Components | Ports (TCP) | Used By
 Kubelet             | 10250         | Control Plane 
 NodePort            | 30000-32767   | All 
 
-</details>

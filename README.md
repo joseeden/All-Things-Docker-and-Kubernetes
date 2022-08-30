@@ -143,7 +143,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md) 
 
-- [Helm](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
+- [Helm Package Manager](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
+
+- [Kubernetes Security](pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
 - [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
 
@@ -152,6 +154,8 @@ Kubernetes is indeed an entire universe in itself.
 - [Amazon EKS - Pricing](pages/04-Kubernetes/051-EKS-Pricing.md) 
 
 - [Amazon EKS - IAM and RBAC](pages/04-Kubernetes/052-EKS-IAM-and-RBAC.md)  
+
+- [Amazon EKS - Networking](pages/04-Kubernetes/056-EKS-Networking.md)
 
 - [Amazon EKS - Loadbalancers](pages/04-Kubernetes/053-EKS-Loadbalancers.md) 
 
