@@ -2,15 +2,15 @@
 
 Pre-requisites:
 
-  - [Basic Understanding of Kubernetes](../README.md#kubernetes)
-  - [AWS account](../README.md#create-an-aws-account)
+- [Basic Understanding of Kubernetes](../README.md#kubernetes)
+- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 
 
 Here's a breakdown of sections for this lab.
 
 - [Introduction](#introduction)
 - [Before we start](#before-we-start)
-    - [IAM](#iam)
+    - [IAM Requirements](#iam)
     - [CLI Tools](#cli-tools)
     - [Launch a Simple Cluster](#launch-a-simple-cluster)
 - [Part 1: Create the Users](#part-1-create-the-users)
@@ -29,7 +29,6 @@ Here's a breakdown of sections for this lab.
     - [Map the Read-only User](#map-the-read-only-user)
     - [Test Read-only Access](#test-read-only-access)
 - [Cleanup](#cleanup)
-
 
 
 ## Introduction 
@@ -77,9 +76,9 @@ We'll also be using **ap-southeast-1** region (Singapore).
 
 We need to do the following before we can perform EKS operations.
 
-- [Create the IAM Policy](../README.md#setup-eks-access-on-aws)
-- [Create the IAM User, Access Key, and Keypair](../README.md#setup-eks-access-on-aws)
-- [Create the IAM Group](../README.md#setup-eks-access-on-aws)
+- [Create the IAM Policy](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [Create the IAM User, Access Key, and Keypair](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [Create the IAM Group](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 
 For the IAM User and Group, you can use the values below. Make sure to add the user to the group.
 
@@ -104,11 +103,14 @@ To avoid confusion, we'll label the user accounts as:
 
 We also need to install the following CLI tools:
 
-- [aws cli](../README.md#install-cli-tools) - used by eksctl to grab authentication token
-- [eksctl](../README.md#install-cli-tools) - setup and operation of EKS cluster 
-- [kubectl](../README.md#install-cli-tools) - interaction with K8S API server
+- [aws cli](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+) - used by eksctl to grab authentication token
+- [eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+) - setup and operation of EKS cluster 
+- [kubectl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+) - interaction with K8S API server
 
-Once you've installed AWS CLI, [add the access key to your credentials file](../README.md#install-cli-tools). It should look like this:
+Once you've installed AWS CLI, [add the access key to your credentials file](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.mds). It should look like this:
 
 ```bash
 # /home/user/.aws/credentials

@@ -2,16 +2,16 @@
 
 Pre-requisites:
 
-  - [Basic Understanding of Kubernetes](../README.md#kubernetes)
-  - [AWS account](../README.md#create-an-aws-account)
+- [Basic Understanding of Kubernetes](../README.md#kubernetes)
+- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of sections for this lab.
 
 - [Introduction](#introduction)
-- [Creating the Access](#creating-the-access)
-- [Setup CLI Tools and Access Key](#setup-cli-tools-and-access-key)
-- [Enabling CloudWatch Loggin hrough the Manifest](#enabling-cloudwatch-loggin-hrough-the-manifest)
+- [Enabling CloudWatch Logging through the Manifest](#enabling-cloudwatch-logging-through-the-manifest)
 - [Enabling CloudWatch Logging through the Console](#enabling-cloudwatch-logging-through-the-console)
 - [Disable CloudWatch Logging](#disable-cloudwatch-logging)
 - [CloudWatch Metrics - Container Insights](#cloudwatch-metrics---container-insights)
@@ -19,10 +19,6 @@ Here's a breakdown of sections for this lab.
     - [Deploy the CloudWatch Agent](#deploy-the-cloudwatch-agent)
     - [View the Metrics](#view-the-metrics)
     - [Generate Load](#generate-load)
-        - [Install the Metrics Server](#install-the-metrics-server)
-        - [Run and expose php-apache server](#run-and-expose-php-apache-server)
-        - [Create the HorizontalPodAutoscaler](#create-the-horizontalpodautoscaler)
-        - [Increase the Load](#increase-the-load)
 - [Cleanup](#cleanup)
 
 For this lab, we'll be using ap-southeast-1 region (Singapore).
@@ -32,67 +28,10 @@ For this lab, we'll be using ap-southeast-1 region (Singapore).
 
 Since the Control Plane is managed by AWS, we don't have access to the hosts that are serve the Control Plane and manages the logs. 
 
-We can access these logs thru CloudWatch by enabling which log type to send. To learn more, check out this [page](../README.md#amazon-eks---control-plane-logging-to-cloudwatch).
-
-## Creating the Access 
-
-We will need to do the following before we can create clusters and perform EKS operations.
-
-- [Create the IAM Policy](../README.md#setup-eks-access-on-aws)
-- [Create the IAM User, Access Key, and Keypair](../README.md#setup-eks-access-on-aws)
-- [Create the IAM Group](../README.md#setup-eks-access-on-aws)
-
-    
-For the IAM User and Group, you can use the values below. Make sure to add the user to the group.
-
-- IAM User: k8s-admin
-- IAM Group: k8s-lab
-
-Once you've created the <code>k8s-admin</code>, log-in to the AWS Management Console using this IAM user.
+We can access these logs thru CloudWatch by enabling which log type to send. To learn more, check out this [page](../README.md##kubernetes).
 
 
-## Setup CLI Tools and Access Key
-
-Install the following CLI tools by clicking the links:
-
-- [aws cli](../README.md#install-cli-tools) - used by eksctl to grab authentication token
-- [eksctl](../README.md#install-cli-tools) - setup and operation of EKS cluster 
-- [kubectl](../README.md#install-cli-tools) - interaction with K8S API server
-
-Once you've installed AWS CLI, [add the access key to your credentials file](../README.md#install-cli-tools). It should look like this:
-
-```bash
-# /home/user/.aws/credentials
-
-[k8s-admin]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-```
-
-You can use a different profile name. To use the profile, export it as a variable.
-
-```bash
-$ export AWS_PROFILE=k8s-admin
-```
-
-To verify, we can run the commands below:
-
-```bash
-$ aws configure list 
-```
-```bash
-$ aws sts get-caller-identity 
-```
-
-Although the region is already set in the profile, we'll also be using the region in many of the commands. We can save it as a variable.
-
-```bash
-$ export AWSREGION=ap-southeast-1 
-```
-
-## Enabling CloudWatch Loggin hrough the Manifest
+## Enabling CloudWatch Logging through the Manifest
 
 Let's reuse the **eksops.yml** from lab50 in this repo. 
 

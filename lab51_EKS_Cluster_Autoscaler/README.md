@@ -3,21 +3,21 @@
 
 Pre-requisites:
 
-  - [Basic Understanding of Kubernetes](../README.md#kubernetes)
-  - [AWS account](../README.md#pre-requisites)
+- [Basic Understanding of Kubernetes](../README.md#kubernetes)
+- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
-  - [Creating the Access](#creating-the-access)
-  - [Setup CLI Tools and Access Key](#setup-cli-tools-and-access-key)
-  - [Create Nodegroups with Autoscaling](#create-nodegroups-with-autoscaling)
-  - [Deploy the Cluster Autoscaler](#deploy-the-cluster-autoscaler)
-  - [Create NGINX Deployment](#create-nginx-deployment)
-  - [Trigger the NGINX Autoscaler](#trigger-the-nginx-autoscaler)
-      - [Scaling Out](#scaling-out)
-      - [Scaling In](#scaling-in)
-  - [Checking the Logs](#checking-the-logs)
-  - [Cleanup](#cleanup)
+- [Create Nodegroups with Autoscaling](#create-nodegroups-with-autoscaling)
+- [Deploy the Cluster Autoscaler](#deploy-the-cluster-autoscaler)
+- [Create NGINX Deployment](#create-nginx-deployment)
+- [Trigger the NGINX Autoscaler](#trigger-the-nginx-autoscaler)
+    - [Scaling Out](#scaling-out)
+    - [Scaling In](#scaling-in)
+- [Checking the Logs](#checking-the-logs)
+- [Cleanup](#cleanup)
 
 
 ## What we will do
@@ -38,65 +38,9 @@ Finally, we'll create the nginx deployment
 - scale up and down
 - verify in the autoscaler logs
 
-
-For this lab, we'll be using ap-southeast-1 region (Singapore).
+For this lab, we'll be using **ap-southeast-1 region** (Singapore).
 
 ----------------------------------------------
-
-## Creating the Access 
-
-We will need to do the following before we can create clusters and perform EKS operations.
-
-- [Create the IAM Policy](../README.md#setup-eks-access-on-aws)
-- [Create the IAM User, Access Key, and Keypair](../README.md#setup-eks-access-on-aws)
-- [Create the IAM Group](../README.md#setup-eks-access-on-aws)
-
-    
-For the IAM User and Group, you can use the values below. Make sure to add the user to the group.
-
-- IAM User: k8s-admin
-- IAM Group: k8s-lab
-
-## Setup CLI Tools and Access Key
-
-Install the following CLI tools by clicking the links:
-
-- [aws cli](../README.md#install-cli-tools) - used by eksctl to grab authentication token
-- [eksctl](../README.md#install-cli-tools) - setup and operation of EKS cluster 
-- [kubectl](../README.md#install-cli-tools) - interaction with K8S API server
-
-Once you've installed AWS CLI, [add the access key to your credentials file](../README.md#install-cli-tools). It should look like this:
-
-```bash
-# /home/user/.aws/credentials
-
-[k8s-admin]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-```
-
-You can use a different profile name. To use the profile, export it as a variable.
-
-```bash
-$ export AWS_PROFILE=k8s-admin
-```
-
-To verify, we can run the commands below:
-
-```bash
-$ aws configure list 
-```
-```bash
-$ aws sts get-caller-identity 
-```
-
-Although the region is already set in the profile, we'll also be using the region in many of the commands. We can save it as a variable.
-
-```bash
-$ export AWSREGION=ap-southeast-1 
-```
 
 ## Create Nodegroups with Autoscaling
 

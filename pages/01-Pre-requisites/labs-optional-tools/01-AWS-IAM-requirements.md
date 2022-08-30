@@ -8,7 +8,6 @@
 - [Create the IAM Group](#create-the-iam-group)
 - [Configure the Credentials File](#configure-the-credentials-file)
 
-
 ----------------------------------------------
 
 ## Create the IAM Policy
@@ -56,6 +55,12 @@ Refer to the links below.
 
 For the keypair, store it inside <code>~/.ssh</code> directory.
 
+For the IAM User and Group, you can use the values below. Make sure to add the user to the group.
+
+- IAM User: k8s-admin
+- IAM Group: k8s-lab
+
+While you can attach the EKSFullAccess policy to your user, you can also give it the *AdministratorAccess*. Once you've created the <code>k8s-admin</code>, log-in to the AWS Management Console using this IAM user.
 
 ## Create the IAM Group
 
@@ -85,7 +90,13 @@ Create the **k8s-lab** group.
 
 ## Configure the Credentials File
 
-In your terminal, configure the <code>.aws/credentials</code> file that's automatically created in your home directory. 
+> *Make sure you've [installed AWS CLI](../labs-kubernetes-pre-requisites/README.md#install-cli-tools) in your terminal*
+
+In your terminal, configure the <code>.aws/credentials</code> file that's automatically created in your home directory. Supply the access key ID and secret access key which you downloaded in the [previous step.](#create-the-iam-user-access-key-and-keypair)
+
+```bash
+$ vim ~/.aws/credentials 
+```
 
 ```bash
 # /home/user/.aws/credentials
@@ -110,4 +121,10 @@ $ aws configure list
 ```
 ```bash
 $ aws sts get-caller-identity 
+```
+
+Although the region is already set in the profile, we'll also be using the region in many of the commands. We can save it as a variable.
+
+```bash
+$ export AWSREGION=ap-southeast-1 
 ```

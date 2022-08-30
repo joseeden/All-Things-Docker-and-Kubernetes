@@ -105,7 +105,7 @@ When you have containers, you have cloud-native applications.
 - [Product is Released, What's Next?](pages/03-Cloud-Native/009-Product-is-Released-Whats-Next.md) 
 
 
-## Kubernetes - In-progress
+## Kubernetes
 
 Kubernetes is indeed an entire universe in itself. 
 

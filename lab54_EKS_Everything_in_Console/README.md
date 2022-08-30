@@ -2,17 +2,15 @@
 
 Pre-requisites:
 
-  - [Basic Understanding of Kubernetes](../README.md#kubernetes)
-  - [AWS account](../README.md#create-an-aws-account)
+- [Basic Understanding of Kubernetes](../README.md#kubernetes)
+- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of sections for this lab.
 
-
 - [Introduction](#introduction)
-- [Creating the Access](#creating-the-access)
-- [Setup CLI Tools](#setup-cli-tools)
-- [Configure CLI Access](#configure-cli-access)
 - [Create the EKSClusterRole](#create-the-eksclusterrole)
 - [Create the VPC through CloudFormation](#create-the-vpc-through-cloudformation)
 - [Create the Nodegroup through CloudFormation](#create-the-nodegroup-through-cloudformation)
@@ -20,10 +18,8 @@ Here's a breakdown of sections for this lab.
 - [Create the Worker Nodes](#create-the-worker-nodes)
 - [Verify the Nodes](#verify-the-nodes)
 - [Access the Cluster through CLI](#access-the-cluster-through-cli)
-
 - [Deploy an NGINX pod](#deploy-an-nginx-pod)
 - [Cleanup](#cleanup)
-
 
 For this lab, we'll be using **ap-southeast-1** region (Singapore).
 
@@ -31,67 +27,6 @@ For this lab, we'll be using **ap-southeast-1** region (Singapore).
 ## Introduction
 
 In this lab, we'll be creating the cluster through the EKS dahsboard in AWS Management Console.
-
-## Creating the Access 
-
-We need to do the following before we can perform EKS operations.
-
-- [Create the IAM Policy](../README.md#setup-eks-access-on-aws)
-- [Create the IAM User, Access Key, and Keypair](../README.md#setup-eks-access-on-aws)
-- [Create the IAM Group](../README.md#setup-eks-access-on-aws)
-
-For the IAM User and Group, you can use the values below. Make sure to add the user to the group.
-
-- IAM User: k8s-admin
-- IAM Group: k8s-lab
-
-While you can attach the EKSFullAccess policy to your user, you can als give it the *AdministratorAccess*. 
-
-Once you've created the <code>k8s-admin</code>, log-in to the AWS Management Console using this IAM user.
-
-## Setup CLI Tools 
-
-Install the following CLI tools by clicking the links:
-
-- [aws cli](../README.md#install-cli-tools) - used by eksctl to grab authentication token
-- [eksctl](../README.md#install-cli-tools) - setup and operation of EKS cluster 
-- [kubectl](../README.md#install-cli-tools) - interaction with K8S API server
-
-## Configure CLI Access 
-
-Although we said that "Everything is done in the console", we can also verify the Kubernetes cluster from our CLI. 
-
-In your terminal, [add the access key and secret access key to your credentials file](../README.md#install-cli-tools). It should look like this:
-
-```bash
-# /home/user/.aws/credentials
-
-[k8s-admin]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-```
-You can use a different profile name. To use the profile, export it as a variable.
-
-```bash
-$ export AWS_PROFILE=k8s-admin
-```
-
-To verify, we can run the commands below:
-
-```bash
-$ aws configure list 
-```
-```bash
-$ aws sts get-caller-identity 
-```
-
-Although the region is already set in the profile, we'll also be using the region in many of the commands. We can save it as a variable.
-
-```bash
-$ export AWSREGION=ap-southeast-1 
-```
 
 ## Create the EKSClusterRole 
 
@@ -105,7 +40,7 @@ $ export AWSREGION=ap-southeast-1
 
 ## Create the VPC through CloudFormation
 
-Let's start with creating a VPC where our EKS Cluster will reide. We'll use a Cloudformation template from the [AWS Docmentation.](https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html)
+Let's start with creating a VPC where our EKS Cluster will reide. We'll use a Cloudformation template from the [AWS Documentation.](https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html)
 
 1. Go to Cloudformation dashboard and click **Create cluster**.
 2. Under the **Prepare template**, choose **Template is ready**.

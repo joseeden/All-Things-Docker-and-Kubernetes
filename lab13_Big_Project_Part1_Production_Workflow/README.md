@@ -1,11 +1,10 @@
 # Lab 13: Really Big Project - Part 1: Create a Production-Grade Workflow
-
-> *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
+   
 
 Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../README.md#pre-requisites)
-  - [Install Node and NPM](../README.md#pre-requisites)
+  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Install Node and NPM](../pages/01-Pre-requisites/labs-optional-tools/02-Install-Nodejs-Npm.md)
   <!-- - [Install Go](../README.md#pre-requisites) -->
 
 ## Introduction
@@ -68,7 +67,7 @@ We'll work on a fairly simple React code and deploy it in a container. We'll be 
 
 > *Note: If you are using Windows machines, you might encounter some issues. You may refer to the [Issues Encountered on Windows-based Machines](#issues-encountered-for-windows-based-machines)**
 
-Before we proceed, make sure you've installed NodeJS and NPM. You can check out the [pre-requisites section]((../README.md#pre-requisites)) to know more.
+Before we proceed, make sure you've installed NodeJS and NPM. You can check out the [pre-requisites section](#lab-13-really-big-project---part-1-create-a-production-grade-workflow) to know more.
 
 Start with generating the app using **npx** to get the most current current libraries and resolve any depency conflicts. Note that there are two ways to do this.
 

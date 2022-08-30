@@ -70,7 +70,6 @@ Here are some steps that you need to do if you're going to do the labs in AWS.
 
 To learn more, check the [IAM requirements](01-AWS-IAM-requirements.md) page.
 
-
 ## Create a Github Account 
 
 Since we will be implementing CICD in some of the labs, we will need to set this up. Github is a free to use code repository.
@@ -207,3 +206,12 @@ Since we will use a custom binary that utilizes NPM and NodeJS in some of the la
 
 - [NodeJS](02-Install-Nodejs-Npm.md)
 - [NPM](02-Install-Nodejs-Npm.md)
+
+
+## Other Simple CLI Utilities 
+
+```bash
+sudo apt install -y \
+jq \
+curl  
+```

@@ -28,7 +28,7 @@ $ kubectl get ds -n kube-system
 ```bash
 NAME        DESIRED     CURRENT     READY   UP-TO-DATE  AVAILABLE
 aws-node    2           2           2       2           2
-ube-proxy   2           2           2       2           2
+kube-proxy   2           2           2       2           2
 ```
 
 In the example above, we see that there's two DaemonSets running:

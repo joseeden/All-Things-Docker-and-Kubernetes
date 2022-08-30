@@ -2,7 +2,7 @@
  
 Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../README.md#pre-requisites)
+  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
 ### Introduction
   

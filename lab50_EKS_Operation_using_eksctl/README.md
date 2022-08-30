@@ -3,13 +3,14 @@
 
 Pre-requisites:
 
-  - [Basic Understanding of Kubernetes](../README.md#kubernetes)
-  - [AWS account](../README.md#pre-requisites)
+- [Basic Understanding of Kubernetes](../README.md#kubernetes)
+- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 
 Here's a breakdown of sections for this lab.
 
-- [Creating the Access](#creating-the-access)
-- [Setup CLI and Access Key](#setup-cli-and-access-key)
 - [Create an EKS cluster using eksctl](#create-an-eks-cluster-using-eksctl)
 - [Create kubeconfig file automatically](#create-kubeconfig-file-automatically)
 - [Create an EKS cluster using a YAML file](#create-an-eks-cluster-using-a-yaml-file)
@@ -24,58 +25,6 @@ Here's a breakdown of sections for this lab.
 For this lab, we'll be using **ap-southeast-1** region (Singapore).
 
 ----------------------------------------------
-
-## Creating the Access 
-
-We will need to do the following before we can create clusters and perform EKS operations.
-
-- [Create a "k8s-kp.pem" keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
-
-- [Create a "k8s-admin" user with admin access](https://www.techrepublic.com/article/how-to-create-an-administrator-iam-user-and-group-in-aws/)
-
-- [Create an access key for "k8s-admin"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-
-
-## Setup CLI and Access Key
-
-Install the following CLI tools by clicking the links:
-
-- [aws cli](../README.md#install-cli-tools) - used by eksctl to grab authentication token
-- [eksctl](../README.md#install-cli-tools) - setup and operation of EKS cluster 
-- [kubectl](../README.md#install-cli-tools) - interaction with K8S API server
-
-Once you've installed AWS CLI, [create an access key and setup your credentials file](../README.md#install-cli-tools). It should look like this:
-
-```bash
-# /home/user/.aws/credentials
-
-[k8s-admins]
-aws_access_key_id = AKIAxxxxxxxxxxxxxxxxxxx
-aws_secret_access_key = ABCDXXXXXXXXXXXXXXXXXXXXXXX
-region = ap-southeast-1
-output = json
-```
-
-To use this profile, export it as a variable.
-
-```bash
-$ export AWS_PROFILE=k8s-admins
-```
-
-To verify, we can run the commands below:
-
-```bash
-$ aws configure list 
-```
-```bash
-$ aws sts get-caller-identity 
-```
-
-Although the region is already set in the profile, we'll also be using the region in many of the commands. We can save it as a variable.
-
-```bash
-$ export AWSREGION=ap-southeast-1 
-```
 
 ## Create an EKS cluster using eksctl
 

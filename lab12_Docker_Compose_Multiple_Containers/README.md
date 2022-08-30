@@ -1,11 +1,8 @@
 ## Lab 12: Docker Compose for Multiple Local Containers
 
-> *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
-
 Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../README.md#pre-requisites)
-  <!-- - [Install Go](../README.md#pre-requisites) -->
+  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
 ### Introduction
 

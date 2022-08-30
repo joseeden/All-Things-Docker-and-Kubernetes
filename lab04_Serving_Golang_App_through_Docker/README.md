@@ -1,11 +1,10 @@
 ## Lab 04: Serving a Golang Application through Docker 
 
-> *This lab is based on [Cloud Academy's Learning Path on Building, Deploying, and Running Containers in Production.](https://cloudacademy.com/learning-paths/building-deploying-and-running-containers-in-production-1-888/)*
-
 Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../README.md#pre-requisites)
-  - [Install Go](../README.md#pre-requisites)
+  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+
 
 ### Introduction
 

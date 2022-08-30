@@ -1,14 +1,13 @@
 # Lab 14: Really Big Project - Part 2: CICD with AWS
 
-> *This lab is based on [Docker and Kubernetes: The Complete Guide](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/)*
 
 Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../README.md#pre-requisites)
-  - [Create a Github Account](../README.md#pre-requisites)
-  - [Add your SSH keys to Github](../README.md#pre-requisites)
-  - [Install Git locally](../README.md#pre-requisites)
-  - [Configure Git](../README.md#pre-requisites)
+  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Create a Github Account](../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  - [Add your SSH keys to Github](../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  - [Install Git locally](../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  - [Configure Git](../pages/01-Pre-requisites/labs-optional-tools/README.md)
   <!-- - [Install Go](../README.md#pre-requisites) -->
 
 ### Introduction

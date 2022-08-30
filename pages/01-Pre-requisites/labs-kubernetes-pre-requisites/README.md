@@ -130,7 +130,6 @@ eksctl completion bash >> ~/.bash_completion
 . ~/.bash_completion 
 ```
 
-
 ## Install Helm
 
 Helm is the Kubernetes package manager which helps us manage Kubernetes applications. To learn more, visit the official [Helm website.](https://helm.sh/)
