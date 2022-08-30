@@ -14,7 +14,6 @@ Here's a breakdown of sections for this lab.
 
 
 - [Introduction](#introduction)
-- [Create the EKSClusterRole](#create-the-eksclusterrole)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
 - [Install the Metrics Server](#install-the-metrics-server)
 - [Deploy the Kubernetes Dashboard](#deploy-the-kubernetes-dashboard)
