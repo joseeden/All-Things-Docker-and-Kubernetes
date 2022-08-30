@@ -137,7 +137,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Scaling](pages/04-Kubernetes/012-Scaling.md) 
 
-- Deployments 
+- [Services](pages/04-Kubernetes/013-Services.md)
+
+- [Deployments](a) 
 
 - [Certificate Authority](pages/04-Kubernetes/015-Certificate-Authority.md) 
 
