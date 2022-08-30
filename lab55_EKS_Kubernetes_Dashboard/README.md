@@ -31,7 +31,7 @@ In this lab, we'll be setting up the Kubernetes Dashboard on our Amazon EKS clus
 
 ## Launch a Simple EKS Cluster
 
-Before we start, let's first verify if we're using the correct IAM user's access keys. This should be the user we created from the [pre-requisites above.](#lab-55-kubernetes-dashboard-on-eks)
+Before we start, let's first verify if we're using the correct IAM user's access keys. This should be the user we created from the [pre-requisites section above.](#lab-55-kubernetes-dashboard-on-eks)
 
 ```bash
 $ aws sts get-caller-identity 
@@ -155,9 +155,9 @@ metrics-server   1/1     1            1           91s
 ## Deploy the Kubernetes Dashboard
 
 For the rest of this lab, we are using Kubernetes **version 1.23**. You might be using a different one so make sure to check the [Kubernetes dashboard releases](https://github.com/kubernetes/dashboard/releases?page=1) 
-and search for *Compatibility* table which shows the Kubernetes version that the particular release is compatible with.
+and search for the *Compatibility* table which shows the Kubernetes version that the particular release is compatible with.
 
-As an example, we can't use the dashboard version 2.6.1 because it may have compatibility issues with Kubernetes version 1.22.
+As an example, we can't use the dashboard version 2.6.1 because it may have compatibility issues with Kubernetes version 1.23.
 
 <p align=center>
 <img width=800 src="../Images/lab55kbversioncompatibility.png">
@@ -206,7 +206,7 @@ deployment.apps/dashboard-metrics-scraper created
 
 ## Create the Service Account
 
-To login to the Kubernetes dashboard, we need to create service account.
+To login to the Kubernetes dashboard, we need to create a service account.
 
 ```bash
 vim kb-admin-svc.yml 
@@ -292,7 +292,7 @@ It should now display the login screen. Enter the bearer token and click **Sign-
 
 ![](../Images/lab55kdpageopen.png)  
 
-You should be able to see the Kubernetes dashboard overview page. Note that there mayb esome differences in the UI since it may get updated from time to time.
+You should be able to see the Kubernetes dashboard overview page. Note that there maybe some differences in the UI since it may get updated from time to time.
 
 ![](../Images/lab55kdblandingpage.png)  
 
@@ -304,7 +304,7 @@ Let's check the current deployments.
 
 ![](../Images/lab55kdbcurrentdeploymentsdisplay.png)  
 
-We can also scale and edit the deployments by clicking th three vertical dots at the right.
+We can also scale and edit the deployments by clicking the three vertical dots at the right.
 
 ![](../Images/lab55kdbscaledeplyandedityamlfiles.png)  
 
@@ -317,5 +317,5 @@ Before we officially close this lab, make sure to destroy all resources to preve
 time eksctl delete cluster -f eksops.yml 
 ```
 
-Note that when you delete your cluster, make sure to double-check the AWS Console and check the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
+Note that when you delete your cluster, make sure to double-check the AWS Console and Cloudformation stacks (which we created by eksctl) are dropped cleanly.
 
