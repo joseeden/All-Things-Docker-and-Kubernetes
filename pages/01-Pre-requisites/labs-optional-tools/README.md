@@ -5,6 +5,7 @@ Here are some optional tool that are not needed to run Docker and Kubernetes. Ho
 
 Feel free to go through the ones you need.
 
+
 - [Create an AWS Account](#create-an-aws-account)
 - [Install AWS CLI](#install-aws-cli)
 - [IAM User, Access Key, Credentials File, and Policies](#iam-user-access-key-credentials-file-and-policies)
@@ -16,6 +17,7 @@ Feel free to go through the ones you need.
     - [Method 2: Using apt-get/apt](#method-2-using-apt-getapt)
     - [Test](#test)
 - [Install Node and NPM](#install-node-and-npm)
+- [Other Simple CLI Utilities](#other-simple-cli-utilities)
 
 
 ## Create an AWS Account 
