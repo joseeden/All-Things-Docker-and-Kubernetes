@@ -305,7 +305,7 @@ Let's check the current deployments.
 
 ![](../Images/lab55kdbcurrentdeploymentsdisplay.png)  
 
-We can also scale ord edit the deployments by clicking th three vertical dots at the right.
+We can also scale and edit the deployments by clicking th three vertical dots at the right.
 
 ![](../Images/lab55kdbscaledeplyandedityamlfiles.png)  
 
