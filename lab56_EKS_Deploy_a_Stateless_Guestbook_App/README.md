@@ -395,10 +395,11 @@ Open a new browser tab and paste the DNS name. You should now see the guestbook 
 
 ## Scaling the Pods
 
+TODO
 
 ## Perform some Chaos Testing
 
-
+TODO
 
 ## Cleanup
 
