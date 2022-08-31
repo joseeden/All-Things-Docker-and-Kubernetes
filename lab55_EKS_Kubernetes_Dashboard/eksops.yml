@@ -6,7 +6,6 @@ metadata:
     version: "1.23"
     name: eksops
     region: ap-southeast-1 
-
 nodeGroups:
     -   name: ng-dover
         instanceType: t3.large

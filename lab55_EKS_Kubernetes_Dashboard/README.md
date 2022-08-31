@@ -77,7 +77,6 @@ Check the nodes and pods.
 
 ```bash
 $ kubectl get nodes 
-$ kubectl get cluster
 ```
 
 ## Install the Metrics Server
