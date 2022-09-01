@@ -34,13 +34,13 @@ TODO:
 <img src="../Images/lab57-archi-diag.png">
 </p> -->
 
-<p align=center>
-<img width=700 src="../Images/lab57-archi-diag.png">
-</p>
-
 <!-- <p align=center>
+<img width=700 src="../Images/lab57-archi-diag.png">
+</p> -->
+
+<p align=center>
 <img width=500 src="../Images/lab57-archi-diag.png">
-</p> --> -->
+</p> -->
 
 
 Our sample application will be composed of two layers:
