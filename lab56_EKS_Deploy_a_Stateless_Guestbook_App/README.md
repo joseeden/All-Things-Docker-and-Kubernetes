@@ -402,7 +402,7 @@ Deploy the frontend app.
 kubectl apply -f frontend-app.yml 
 ```
 
-Check the Pods and Service. In the output for the *service*, notice that the frontend service (with type *LoadBalancer*) has an external-IP.
+Check the Pods. 
 
 ```bash
 kubectl get pods 
@@ -416,6 +416,9 @@ redis-master-7fb7b4d7c5-xvdsb   1/1     Running   0          67m
 redis-slave-566774f44b-2nb58    1/1     Running   0          34m
 redis-slave-566774f44b-hhpqn    1/1     Running   0          34m 
 ```
+
+Then check the running services. Notice that the frontend service (with type *LoadBalancer*) has an external-IP. This allows the LoadBalancer to be accesible from the web.
+
 ```
 kubectl get svc 
 ```
