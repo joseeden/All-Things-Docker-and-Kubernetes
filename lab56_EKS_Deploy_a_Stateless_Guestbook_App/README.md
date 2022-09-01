@@ -10,14 +10,17 @@ Pre-requisites:
 
 Here's a breakdown of sections for this lab.
 
-  - [Introduction](#introduction)
-  - [The Application Architecture](#the-application-architecture)
-  - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
-  - [Deploy the Backend Resources](#deploy-the-backend-resources)
-  - [Deploy the Frontend Resources](#deploy-the-frontend-resources)
-  - [Scaling the Pods](#scaling-the-pods)
-  - [Perform some Chaos Testing](#perform-some-chaos-testing)
-  - [Cleanup](#cleanup)
+
+- [Introduction](#introduction)
+- [The Application Architecture](#the-application-architecture)
+- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+- [Deploy the Backend Resources](#deploy-the-backend-resources)
+- [Deploy the Frontend Resources](#deploy-the-frontend-resources)
+- [Setup the Kubernetes Dashboard](#setup-the-kubernetes-dashboard)
+- [Scaling the Pods](#scaling-the-pods)
+- [Perform some Chaos Testing](#perform-some-chaos-testing)
+- [Cleanup](#cleanup)
+
 
 We'll be using **ap-southeast-1** region (Singapore).
 
