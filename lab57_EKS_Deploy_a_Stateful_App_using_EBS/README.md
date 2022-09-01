@@ -30,13 +30,13 @@ TODO:
 
 ## The Application Architecture 
 
-<!-- <p align=center>
-<img src="../Images/lab57-archi-diag.png">
-</p> -->
-
 <p align=center>
-<img width=700 src="../Images/lab57-archi-diag.png">
+<img src="../Images/lab57-archi-diag.png">
 </p>
+
+<!-- <p align=center>
+<img width=700 src="../Images/lab57-archi-diag.png">
+</p> -->
 
 <!-- <p align=center>
 <img width=500 src="../Images/lab57-archi-diag.png">
