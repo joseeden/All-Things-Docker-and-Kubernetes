@@ -9,8 +9,9 @@ Pre-requisites:
 
 Here's a breakdown of sections for this lab.
 
-<insert-TOC-here>
-
+```bash
+- insert-TOC-here
+```
 
 we'll be using **ap-southeast-1** region (Singapore).
 
@@ -40,7 +41,7 @@ TODO:
 
 <!-- <p align=center>
 <img width=500 src="../Images/lab57-archi-diag.png">
-</p> --> -->
+</p> --> 
 
 
 Our sample application will be composed of two layers:
@@ -67,7 +68,22 @@ While the database can store records, both these layer will need a place somewhe
 - an Amazon Elastic Block Storage (EBS) volume to store the MySQL data
 
 
+### EBS Volumes 
 
+Before we proceed with the lab, here are some key points to remember about EBS volumes:
+
+- They are specific to each Availability Zone (AZ)
+- Recreated Pods can only be started in the AZ of the existing EBS volume
+- Pods in the same AZ can share the same EBS volume
+- If you have two AZs, then each AZ should have their own EBS volume
+
+To properly deploy the application, the Wordpress Pods needs be able to share the same storage even if the Pods are spread across different Availability Zone. However, this can't be accomplished if we're using EBS volumes as persistent storage.
+
+So for this kind requirement, we will need to utilize **Amazon Elastic Filesystem (EFS)**. This is a drive that can be attached in multiple instances in multiple availability zones.
+
+We'll explore Stateful applications using EFS in the next lab where we'll deploy the application Pods across availability zones.
+
+For now, let's dive into stateful applications with EBS volumes.
 
 
 ## Launch a Simple EKS Cluster
@@ -122,6 +138,17 @@ Check the nodes and pods.
 $ kubectl get nodes 
 ```
 
+## Create a Namespace
+
+TODO 
+
+## Create Storage Class and Persistent Volumes
+
+TODO 
+
+## Deploy the Database (MySQL)
+
+TODO 
 
 ## Cleanup
 
