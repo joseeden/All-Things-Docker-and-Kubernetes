@@ -342,7 +342,56 @@ vim frontend-app.yml
 <details><summary> frontend-app.yml </summary>
  
 ```bash
- 
+# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+        app: guestbook
+        tier: frontend
+  template:
+    metadata:
+      labels:
+        app: guestbook
+        tier: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: gcr.io/google_samples/gb-frontend:v5
+        env:
+        - name: GET_HOSTS_FROM
+          value: "dns"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 80
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  # type: LoadBalancer
+  type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+  - port: 80
+  selector:
+    app: guestbook
+    tier: frontend
 ```
  
 </details>
@@ -393,13 +442,314 @@ Open a new browser tab and paste the DNS name. You should now see the guestbook 
 ![](../Images/lab56frontendguestbookappsuccessfullydeployed.png)  
 
 
+## Setup the Kubernetes Dashboard 
+
+The [previous lab](../lab55_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
+
+Here's a summary of commands that we need to run:
+
+Download the metrics server.
+
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.1/components.yaml
+```
+
+Deploy the Kubernetes dashboard.
+
+```bash
+export KB_VER=v2.5.1
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/$KB_VER/aio/deploy/recommended.yaml  
+```
+
+Create the service account that we'll use to authenticate to the Kubernetes dashboard.
+
+```bash
+vim kb-admin-svc.yml 
+```
+
+<details><summary> kb-admin-svc.yml </summary>
+ 
+```bash
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kb-admin-svc
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kb-admin-svc
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: kb-admin-svc
+    namespace: kube-system
+```
+ 
+</details>
+
+Apply the YAML file.
+
+```bash
+kubectl apply -f kb-admin-svc.yml
+```
+
+Get the bearer token of the service account that we just created.
+
+```bash
+kubectl -n kube-system describe secret \
+$(kubectl -n kube-system get secret | grep kb-admin-svc | awk '{print $1}') 
+```
+
+Run this command to access Dashboard from your local workstation.
+
+```bash
+kubectl proxy 
+```
+
+Open a web browser and paste this URL. Enter the token that we just copied.
+
+```bash
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login 
+```
+
 ## Scaling the Pods
 
-TODO
+To check the Replicasets that we have for each resources, run the command below.
+
+```bash
+$ kubectl get rs
+NAME                      DESIRED   CURRENT   READY   AGE
+frontend-57df59b89c       3         3         3       17m
+redis-master-7fb7b4d7c5   1         1         1       17m
+redis-slave-566774f44b    2         2         2       17m 
+```
+
+We can also check for a specific deployment. As we can see, the frontend resource has 3 Pods currently running.
+
+```bash
+$ kubectl get deployment frontend
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+frontend   3/3     3            3           20m 
+```
+
+Let's scale the replicas for the frontend Pods from 3 to 5.
+
+```bash
+kubectl scale --replicas 5 deployment frontend  
+```
+
+If we try to check again,
+
+```bash
+$ kubectl get deployment frontend
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+frontend   5/5     5            5           21m 
+```
+
+Check the Pods. We should now see 5 Pods for the frontend resource.
+
+```bash
+$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+frontend-57df59b89c-brnp5       1/1     Running   0          42s
+frontend-57df59b89c-cc274       1/1     Running   0          42s
+frontend-57df59b89c-pfzhd       1/1     Running   0          22m
+frontend-57df59b89c-srndd       1/1     Running   0          22m
+frontend-57df59b89c-tpt2n       1/1     Running   0          22m
+redis-master-7fb7b4d7c5-rf8ht   1/1     Running   0          22m
+redis-slave-566774f44b-2vmfp    1/1     Running   0          22m
+redis-slave-566774f44b-7wq8t    1/1     Running   0          22m 
+```
+
+Let's try to scale the frontend Pods to 2.
+
+```bash
+kubectl scale --replicas 2 deployment frontend  
+```
+
+The replicas can be scaled in the CLI but it can also be done by editing the YAML file. Modify the **frontend-app.yml** and set the *replicas* to 8.
+
+```bash
+vim frontend-app.yml 
+```
+```bash
+replicas: 8 
+```
+
+Apply the changes.
+
+```bash
+kubectl apply -f frontend-app.yml 
+```
+
+Going back to the Kubernetes dashboard that's opened in our web browser, click the **Deployments** tab. We should see here the three resources that we created and their Pods.
+
+<!-- ![](../Images/lab56kdbshowing3resourcesdeployments.png)   -->
+
+![](../Images/lab56kdbfullpageshowing3resourcesdeployments.png)  
+
+**NOTE:** We should only edit the Replicas, not the ReplicaSets.
+
+```bash
+kubectl scale --replicas 2 deployment frontend  
+```
+
+If we try to run the command below, it will scale the ReplicaSet but it will not immediately update the number of running Pods. This is because it will have some conflict with what the Controller knows.
+
+```bash
+kubectl scale --replicas 2 rs deployment frontend  
+```
+
+The Controller defines the number of Pods based on the **Replicas** that are defined, so it will continuously overwrite any changes done on the ReplicaSets.
+
+We can also scale the number of Pods through Kubernetes dashboard. In the **Deployment** section, click the three vertical dots in the right and click **Scale.**
+
+![](../Images/lab56kdbscalethrukdb.png)  
+
+Let's try to scale the **redis-slave** Pods to 5.
+
+![](../Images/lab56kdbscaleredisslavesto5.png)  
+
+![](../Images/lab56kdbscaledredisslavesto5showed.png)  
+
+Back at the terminal, we could see that the changes have been applied.
+
+```bash
+$ kubectl get deployment
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+frontend       10/10   10           10          49m
+redis-master   1/1     1            1           49m
+redis-slave    5/5     5            5           49m 
+```
+
+Let's now scale the frontend Pods and the redis-slave Pods for the next section.
+
+```bash
+$ kubectl scale --replicas 3 deployment frontend 
+$ kubectl scale --replicas 3 deployment redis-slave 
+```
 
 ## Perform some Chaos Testing
 
-TODO
+[Chaos Monkey](https://netflix.github.io/chaosmonkey/) is a term coined by Netflix to test the stability of a system by pseudo-randomly rebooting and terminating instances at any given time, which enforces failures. This helps in determining the weakness in the architecture and craft a working automated remediation strategy that could gracefully handle future failures.
+
+
+In ths section, we'll observe the self-healing mechanism of Kubernetes by randomly killing Pods and stopping worker nodes. Let's check the running nodes and Pods.
+
+```bash
+$ kubectl get nodes
+NAME                                               STATUS   ROLES    AGE    VERSION
+ip-192-168-28-17.ap-southeast-1.compute.internal   Ready    <none>   170m   v1.23.9-eks-ba74326
+ip-192-168-48-37.ap-southeast-1.compute.internal   Ready    <none>   170m   v1.23.9-eks-ba74326
+ip-192-168-68-36.ap-southeast-1.compute.internal   Ready    <none>   170m   v1.23.9-eks-ba74326 
+```
+
+```bash
+$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+frontend-57df59b89c-lvw9v       1/1     Running   0          98m
+frontend-57df59b89c-pjv4f       1/1     Running   0          98m
+frontend-57df59b89c-qtbzf       1/1     Running   0          98m
+redis-master-7fb7b4d7c5-rf8ht   1/1     Running   0          129m
+redis-slave-566774f44b-2qgf9    1/1     Running   0          82m
+redis-slave-566774f44b-2vmfp    1/1     Running   0          129m
+redis-slave-566774f44b-jmjql    1/1     Running   0          82m
+```
+
+Let's simulate a failure by deleting 1 of the frontend Pods.
+
+```bash
+$ kubectl delete pod frontend-57df59b89c-pjv4f
+```
+
+However, if we check the Pods again, we see that it is immediately replaced by a new Pod.
+
+```bash
+$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+frontend-57df59b89c-9gxvz       1/1     Running   0          39s
+frontend-57df59b89c-bwv2k       1/1     Running   0          4s
+frontend-57df59b89c-qtbzf       1/1     Running   0          99m
+redis-master-7fb7b4d7c5-rf8ht   1/1     Running   0          131m
+redis-slave-566774f44b-2qgf9    1/1     Running   0          83m
+redis-slave-566774f44b-2vmfp    1/1     Running   0          131m
+redis-slave-566774f44b-jmjql    1/1     Running   0          83m 
+```
+
+Let's try to delete all the frontend pods.
+
+```bash
+kubectl delete pod frontend-57df59b89c-29rnv
+kubectl delete pod frontend-57df59b89c-bwv2k
+kubectl delete pod frontend-57df59b89c-qtbzf
+```
+
+If we check the Pods again, they are now replaced by new ones. We can also see the all three frontend Pods and redis-slave Pods are equally distributed between the 3 nodes. 
+
+```bash
+$ kubectl get pods
+$ kubectl get pods -o wide
+NAME                            READY   STATUS    RESTARTS   AGE    IP               NODE                                               NOMINATED NODE   READINESS GATES
+frontend-57df59b89c-h2xmt       1/1     Running   0          40s    192.168.8.147    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+frontend-57df59b89c-j8vj9       1/1     Running   0          50s    192.168.44.81    ip-192-168-48-37.ap-southeast-1.compute.internal   <none>           <none>
+frontend-57df59b89c-m2nbs       1/1     Running   0          47s    192.168.83.184   ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none>
+redis-master-7fb7b4d7c5-rf8ht   1/1     Running   0          134m   192.168.27.104   ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-2qgf9    1/1     Running   0          87m    192.168.59.39    ip-192-168-48-37.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-2vmfp    1/1     Running   0          134m   192.168.23.97    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-jmjql    1/1     Running   0          87m    192.168.70.130   ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none>
+```
+
+The redis-master Pod is launched in the node with an IP address of "192.168.28.17" along with 1 frontend Pod and 1 redis-slave Pod. Let's try to kill this node by stopping the EC2 instance through the EC2 dashboard in the AWS Console.
+
+![](../Images/lab56killingnode1.png)  
+
+Back at the terminal, we can now see that the Pods are now redistributed to the two remaining nodes.
+
+```bash
+$ kubectl get pods -o wide
+NAME                            READY   STATUS    RESTARTS   AGE     IP               NODE                                               NOMINATED NODE   READINESS GATES
+frontend-57df59b89c-h2xmt       1/1     Running   0          9m5s    192.168.8.147    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+frontend-57df59b89c-j8vj9       1/1     Running   0          9m15s   192.168.44.81    ip-192-168-48-37.ap-southeast-1.compute.internal   <none>           <none>
+frontend-57df59b89c-m2nbs       1/1     Running   0          9m12s   192.168.83.184   ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none>
+redis-master-7fb7b4d7c5-rf8ht   1/1     Running   0          143m    192.168.27.104   ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-2qgf9    1/1     Running   0          95m     192.168.59.39    ip-192-168-48-37.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-2vmfp    1/1     Running   0          143m    192.168.23.97    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-jmjql    1/1     Running   0          95m     192.168.70.130   ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none> 
+```
+
+Checking the nodes, we see that the "192.168.28.17" is in a **NotReady** state. If we run the command a few more time, it will change to **Ready**.
+
+```bash
+$ kubectl get nodes
+NAME                                               STATUS     ROLES    AGE     VERSION
+ip-192-168-28-17.ap-southeast-1.compute.internal   Ready      <none>   3h12m   v1.23.9-eks-ba74326
+ip-192-168-48-37.ap-southeast-1.compute.internal   NotReady   <none>   3h12m   v1.23.9-eks-ba74326
+ip-192-168-68-36.ap-southeast-1.compute.internal   Ready      <none>   3h12m   v1.23.9-eks-ba74326 
+```
+
+It may appear that Kubernetes restarted the node when we stopped it. However, if we check the EC2 console again, we now see four nodes. The instance we stopped is not terminated by Kubernetes and a new one was launched as a replacement. Notice also that the new instance took over the same IP of the killed instance.
+
+![](../Images/lab56killingnodereplacedbyeks.png)  
+
+Checking the terminal again, we see that the Pods are redistributed to the three worker nodes once again.
+
+```bash
+$ kubectl get pods -o wide
+NAME                            READY   STATUS    RESTARTS   AGE     IP               NODE                                               NOMINATED NODE   READINESS GATES
+frontend-57df59b89c-h2xmt       1/1     Running   0          15m     192.168.8.147    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+frontend-57df59b89c-m2nbs       1/1     Running   0          15m     192.168.83.184   ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none>
+frontend-57df59b89c-n7vs9       1/1     Running   0          4m52s   192.168.87.19    ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none>
+redis-master-7fb7b4d7c5-rf8ht   1/1     Running   0          149m    192.168.27.104   ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-2vmfp    1/1     Running   0          149m    192.168.23.97    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-jmjql    1/1     Running   0          102m    192.168.70.130   ip-192-168-68-36.ap-southeast-1.compute.internal   <none>           <none>
+redis-slave-566774f44b-js8vm    1/1     Running   0          4m52s   192.168.28.73    ip-192-168-28-17.ap-southeast-1.compute.internal   <none>           <none> 
+```
 
 ## Cleanup
 
