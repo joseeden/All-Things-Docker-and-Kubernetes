@@ -309,7 +309,7 @@ If it doesn't return a storageclass, you may check out the [StorageClass page](.
 
 ### Approach 1: Dynamic Provisioning using the default StorageClass
 
-> *Update-August-2022:*
+> *Update-September-2022:*
 > *I'm having issues with provisioning a PVC using the default AWS storageclass. You may skip this and proceed to the second approach.*
 
 <details><summary> Dynamic Provisioning using the default StorageClass </summary>
@@ -446,7 +446,7 @@ kubectl get pvc -n ns-lab57
 
 ### Approach 2: Provision PVC using a new StorageClass
 
-> *Update-August-2022:*
+> *Update-September-2022:*
 > *This also didn't worked. Apparently, you need to use the "ebs.csi.aws.com" external provisioner or manually create the PV first. You may skip this and proceed to the third approach.*
 
 <details><summary> Provision PVC using a new StorageClass </summary>
@@ -784,7 +784,7 @@ aws iam list-open-id-connect-providers | grep $oidc_id
 It should return the OIDC provider.
 
 ```bash
-    "Arn": "arn:aws:iam::848587260896:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com/id/12345678910ABCDEFGHIJKLMNOPRSTUVWXYZ" 
+    "Arn": "arn:aws:iam::12345678910:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com/id/12345678910ABCDEFGHIJKLMNOPRSTUVWXYZ" 
 ```
 
 If no output is returned, then you must create an IAM OIDC provider for your cluster.
