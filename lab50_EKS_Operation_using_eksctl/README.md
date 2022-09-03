@@ -202,6 +202,7 @@ Initially, we set the *desiredCapacity* to 3 in the YAML file. To scale the numb
 $  eksctl scale nodegroup \
     --cluster=$MYCLUSTER \
     --name=ng-1 \
+    --region=$MYREGION
     --nodes=5
 ```
 ```bash

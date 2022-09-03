@@ -1,0 +1,17 @@
+apiVersion: eksctl.io/v1alpha5
+# apiVersion: client.authentication.k8s.io/v1beta1
+kind: ClusterConfig
+
+metadata:
+    version: "1.23"
+    name: eksops
+    region: ap-southeast-1 
+
+nodeGroups:
+    -   name: ng-dover
+        instanceType: t3.medium
+        minSize: 0
+        maxSize: 10
+        desiredCapacity: 3
+        ssh: 
+            publicKeyName: "k8s-kp"

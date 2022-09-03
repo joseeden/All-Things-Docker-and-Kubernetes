@@ -524,6 +524,7 @@ Open a web browser and paste this URL. Enter the token that we just copied.
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login 
 ```
 
+
 ## Scaling the Pods
 
 To check the Replicasets that we have for each resources, run the command below.
