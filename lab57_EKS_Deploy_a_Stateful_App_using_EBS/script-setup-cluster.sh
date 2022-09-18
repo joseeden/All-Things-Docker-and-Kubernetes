@@ -18,7 +18,6 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 
 # Download the metrics server.
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.1/components.yaml
-print $(kubectl get deployment metrics-server -n kube-system)
 
 # Deploy the Kubernetes dashboard.
 export KB_VER=v2.5.1
