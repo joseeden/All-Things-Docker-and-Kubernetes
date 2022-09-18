@@ -9,6 +9,23 @@ Pre-requisites:
 
 Here's a breakdown of sections for this lab.
 
+<!-- TOC -->
+
+- [Introduction](#introduction)
+- [The Application Architecture](#the-application-architecture)
+    - [EBS Volumes](#ebs-volumes)
+- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+- [Setup the Kubernetes Dashboard](#setup-the-kubernetes-dashboard)
+- [Create a Namespace](#create-a-namespace)
+- [Create Storage Class and Persistent Volumes](#create-storage-class-and-persistent-volumes)
+    - [StorageClass](#storageclass)
+    - [Approach 1: Dynamic Provisioning using the default StorageClass](#approach-1-dynamic-provisioning-using-the-default-storageclass)
+    - [Approach 2: Provision PVC using a new StorageClass](#approach-2-provision-pvc-using-a-new-storageclass)
+    - [Approach 3: Using the ebs.csi provisioner](#approach-3-using-the-ebscsi-provisioner)
+- [Deploy the Database MySQL](#deploy-the-database-mysql)
+- [Deploy Wordpress via Deployment](#deploy-wordpress-via-deployment)
+- [Deploy Wordpress via StatefulSet](#deploy-wordpress-via-statefulset)
+- [Cleanup](#cleanup)
 
 
 We'll be using **ap-southeast-1** region (Singapore).
@@ -17,17 +34,6 @@ We'll be using **ap-southeast-1** region (Singapore).
 ## Introduction
 
 In this lab, we'll be deploying a stateful Wordpress application and a MySQL database. We will also deploy the application using EBS volumes
-
-```bash
-TODO:
-- Create a Namespace
-- Create Storage Class and Persistent Volumes
-- Deploy DB Backend (MySQL)
-- Deployment vs. StatefulSet
-    - Wordpress as Deployment
-    - Wordpress as StatefulSet
-```
-
 
 ## The Application Architecture 
 
