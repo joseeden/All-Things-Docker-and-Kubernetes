@@ -13,7 +13,6 @@ Here's a breakdown of sections for this lab.
 
 - [Introduction](#introduction)
 - [The Application Architecture](#the-application-architecture)
-    - [EBS Volumes](#ebs-volumes)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
 - [Setup the Kubernetes Dashboard](#setup-the-kubernetes-dashboard)
 - [Create a Namespace](#create-a-namespace)
