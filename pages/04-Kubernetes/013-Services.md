@@ -1,6 +1,9 @@
 
 # Services 
 
+A Service enables network access to Pods in a Kubernetes cluster. When a network request is made to the service, it checks the labels and then select the Pods tagged with those labels.
+
+
 
 TODO:
 - study services in kubernetes 
