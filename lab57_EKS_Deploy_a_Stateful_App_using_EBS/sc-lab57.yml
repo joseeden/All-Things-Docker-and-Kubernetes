@@ -6,12 +6,12 @@ metadata:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: ebs.csi.aws.com # Amazon EBS CSI driver
 volumeBindingMode: Immediate # EBS volumes are AZ specific
-parameters:
-  csi.storage.k8s.io/fstype: xfs
-  type: gp2 
-  encrypted: 'true' 
+# volumeBindingMode: WaitForFirstConsumer # EBS volumes are AZ specific
+# parameters:
+  # csi.storage.k8s.io/fstype: xfs
+  # type: gp2 
+  # encrypted: 'true' 
   # EBS volumes will always be encrypted by default
 reclaimPolicy: Delete
 mountOptions:
 - debug
-

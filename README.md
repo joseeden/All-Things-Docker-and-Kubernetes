@@ -27,7 +27,7 @@ Here are some pre-requisites before we can perform the labs.
 - [Optional Tools](pages/01-Pre-requisites/labs-optional-tools/README.md)
 
 
-## Docker Basics
+## Docker + Containers
 
 Containers are where it all starts.
 
@@ -127,9 +127,11 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Kubeconfig files](pages/04-Kubernetes/009-kubeconfig-files.md)
 
-- [Static Pod Manifests](pages/04-Kubernetes/009-Static-Pod-Manifests.md)
+- [Manifests](pages/04-Kubernetes/018-Manifests.md)
 
 - [Pods](pages/04-Kubernetes/009-Pods.md) 
+
+- [Static Pod Manifests](pages/04-Kubernetes/009-Static-Pod-Manifests.md)
 
 - [DaemonSets](pages/04-Kubernetes/010-DaemonSets.md) 
 
@@ -139,7 +141,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Services](pages/04-Kubernetes/013-Services.md)
 
-- [Deployments](a) 
+- [Deployments](pages/04-Kubernetes/014-Deployments.md) 
 
 - [Volumes and StorageClasses](pages/04-Kubernetes/017-StorageClass.md)
 
@@ -169,7 +171,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Amazon EKS - Cluster AutoScaler](pages/04-Kubernetes/054-EKS-Cluster-Autoscaler.md) 
 
-- [Amazon EKS - Control Plane Logging to CloudWatch ](pages/04-Kubernetes/055-EKS-Control-Plane-Logging-to-CloudWatch.md) 
+- [Amazon EKS - Logging to CloudWatch ](pages/04-Kubernetes/055-EKS-Control-Plane-Logging-to-CloudWatch.md) 
+
+- [Amazon EKS - Persistent Volumes](pages/04-Kubernetes/056-EKS-Persistent-Volumes.md)
 
 - [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)
 

@@ -6,12 +6,11 @@ metadata:
     version: "1.23"
     name: eksops
     region: ap-southeast-1 
-
 nodeGroups:
     -   name: ng-dover
-        instanceType: t3.medium
+        instanceType: t3.large
         minSize: 0
-        maxSize: 10
+        maxSize: 5
         desiredCapacity: 3
         ssh: 
             publicKeyName: "k8s-kp"

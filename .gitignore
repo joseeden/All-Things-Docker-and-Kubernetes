@@ -2,10 +2,16 @@
 
 # archived and scribbles pages
 Archive*
+archive*
 Scribbles*
 
 # Template files
 README-Template.md
+
+# IAM policies, tokens
+trust-policy.json
+policies*
+kube-dashboard-token.txt
 
 # dependencies
 /node_modules
