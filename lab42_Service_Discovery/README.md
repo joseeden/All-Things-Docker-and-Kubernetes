@@ -89,7 +89,7 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 ```
 
 
-## Namespace
+## Create the Namespace
 
 We'll use [svc-discovery-namespace.yml](manifests/svc-discovery-namespace.yml) to create the **service-discovery** namespace for this project.
 
