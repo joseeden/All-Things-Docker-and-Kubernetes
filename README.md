@@ -151,7 +151,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Stateless vs. Stateful](pages/04-Kubernetes/016-Stateful-vs-Stateless.md)
 
-- [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md) 
+- [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md)
+
+- [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
 
 - [Helm Package Manager](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
 
