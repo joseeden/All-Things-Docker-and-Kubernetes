@@ -18,6 +18,16 @@ In the example above, we see two services which are always deployed when we crea
 - **kubernetes** - allows the users to communicate to the cluster nodes
 - **kube-dns** - talks to the different Pods
 
+## Service Discovery 
+
+There are two service discovery mechanisms that Kuberenetes utilizes:
+
+- **Environment Variables**
+    The environment variables are automatically injected by Kuberenetes into containers. This variables follow a naming-convention based on the service name
+
+- **DNS**
+    Kubernetes automatically creates DNS records based on the service names and containers are automatically configured to query cluster DNS to discover those services.
+
 To learn more, check out this [hands-on lab.](../../lab40-Kubernetes_Basics/README.md)
 
 
