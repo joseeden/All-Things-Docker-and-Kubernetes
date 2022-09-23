@@ -18,7 +18,7 @@ Here's a breakdown of sections for this lab.
 - [Resource Requests](#resource-requests)
 - [Services](#services)
 - [Cleanup](#cleanup)
-
+- [Next step](#next-step)
 
 ## Introduction
 
@@ -415,6 +415,10 @@ $ time eksctl delete cluster -f eksops.yml
 ```
 
 When you delete your cluster, make sure to double check the AWS Console and that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
+
+## Next step
+
+Head on the next lab to learn more about multi-container pods!
 
 
 
