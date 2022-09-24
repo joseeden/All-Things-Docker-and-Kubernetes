@@ -94,7 +94,7 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 
 ## Create the Namespace
 
-We'll use [namespace-autoscaling.yml](manifests/namespace-autoscaling.yml) to create **deployments** namespace.
+We'll use [namespace-autoscaling.yml](manifests/namespace-autoscaling.yml) to create **autoscaling** namespace.
 
 ```bash
 apiVersion: v1
