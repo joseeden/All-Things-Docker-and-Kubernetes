@@ -9,6 +9,7 @@ Pre-requisites:
 
 Here's a breakdown of sections for this lab.
 
+
 - [Introduction](#introduction)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
 - [Create the Namespace](#create-the-namespace)
@@ -16,13 +17,20 @@ Here's a breakdown of sections for this lab.
 - [Data Tier and Support Tier](#data-tier-and-support-tier)
 - [Resource Requests](#resource-requests)
 - [Deploy the Horizontal Pod AutoScaler](#deploy-the-horizontal-pod-autoscaler)
-- [Cleanup](#cleanup)
+- [Next Step](#next-step)
+
 
 ## Introduction
 
-Kubernetes supports CPU-based autoscaling based on custom metrics that we can define. In this lab, we'll set the target CPU percentage along with the minimum and maximum number of allowed replicas.
+In this lab, we'll see how Kubernetes supports CPU-based autoscaling based on defined custom metrics. We can do this by setting the target CPU percentage along with the minimum and maximum number of allowed replicas.
 
-For collecting the metrics, we'll use Metrics Server which is a solution maintained by Kubernetes. Once metrics server is running, the autoscaler can retireve the metrics collected and make calls using the Kuberenetes metrics API.
+For collecting the metrics, we'll use **Metrics Server** which is a solution maintained by Kubernetes. Once metrics server is running, the autoscaler can retireve the metrics collected and make calls using the Kuberenetes metrics API.
+
+Here's the architecture that we'll use.
+
+<p align=center>
+<img src="../Images/lab44hpa-diag.png">
+</p>
 
 ## Launch a Simple EKS Cluster
 
@@ -279,12 +287,6 @@ Events:
   Normal  SuccessfulRescale  109s   horizontal-pod-autoscaler  New size: 3; reason: Current number of replicas below Spec.MinReplicas 
 ```
 
-## Cleanup
+## Next Step 
 
-Make sure to delete the cluster after the lab to save costs.
-
-```bash
-$ time eksctl delete cluster -f eksops.yml 
-```
-
-When you delete your cluster, make sure to double check the AWS Console and that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
+Head on to the next lab to see how rolling updates and rollbacks works.
