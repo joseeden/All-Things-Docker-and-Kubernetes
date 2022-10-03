@@ -29,7 +29,7 @@ In this lab, we'll use a sample counter application that increments and prints a
 - **Support tier** - a poller that continuously makes GET requests and a counter that continuously makes POST requests
 
 <p align=center>
-<img src="../Images/lab41multicontainerpods.png">
+<img src="../Images/lab41multicontainerpods-2.png">
 </p>
 
 ## Launch a Simple EKS Cluster
