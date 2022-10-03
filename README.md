@@ -145,7 +145,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Rollouts and Rollbacks](pages/04-Kubernetes/019-Rollouts-and-Rollbacks.md)
 
-- [Probes](pages/04-Kubernetes/020-Probes.md)
+- [Probes and Init Containers](pages/04-Kubernetes/020-Probes.md)
 
 - [Volumes and StorageClasses](pages/04-Kubernetes/017-StorageClass.md)
 
