@@ -155,6 +155,30 @@ $ go version
 go version go1.18.3 linux/amd64 
 ```
 
+### Method 3: Using a Script 
+
+Here is a script for installing Go in your Linux instance. You can also use this scrpit if you're running WSL on your Windows machine.
+
+```bash
+#!/bin/bash
+
+## Install Go
+wget https://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf go1.6.2.linux-amd64.tar.gz
+echo "export GOPATH=~/go" >> ~/.bashrc
+source ~/.bashrc 
+```
+
+Make the script executable and then run it.
+
+```bash
+chmod +x install-go.sh 
+./install-go.sh 
+```
+
+If you're using Google Cloud Platform to do the labs, the Cloud Shell should be pre-installed with Go but it might not be running the most recent version so you may need to run the script there.
+
 ### Test
 
 Create a simple **hello-world.go** program.

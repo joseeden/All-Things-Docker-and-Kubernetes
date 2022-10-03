@@ -1,5 +1,9 @@
 
-### Monoliths and Microservices
+# Monoliths and Microservices
+
+
+
+## Deciding the Model
 
 After the requirements are carefully reviewed, we can now start deciding which model we'll use: **monoliths** or **microservices**.
 
@@ -41,3 +45,8 @@ In a microservice architecture, application tiers can be described as
 <img src="../../Images/udaicty-suse-2-microservices.png">
 </p>
 
+## The Main Idea of Microservices 
+
+The main point of microservices is to break the software into smaller chunks, allowing developers to work on a piece of the code and release on their own cycle, which in turn speeds up development. 
+
+This kind of architecture also enables the software to scale independently.
