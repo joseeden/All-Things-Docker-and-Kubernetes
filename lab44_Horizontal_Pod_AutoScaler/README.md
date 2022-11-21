@@ -29,7 +29,7 @@ For collecting the metrics, we'll use **Metrics Server** which is a solution mai
 Here's the architecture that we'll use.
 
 <p align=center>
-<img src="../Images/lab44hpa-diag.png">
+<img width=700 src="../Images/lab44hpa-diag.png">
 </p>
 
 ## Launch a Simple EKS Cluster

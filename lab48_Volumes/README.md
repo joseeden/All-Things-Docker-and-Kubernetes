@@ -18,7 +18,7 @@ In this lab, we'll get to see how we can use PersistentVolume for the sample dat
 We'll also statically provision an Amazon Elastic Block Storage (EBS) for the underlying storage. We'll use the application architecture from a [previous lab](../lab41-Multi_Container_Pods/README.md):
 
 <p align=center>
-<img src="../Images/lab48-volumes-diagram.png">
+<img width=700 src="../Images/lab48-volumes-diagram.png">
 </p>
 
 To learn more, check out the [Volumes and StorageClass page.](../pages/04-Kubernetes/017-StorageClass.md)

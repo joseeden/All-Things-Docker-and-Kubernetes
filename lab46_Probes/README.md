@@ -34,7 +34,7 @@ Similarly, the  App Tier will have:
 - Readiness probe - api server is ready if it is online and has a connection to Redis (HTTP GET /probe/readiness)
 
 <p align=center>
-<img src="../Images/lab42-service-discovery-diag.png">
+<img width=700 src="../Images/lab42-service-discovery-diag.png">
 </p>
 
 To learn more about probes, check out this [page](../pages/04-Kubernetes/020-Probes.md).

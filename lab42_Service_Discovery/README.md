@@ -23,7 +23,7 @@ Here's a breakdown of sections for this lab.
 We'll redesigned the architecture from the [previous lab](../lab41-Multi_Container_Pods/README.md) and break down the containers into their own pods. This will no introduce some networking issues since the containers are not on the same pod anymore.
 
 <p align=center>
-<img src="../Images/lab42-service-discovery-diag.png">
+<img width=700 src="../Images/lab42-service-discovery-diag.png">
 </p>
 
 To resolve this, we'll use **Services** which will provide a static endpoint that will handle communication between pods. 
