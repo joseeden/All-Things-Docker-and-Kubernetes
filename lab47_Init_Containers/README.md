@@ -135,4 +135,4 @@ Make sure to delete the cluster after the lab to save costs.
 $ time eksctl delete cluster -f eksops.yml 
 ```
 
-When you delete your cluster, make sure to double check the AWS Console and that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
+When you delete your cluster, make sure to also double check the AWS Console and ensure that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.

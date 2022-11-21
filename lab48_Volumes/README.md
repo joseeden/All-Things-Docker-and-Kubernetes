@@ -10,6 +10,15 @@ Pre-requisites:
 
 Here's a breakdown of sections for this lab.
 
+- [Introduction](#introduction)
+- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+- [Create the Namespace](#create-the-namespace)
+- [Without Persistent Volumes](#without-persistent-volumes)
+- [Persistent Volumes Outdated](#persistent-volumes-outdated)
+- [Using the EBS CSI Driver](#using-the-ebs-csi-driver)
+- [Persistent Volumes using the EBS CSI Driver](#persistent-volumes-using-the-ebs-csi-driver)
+- [Cleanup](#cleanup)
+
 
 ## Introduction
 
@@ -434,4 +443,12 @@ Current counter: 2596
 ```
 
 
-## Next Steps
+## Cleanup 
+
+Make sure to delete the cluster after the lab to save costs.
+
+```bash
+$ time eksctl delete cluster -f eksops.yml 
+```
+
+When you delete your cluster, make sure to also double check the AWS Console and ensure that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
