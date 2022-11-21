@@ -149,6 +149,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Volumes and StorageClasses](pages/04-Kubernetes/017-StorageClass.md)
 
+- [ConfigMaps and Secrets](pages/04-Kubernetes/021-Configmaps.md)
+
 - [Certificate Authority](pages/04-Kubernetes/015-Certificate-Authority.md) 
 
 - [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
