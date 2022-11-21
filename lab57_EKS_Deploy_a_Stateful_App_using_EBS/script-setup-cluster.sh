@@ -55,7 +55,6 @@ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | gre
 # Run this command to access Dashboard from your local workstation.
 kubectl proxy &
 
-
 #--------------------------------------------------------------------------------------------------------------
 
 ## Create a namespace
