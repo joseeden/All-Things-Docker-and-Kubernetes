@@ -142,7 +142,9 @@ The steps are simple:
 
 When a container crashes, there is a possiblity to lose the files. This issue becomes even worse when you have multiple containers running in a Pod. As a solution, we can use volumes.
 
-If we recall, Docker containers uses volumes to store files on disks to preserve them across restarts. Kubernetes has the same abstraction and we can configure a Pod to use multiple volumes simultaneously. These volumes are:
+If we recall, Docker containers uses volumes to store files on disks to preserve them across restarts. Kubernetes has the same abstraction and we can configure a Pod to use multiple volumes simultaneously. 
+
+Volumes are also useful for sharing data between containers in a Pod. The types of volumes we have are:
 
 - **Ephemeral volume** - exists only during the lifetime of a Pod.
 
@@ -150,10 +152,14 @@ If we recall, Docker containers uses volumes to store files on disks to preserve
 
 While volumes do solve the dilemma of losing files, there are some still a few points that we need to remember:
 
+- volumes can be used by mounting a directory in one or more Pods
+- a Pod can have one or more volumes
 - volumes cannot be mounted within other volumes 
 - volumes cannot contain a hardlink pointing to another volume
 - volumes should be mounted at the specified paths within the image.
 - volume mountpoint should be specified for each container in a Pod
+
+The default volume type is **emptyDir**. This is an empty directory on the node that is initially created to back the storage used by the volume. Any data written on this directory is retained if the Pod is restarted. However, the data will be permanently deleted if the Pod is deleted.
 
 To learn more about volumes, check out [Volumes in Kubernetes.](https://kubernetes.io/docs/concepts/storage/volumes/)
 
