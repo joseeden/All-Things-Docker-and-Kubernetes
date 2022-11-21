@@ -1,19 +1,61 @@
 # Helm 
 
-- [What is Helm](#what-is-helm)
+- [Pre-requisites](#pre-requisites)
+- [Helm](#helm)
 - [Concepts](#concepts)
 - [Helm 2 vs. Helm 3](#helm-2-vs-helm-3)
-- [Components](#components)
+- [Architecture](#architecture)
 - [Setting up Helm](#setting-up-helm)
     - [Install Helm](#install-helm)
     - [Initialize a Repository](#initialize-a-repository)
     - [Deploy a Sample Chart](#deploy-a-sample-chart)
     - [Delete the Chart](#delete-the-chart)
+- [Next Steps](#next-steps)
 
+---
 
-## What is Helm 
+## Pre-requisites 
 
-**Helm** is the Kubernetes package manager which helps package installation in Kubernetes and manages package dependencies. 
+- A basic understanding of Kubernetes
+- Experience in deploying Kubernetes resources sucj as Pods, Deployments, Services, etc.
+
+## Helm 
+
+**Helm** is the Kubernetes package manager which helps package installation in Kubernetes and manages package dependencies. A typical 3-tier architecture usually looks like the diagram below, with each tier consiting of a **Deployment, ConfigMap,** and a **Service.**
+
+<p align=center>
+<img src="../../Images/helm-typical-3tier-arch.png">
+</p>
+
+Before Helm, each of this components will have manifests that needs to be ran separately.
+
+```bash
+kubectl apply -f frontend-deployment.yml 
+kubectl apply -f frontend-configmap.yml 
+kubectl apply -f frontend-service.yml 
+
+kubectl apply -f app-deployment.yml 
+kubectl apply -f app-configmap.yml 
+kubectl apply -f app-service.yml 
+
+kubectl apply -f data-deployment.yml 
+kubectl apply -f data-configmap.yml 
+kubectl apply -f data-service/yml
+```
+
+This is tedious deployment and raises some important questions:
+
+- How to paramaeterize? 
+- How to add in application lifecycle hooks?
+- How to manage versions of related resources?
+
+This is where **Helm** comes into play. Helms uses **charts** which is similar to a Linux package that contains all the related parts of a specific cluster deployment. Helm can therefore be used to deploy multiple resources in a single command.
+
+Benefits of Helm include: 
+- Helm abstracts away complexity by being able to ran everything in one go 
+- history changes are versioned 
+- package or charts are easy to create once you're done with the build
+- charts can be hosts in a repository and be shared 
 
 To learn more, visit the official [Helm website.](https://helm.sh/)
 
@@ -21,7 +63,11 @@ To learn more, visit the official [Helm website.](https://helm.sh/)
 
 - **Chart** - contains all the dependencies to deploy a Kubernetes cluster
 - **Config** - optional configs to override default configs
+- **Templates** - makes up a chart
 - **Release** - a running instance of a chart
+- **Chart Repository** - centralized location for storing charts
+
+![](../../Images/helm-workflow.png)  
 
 ## Helm 2 vs. Helm 3 
 
@@ -30,8 +76,11 @@ There is a new Helm 3 version, which differs with Helm 2.
 - Helm 2 architecture is different
 - Helm 2 command line and chart structure might differ 
 - Helm 2 charts are compatible with Helm 3
+- Helm 2 uses a cluster component called "Tiller" which acts as authentication
+- Helm 3 client communicates directly with the K8S API server
+- Helm 3 authenticate using the same credentials in .kube/config file
 
-## Components
+## Architecture 
 
 - **Helm Client** - CLI client for managing repositories, releases, and interfacing with Helm library
 
@@ -56,6 +105,13 @@ $ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scr
 $ chmod 700 get_helm.sh
 
 $ ./get_helm.sh
+```
+
+For auto-completion, consider running this in the command line.
+
+```bash
+source <(helm completion bash)
+echo "source <(helm completion bash)" >> ~/.bash_profile
 ```
 
 ### Initialize a Repository
@@ -120,5 +176,6 @@ Run the uninstall command and specify the chart name.
 $ helm uninstall my-test-1 
 ```
 
-</details>
+## Next Steps 
 
+- See [Helm Commands](./031-Helm-commands.md) 

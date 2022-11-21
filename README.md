@@ -163,6 +163,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Helm Package Manager](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
 
+- [Helm Commands](pages/04-Kubernetes/031-Helm-commands.md)
+
 - [Kubernetes Security](pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
 - [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
