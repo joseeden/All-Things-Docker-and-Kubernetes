@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: volumes
+  name: support-tier
+  labels:
+    app: microservices
+    tier: support
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: support
+  template:
+    metadata:
+      labels:
+        app: microservices
+        tier: support
+    spec:
+        containers:
+
+        - name: counter
+          image: lrakai/microservices:counter-v1
+          env:
+            - name: API_URL
+              value: http://app-tier:8080
+              resources:
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+        - name: poller
+          image: lrakai/microservices:poller-v1
+          env:
+            - name: API_URL
+              # omit namespace to only search in the same namespace
+              value: http://app-tier:$(APP_TIER_SERVICE_PORT)    
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
