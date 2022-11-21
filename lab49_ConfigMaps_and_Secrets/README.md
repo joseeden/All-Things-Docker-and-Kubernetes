@@ -23,7 +23,7 @@ We'll be using the same architecture from the previous labs but we'll incorporat
 Our architecture looks like this:
 
 <p align=center>
-<img width=500 src="../Images/lab48-volumes-diagram.png">
+<img width=800 src="../Images/lab48-volumes-diagram.png">
 </p>
 
 To learn more, check out the [Volumes and StorageClass page.](../pages/04-Kubernetes/017-StorageClass.md)
