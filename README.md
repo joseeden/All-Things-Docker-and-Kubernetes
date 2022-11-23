@@ -44,6 +44,10 @@ Containers are where it all starts.
 
 - [How Docker runs on Windows](pages/02-Docker-Basics/005-How-Docker-runs-on-Windows.md) 
 
+- [Installing Docker](pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+
+- [Using Docker without Root Permission](pages/01-Pre-requisites/labs-docker-pre-requisites/05-Using-Docker-without-Root-permissions.md)
+
 - [Docker Objects](pages/02-Docker-Basics/006-Docker-Object.md) 
 
 - [Tagging the Image](pages/02-Docker-Basics/007-Tagging-the-Image.md)
@@ -162,6 +166,8 @@ Kubernetes is indeed an entire universe in itself.
 - [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
 
 - [Helm Package Manager](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
+
+- [Helm Chart and Templates](pages/04-Kubernetes/032-Helm-Chart-and-Templates.md)
 
 - [Helm Commands](pages/04-Kubernetes/031-Helm-commands.md)
 

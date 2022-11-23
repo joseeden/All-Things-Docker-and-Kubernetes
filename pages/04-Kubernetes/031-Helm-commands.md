@@ -7,8 +7,6 @@
 - [Release Management](#release-management)
 - [Build Management](#build-management)
 
-
-
 ## Helm Chart Management
 
 These commands can be used for basic Helm chart management. 

@@ -62,8 +62,8 @@ To learn more, visit the official [Helm website.](https://helm.sh/)
 ## Concepts 
 
 - **Chart** - contains all the dependencies to deploy a Kubernetes cluster
-- **Config** - optional configs to override default configs
 - **Templates** - makes up a chart
+- **Config** - optional configs to override default configs
 - **Release** - a running instance of a chart
 - **Chart Repository** - centralized location for storing charts
 
@@ -178,4 +178,5 @@ $ helm uninstall my-test-1
 
 ## Next Steps 
 
+- See [Helm Chart and Templates](./032-Helm-Chart-and-Templates.md)
 - See [Helm Commands](./031-Helm-commands.md) 

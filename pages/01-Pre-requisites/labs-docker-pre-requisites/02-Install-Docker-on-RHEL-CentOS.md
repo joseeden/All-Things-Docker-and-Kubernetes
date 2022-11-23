@@ -1,6 +1,12 @@
 
 # Install on RHEL/CentOS
 
+
+- [Uninstall older versions](#uninstall-older-versions)
+- [Install from a package](#install-from-a-package)
+- [Install from a script](#install-from-a-script)
+
+
 These are the steps I followed on installing docker on RHEL 8/CentOS in an Amazon EC2 instance. Detailed steps can be found in the [Docker's official documentation](https://docs.docker.com/engine/install/centos/).
 
 ## Uninstall older versions

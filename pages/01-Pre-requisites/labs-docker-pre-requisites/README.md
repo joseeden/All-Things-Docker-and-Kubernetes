@@ -1,11 +1,5 @@
 # Pre-requisites for Docker Labs
 
-- [Install Docker](#install-docker)
-- [Install Docker Compose](#install-docker-compose)
-- [Error: Cannot connect to the Docker daemon](#error-cannot-connect-to-the-docker-daemon)
-
-----------------------------------------------
-
 ## Install Docker
 
 With the introduction of Hyper-V, this gave way for **Docker Desktop for Windows** which under the hood, uses WSL2's to launch a VM as the host Linux operating system.
@@ -54,4 +48,3 @@ sudo dockerd
 
 You can checkout this [Stackoverflow discussion](https://stackoverflow.com/questions/44678725/cannot-connect-to-the-docker-daemon-at-unix-var-run-docker-sock-is-the-docker) to know more.
 
-</details>
