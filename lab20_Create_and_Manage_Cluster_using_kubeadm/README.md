@@ -593,4 +593,4 @@ To cleanup the resources, simply delete the EC2 instances from the AWS Managemen
 
 ## Resources
 
-- [Create and Manage a Kubernetes Cluster from Scratch](https://cloudacademy.com/lab/create-manage-kubernetes-cluster-scratch/?context_resource=lp&context_id=888)
+- [Create and Manage a Kubernetes Cluster from Scratch](https://cloudacademy.com/lab/create-manage-kubernetes-cluster-scratch/?context_resource=lp&context_id=888) 
