@@ -1,6 +1,8 @@
 # DaemonSets
 
-A **DaemonSet** ensures that all (or some) nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
+A **DaemonSet** is a Kuberentes resource that is similar with Deployments as Daemonsets also creates a Pod. The difference is that the main purpose of a Daemonset is to ensure  that all (or some) nodes run a copy of a Pod. This is used for long-running processes. 
+
+As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
 
 Some typical uses of a DaemonSet are:
 

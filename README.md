@@ -137,13 +137,31 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Static Pod Manifests](pages/04-Kubernetes/009-Static-Pod-Manifests.md)
 
+- [Scheduling Pods](pages/04-Kubernetes/022-Scheduling-pods.md)
+
 - [DaemonSets](pages/04-Kubernetes/010-DaemonSets.md) 
+
+- [Taints and Tolerations](pages/04-Kubernetes/022-Taints-and-tolerations.md)
+
+- [Node Selectors and Node Affinity](pages/04-Kubernetes/023-NODESLSECTOR.MD)
+
+- [Pod Affinity](pages/04-Kubernetes/024-Pod-affinity.md)
+
+- [Container Resource Requirements](pages/04-Kubernetes/025-Container-resource-requirements.md)
 
 - [ReplicaSets](pages/04-Kubernetes/011-ReplicaSets.md) 
 
 - [Scaling](pages/04-Kubernetes/012-Scaling.md) 
 
 - [Services](pages/04-Kubernetes/013-Services.md)
+
+- [ClusterIP](pages/04-Kubernetes/013-Services.md)
+
+- [Nodeport](pages/04-Kubernetes/013-Services.md)
+
+- [External Name](pages/04-Kubernetes/013-Services.md)
+
+- [Kubernetes Ingress](pages/04-Kubernetes/013-Services.md)
 
 - [Deployments](pages/04-Kubernetes/014-Deployments.md) 
 
@@ -157,23 +175,27 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Certificate Authority](pages/04-Kubernetes/015-Certificate-Authority.md) 
 
-- [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
-
 - [Stateless vs. Stateful](pages/04-Kubernetes/016-Stateful-vs-Stateless.md)
 
-- [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md)
+- [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
+
+- [Kubernetes Commands](pages/04-Kubernetes/049-Cheatsheet-Kubernetes-Commands.md) 
+
+- [Backing Up, Restoring, and Upgrading Clusters](./lab20_Create_and_Manage_Cluster_using_kubeadm/README.md)
 
 - [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
+
+- [Kubernetes Security](pages/04-Kubernetes/028-Kubernetes-Security.md) 
+
+- [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
+
+- [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md)
 
 - [Helm Package Manager](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
 
 - [Helm Chart and Templates](pages/04-Kubernetes/032-Helm-Chart-and-Templates.md)
 
 - [Helm Commands](pages/04-Kubernetes/031-Helm-commands.md)
-
-- [Kubernetes Security](pages/04-Kubernetes/028-Kubernetes-Security.md) 
-
-- [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
 
 - [Amazon EKS - Managed Kubernetes](pages/04-Kubernetes/050-EKS-Managed-Kubernetes.md) 
 
@@ -193,7 +215,6 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)
 
-- [Cheatsheet: Kubernetes Commands](pages/04-Kubernetes/049-Cheatsheet-Kubernetes-Commands.md) 
 
 
 ## Resources
