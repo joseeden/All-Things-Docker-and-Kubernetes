@@ -179,7 +179,7 @@ Now that we have installed all the necessary packages on all three nodes, the ne
 
 This process can be customized to suit your requirements, such as providing your own CA, external etcd key-value store, or the network plugin.
 
-Initialize the control-plane node using the init command. The CIDR block we specified is the default one sued by Calico. This command will output the whole initialization process.
+Initialize the control-plane node using the init command. The CIDR block we specified is the default one used by Calico. This command will output the whole initialization process.
 
 ```bash
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=stable-1.24
