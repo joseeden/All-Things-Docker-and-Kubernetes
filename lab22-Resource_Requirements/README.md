@@ -1,4 +1,4 @@
-# Lab 21: Resource Requirements
+# Lab 22: Resource Requirements
 
 
 Before we begin, make sure you've setup the following pre-requisites
@@ -17,6 +17,7 @@ Here's a breakdown of the sections for this lab.
 - [Unrestricted Pod](#unrestricted-pod)
 - [Limited Pod](#limited-pod)
 - [Cleanup](#cleanup)
+- [Resources](#resources)
 
 
 ## Introduction
@@ -227,7 +228,11 @@ Non-terminated Pods:          (5 in total)
 Before we officially close this lab, make sure to destroy all resources to prevent incurring additional costs.
 
 ```bash
-$ time eksctl delete cluster -f  
+$ time eksctl delete cluster -f  eksops.yml
 ```
 
 Note that when you delete your cluster, make sure to double-check the AWS Console and ensure that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
+
+## Resources
+
+- [Mastering Kubernetes Pod Configuration: Defining Resource Requirements](https://cloudacademy.com/lab/mastering-kubernetes-pod-configuration-defining-resource-requirements/?context_resource=lp&context_id=888)

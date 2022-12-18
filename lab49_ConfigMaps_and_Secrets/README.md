@@ -24,7 +24,7 @@ Here's a breakdown of sections for this lab.
 
 ## Introduction
 
-We'll be using the same architecture from the previous labs but we'll incorporate ConfigMaps and Secrets:
+We'll be using the same architecture from the previous labs but this time, we'll incorporate ConfigMaps and Secrets:
 
 - ConfigMap for Redis configuration
 - Secret for injecting sensitive environment variables into the app tier
@@ -35,7 +35,7 @@ Our architecture looks like this:
 <img width=700 src="../Images/lab48-volumes-diagram.png">
 </p>
 
-To learn more, check out the [Volumes and StorageClass page.](../pages/04-Kubernetes/017-StorageClass.md)
+To learn more, check out [ConfigMaps and Secrets](../pages/04-Kubernetes/021-Configmaps.md) 
 
 
 ## Launch a Simple EKS Cluster
@@ -282,7 +282,7 @@ data: #for base-64 encoded data
 # kubectl create secret generic app-tier-secret --from-literal=api-key=LRcAmM1904ywzK3esX
 ```
 
-Note that manifests for the secrets are not usually checked into source control sicne they contain sensitive information. Another option is to create the secrets through the *kubectl* utility.
+Note that manifests for the secrets are not usually checked into source control since they contain sensitive information. Another option is to create the secrets through the *kubectl* utility.
 
 Secrets are stored as base64-encoded string text and defined as **data.** They are automatically decoded by Kubernetes when manifests is ran. Note that this encoding doesn't improve any security since anyone can decode this using the correct tools. 
 
