@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+data:
+  fluent.conf: |
+    # First log source (tailing a file at /var/log/1.log)
+    <source>
+      @type tail
+      format none
+      path /var/log/1.log
+      pos_file /var/log/1.log.pos
+      tag count.format1
+    </source>
+
+    # Second log source (tailing a file at /var/log/2.log)
+    <source>
+      @type tail
+      format none
+      path /var/log/2.log
+      pos_file /var/log/2.log.pos
+      tag count.format2
+    </source>
+
+    # S3 output configuration (Store files every minute in the bucket's logs/ folder)
+    <match **>
+      @type s3
+
+      s3_bucket $s3_bucket
+      s3_region us-west-2
+      path logs/
+      buffer_path /var/log/
+      store_as text
+      time_slice_format %Y%m%d%H%M
+      time_slice_wait 1m
+      
+      <instance_profile_credentials>
+      </instance_profile_credentials>
+    </match>
