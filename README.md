@@ -216,7 +216,6 @@ Kubernetes is indeed an entire universe in itself.
 - [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)
 
 
-
 ## Resources
 
 Useful courses on Docker:
