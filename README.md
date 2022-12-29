@@ -197,6 +197,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Helm Commands](pages/04-Kubernetes/031-Helm-commands.md)
 
+- [Kubernetes Patterns for Application Developers](pages/04-Kubernetes/033-Kubernetes-patterns.md) 
+
 - [Amazon EKS - Managed Kubernetes](pages/04-Kubernetes/050-EKS-Managed-Kubernetes.md) 
 
 - [Amazon EKS - Pricing](pages/04-Kubernetes/051-EKS-Pricing.md) 
