@@ -141,6 +141,10 @@ Kubernetes is indeed an entire universe in itself.
 
 - [DaemonSets](pages/04-Kubernetes/010-DaemonSets.md) 
 
+- [Labels, Selectors, and Annotations](pages/04-Kubernetes/034-Labels-seclector-annotations.md)
+
+- [Jobs and CronJobs](pages/04-Kubernetes/035-jobs-cronjobs.md)
+
 - [Taints and Tolerations](pages/04-Kubernetes/022-Taints-and-tolerations.md)
 
 - [Node Selectors and Node Affinity](pages/04-Kubernetes/023-NODESLSECTOR.MD)
