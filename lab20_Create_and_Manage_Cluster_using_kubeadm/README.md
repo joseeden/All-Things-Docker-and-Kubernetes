@@ -90,19 +90,19 @@ sudo apt-get update
 sudo apt-get install -y containerd.io=1.4.4-1
 ```
 
-Next, we ened to mitigate the [instability of having two cgroup managers](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) by configuring the systemd cgroup driver.
+Next, we need to mitigate the [instability of having two cgroup managers](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) by configuring the systemd cgroup driver.
 
 ```bash
 # Configure the systemd cgroup driver
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
-sudo sed -i 's/          \[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options\]/          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]\n            SystemdCgroup = true/' /etc/containerd/config.toml
+sudo sed -i 's/ \[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options\]/          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]\n            SystemdCgroup = true/' /etc/containerd/config.toml
 sudo systemctl restart containerd 
 ```
 
 ## Install kubeadm and its dependencies
 
-install kubeadm, kubectl, and kubelet from the official Kubernetes package repository.
+Install kubeadm, kubectl, and kubelet from the official Kubernetes package repository.
 
 ```bash
 # Add the Google Cloud packages GPG key
