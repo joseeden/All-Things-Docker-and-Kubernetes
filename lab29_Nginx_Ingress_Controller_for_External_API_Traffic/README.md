@@ -44,7 +44,7 @@ Steps:
 
 ## Lab Environment
 
-The environment used here is an empty Kubernetes cluster managed through kubeadm. The cluster is using a single node EC2 instance in AWS. To setup the environment, check out [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
+The environment used here is an empty Kubernetes cluster managed through minikube. The cluster is using a single node EC2 instance in AWS. To setup the environment, check out [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
 
 ## Install Cilium CNI 
 

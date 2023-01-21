@@ -3,7 +3,7 @@
 
 Pre-requisites:
 
-- [Lab 46: Probes](../lab46_Probes/README/md)
+- [Lab 46: Probes](../Lab46_Probes/README/md)
 
 Here's a breakdown of sections for this lab.
 

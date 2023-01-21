@@ -24,7 +24,7 @@ Here's a breakdown of sections for this lab.
 
 We've launched pods in the previous labs using pod manifests. However, Pods are not meant to be created directly. Instead they should be handled using deployments. This ensures that Kubernetes is able to leverage the scale functionality of deployments, as well as add useful features to the pods.
 
-We'll use the same architecture from the [previous lab](../lab42_Service_Discovery/README.md).
+We'll use the same architecture from the [previous lab](../Lab42_Service_Discovery/README.md).
 
 <p align=center>
 <img width=700 src="../Images/lab42-service-discovery-diag.png">

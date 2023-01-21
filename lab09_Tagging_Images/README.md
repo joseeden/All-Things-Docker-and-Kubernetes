@@ -12,8 +12,8 @@ In this lab, we'll get to see how to use tagging for docker images. It is recomm
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab09_Tagging_Images 
-$ cd lab09_Tagging_Images
+$ mkdir Lab09_Tagging_Images 
+$ cd Lab09_Tagging_Images
 ```
 
 ### Example 1: Single Tag

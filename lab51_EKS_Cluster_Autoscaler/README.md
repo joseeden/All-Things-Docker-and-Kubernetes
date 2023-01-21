@@ -558,7 +558,7 @@ Check the pods. It will first go through *ContainerCreating* stage before changi
 $ kubectl get pods 
 ```
 ```bash
-joseeden@EdenJose:lab51_EKS_Cluster_Autoscaler$ kubectl get pods
+$ kubectl get pods
 NAME                                READY   STATUS    RESTARTS   AGE
 nginx-autoscaler-8458c98b94-ntztw   1/1     Running   0          35s
 nginx-autoscaler-8458c98b94-vqrjl   1/1     Running   0          35s 

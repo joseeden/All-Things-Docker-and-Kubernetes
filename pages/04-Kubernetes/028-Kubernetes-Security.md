@@ -1,46 +1,10 @@
 
-# Kubernetes Security 
+# Kubernetes Security - Security Contexts 
 
 
-- [Kubernetes Authentication](#kubernetes-authentication)
-- [Integration](#integration)
-- [Authentication and Authorization in Action](#authentication-and-authorization-in-action)
-- [Security Context](#security-context)
-- [Pod-level Security Context](#pod-level-security-context)
-- [Container-level Security Context](#container-level-security-context)
-- [Risks of Privileged Containers](#risks-of-privileged-containers)
-- [Run as Non-Root](#run-as-non-root)
-- [Security Contexts in Action](#security-contexts-in-action)
-- [Resources](#resources)
 
 
-## Kubernetes Authentication
-
-There are two categories of users in Kubernetes: normal users and service accounts:
-
-- **Normal Users**
-These users represent the actual humans using Kubernetes and are managed externally by an independent service. 
-
-- **Service Accounts**
-These accounts represent identities used by processes running in pods and managed by Kubernetes.
-
-Kubernetes supports authentication using:
-
-* x509 certificates
-* Bearer tokens
-* Basic authentication (usernames and passwords)
-* OpenID Connect (OIDC) tokens (currently limited support)
-
-## Integration 
-
-Kubernetes can also integrate with LDAP, SAML, and other authentication protocols by using plugins. Users can be members of groups to allow for easier access control management.
-
-## Authentication and Authorization in Action 
-
-To see how Kubernetes clusters are secured using authentication and authorization, check out this [lab](../../lab27_Securing_Kubernetes_using_Authentication_and_Authorization/README.md).
-
-
-## Security Context 
+## Security Contexts 
 
 A security context allows you to set access control for pods, as well as containers and volumes in pods, when applicable. Examples of access controls that can be set with security contexts include:
 

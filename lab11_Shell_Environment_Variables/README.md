@@ -13,8 +13,8 @@ We'll containerize an application which will display a simple website that will 
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab11_Shell_Env_Vars
-$ cd lab11_Shell_Env_Vars
+$ mkdir Lab11_Shell_Env_Vars
+$ cd Lab11_Shell_Env_Vars
 ```
 
 ### Create the files 

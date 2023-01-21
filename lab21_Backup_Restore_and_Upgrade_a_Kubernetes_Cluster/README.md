@@ -3,7 +3,7 @@
 
 Before we begin, make sure you've setup the following pre-requisites
 
-- [Lab 20-Create and Manage a Cluster using kubeadm](../lab20_Create_and_Manage_Cluster_using_kubeadm/README.md)
+- [Lab 20-Create and Manage a Cluster using kubeadm](../Lab20_Create_and_Manage_Cluster_using_kubeadm/README.md)
 
 
 Here's a breakdown of the sections for this lab.

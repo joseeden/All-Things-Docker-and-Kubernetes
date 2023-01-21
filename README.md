@@ -189,7 +189,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
 
-- [Kubernetes Security](pages/04-Kubernetes/028-Kubernetes-Security.md) 
+- [Kubernetes Security - Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
+
+- [Kubernetes Security - Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
 - [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
 

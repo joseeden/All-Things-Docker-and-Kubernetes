@@ -19,7 +19,7 @@ Here's a breakdown of sections for this lab.
 
 ## Introduction
 
-In this lab, we'll get to learn how probes helps in detecting if Pods are ready or if Pods needs to be restarted. We'll be using the same application architecture from the previous [labs](../lab43_Deployments/README.md).
+In this lab, we'll get to learn how probes helps in detecting if Pods are ready or if Pods needs to be restarted. We'll be using the same application architecture from the previous [labs](../Lab43_Deployments/README.md).
 
 We'll modify it a bit by adding probes to the Data tier (Redis):
 
@@ -237,7 +237,7 @@ Mon, 03 Oct 2022 12:02:50 GMT express:application set "env" to 'development'
 
 ## Next Steps 
 
-Remember that probes only run AFTER the containers are started. To learn more on how to tests before the containers start, jump onto the next [lab](../lab47_Init_Containers/README.md)!
+Remember that probes only run AFTER the containers are started. To learn more on how to tests before the containers start, jump onto the next [lab](../Lab47_Init_Containers/README.md)!
 
 
 

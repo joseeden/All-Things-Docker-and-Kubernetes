@@ -33,7 +33,7 @@ We can access these logs thru CloudWatch by enabling which log type to send. To 
 
 ## Enabling CloudWatch Logging through the Manifest
 
-Let's reuse the **eksops.yml** from lab50 in this repo. 
+Let's reuse the **eksops.yml** from Lab50 in this repo. 
 
 ```yaml
 apiVersion: eksctl.io/v1alpha5

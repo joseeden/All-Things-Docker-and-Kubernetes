@@ -11,8 +11,8 @@ In the previous lab, we've create a dockerfile, build the image, and then run a 
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab03_Create_Image_from_Container
-$ cd lab03_Create_Image_from_Container 
+$ mkdir Lab03_Create_Image_from_Container
+$ cd Lab03_Create_Image_from_Container 
 ```
 
 ### Run the Container and Install Python

@@ -182,4 +182,4 @@ Note that when you delete your cluster, make sure to double-check the AWS Consol
 
 ## Resources
 
-- Mastering Kubernetes Pod Configuration: Service Accounts
+- [Mastering Kubernetes Pod Configuration: Service Accounts](https://cloudacademy.com/lab/mastering-kubernetes-pod-configuration-service-accounts/)

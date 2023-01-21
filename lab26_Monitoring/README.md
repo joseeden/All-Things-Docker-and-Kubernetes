@@ -22,7 +22,7 @@ Here's a breakdown of the sections for this lab.
 
 ## Introduction
 
-We've covered the first pillar of observability in th [previous lab](../lab25_Logging/README.md), Logging. In this lab, we'll go through the second pillar, Monitoring, and learn how Kubernetes handles the monitoring of Pods through built-in mechanisms such as Probes, as well as available external monitoring systems.
+We've covered the first pillar of observability in th [previous lab](../Lab25_Logging/README.md), Logging. In this lab, we'll go through the second pillar, Monitoring, and learn how Kubernetes handles the monitoring of Pods through built-in mechanisms such as Probes, as well as available external monitoring systems.
 
 As an overview, there are three types of Probes:
 - **Readiness Probes** - checks if a Pod is ready to server traffic and handle requests.

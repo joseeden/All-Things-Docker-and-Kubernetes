@@ -11,8 +11,8 @@ Before we begin, make sure you've setup the following pre-requisites
 In this lab, we'll run the following simple containers. Let's start with creating the project directory where will create our files.
 
 ```bash
-$ mkdir lab01_Running_Simple_Containers 
-$ cd lab01_Running_Simple_Containers 
+$ mkdir Lab01_Running_Simple_Containers 
+$ cd Lab01_Running_Simple_Containers 
 ```
 
 ### whalesay

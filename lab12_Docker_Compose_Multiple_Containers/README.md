@@ -20,8 +20,8 @@ For future scaling, we will use this architecture where we have multiple Node se
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab12_Docker_Compose_Multiple_Containers 
-$ cd lab12_Docker_Compose_Multiple_Containers
+$ mkdir Lab12_Docker_Compose_Multiple_Containers 
+$ cd Lab12_Docker_Compose_Multiple_Containers
 ```
 
 ### Starting small

@@ -54,7 +54,7 @@ Copy the SSH link. We'll be using this later.
 In your terminal, go to the project directory that we used in the previous lab.
 
 ```bash
-$ cd ~/lab13/proj-eden-frontend$ 
+$ cd ~/lab13/proj-eden-frontend
 ```
 
 Initialize git.

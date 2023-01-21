@@ -11,8 +11,8 @@ Before we begin, make sure you've setup the following pre-requisites
 In this lab, we'll explore the storage options available for Docker containers. Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab08_Persistent_Storage
-$ cd lab08_Container_Networking
+$ mkdir Lab08_Persistent_Storage
+$ cd Lab08_Container_Networking
 ```
 
 ### Create the Files and Storage Directory

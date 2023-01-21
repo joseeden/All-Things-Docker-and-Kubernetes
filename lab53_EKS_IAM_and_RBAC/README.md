@@ -158,29 +158,7 @@ $ aws sts get-caller-identity
 } 
 ```
 
-For the cluster, we can reuse the **eksops.yml** file from the previous labs.
-
-<details><summary> eksops.yml </summary>
- 
-```bash
-apiVersion: eksctl.io/v1alpha5
-kind: ClusterConfig
-
-metadata:
-    version: "1.22"
-    name: eksops
-    region: ap-southeast-1 
-
-nodeGroups:
-    -   name: ng-dover
-        instanceType: m5.large
-        desiredCapacity: 3
-        ssh: 
-            publicKeyName: "k8s-kp"
-```
- 
-</details>
-
+For the cluster, we can reuse the [eksops.yml](manifests/eksops.yml) file from the previous labs.
 Launch the cluster.
 
 ```bash

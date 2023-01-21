@@ -13,8 +13,8 @@ In this lab, we'll be deploying a website written in Go(golang) on a container. 
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab04_Serving_Golang_App_through_Docker
-$ cd lab04_Serving_Golang_App_through_Docker/
+$ mkdir Lab04_Serving_Golang_App_through_Docker
+$ cd Lab04_Serving_Golang_App_through_Docker/
 ```
 
 ### Create the Files 

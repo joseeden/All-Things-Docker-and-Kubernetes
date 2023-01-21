@@ -10,8 +10,8 @@ Before we begin, make sure you've setup the following pre-requisites
 In this lab, we'll run a lightweight container that runs a custom binary that we'll create. Let's start with creating the project directory where will create our files.
 
 ```bash
-$ mkdir lab02_Creating_Dockerfile_and_Image 
-$ cd lab02_Creating_Dockerfile_and_Image 
+$ mkdir Lab02_Creating_Dockerfile_and_Image 
+$ cd Lab02_Creating_Dockerfile_and_Image 
 ```
 
 ### Create the Files

@@ -2,7 +2,7 @@
 
 Pre-requisites:
 
-- [Lab 44: Horizontal Pod AutoScaler](../lab44_Horizontal_Pod_AutoScaler/README.md)
+- [Lab 44: Horizontal Pod AutoScaler](../Lab44_Horizontal_Pod_AutoScaler/README.md)
 
 Here's a breakdown of sections for this lab.
 

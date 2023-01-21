@@ -20,7 +20,7 @@ Here's a breakdown of sections for this lab.
 
 ## Introduction
 
-We'll redesigned the architecture from the [previous lab](../lab41-Multi_Container_Pods/README.md) and break down the containers into their own pods. This will no introduce some networking issues since the containers are not on the same pod anymore.
+We'll redesigned the architecture from the [previous lab](../Lab41-Multi_Container_Pods/README.md) and break down the containers into their own pods. This will no introduce some networking issues since the containers are not on the same pod anymore.
 
 <p align=center>
 <img width=700 src="../Images/lab42-service-discovery-diag.png">
@@ -181,7 +181,7 @@ spec:
           # value: redis://localhost:6379 
 ```
 
-In the [previous lab](../lab41-Multi_Container_Pods/README.md#multi-container-pods), the **REDIS_URL** is set to localhost because all containers are contained the same pod and they talk over localhost. Since the containers are now in separate pods, the containers cannot rely on the IP address of each Pod because the IP address may change as Pods are created and deleted.
+In the [previous lab](../Lab41-Multi_Container_Pods/README.md#multi-container-pods), the **REDIS_URL** is set to localhost because all containers are contained the same pod and they talk over localhost. Since the containers are now in separate pods, the containers cannot rely on the IP address of each Pod because the IP address may change as Pods are created and deleted.
 
 Instead, Kubernetes will use environment variables for the service that will provide the static endpoint for each Pod. We can use the variable **DATA_TIER_SERVICE_HOST** and Kubernetes will automatically know that we're referring to the service resource in the data tier. THe same way goes for the variable for the port, **DATA_TIER_SERVICE_PORT_REDIS**, making sure we specify the name of the port.
 

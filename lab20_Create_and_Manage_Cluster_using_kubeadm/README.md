@@ -330,7 +330,7 @@ Accept-Ranges: bytes
 
 ## Next Step 
 
-Now that we have a working Kubernetes cluster, proceed to the [next lab](../lab21_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md) to simulate a cluster failure and restore the cluster to its original state using a backup.
+Now that we have a working Kubernetes cluster, proceed to the [next lab](../Lab21_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md) to simulate a cluster failure and restore the cluster to its original state using a backup.
 
 ## Resources
 

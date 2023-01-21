@@ -12,8 +12,8 @@ In this lab, we'll run a container that serves a basic website written in Go. We
 Start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab06_Port_Mapping_Containerized_App
-$ cd lab06_Port_Mapping_Containerized_App
+$ mkdir Lab06_Port_Mapping_Containerized_App
+$ cd Lab06_Port_Mapping_Containerized_App
 ```
 
 ### Create the Files 

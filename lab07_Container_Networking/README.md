@@ -14,8 +14,8 @@ In this lab, we'll run containers in the same host and test the connectivity bet
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab07_Container_Networking
-$ cd lab07_Container_Networking
+$ mkdir Lab07_Container_Networking
+$ cd Lab07_Container_Networking
 ```
 
 ### Create the Files

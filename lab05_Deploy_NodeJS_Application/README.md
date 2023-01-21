@@ -2,7 +2,7 @@
 
 Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
 ### Introduction
 
@@ -15,8 +15,8 @@ In this lab, we'll be deploying a website written in NodeJS on a container. We'l
 Let's start with creating the project directory where we'll create our files.
 
 ```bash
-$ mkdir lab05_Deploy_NodeJS_Application
-$ cd lab05_Deploy_NodeJS_Application
+$ mkdir Lab05_Deploy_NodeJS_Application
+$ cd Lab05_Deploy_NodeJS_Application
 ```
 
 ### Setup the Node Server
