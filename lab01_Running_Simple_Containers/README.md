@@ -6,6 +6,7 @@ Before we begin, make sure you've setup the following pre-requisites
   - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
 
+
 ### Introduction
 
 In this lab, we'll run the following simple containers. Let's start with creating the project directory where will create our files.
