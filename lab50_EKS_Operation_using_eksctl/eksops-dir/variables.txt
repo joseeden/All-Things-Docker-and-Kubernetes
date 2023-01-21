@@ -1,4 +1,0 @@
-export MYCLUSTER='eksops'
-export MYREGION='ap-southeast-1'
-export MYACCOUNTID='848587260896'
-export MYUSER=edenjose-1
