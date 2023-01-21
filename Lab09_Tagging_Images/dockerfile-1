@@ -1,0 +1,7 @@
+FROM centos:7
+RUN yum -y install wget 
+RUN yum -y install unzip 
+RUN yum -y install java-1.8.0-openjdk 
+RUN yum clean all
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME 

@@ -1,0 +1,29 @@
+apiVersion: eksctl.io/v1alpha5
+# apiVersion: client.authentication.k8s.io/v1beta1
+kind: ClusterConfig
+
+metadata:
+    version: "1.22"
+    name: eksops
+    region: ap-southeast-1 
+
+nodeGroups:
+    -   name: ng-1
+        instanceType: t2.small
+        desiredCapacity: 3
+        minSize: 2
+        maxSize: 5
+        ssh: 
+            publicKeyName: "k8s-kp"
+    # Uncomment the code below to add a second nodegroup
+    # -   name: ng-mix
+    #     instancesDistribution:
+    #         maxPrice: 0.2
+    #         instanceTypes: [
+    #             "t2.small",
+    #             "t3.small"
+    #         ]
+    #         onDemandBaseCapacity: 0
+    #         onDemandPercentageAboveBaseCapacity: 50
+    #     ssh:
+    #         publicKeyName: "k8s-kp"

@@ -1,0 +1,17 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    namespace: prod
+    name: role-prodadmin
+rules:
+- apiGroups: [  # "" indicates the core API group
+    "",
+    "extensions",
+    "apps"
+    ] 
+  resources: [  # can be further limited, e.g. pods, deployments
+    "*"
+    ]
+  verbs: [
+    "*"
+  ]

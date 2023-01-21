@@ -1,0 +1,24 @@
+
+# Uses node:alpine as base image
+FROM node:alpine
+
+# Creates working directory
+WORKDIR '/app' 
+
+# Copies file to working directory 
+COPY package.json .
+
+# Installs npm
+RUN npm install --silent
+
+# Copy the remaining files
+COPY . .
+
+# If you're using Ubuntu, uncomment the two line below.
+# This is because Ubuntu mounts volumes using the root user.
+# If you're using different linux distro, comment out these two lines
+RUN chown -R node /app/node_modules
+USER node
+
+# Starts development server 
+CMD ["npm", "run", "start"]
