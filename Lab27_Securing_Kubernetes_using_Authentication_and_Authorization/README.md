@@ -26,7 +26,7 @@ Here's a breakdown of the sections for this lab.
 
 ## Introduction
 
-In this lab, we'll practice defense in depth by covering the facets to security in Kubernetes including authentication, and authorization. 
+In this lab, we will practice defense in depth by covering the facets to security in Kubernetes including authentication, and authorization. 
 
 **Scenario**: 
 
