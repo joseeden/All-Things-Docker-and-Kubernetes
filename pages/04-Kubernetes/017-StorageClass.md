@@ -7,11 +7,14 @@
 - [Changing the default StorageClass](#changing-the-default-storageclass)
 - [Volumes](#volumes)
 - [Persistent Volumes and Persistent Volume Claims](#persistent-volumes-and-persistent-volume-claims)
+- [Binding PVC and PV](#binding-pvc-and-pv)
+- [Deleting the PV or the PVC](#deleting-the-pv-or-the-pvc)
+- [Active Use](#active-use)
+- [Phases of a Volume](#phases-of-a-volume)
 - [Volume Access Modes](#volume-access-modes)
 - [Lifecycle of a volume and claim:](#lifecycle-of-a-volume-and-claim)
 - [Reclaiming](#reclaiming)
 - [Creating Persistent Volume Claims](#creating-persistent-volume-claims)
-
 
 
 ## StorageClass
@@ -140,9 +143,9 @@ The steps are simple:
 
 ## Volumes 
 
-When a container crashes, there is a possiblity to lose the files. This issue becomes even worse when you have multiple containers running in a Pod. As a solution, we can use volumes.
+When a container crashes, the data stored on the container is destroyed. This issue becomes even worse when you have multiple containers running in a Pod. As a solution, we can use volumes.
 
-If we recall, Docker containers uses volumes to store files on disks to preserve them across restarts. Kubernetes has the same abstraction and we can configure a Pod to use multiple volumes simultaneously. 
+As a recap, Docker containers use volumes to store files on disks to preserve them across restarts. Kubernetes has the same abstraction and we can configure a Pod to use multiple volumes simultaneously. 
 
 Volumes are also useful for sharing data between containers in a Pod. The types of volumes we have are:
 
@@ -167,6 +170,8 @@ To learn more about volumes, check out [Volumes in Kubernetes.](https://kubernet
 
 A **PersistentVolume** allows administrators to use an API to manages how a storage is provided and consumed. We can have a variety of PersistentVolumes that differs in size and access modes without the need to tell our users how it is created. 
 
+![](../../Images/pvcpvkodekloud.png)  
+
 For us to understand persistent volumes, there are two API resources that we need to know:
 
 - **PersistentVolume (PV)** 
@@ -181,11 +186,13 @@ For us to understand persistent volumes, there are two API resources that we nee
     - Pods consume node resources
     - PVCs consume PV resources
 
-**Binded PVC and PV**
+## Binding PVC and PV
 
 A PVC to PV binding is a one-to-one mapping, using a *ClaimRef* which is a bi-directional binding between the PersistentVolume and the PersistentVolumeClaim.
 
-**Deleting one or the other**
+![](../../Images/bindingpvandpvc.png)  
+
+## Deleting the PV or the PVC
 
 If a user deletes a PVC in active use by a Pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any Pods.
 
@@ -193,11 +200,11 @@ If an admin deletes a PV that is bound to a PVC, the PV is not removed immediate
 
 When the PVC is deleted, the PV still exists and the volume is considered "*released*". But it is not yet available for another claim because the previous claimant's data remains on the volume.
 
-**Active Use**
+## Active Use
 
 Note that a PVC is in active use by a Pod as long as the Pod using it exists. 
 
-**Phases of a Volume**
+## Phases of a Volume
 
 A volume will be in one of the following phases:
 

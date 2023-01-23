@@ -11,8 +11,35 @@
 - [Authentication and Authorization in Action](#authentication-and-authorization-in-action)
 
 
+## Authentication vs. Authorization 
 
-## Authentication
+![](../../Images/apiserversecure.png)  
+
+
+**Who can access?**
+
+This refers to the actual accounts that can access the APi server and is defined by the authentication mechanisms:
+
+- Basic authentication (usernames and passwords)
+- Bearer tokens (usernames and tokens)
+- x509 certificates
+- Service accounts 
+- External Authentication providers such as LDAP
+- OpenID Connect (OIDC) tokens (currently limited support)
+
+
+**What can they do?**
+
+Once the account gained accessed to the cluster, the next thing to look at is what actions they can perform. This can be defined by the following authorization mechanisms:
+
+- RBAC Authorization 
+- ABAC Authorization 
+- Node Authorization 
+- Webhook Mode
+
+When you send requests to Kubernetes, you are first authenticated, and then Kubernetes determines if you are authorized to complete the request. Kubernetes supports several [Authorization modules](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#authorization-modules). 
+
+## Accounts
 
 There are two categories of users in Kubernetes: normal users and service accounts:
 
@@ -22,20 +49,8 @@ These users represent the actual humans using Kubernetes and are managed externa
 - **Service Accounts**
 These accounts represent identities used by processes running in pods and managed by Kubernetes.
 
-Kubernetes supports authentication using:
 
-* x509 certificates
-* Bearer tokens
-* Basic authentication (usernames and passwords)
-* OpenID Connect (OIDC) tokens (currently limited support)
-
-## Integration 
-
-Kubernetes can also integrate with LDAP, SAML, and other authentication protocols by using plugins. Users can be members of groups to allow for easier access control management.
-
-## Cluster Roles and  Cluster Rolebindings
-
-When you send requests to Kubernetes, you are first authenticated, and then Kubernetes determines if you are authorized to complete the request. Kubernetes supports several [Authorization modules](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#authorization-modules). 
+## Cluster Roles and Cluster Rolebindings
 
 Role-based access control (RBAC) is a common way to control access to Kubernetes resources using roles. RBAC can be dynamically configured using the Kubernetes API and does not require modifying files compared to other user access control modules. Authorization, including RBAC, applies to both normal users and service accounts. You can also use RBAC on groups to simplify access control management. That is to say that normal users, service accounts, and groups are all valid subjects in RBAC.
 
@@ -90,9 +105,6 @@ system:controller:attachdetach-controller              ClusterRole/system:contro
 system:controller:certificate-controller               ClusterRole/system:controller:certificate-controller                               151d
 system:controller:clusterrole-aggregation-controller   ClusterRole/system:controller:clusterrole-aggregation-controller                   151d
 system:controller:cronjob-controller                   ClusterRole/system:controller:cronjob-controller                                   151d
-
-
-
  ....
 
  (output shortened)                                            

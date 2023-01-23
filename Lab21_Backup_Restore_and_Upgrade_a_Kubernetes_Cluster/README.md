@@ -83,7 +83,7 @@ etcd is configured to listen to HTTPs traffic only. The etcdctl command that we'
 
 - certificate authority certificate
 - a client key
-- a client certificate . 
+- a client certificate 
 
 In addition to this, the **snapshot save** command creates a snapshot of the entire key-value store at the given location:
 

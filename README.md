@@ -181,13 +181,19 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Stateless vs. Stateful](pages/04-Kubernetes/016-Stateful-vs-Stateless.md)
 
+- [Application Lifecycle Management](pages/04-Kubernetes/036-App-Lifecycle-Management.md)
+
 - [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
 
 - [Kubernetes Commands](pages/04-Kubernetes/049-Cheatsheet-Kubernetes-Commands.md) 
 
-- [Backing Up, Restoring, and Upgrading Clusters](./lab20_Create_and_Manage_Cluster_using_kubeadm/README.md)
+- [Cluster Maintenance](pages/04-Kubernetes/037-Cluster-maintenance.md)
+
+- [Back Up, Restore and Upgrade Clusters](./Lab21_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
 
 - [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
+
+- [Kubernetes Security - Security Primitives](pages/04-Kubernetes/028-Kubernetes-Security-primitives.md)
 
 - [Kubernetes Security - Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
 
