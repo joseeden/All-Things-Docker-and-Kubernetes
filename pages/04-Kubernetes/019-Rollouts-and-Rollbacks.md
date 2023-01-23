@@ -18,4 +18,4 @@ This is the default strategy used by Kubenetes.
 This deletes all the old pods before the new version of the application is rolled out.
 
 
-To see rolling updates in action, check out this [lab](../../lab45_Rollouts_and_Rollbacks/README.md).
+To see rolling updates in action, check out this [lab](../../Lab45_Rollouts_and_Rollbacks/README.md).

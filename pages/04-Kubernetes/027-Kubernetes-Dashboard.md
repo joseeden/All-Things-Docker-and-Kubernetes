@@ -22,6 +22,6 @@ To access the Kubernetes dashboard from our terminal,
 $ kubectl proxy 
 ```
 
-To see this in action, check out this [lab](../../lab55_EKS_K8s_Dashboard.md/README.md).
+To see this in action, check out this [lab](../../Lab55_EKS_K8s_Dashboard.md/README.md).
 
 To learn more, check out the [official Kubernetes Dashboard Github](https://github.com/kubernetes/dashboard) page.

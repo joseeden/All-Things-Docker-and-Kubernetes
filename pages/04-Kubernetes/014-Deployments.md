@@ -108,7 +108,7 @@ controls rolling updates by creating an upper bound and lower bound on the total
 
 To learn more abour rollouts, check out [Rollouts and Rollbacks.](./019-Rollouts-and-Rollbacks.md)
 
-To see deployments in action, check out this [lab](../../lab43_Deployments/README.md).
+To see deployments in action, check out this [lab](../../Lab43_Deployments/README.md).
 
 To learn more about Deployments and StatefulSets using Persistent Volumes in AWS, check out [Amazon EKS - Persistent Volumes](pages/04-Kubernetes/056-EKS-Persistent-Volumes.md) page.
 

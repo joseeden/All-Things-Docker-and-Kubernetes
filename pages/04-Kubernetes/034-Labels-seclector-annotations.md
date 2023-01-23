@@ -10,7 +10,7 @@
 
 ## Labels 
 
-Labels are key-value pairs that are associated with Kubernetes Objects, such as Pods. You can use labels to organize the resources you have in Kubernetes. For example, you may create a label that declared the application tier resources belonged to, such as frontend or backend. Labels do not have to be unique across different resources of a given kind, unlike names and UIDs. Therefore, you can have multiple Pods labeled as frontend.
+Labels are key-value pairs that are associated with Kubernetes Objects, such as Pods. We can use labels to organize the resources we have in Kubernetes. For example, we may create a label that declares the application tier resources belonged to, such as frontend or backend. Labels do not have to be unique across different resources of a given kind, unlike names and UIDs. Therefore, you can have multiple Pods labeled as frontend.
 
 ## Selectors 
 
@@ -18,7 +18,7 @@ Label selectors identify a set of Kubernetes Objects using labels. A selector pr
 
 ## Annotations 
 
-While labels are attributes that identify resources, Kubernetes also has the concept of annotations, which are non-identifying Object attributes. An example of an annotation is the phone number of a person to call if an issue is discovered with a resource. Just like labels, annotations are also defined as key-value pairs. But you cannot select sets of Objects using annotations. Annotations are often used by Kubernetes client applications (such as kubectl) and Kubernetes extensions.
+While labels are attributes that identify resources, Kubernetes also has the concept of **annotations**, which are non-identifying Object attributes. An example of an annotation is the phone number of a person to call if an issue is discovered with a resource. Just like labels, annotations are also defined as key-value pairs. But you cannot select sets of Objects using annotations. Annotations are often used by Kubernetes client applications (such as kubectl) and Kubernetes extensions.
 
 ## Sample Lab
 

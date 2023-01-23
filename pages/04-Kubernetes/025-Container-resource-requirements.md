@@ -1,8 +1,8 @@
 
-# Special Topics in Scheduling Pods 
+# Container Resource Requirements 
 
 - [Static Pods](#static-pods)
-- [Container Resource Requirements](#container-resource-requirements)
+- [Resource Requirements](#container-resource-requirements)
 
 ## Static Pods 
 
@@ -10,7 +10,7 @@ Static pods are pods that are managed directly by the nodes kubelet and not thro
 
 To learn more, check out [Static Pods.](./009-Static-Pod-Manifests.md)
 
-## Container Resource Requirements
+## Resource Requirements
 
 We can set resource requirements for the container by defining them in the Pod spec. The compute resources that Kubernetes includes built-in support for are:
 
@@ -19,7 +19,7 @@ We can set resource requirements for the container by defining them in the Pod s
 
 Although the compute resource requests and limits are optional, the Kubernetes scheduler can make better decisions about which node to schedule a Pod on if it knows the Pod's resource requirement. 
 
-The scheduler will only schedule a Pod on a node if the node has enough resources available to satisfy the Pod's total request, which is the sum of the Pod's containers' **requests**. 
+The scheduler will only schedule a Pod on a node if the node has enough resources available to satisfy the Pod's total request, which is the sum of the Pod's containers' **Resource Requests**. 
 
 **Limits** also reduce resource contention on a node and can make performance more predictable.
 
@@ -53,4 +53,4 @@ FIELDS:
  
 ```
 
-To see resource requirements in action, check out this [lab](../../lab21-Resource_Requirements/README.md).
+To see resource requirements in action, check out this [lab](../../Lab21-Resource_Requirements/README.md).

@@ -1,6 +1,13 @@
 
 # nodeSelectors and nodeAffinity
 
+
+- [nodeSelector](#nodeselector)
+- [nodeAffinity](#nodeaffinity)
+- [Sample Lab: Using required node affinity](#sample-lab-using-required-node-affinity)
+- [Sample Lab: Using preferred node affinity](#sample-lab-using-preferred-node-affinity)
+
+
 ## nodeSelector 
 
 nodeSelectors are the works the opposite way as taints. Instead of repelling the Pods, nodeselectors attracts the Pods to specific nodes. A nodeSelector is a list of labels included in a Pod's spec.
@@ -20,11 +27,26 @@ Another way of attracting Pods to specific ndoes is through the use of Node Affi
 
 There are two types of node affinity:
 
-- **requiredDuringSchedulingIgnoredDuringExecution**: The scheduler can't schedule the Pod unless the rule is met. This functions like nodeSelector, but with a more expressive syntax.
+- **requiredDuringSchedulingIgnoredDuringExecution**: 
+The scheduler can't schedule the Pod unless the rule is met. This functions like nodeSelector, but with a more expressive syntax.
 
-- **preferredDuringSchedulingIgnoredDuringExecution**: The scheduler tries to find a node that meets the rule. If a matching node is not available, the scheduler still schedules the Pod.
+- **preferredDuringSchedulingIgnoredDuringExecution**: 
+The scheduler tries to find a node that meets the rule. If a matching node is not available, the scheduler still schedules the Pod on any available node.
  
-## Using required node affinity
+- **requiredDuringSchedulingIgnoredDuringExecution**: 
+This is a new option introduced which will evict any pods that are running on nodes that do not meet the affinity rules.
+
+"DuringScheduling" means the Pod doesn't exist and is created for the first time, while "DuringExecution" is a state where the Pod is already running and a change is introduced in the environment which affects the node affinity.
+
+ Type | DuringScheduling | DuringExecution 
+---------|----------|---------
+ Type 1 | Required | Ignored 
+ Type 2 | Preferred | Ignored 
+ Type 3 | Required | Required
+
+"IgnoredDuringExecution" means the pods will continue to run and any changes in node affinity will not impact them once the Pods are already scheduled.
+ 
+## Sample Lab: Using required node affinity
 
 We'll use the manifest below to create a Kubernetes cluster in Amazon EKS. You can also use this to create the clsuter in your preferred environment.
 
@@ -114,7 +136,7 @@ To delete the Pod:
 kubectl delete -f https://k8s.io/examples/pods/pod-nginx-required-affinity.yaml
 ```
 
-## Using preferred node affinity
+## Sample Lab: Using preferred node affinity
 
 In this second example, we'll use the manifest below to launch a Pod that has **preferredDuringSchedulingIgnoredDuringExecution** node affinity,**disktype: ssd**. This means that the pod will prefer a node that has a disktype=ssd label. 
 

@@ -278,7 +278,7 @@ spec:
 
 ## Security Contexts in Action 
 
-To see how security contexts works in a real scenario, check out this [lab](../../lab23_Security_Contexts/README.md).
+To see how security contexts works in a real scenario, check out this [lab](../../Lab23_Security_Contexts/README.md).
 
 ## Resources
 

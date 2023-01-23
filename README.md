@@ -135,9 +135,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Pods](pages/04-Kubernetes/009-Pods.md) 
 
-- [Static Pod Manifests](pages/04-Kubernetes/009-Static-Pod-Manifests.md)
+- [Static Pods](pages/04-Kubernetes/009-Static-Pods.md)
 
-- [Scheduling Pods](pages/04-Kubernetes/022-Scheduling-pods.md)
+- [Scheduling](pages/04-Kubernetes/022-Scheduling-pods.md)
 
 - [DaemonSets](pages/04-Kubernetes/010-DaemonSets.md) 
 
@@ -151,7 +151,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Pod Affinity](pages/04-Kubernetes/024-Pod-affinity.md)
 
-- [Container Resource Requirements](pages/04-Kubernetes/025-Container-resource-requirements.md)
+- [Resource Requirements](pages/04-Kubernetes/025-Container-resource-requirements.md)
 
 - [ReplicaSets](pages/04-Kubernetes/011-ReplicaSets.md) 
 
@@ -322,6 +322,13 @@ Metrics, Logging, Health Checks, and Tracing:
 
 - [Enabling Distributed Tracing for Microservices With Jaeger in Kubernetes](https://containerjournal.com/topics/container-ecosystems/enabling-distributed-tracing-for-microservices-with-jaeger-in-kubernetes/)
 
+CNCF Exams:
+
+- [Open Source Curriculum for CNCF Certification Courses](https://github.com/cncf/curriculum)
+
+- [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
+
+- [Linux Foundation Certification Exam: Candidate Handbook](https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2)
 
 Free DNS Service using [freedns](https://freedns.afraid.org/)
 

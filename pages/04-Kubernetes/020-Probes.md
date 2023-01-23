@@ -64,8 +64,8 @@ Probes checks containers every 10 seconds by default. The following threshold ca
 - **periodSeconds** - interval of the probe run 
 - **timeoutSeconds** - each probe will wait for this value to complete
 
-To see probes in actions check out this [lab](../../lab46_Probes/README.md).
-To see monitoring and debugging in action check out this [lab](../../lab26_Monitoring/README.md)
+To see probes in actions check out this [lab](../../Lab46_Probes/README.md).
+To see monitoring and debugging in action check out this [lab](../../Lab26_Monitoring/README.md)
 
 ## Init Containers
 
@@ -83,5 +83,5 @@ To do this, we can use **init containers** initialize the task before the main a
 
 Note that init containers are ran EVERY TIME a Pod is created. This means Init containers will also run if Pods are restarted.
 
-To see init containers in actions check out this [lab](../../lab47_Init_Containers/README.md).
+To see init containers in actions check out this [lab](../../Lab47_Init_Containers/README.md).
 

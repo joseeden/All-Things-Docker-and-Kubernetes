@@ -51,7 +51,7 @@ In the example above, we see that there's two DaemonSets running:
     kubectl describe ds aws-node -n kube-system 
     ```
 
-As an example, we can use one of the manifest from one of the [labs](../../lab25_Logging/README.md) in this repo. Run the [eksops.yml](../../lab25_Logging/eksops.yml) file to launch a Kubernetes cluster.
+As an example, we can use one of the manifest from one of the [labs](../../ 25_Logging/README.md) in this repo. Run the [eksops.yml](../../Lab25_Logging/eksops.yml) file to launch a Kubernetes cluster.
 
 ```bash
 time eksctl create cluster -f eksops.yml
@@ -97,6 +97,27 @@ I1228 15:55:44.864567       1 shared_informer.go:255] Waiting for caches to sync
 I1228 15:55:44.962638       1 shared_informer.go:262] Caches are synced for service config
 I1228 15:55:44.962638       1 shared_informer.go:262] Caches are synced for node config
 I1228 15:55:44.964885       1 shared_informer.go:262] Caches are synced for endpoint slice config 
+```
+
+The manifest for the DaemonSet is similar to a ReplicaSet.
+
+```bash
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-daemon 
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-agent
+  template:
+    metadata:
+      labels:
+        app: monitoring-agent
+    spec:
+      containers:
+      - name: monitoring-agent
+        image: monitoring-agent 
 ```
 
 

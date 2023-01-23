@@ -1,13 +1,27 @@
 
-## Taints and Tolerations 
+# Taints and Tolerations 
 
-Taints are similar to node-labels taints influence the scheduling of Pods. Taints are applied to pods and its purpose to repel Pods from nodes. Any Pod that is scheduled on a tainted node must have the toleration for the taint.
+
+  - [Taints vs Tolerations](#taints-vs-tolerations)
+  - [Tainting the Node](#tainting-the-node)
+  - [Test the Taint](#test-the-taint)
+  - [Removing the Taint](#removing-the-taint)
+
+
+## Taints vs Tolerations 
+
+Taints are similar to node-labels, that taints also influence the scheduling of Pods. Taints are applied to pods and its purpose to repel Pods from nodes. Any Pod that is scheduled on a tainted node must have the toleration for the taint.
+
+```bash
+Taints are set on nodes.
+Tolerations are set on pods. 
+```
 
 On the other hand, tolerations apply to Pods and counteract the taints.  Taints and tolerations are used together to ensure that Pods are onlys cheduled on appropriate nodes in a cluster.
 
 As an example, I've used the manifest file below to create a Kubernetes cluster in Amazon EKS.
 
-```bash
+```yaml
 # eksops.yml 
 
 apiVersion: eksctl.io/v1alpha5
@@ -37,16 +51,20 @@ This will create three nodes. To view them:
 
 ```bash
 $ kubectl get nodes
+
 NAME                                                STATUS   ROLES    AGE     VERSION
 ip-192-168-11-247.ap-southeast-1.compute.internal   Ready    <none>   6h30m   v1.23.13-eks-fb459a0
 ip-192-168-56-187.ap-southeast-1.compute.internal   Ready    <none>   6h30m   v1.23.13-eks-fb459a0
 ip-192-168-81-3.ap-southeast-1.compute.internal     Ready    <none>   6h30m   v1.23.13-eks-fb459a0 
 ```
 
-We can also check the Pods by running the command below. One of the set of Pods created by the DaemonSet is the **kube-proxy**. Recall that a DaemonSet ensures that each node will have a copy of the Pod. Since we have three nodes, we can see that there's also three kube-proxy pods.
+Eventhough we haven't deployed anything yet, there will be system Pods running on the cluster. We can check the pods by running the command below. One of the set of Pods created by the DaemonSet is the **kube-proxy**. 
+
+Recall that a [DaemonSet](./010-DaemonSets.md) ensures that each node will have a copy of the Pod. Since we have three nodes, we can see that there's also three kube-proxy pods.
 
 ```bash
 $ kubectl get pods -A
+
 NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
 kube-system   aws-node-fbd7z             1/1     Running   0          6h40m
 kube-system   aws-node-kg7tn             1/1     Running   0          6h40m
@@ -68,7 +86,7 @@ Scroll down to the **tolerations** section. This ensures that the Pod will be el
 
 DaemonSets are automatically created with these tolerations.
 
-```bash
+```yaml
     tolerations:
     - operator: Exists
     - effect: NoExecute
@@ -109,9 +127,20 @@ ip-192-168-81-3.ap-southeast-1.compute.internal     Ready    <none>   6h45m   v1
 ```
 
 ```bash
-kubectl taint node ip-192-168-11-247.ap-southeast-1.compute.internal \
+kubectl taint node \
+ip-192-168-11-247.ap-southeast-1.compute.internal \
 priority=high:NoSchedule 
 ```
+
+There are three taint effects:
+
+
+Taint effect | Description |
+---------|----------|
+ NoSchedule | System avoids the specific node and places the Pod on the next available node.   
+ PreferNoSchedule | System will try to avoid placing Pods on the node but there is no guarantee. 
+ NoExecute | New pods will not be scheduled on the node and existing pods will be evicted if they do not tolerate the taint. 
+
 
 Verify this by checking the **taint** for all three nodes.
 

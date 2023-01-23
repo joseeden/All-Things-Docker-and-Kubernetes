@@ -32,4 +32,4 @@ In addition to this, secrets supports the following:
 It is important to note that secrets are not encrypted at rest by default and are instead only base-64 encoded. However, Kubernetes can separately control access to ConfigMaps and Secrets. So by following the pattern of storing sensitive data in Secrets, users of the cluster can be denied access to Secrets but granted access to ConfigMaps using Kubernetes access control mechanisms.
 
 
-To see ConfigMaps and Secrets in actions check out this [lab](../../lab49_ConfigMaps_and_Secrets/README.md).
+To see ConfigMaps and Secrets in actions check out this [lab](../../Lab49_ConfigMaps_and_Secrets/README.md).

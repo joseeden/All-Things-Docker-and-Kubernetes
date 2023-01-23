@@ -38,7 +38,7 @@ There are two service discovery mechanisms that Kuberenetes utilizes:
 - **DNS**
     Kubernetes automatically creates DNS records based on the service names and containers are automatically configured to query cluster DNS to discover those services.
 
-To learn more, check out this [hands-on lab.](../../lab40-Kubernetes_Basics/README.md)
+To learn more, check out this [hands-on lab.](../../Lab40-Kubernetes_Basics/README.md)
 
 ## ClusterIP
 

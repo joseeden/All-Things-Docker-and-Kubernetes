@@ -42,7 +42,7 @@ To properly deploy the application, the Wordpress Pods needs be able to share th
 So for this kind requirement, we will need to utilize **Amazon Elastic Filesystem (EFS)**. This is a drive that can be attached in multiple instances in multiple availability zones.
 
 <p align=center>
-<img width=700 src="../../Images/lab57-ebs-efs.png">
+<img width=700 src="../../Images/Lab57-ebs-efs.png">
 </p>
 
 ## Amazon EFS
