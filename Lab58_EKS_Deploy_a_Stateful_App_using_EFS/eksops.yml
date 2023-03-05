@@ -1,5 +1,9 @@
+
+# Generate "k8s-kp" keypair first. You can specify a different key name.
+# Generate using:      
+#   ssh-keygen -t rsa -b 2048
+
 apiVersion: eksctl.io/v1alpha5
-# apiVersion: client.authentication.k8s.io/v1beta1
 kind: ClusterConfig
 
 metadata:

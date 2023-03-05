@@ -6,43 +6,48 @@ Pre-requisites:
 - [Basic Understanding of Kubernetes](../README.md#kubernetes)
 - [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [AWS CLI, kubectl, and eksct installed](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
-```bash
-<insert toc here> 
-```
 
-We'll be using **ap-southeast-1** region (Singapore).
+
+
+
+
 
 
 ## Introduction
 
-In this lab, we'll be deploying a stateeful application using EFS. The steps are almost similar with the previous lab but here we're using an EFS driver, instead of a EBS CS driver.
+This lab discusses how to deploy a stateful application using EFS. 
+The steps are similar with the previous [lab](../Lab57_EKS_Deploy_a_Stateful_App_using_EBS/README.md) but instead of a EBS CS driver, we will using an EFS driver.
+
+We'll be using **ap-southeast-1** region (Singapore).
 
 ## The Application Architecture 
 
 Our sample application will be composed of two layers:
 
-- Web layer: Wordpress application 
-- Data layer: MySQL database 
+- **Web layer**: Wordpress application 
+- **Data layer**: MySQL database 
 
-While the database can store records, both these layer will need a place somewhere to store the media content. Having said, our application will have the following:
+Both tiers will have their own storage to store the media content:
 
-**Frontend resources:**
+- **Frontend resources:**
 
-- an internet-facing Amazon Elastic LoadBalancer (ELB) to expose our application to the web
-- the Wordpress application running on Pods
+  - an internet-facing Amazon Elastic LoadBalancer (ELB) to expose our application to the web
+  - the Wordpress application running on Pods
 
-**Backend resources:**
+- **Backend resources:**
 
-- a MySQL database running on Pods 
-- a MySQL service that connects the frontend to the database
+  - a MySQL database running on Pods 
+  - a MySQL service that connects the frontend to the database
+
 
 ## Launch a Simple EKS Cluster
 
-Before we start, let's first verify if we're using the correct IAM user's access keys. This should be the user we created from the **pre-requisites** section above.
+Verify the correct IAM user's access keys. 
+This should be the user created from the **pre-requisites** section above.
 
 ```bash
 $ aws sts get-caller-identity 
@@ -55,32 +60,7 @@ $ aws sts get-caller-identity
 } 
 ```
 
-For the cluster, we can reuse the **eksops.yml** file from the previous labs.
-
-<details><summary> eksops.yml </summary>
- 
-```bash
-apiVersion: eksctl.io/v1alpha5
-# apiVersion: client.authentication.k8s.io/v1beta1
-kind: ClusterConfig
-
-metadata:
-    version: "1.23"
-    name: eksops
-    region: ap-southeast-1 
-nodeGroups:
-    -   name: ng-dover
-        instanceType: t3.large
-        minSize: 1
-        maxSize: 5
-        desiredCapacity: 1
-        ssh: 
-            publicKeyName: "k8s-kp"
-```
- 
-</details>
-
-Launch the cluster.
+For the cluster, we can reuse the [eksops.yml](./eksops.yml) file from the previous labs. Launch the cluster. Note that you must have generated an SSH key pair which can be used to SSH onto the nodes. The keypair I've used here is named "k8s-kp" and is specified in the manifest file.
 
 ```bash
 time eksctl create cluster -f eksops.yml 
@@ -102,9 +82,7 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 
 ## Setup the Kubernetes Dashboard   
 
-The [previous lab](../Lab55_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
-
-I've prepared a script that sets up the dashboard.
+The [previous lab](../Lab55_EKS_Kubernetes_Dashboard/README.md) explained the concept of Kubernetes Dashboard and the steps to set it up. Below is a script that sets up the dashboard in one go.
 
 <details><summary> script-setup-kube-dashboard.sh </summary>
  
@@ -229,43 +207,75 @@ Note that the token will expire after some time. Simply generate a new one in th
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kb-admin-svc | awk '{print $1}') 
 ```
 
+
+## Create the EFS Filesystem 
+
+Start with creating the EFS Filesystem in the AWS Management Console. 
+Since the console UI is changing from time to time, better to follow the [official AWS Documentation](https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html) on how to create the EFS Filesystem. 
+
+
+<p align=center>
+<img src= "../Images/lab58efsreated.png">
+</p>
+
+We should see the "Success" message along with the filesystem created in the EFS main page. 
+
+![](../Images/lab58created%20efsfilesystem.png)  
+
+Click on the new filesystem and go to **Network** tab to see more details.
+
+![](../Images/lab58detailsonthenewefs.png)  
+
+
+## Install EFS Utils on the Nodes 
+
+We also need to install the EFS Utilities onto the nodes for the EFS Filesystem to be mounted to them. Get the IP address of the nodes first.
+
+![](../Images/lab58ec2nodes2.png)  
+
+Then install the package.
+
+```bash
+ssh -i ~/.ssh/k8s-kp.pem ec2-user@18.140.199.247 "sudo yum install -y amazon-efs-utils" 
+ssh -i ~/.ssh/k8s-kp.pem ec2-user@18.138.249.74 "sudo yum install -y amazon-efs-utils" 
+ssh -i ~/.ssh/k8s-kp.pem ec2-user@52.77.250.158 "sudo yum install -y amazon-efs-utils" 
+```
+
 ## Create Namespace 
 
-We'll create a namespace to separate our workloads and isolate environments. Namespaces could also be used to group:
-
-- access control
-- quota on resources
-- projects
-- teams
-- clients
-
+We'll create a namespace to separate our workloads and isolate environments.
 To get the namespaces that we currently have in our cluster:
 
 ```bash
-kubectl get ns
-```
-```bash
-NAME              STATUS   AGE
-default           Active   31m
-kube-node-lease   Active   31m
-kube-public       Active   31m
-kube-system       Active   31m
-```
+$ kubectl get ns
 
-Let's create a new namespace and call it "nslab58".
-
-```bash
-kubectl create ns ns-lab57
+NAME                   STATUS   AGE
+default                Active   5h25m
+kube-node-lease        Active   5h25m
+kube-public            Active   5h25m
+kube-system            Active   5h25m
+kubernetes-dashboard   Active   7m
 ```
 
-Verify if the namespace is created.
+Create a new namespace and call it "lab-efs".
 
 ```bash
-kubectl get ns -A
+kubectl create ns lab-efs
 ```
 
-## Enable EFS 
+Verify.
 
+```bash
+$ kubectl get ns -A
+
+NAME                   STATUS   AGE
+default                Active   5h25m
+kube-node-lease        Active   5h25m
+kube-public            Active   5h25m
+kube-system            Active   5h25m
+kubernetes-dashboard   Active   7m
+lab-efs                Active   12s
+```
 
 ## Create StorageClass
 

@@ -55,7 +55,7 @@ The version number:
 Note that Kubernetes only supports the three latest versions.
 
 <p align=center>
-<img src="Images/latest3supportedversions.png">
+<img src="../../Images/latest3supportedversions.png">
 </p>
 
 

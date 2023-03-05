@@ -3,7 +3,7 @@
 
 ## Kubeconfig 
 
-A **kubeconfig** file is used to define how to connect to the Kubernetes cluster. TIt contains the following information:
+A **kubeconfig** file is used to define how to connect to the Kubernetes cluster. It contains the following information:
 
 - certificate information, for authentication 
 - cluster location 

@@ -129,7 +129,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Setting up Kubernetes](pages/04-Kubernetes/008-Setting-up-Kubernetes.md)
 
-- [Kubeconfig files](pages/04-Kubernetes/009-kubeconfig-files.md)
+- [Kubeconfig file](pages/04-Kubernetes/009-kubeconfig-files.md)
 
 - [Manifests](pages/04-Kubernetes/018-Manifests.md)
 
@@ -197,6 +197,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Kubernetes Security - Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
 
+- [Kubernetes Security - TLS Certificates](pages/04-Kubernetes/028-Kubernetes-Security-tls-certificates.md)
+
 - [Kubernetes Security - Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
 - [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
@@ -246,6 +248,7 @@ Useful courses on Docker:
 
 - [Complete AWS ECS Bootcamp (Beginner friendly)](https://www.udemy.com/course/aws-ecs-devops-masterclass/)
 
+ 
 Useful courses on Kubernetes:
 
 - [Getting Started with Kubernetes LiveLessons, 2nd Edition](https://www.oreilly.com/library/view/getting-started-with/9780136787709/)
@@ -287,6 +290,7 @@ Other resources on Docker:
 
 - [Buildpacks: An App’s Brief Journey from Source to Image](https://buildpacks.io/docs/app-journey/)
 
+
 Other resources on Kubernetes:
 
 - [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
@@ -299,7 +303,10 @@ Other resources on Kubernetes:
 
 - [eksctl - Config file schema](https://eksctl.io/usage/schema/#config-file-schema)
 
+
 Github repositories:
+
+- [Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler)
 
 - [kubernetes/kops](https://github.com/kubernetes/kops)
 
@@ -309,11 +316,15 @@ Github repositories:
 
 - [kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
 
-- [Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler)
+- [mmumshad/kubernetes-the-hard-way](https://github.com/mmumshad/kubernetes-the-hard-way)
+
+- [yankils/Simple-DevOps-Project](https://github.com/yankils/Simple-DevOps-Project)
 
 - [phcollignon/helm](https://github.com/phcollignon/helm)
 
 - [phcollignon/helm3](https://github.com/phcollignon/helm3)
+
+
 
 
 Metrics, Logging, Health Checks, and Tracing:

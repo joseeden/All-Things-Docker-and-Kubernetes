@@ -9,6 +9,7 @@
 - [Cluster Admin Role](#cluster-admin-role)
 - [Sample Lab: Sending authenticated requests to the API Server](#sample-lab-sending-authenticated-requests-to-the-api-server)
 - [Authentication and Authorization in Action](#authentication-and-authorization-in-action)
+- [Resources](#resources)
 
 
 ## Authentication vs. Authorization 
@@ -41,13 +42,27 @@ When you send requests to Kubernetes, you are first authenticated, and then Kube
 
 ## Accounts
 
+![](../../Images/typesofaccounts.png)  
+
 There are two categories of users in Kubernetes: normal users and service accounts:
 
 - **Normal Users**
 These users represent the actual humans using Kubernetes and are managed externally by an independent service. 
 
+  - we cannot create users in a Kubernetes cluster but we can create service accounts 
+  - all user access are managed by the API Server
+  - the kube-apiserver authenticates the user through authentication mechanisms 
+
+    ![](../../Images/authenticationmechanismsforkubeapiserver.png)    
+
+  - basic authentication using username and passwords are not recommended. Instead use RBAC authentication for new users 
+  - in a kubedm setup, consider using a volume mount while providing the auth file
+
+
 - **Service Accounts**
 These accounts represent identities used by processes running in pods and managed by Kubernetes.
+
+  - service accounts are created using the service account API
 
 
 ## Cluster Roles and Cluster Rolebindings
@@ -457,3 +472,7 @@ From the description and operationId, we can see that the GET verb on /api/v1/po
 
 To see how Kubernetes clusters are secured using authentication and authorization, check out this [lab](../../Lab27_Securing_Kubernetes_using_Authentication_and_Authorization/README.md).
 
+
+## Resources 
+
+- [CKA Certification Course – Certified Kubernetes Administrator](https://kodekloud.com/courses/certified-kubernetes-administrator-cka/)

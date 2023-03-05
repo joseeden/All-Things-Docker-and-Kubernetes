@@ -6,7 +6,7 @@
 - [API Server](#api-server)
 - [TLS Certificates](#tls-certificates)
 - [Network Policies](#network-policies)
-
+- [Resources](#resources)
 
 
 ## Secure Hosts 
@@ -17,7 +17,7 @@ Starting with the hosts or nodes that form the cluster itself. They are the firs
 - Disabling password-based authentication 
 - Enabling only SSH-Key based authentication
 
-![](../Images/securehosts.png)  
+![](../../Images/securehosts.png)  
 
 
 ## API Server
@@ -51,7 +51,23 @@ To learn more, check out [Kubernetes Security - Authentication and Authorization
 
 ## TLS Certificates 
 
+Communication between cluster components is secured through TLS encryption. This involves communication between: 
+
+- etcd Cluster
+- Kubecontroller Manager
+- Scheduler
+- API Server 
+
+To learn more, check out [Kubernetes Security - TLS Certificates](./028-Kubernetes-Security-tls-certificates.md)
+
+![](../../Images/securitytlscerts.png)          
+
 
 ## Network Policies 
 
+Applications running inside the cluster can access each other's Pods by default but their communication can be restricted by adding network policies. 
+
+![](../../Images/networkpoliciessamplediagram.png)  
+
+## Resources
 

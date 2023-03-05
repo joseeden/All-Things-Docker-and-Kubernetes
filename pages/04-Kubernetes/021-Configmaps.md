@@ -5,8 +5,13 @@
 - [ConfigMaps](#configmaps)
     - [Inject the ConfigMap](#inject-the-configmap)
 - [Secrets](#secrets)
+    - [Base64 encoded](#base64-encoded)
+    - [Best Practices](#best-practices)
+    - [How Kubernetes handles secrets](#how-kubernetes-handles-secrets)
+    - [Ways to create a secret](#ways-to-create-a-secret)
     - [Inject the Secrets](#inject-the-secrets)
 - [ConfigMaps and Secrets in Action](#configmaps-and-secrets-in-action)
+
 
 
 ## ConfigMaps 
@@ -90,14 +95,45 @@ Secrets reduce the risk of accidental exposure compared to if they were stored i
 
 In addition to this, secrets supports the following:
 
-- storing secrets as key-value paris, and
+- storing secrets as **key-value pairs**, and
 - **specialized support** for storing Docker registry credentials and TLS certs.
 
-It is important to note that secrets are not encrypted at rest by default and are instead only base-64 encoded. However, Kubernetes can separately control access to ConfigMaps and Secrets. So by following the pattern of storing sensitive data in Secrets, users of the cluster can be denied access to Secrets but granted access to ConfigMaps using Kubernetes access control mechanisms. 
+### Base64 encoded
 
-There are two way to create a secret:
+It is important to note that secrets are **not encrypted at rest by default** and are instead only **base-64 encoded**.  Anyone with the base64 encoded secret can easily decode it. As such the secrets can be considered as not very safe.
 
-- **Imperative** approach, using the command below:
+The Kubernetes documentation page and a lot of blogs out there refer to secrets as a "safer option" to store sensitive data. They are safer than storing in plain text as they reduce the risk of accidentally exposing passwords and other sensitive data. In general, it's not the secret itself that is safe, it is the practices around it. 
+
+### Best Practices 
+
+Secrets are not encrypted, so it is not safer in that sense. However, some best practices around using secrets make it safer:
+
+- Not checking-in secret object definition files to source code repositories.
+
+- Enabling Encryption at Rest for Secrets so they are stored encrypted in ETCD.
+
+- Separately control access to ConfigMaps and Secrets
+
+By following the pattern of storing sensitive data in Secrets, users of the cluster can be denied access to Secrets but granted access to ConfigMaps using Kubernetes access control mechanisms. 
+
+### How Kubernetes handles secrets
+Kubernetes also handles secrets in various ways:
+
+- A secret is only sent to a node if a pod on that node requires it.
+
+- Kubelet stores the secret into a tmpfs so that the secret is not written to disk storage.
+
+- Once the Pod that depends on the secret is deleted, kubelet will delete its local copy of the secret data as well.
+
+
+Having said that, there are other better ways of handling sensitive data like passwords in Kubernetes, such as using tools like:
+
+- Helm Secrets
+- HashiCorp Vault
+
+### Ways to create a secret
+
+**Imperative** approach, using the command below:
 
     ```bash
     # Supply secrets directly on the command 
@@ -111,7 +147,7 @@ There are two way to create a secret:
          --from-file=<filename.json>
     ```
 
-- **Declarative** approach, using a spec file:
+**Declarative** approach, using a spec file:
 
     ```yaml
     apiVersion: v1
@@ -127,7 +163,6 @@ There are two way to create a secret:
     ## Note that the value for the variable should be the 
     ## base64-encoded format of the original secret. 
     ## To encode the original secret:
-
     #       echo -n 'original-password' | base64 
     ```
 
