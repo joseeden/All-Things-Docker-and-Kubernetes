@@ -2,13 +2,15 @@
 # Probes and Init Containers 
 
 
-
 - [Probes](#probes)
     - [Readiness Probes](#readiness-probes)
     - [Liveness Probes](#liveness-probes)
     - [Startup Probes](#startup-probes)
 - [Declaring Probes](#declaring-probes)
-- [Init Containers](#init-containers)
+- [Multi-container Pod](#multi-container-pod)
+- [InitContainers](#initcontainers)
+- [Configuring InitContainers](#configuring-initcontainers)
+
 
 
 ## Probes
@@ -67,13 +69,26 @@ Probes checks containers every 10 seconds by default. The following threshold ca
 To see probes in actions check out this [lab](../../Lab46_Probes/README.md).
 To see monitoring and debugging in action check out this [lab](../../Lab26_Monitoring/README.md)
 
-## Init Containers
+## Multi-container Pod
 
-We've now learned how probes work and how we can use them to run health checks on containers inside a Pod. However, probes only kick in AFTER containers are started.
+It is worth adding here that in a multi-container pod, each container is expected to run a process that stays alive as long as the POD's lifecycle. For example in the multi-container pod that has:
 
-There will be scenarios where you need to perform some task right before the main application container even starts, like waiting for a pre-requisite service to be created, downloading files, or grabbing the dynamic ports assigned.
+- a web application
+- a logging agent
 
-To do this, we can use **init containers** initialize the task before the main application starts. This allows us to delay or block the starting of an application if pre-conditions are not met.
+Both the containers are expected to stay alive at all times. The process running in the log agent container is expected to stay alive as long as the web application is running. If any of them fails, the POD restarts.
+
+But at times we may want to run a process that runs to completion in a container. For example a process that pulls a code or binary from a repository that will be used by the main web application. This task will be run only one time when the pod is first created. 
+
+This could also be a process that waits for an external service or database to be up before the actual application starts. That's where **initContainers** comes in.
+
+## InitContainers
+
+As mentioned above, we can use probes to run health checks on containers inside a Pod. However, probes only kick in **AFTER** containers are started.
+
+In some scenarios, we need to perform some task right before the main application container even starts, like waiting for a pre-requisite service to be created, downloading files, or grabbing the dynamic ports assigned.
+
+To do this, we can use **init containers** to initialize the task before the main application starts. This allows us to delay or block the starting of an application if pre-conditions are not met.
 
 - Pods can delare multiple init containers
 - Init containers are ran in the order they are declared
@@ -81,7 +96,54 @@ To do this, we can use **init containers** initialize the task before the main a
 - Previous init container must complete before the next can begin
 - Once all init containers are complete, main application container can then start
 
-Note that init containers are ran EVERY TIME a Pod is created. This means Init containers will also run if Pods are restarted.
+Note that init containers are ran **EVERY TIME** a Pod is created. This means Init containers will also run if Pods are restarted.
+
+## Configuring InitContainers
+An initContainer is configured in a pod like all other containers, except that it is specified inside a initContainers section,  like this:
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox
+    command: ['sh', '-c', 'git clone <some-repository-that-will-be-used-by-application> ; done;'] 
+```
+
+We can also configure multiple such initContainers as well, like how we did for multi-pod containers. In that case each init container is run one at a time in sequential order.
+
+If any of the initContainers fail to complete, Kubernetes restarts the Pod repeatedly until the Init Container succeeds.
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;'] 
+```
 
 To see init containers in actions check out this [lab](../../Lab47_Init_Containers/README.md).
+
 

@@ -98,3 +98,18 @@ spec:
     ports:
     - containerPort: 80
 ```
+
+## Multi-container Pod
+
+In a multi-container pod, each container is expected to run a process that stays alive as long as the POD's lifecycle. For example in the multi-container pod that has:
+
+- a web application
+- a logging agent
+
+Both the containers are expected to stay alive at all times. The process running in the log agent container is expected to stay alive as long as the web application is running. If any of them fails, the POD restarts.
+
+But at times we may want to run a process that runs to completion in a container. For example a process that pulls a code or binary from a repository that will be used by the main web application. This task will be run only one time when the pod is first created. 
+
+This could also be a process that waits for an external service or database to be up before the actual application starts. That's where **initContainers** comes in.
+
+To learn more about initContainers, check out [Probe and InitContainers](./020-Probes.md)
