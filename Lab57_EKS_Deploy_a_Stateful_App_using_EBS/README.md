@@ -36,18 +36,9 @@ In this lab, we'll be deploying a stateful Wordpress application and a MySQL dat
 
 ## The Application Architecture 
 
-<!-- <p align=center>
-<img src="../Images/lab57-archi-diag.png">
-</p> -->
-
 <p align=center>
-<img width=700 src="../Images/lab57-archi-diag.png">
+<img width=600 src="../Images/lab57-archi-diag.png">
 </p>
-
-<!-- <p align=center>
-<img width=500 src="../Images/lab57-archi-diag.png">
-</p> --> 
-
 
 Our sample application will be composed of two layers:
 
