@@ -1,0 +1,20 @@
+
+# Generate "k8s-kp" keypair first. You can specify a different key name.
+# Generate using:      
+#   ssh-keygen -t rsa -b 2048
+
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+    version: "1.24"
+    name: eksops-2
+    region: ap-southeast-1 
+nodeGroups:
+    -   name: ng-dover
+        instanceType: t3.large
+        minSize: 0
+        maxSize: 5
+        desiredCapacity: 3
+        ssh: 
+            publicKeyName: "k8s-kp"

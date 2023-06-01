@@ -6,6 +6,9 @@ archive*
 Scribbles*
 scratch.yml
 
+## Tokens 
+*token*
+
 # Template files
 README-Template.md
 
@@ -35,3 +38,7 @@ kube-dashboard-token.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+## Terraform
+terraform* 
+.terraform* 
