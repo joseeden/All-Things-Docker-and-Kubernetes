@@ -1,4 +1,6 @@
 
 Lab 15-19, "Big Project" not yet done.
 Lab 30, HA not yet done. C:\Users\Eden.Jose\Downloads\0-Transit\Now\Pluralsight - Building Highly Available Kubernetes Clusters
-Lab 59-60
+
+Lab 59 - Prometheus and Grafana
+Lab 60 - Fargate on EKS

@@ -364,7 +364,7 @@ kubectl apply -f manifests/deploy-wordpress.yml
 Before we officially close this lab, make sure to destroy all resources to prevent incurring additional costs.
 
 ```bash
-$ time eksctl delete cluster -f  
+$ time eksctl delete cluster -f manifests/eksops.yml
 ```
 
 Note that when you delete your cluster, make sure to double-check the AWS Console and ensure that the Cloudformation stacks (which we created by eksctl) are dropped cleanly.
