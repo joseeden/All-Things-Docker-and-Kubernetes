@@ -1,5 +1,11 @@
 
-# Lab 58: Deploy a Stateful Application using EFS
+# Lab 58: Deploy a Stateful Application using EFS [Outdated]
+
+> ⚠  **NOTE**
+> The steps in this lab is possibly outdated. 
+> Please refer to [Running WordPress on Amazon EKS with Amazon EFS Intelligent-tiering](https://aws.amazon.com/blogs/storage/running-wordpress-on-amazon-eks-with-amazon-efs-intelligent-tiering/)
+
+----------------------------------------------
 
 Pre-requisites:
 
@@ -8,13 +14,21 @@ Pre-requisites:
 - [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksct installed](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
-Here's a breakdown of sections for this lab.
+Sections:
 
-
-
-
-
-
+- [Introduction](#introduction)
+- [The Application Architecture](#the-application-architecture)
+- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+- [Setup the Kubernetes Dashboard](#setup-the-kubernetes-dashboard)
+- [Install the Amazon EFS CSI driver](#install-the-amazon-efs-csi-driver)
+    - [Create the IAM Policy and Role](#create-the-iam-policy-and-role)
+    - [Install the EFS Driver](#install-the-efs-driver)
+- [Create the EFS Filesystem](#create-the-efs-filesystem)
+- [Create the Namespace](#create-the-namespace)
+- [Create the StorageClass and PersistenVolumeClaims](#create-the-storageclass-and-persistenvolumeclaims)
+- [Deploy MySQL and Wordpress](#deploy-mysql-and-wordpress)
+- [Cleanup](#cleanup)
+- [Resources](#resources)
 
 
 ## Introduction
@@ -63,7 +77,7 @@ $ aws sts get-caller-identity
 } 
 ```
 
-For the cluster, we can reuse the [eksops.yml](./eksops.yml) file from the previous labs. Launch the cluster. Note that you must have generated an SSH key pair which can be used to SSH onto the nodes. The keypair I've used here is named "k8s-kp" and is specified in the manifest file.
+For the cluster, we can reuse the [eksops.yml](./manifests/eksops.yml) file from the previous labs. Launch the cluster. Note that you must have generated an SSH key pair which can be used to SSH onto the nodes. The keypair I've used here is named "k8s-kp" and is specified in the manifest file.
 
 ```bash
 time eksctl create cluster -f eksops.yml 
@@ -92,13 +106,13 @@ Verify in the AWS Management Console. We should be able to see the cluster and t
 The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept of Kubernetes Dashboard and the steps to set it up. We can use a script that sets up the dashboard in one go. Make the script executable.
 
 ```bash
-chmod +x scripts/script-setup-kube-dashboard.sh
+chmod +x scripts/setup_kube_dashboard.sh
 ```
 
 Run the script.
 
 ```bash
-./scripts/script-setup-kube-dashboard.sh
+./scripts/setup_kube_dashboard.sh
 ```
 
 It should return the following output:
@@ -150,40 +164,93 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 Note that the token will expire after some time. Simply generate a new one in the terminal.
 
 ```bash
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kb-admin-svc | awk '{print $1}') 
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep kb-admin-svc | awk '{print $1}') 
 ```
 
-## Create Namespace 
 
-Create a namespace to separate workloads and isolate environments.
-To get the namespaces that we currently have in our cluster:
+## Install the Amazon EFS CSI driver
+
+We'll follow the steps in the official AWS Documentation for [Amazon EFS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html). Before anything else, check if your cluster already has an existing AWS Identity and Access Management (IAM) OpenID Connect (OIDC) provider.
 
 ```bash
-kubectl create ns lab-efs
+aws eks describe-cluster --name $MYCLUSTER --query "cluster.identity.oidc.issuer" --output text
 ```
 
-Verify.
+It should return an output like this:
 
 ```bash
-$ kubectl get ns -A
-
-NAME                   STATUS   AGE
-default                Active   5h25m
-kube-node-lease        Active   5h25m
-kube-public            Active   5h25m
-kube-system            Active   5h25m
-kubernetes-dashboard   Active   7m
-lab-efs                Active   12s
+https://oidc.eks.region-code.amazonaws.com/id/EXAMPLED539D4633E53DE1B71EXAMPLE
 ```
 
+### Create the IAM Policy and Role 
 
-## Install the Amazon EFS driver
- 
+Start with creating an IAM policy using the [iam-policy.json file](./iam_policies/iam-policy.json).
 
+```bash
+aws iam create-policy \
+    --policy-name AmazonEKS_EFS_CSI_Driver_Policy \
+    --policy-document file://iam_policies/iam-policy.json
+```
+
+Next, create the role using the [trust-policy.json](./iam_policies/trust-policy.json)
+
+```bash
+aws iam create-role \
+  --role-name AmazonEKS_EFS_CSI_DriverRole \
+  --assume-role-policy-document file://"iam_policies/trust-policy.json"  
+```
+
+Attach the policy to the role.
+
+```bash
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::$MYAWSID:policy/AmazonEKS_EFS_CSI_Driver_Policy \
+  --role-name AmazonEKS_EFS_CSI_DriverRole
+```
+
+Finally, create the service account using [efs-service-account.yml file.](./manifests/efs-service-account.yml)
+
+```bash
+kubectl apply -f manifests/efs-service-account.yml
+```
+
+### Install the EFS Driver 
+
+For this step, we'll use Helm v3. There are other methods available in the [documentation](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html).
+
+```bash
+helm repo add aws-efs-csi-driver https://kubernetes-sigs.github.io/aws-efs-csi-driver/
+helm repo update
+```
+
+Install a release of the driver using the Helm chart. Note that the command below uses a container image for the ap-southeast-1 region. For other regions, please refer to [Amazon container image registries.](https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html)
+
+```bash
+helm upgrade -i aws-efs-csi-driver aws-efs-csi-driver/aws-efs-csi-driver \
+    --namespace kube-system \
+    --set image.repository=602401143452.dkr.ecr.ap-southeast-1.amazonaws.com/eks/aws-efs-csi-driver \
+    --set controller.serviceAccount.create=false \
+    --set controller.serviceAccount.name=efs-csi-controller-sa 
+```
+
+To verify, run:
+
+```bash
+kubectl get pod -n kube-system -l "app.kubernetes.io/name=aws-efs-csi-driver,app.kubernetes.io/instance=aws-efs-csi-driver" 
+```
+
+It should return:
+
+```bash
+NAME                                 READY   STATUS    RESTARTS   AGE
+efs-csi-controller-57f6df8c6-4zjpv   3/3     Running   0          55s
+efs-csi-controller-57f6df8c6-kz4t2   3/3     Running   0          65s
+efs-csi-node-hrh6r                   3/3     Running   0          64s
+efs-csi-node-z99x8                   3/3     Running   0          64s
+efs-csi-node-zzfmq                   3/3     Running   0          64s 
+```
 
 ## Create the EFS Filesystem 
-
-> *If you have Terraform installed, you can also create the EFS Filesystem using it. Scroll down below.*
 
 Start with creating the EFS Filesystem in the AWS Management Console. 
 Since the console UI is changing from time to time, better to follow the [official AWS Documentation](https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html) on how to create the EFS Filesystem. 
@@ -206,15 +273,59 @@ Save the EFS Filesystem ID to a variable.
 EFSID="fs-0be2ae829d8f1aec2" 
 ```
 
+Next, create the access point by clicking the **Access Points** tab at the bottom.
+In the next page, click **Create access point**. We'll create two access points:
 
+Filesystem: Select the filesystem you just created
+Name: Wordpress 
+Root directory path: /wordpress 
+Posix User ID: 1000
+Posix Group ID: 1000
+Root directory creation permissions User ID: 1000
+Root directory creation permissions Group ID: 1000
+Access point permissions: 777
 
+Filesystem: Select the filesystem you just created
+Name: MySQL 
+Root directory path: /mysql  
+Posix User ID: 1000
+Posix Group ID: 1000
+Root directory creation permissions User ID: 1000
+Root directory creation permissions Group ID: 1000
+Access point permissions: 
 
-## Create StorageClass and PersistenVolumeClaims
+Both access points should be in the "Available" state. Take note of the Access Point ID of each.
 
-Create the StorageClass and PersistenVolumeClaims for both Wordpress and MySQL. Make sure to replace the **fileSystemId** with your EFS Filesystem ID.
+![](../Images/lab58efsaccesspoints.png)
+
+## Create the Namespace 
+
+Create a namespace to separate workloads and isolate environments using [namespace.yml](manifests/namespace.yml)
 
 ```bash
-kubectl apply -f manifests/create-storage.yml 
+kubectl apply -f manifests/namespace.yml 
+```
+
+Verify.
+
+```bash
+$ kubectl get ns -A
+
+NAME                   STATUS   AGE
+default                Active   5h25m
+kube-node-lease        Active   5h25m
+kube-public            Active   5h25m
+kube-system            Active   5h25m
+kubernetes-dashboard   Active   7m
+lab-efs                Active   12s
+```
+
+## Create the StorageClass and PersistenVolumeClaims
+
+Create the StorageClass and PersistenVolumeClaims for both Wordpress and MySQL. Make sure to replace the **fileSystemId** and **fsapId**.
+
+```bash
+kubectl apply -f manifests/storageclass-pvc.yml 
 ```
 
 To verify, run the command below. Note that both PVCs are in **Bound** state.
@@ -225,11 +336,28 @@ NAME            STATUS   VOLUME                                     CAPACITY   A
 pvc-mysql       Bound    pvc-fbf5035d-81cf-4c45-b90f-e2b2213eed9d   10Gi       RWX            efs-sc         62s
 pvc-wordpress   Bound    pvc-515d6e26-1b9b-4722-ac41-66763166f428   10Gi       RWX            efs-sc         62s 
 ```
-## Deploy MySQL
 
 
-## Deploy Wordpress
+## Deploy MySQL and Wordpress
 
+Before we proceed with deploying the Wordpress and MySQL applications, we'll create a **kustomization.yml** first which will allow us to use a secret password for the MySQL and Wordpress pods.
+
+```bash
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=WordPass
+resources:  
+  - deploy-mysql.yml 
+  - deploy-wordpress.yml 
+```
+
+Deploy the Wordpress and MySQL.
+
+```bash
+kubectl apply -f manifests/deploy-mysql.yml 
+kubectl apply -f manifests/deploy-wordpress.yml 
+```
 
 ## Cleanup
 

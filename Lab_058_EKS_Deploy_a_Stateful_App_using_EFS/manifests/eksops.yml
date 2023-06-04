@@ -8,7 +8,7 @@ kind: ClusterConfig
 
 metadata:
     version: "1.24"
-    name: eksops-2
+    name: eksops
     region: ap-southeast-1 
 nodeGroups:
     -   name: ng-dover

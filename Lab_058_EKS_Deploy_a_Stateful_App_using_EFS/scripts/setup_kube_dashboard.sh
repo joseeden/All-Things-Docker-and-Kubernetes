@@ -15,34 +15,14 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/down
 export KB_VER=v2.5.1
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/$KB_VER/aio/deploy/recommended.yaml
 
-# Create the service account that we'll use to authenticate to the Kubernetes dashboard.
-cat <<EOF > kube-dashboard-admin-svc.yml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: kb-admin-svc
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: kb-admin-svc
-  namespace: kube-system
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: kb-admin-svc
-    namespace: kube-system
-EOF
+# Create eht service account 
+kubectl apply -f ../manifests/kb-admin-svc.yml
 
 # Apply the YAML file.
-kubectl apply -f kube-dashboard-admin-svc.yml
+kubectl apply -f ../manifests/kube-dashboard-admin-svc.yml
 
 # Get the bearer token of the service account that we just created and save it to a file.
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kb-admin-svc | awk '{print $1}') > kube-dashboard-token.txt
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kb-admin-svc | awk '{print $1}') > ../manifests/kube-dashboard-token.txt
 
 # Run this command to access Dashboard from your local workstation.
 kubectl proxy &

@@ -1,0 +1,41 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+    namespace: lab-efs
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+      - image: wordpress:php7.1-apache
+        name: wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: wordpress-mysql
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: 80
+          name: wordpress
+        volumeMounts:
+        - name: pv-wordpress
+          mountPath: /var/www/html
+      volumes:
+      - name: pv-wordpress
+        persistentVolumeClaim:
+          claimName: pvc-wordpress

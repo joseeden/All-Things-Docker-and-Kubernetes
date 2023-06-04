@@ -20,6 +20,28 @@ Each lab in this repo is equipped with easy-to-follow, detailed instructions. Yo
 
 Here are some pre-requisites before we can perform the labs. 
 
+- [For Docker Labs](pages/01-Pre-requisites/labs-doc
+
+# All Things Docker and Kubernetes #
+
+This repository contains projects on containerization and orchestration that I'm currently working on in ~~2021~~ the present. 
+
+<!-- <p align=center>
+<img src="Images/docker-6.jpg" width=500>
+</p> -->
+<p align=center>
+<img src="Images/us-7-banner.png" width=900>
+</p>
+
+## How to Use this Repo
+
+Each lab in this repo is equipped with easy-to-follow, detailed instructions. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
+
+
+## Pre-requisites
+
+Here are some pre-requisites before we can perform the labs. 
+
 - [For Docker Labs](pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
 - [For Kubernetes Labs](pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md)
