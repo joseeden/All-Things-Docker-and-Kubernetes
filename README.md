@@ -153,6 +153,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Kubeconfig file](pages/04-Kubernetes/009-kubeconfig-files.md)
 
+- [Kubernetes API](pages/04-Kubernetes/040-kubernetes-api.md)
+
 - [Manifests](pages/04-Kubernetes/018-Manifests.md)
 
 - [Pods](pages/04-Kubernetes/009-Pods.md) 

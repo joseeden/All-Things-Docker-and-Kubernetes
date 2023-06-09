@@ -10,6 +10,21 @@ Deployments is a higher-level resource that makes managing Pods easier. Manifest
 
 A Deployment controller constantly monitors the desired state of the Deployment and the state of the Kubernetes cluster and reconciles the cluster state with the desired state you provide the Deployment. 
 
+
+The Deployment manifest includes:
+
+- **replicas** that let you specify how many copies of the Pod you want the Deployment to create
+
+- **selector**, which is a Pod label selector that allows the Deployment controller to track the status of all the Pods in the Deployment. This is one example of how Kubernetes uses selectors. The matchLabels mapping defines an equality condition similar to how you would write "app=microservices" using kubectl. 
+
+- **template** is a template for the Pods that will be created. The template provides the desired behavior of each Pod and is essentially the same as an individual Pod manifest. Notice the label that the Deployment selector uses is applied to the Pod (app: microservices). This is required for the Deployment to track its Pods.
+
+At a very high-level view:
+
+<p align=center>
+<img width=400 src="../../Images/deploy-replset-pods.png">
+</p>
+
 Below is an example of a Deployment manifest:
 
 ```bash
@@ -42,13 +57,6 @@ spec:
           - containerPort: 6379  
 ```
 
-The Deployment spec includes:
-
-- **replicas** that let you specify how many copies of the Pod you want the Deployment to create
-
-- **selector**, which is a Pod label selector that allows the Deployment controller to track the status of all the Pods in the Deployment. This is one example of how Kubernetes uses selectors. The matchLabels mapping defines an equality condition similar to how you would write "app=microservices" using kubectl. 
-
-- **template** is a template for the Pods that will be created. The template provides the desired behavior of each Pod and is essentially the same as an individual Pod manifest. Notice the label that the Deployment selector uses is applied to the Pod (app: microservices). This is required for the Deployment to track its Pods.
 
 To create the deployment:
 
