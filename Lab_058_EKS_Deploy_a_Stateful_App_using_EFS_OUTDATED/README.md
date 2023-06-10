@@ -1,8 +1,9 @@
 
-# Lab 58: Deploy a Stateful Application using EFS [Outdated]
+# Lab 58: Deploy a Stateful Application using EFS
 
 > ⚠  **NOTE**
-> The steps in this lab is possibly outdated. 
+> The steps specified in this lab for installing the EFS driver is still valid as of June 2023.  
+> However, the Wordpress and MySQL deployment might be outdated.
 > Please refer to [Running WordPress on Amazon EKS with Amazon EFS Intelligent-tiering](https://aws.amazon.com/blogs/storage/running-wordpress-on-amazon-eks-with-amazon-efs-intelligent-tiering/)
 
 ----------------------------------------------
