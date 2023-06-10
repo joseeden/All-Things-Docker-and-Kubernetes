@@ -325,7 +325,7 @@ kubernetes-dashboard   Active   7m
 lab-efs                Active   12s
 ```
 
-## Create the StorageClass and PersistenVolumeClaims
+## Create the StorageClass and PersistentVolumeClaims
 
 Use [storageclass-pvc.yml](manifests/storageclass-pvc.yml) to create the StorageClass and PersistenVolumeClaims for both Wordpress and MySQL. Make sure to replace the **fileSystemId** and **fsapId**.
 
