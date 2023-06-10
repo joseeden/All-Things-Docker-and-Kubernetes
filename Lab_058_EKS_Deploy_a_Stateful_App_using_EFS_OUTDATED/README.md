@@ -276,23 +276,28 @@ EFSID="fs-0be2ae829d8f1aec2"
 Next, create the access point by clicking the **Access Points** tab at the bottom.
 In the next page, click **Create access point**. We'll create two access points:
 
-Filesystem: Select the filesystem you just created
-Name: Wordpress 
-Root directory path: /wordpress 
-Posix User ID: 1000
-Posix Group ID: 1000
-Root directory creation permissions User ID: 1000
-Root directory creation permissions Group ID: 1000
-Access point permissions: 777
+Fields | Values | 
+---------|----------|
+ Filesystem | Select the filesystem you just created | 
+ Name | Wordpress | 
+ Root | /wordpress | 
+ Posix User ID | 1000 | 
+ Posix Group ID | 1000 | 
+ Root directory creation permissions User ID | 1000 | 
+ Root directory creation permissions Group ID | 1000 | 
+ Access point permissions | 777 | 
 
-Filesystem: Select the filesystem you just created
-Name: MySQL 
-Root directory path: /mysql  
-Posix User ID: 1000
-Posix Group ID: 1000
-Root directory creation permissions User ID: 1000
-Root directory creation permissions Group ID: 1000
-Access point permissions: 
+
+Fields | Values | 
+---------|----------|
+ Filesystem | Select the filesystem you just created | 
+ Name | MySQL | 
+ Root | /mysql | 
+ Posix User ID | 1000 | 
+ Posix Group ID | 1000 | 
+ Root directory creation permissions User ID | 1000 | 
+ Root directory creation permissions Group ID | 1000 | 
+ Access point permissions | 777 | 
 
 Both access points should be in the "Available" state. Take note of the Access Point ID of each.
 
@@ -322,7 +327,7 @@ lab-efs                Active   12s
 
 ## Create the StorageClass and PersistenVolumeClaims
 
-Create the StorageClass and PersistenVolumeClaims for both Wordpress and MySQL. Make sure to replace the **fileSystemId** and **fsapId**.
+Use [storageclass-pvc.yml](manifests/storageclass-pvc.yml) to create the StorageClass and PersistenVolumeClaims for both Wordpress and MySQL. Make sure to replace the **fileSystemId** and **fsapId**.
 
 ```bash
 kubectl apply -f manifests/storageclass-pvc.yml 
