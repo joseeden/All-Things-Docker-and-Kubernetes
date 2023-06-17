@@ -7,9 +7,9 @@ This repository contains projects on containerization and orchestration that I'm
 <!-- <p align=center>
 <img src="Images/docker-6.jpg" width=500>
 </p> -->
-<p align=center>
+<!-- <p align=center>
 <img src="Images/us-7-banner.png" width=900>
-</p>
+</p> -->
 
 ## How to Use this Repo
 

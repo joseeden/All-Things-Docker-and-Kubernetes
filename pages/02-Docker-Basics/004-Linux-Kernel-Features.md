@@ -1,6 +1,16 @@
 
 # Linux Kernel Features
 
+## Chroot 
+
+The chroot jail is the foundation of any container used to isolate processes from the root directory and present only the contents of a specific directory to the process.
+
+- Important for security  
+- Introduced in the 70'S but is still used as basic security measure by any applications
+- Evolved into Linux Kernet namespaces 
+
+## Modern Linux Features  
+
 <p align=center>
 <img width=500 src="../../Images/namespacing-controlgroups.png">
 </p>
