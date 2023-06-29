@@ -8,7 +8,7 @@
 
 ## Error: Cannot View Kubernetes Nodes 
 
-**Problem:**
+### Problem
 
 You might get the following error when checking the EKS cluster through the AWS Console.
 
@@ -16,7 +16,7 @@ You might get the following error when checking the EKS cluster through the AWS 
 Your current user or role does not have access to Kubernetes objects on this EKS cluster 
 ```
 
-**Cause:**
+### Cause 
 
 You might be using two different IAM user accounts:
 
@@ -40,10 +40,41 @@ If the user returned is the same as the user currently logged-in the AWS Managem
 
 If they're different users, then that means the user in the CLI (this is the user you used to create the EKS cluster) has different permissions from the user logged in the console.
 
-**Solution:**
+### Solution 1 
 
-You may try to log-in to the console using the same identity that you used in the CLI.
-If error still appeared, you may need to attach the inline policy to the group.
+Before anything else, run the command below  to make sure you are connected to the correct EKS cluster (if you have multiple clusters). The cluster with the '*' under the CURRENT column is the cluster that you are currently accessing.
+
+```bash
+$ kubectl config get-contexts
+
+CURRENT   NAME                                                  CLUSTER                                     AUTHINFO                                              NAMESPACE
+*         k8s-admin@eksops-managed.ap-southeast-1.eksctl.io     eksops-managed.ap-southeast-1.eksctl.io     k8s-admin@eksops-managed.ap-southeast-1.eksctl.io
+          k8s-admin@eksops-unmanaged.ap-southeast-1.eksctl.io   eksops-unmanaged.ap-southeast-1.eksctl.io   k8s-admin@eksops-unmanaged.ap-southeast-1.eksctl.io
+```
+
+Edit eh ConfigMap. Add the **mapUsers** block with your **userarn**.
+
+```bash
+kubectl edit configmap aws-auth -n kube-system 
+```
+```bash
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::12345678900:role/eksctl-exyz-managed-nodegroup-e-NodeInstanceRole-1OOHCL1LJM327
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: |
+    - userarn: arn:aws:iam::12345678900:user/johnsmith
+      groups:
+      - system:masters 
+```
+
+### Solution 2 
+
+You may try to log-in to the console using the same identity that you used in the CLI. If error still appeared, you may need to attach the inline policy to the group.
 
 ![](../../Images/labxx-attachinlinepolicytogroupjson.png)  
 
