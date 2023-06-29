@@ -1,0 +1,36 @@
+apiVersion: eksctl.io/v1alpha5
+# apiVersion: client.authentication.k8s.io/v1beta1
+kind: ClusterConfig
+
+metadata:
+    name: eksops-mixed
+    region: ap-southeast-1 
+    version: "1.24"
+
+nodeGroups:
+  - name: eksops-unmanaged
+    instanceType: t2.micro
+    minSize: 0
+    maxSize: 3
+    desiredCapacity: 3
+    ssh: 
+      publicKeyName: "k8s-kp"
+
+managedNodeGroups:
+  - name: eksops-managed
+    instanceType: t3.medium
+    minSize: 0
+    maxSize: 2
+    desiredCapacity: 2
+    volumeSize: 10
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/tst-kp-ubuntu.pub
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
+

@@ -233,7 +233,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Amazon EKS - Self-managed vs. Managed Nodegroups](pages/04-Kubernetes/057-EKS-Nodegroups.md)      
 
-- [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)
+- [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)   
 
 
 ## Resources

@@ -6,9 +6,9 @@
 
 
 
-## Self-managed Nodegroups 
+## Self-managed/Unmanaged Nodegroups 
 
-The Kubernertes administrator is responsible for configuring a lot of stuff with self-managed node, which includes:
+The Kubernetes administrator is responsible for configuring a lot of stuff with self-managed node, which includes:
 
 - installing the kubelet,
 - container runtime,
@@ -26,16 +26,16 @@ kind: ClusterConfig
 
 metadata:
     version: "1.24"
-    name: eksops
+    name: eksops-unmanaged
     region: ap-southeast-1 
 nodeGroups:
-    -   name: ng-dover
-        instanceType: t3.large
+    -   name: eksops-unmanaged
+        instanceType: t3.micro
         minSize: 0
         maxSize: 5
         desiredCapacity: 3
         ssh: 
-            publicKeyName: "k8s-kp" 
+            publicKeyName: "k8s-kp"
 ```
 
 To create the cluster:
@@ -47,11 +47,16 @@ time eksctl create cluster -f eksops.yml
 From **kubectl**:
 
 ```bash
-  
+$ kubectl get nodes
+NAME                                                STATUS   ROLES    AGE   VERSION
+ip-192-168-11-255.ap-southeast-1.compute.internal   Ready    <none>   55m   v1.24.13-eks-0a21954
+ip-192-168-37-36.ap-southeast-1.compute.internal    Ready    <none>   55m   v1.24.13-eks-0a21954
+ip-192-168-82-53.ap-southeast-1.compute.internal    Ready    <none>   55m   v1.24.13-eks-0a21954  
 ```
 
 From the **AWS Management Console > Amazon EKS**:
 
+![](../../Images/058-unamangednodegroup.png)
 
 
 
@@ -81,15 +86,15 @@ metadata:
   region: ap-southeast-1
 
 managedNodeGroups:
-  - name: eksops-dev
+  - name: eksops-managed
     instanceType: t2.micro
-    minSize: 1
+    minSize: 0
     maxSize: 5
     desiredCapacity: 3
     volumeSize: 10
     ssh:
       allow: true
-      publicKeyPath: ~/.ssh/ec2_id_rsa.pub
+      publicKeyPath: ~/.ssh/tst-kp-ubuntu.pub
     labels: {role: worker}
     tags:
       nodegroup-role: worker
@@ -108,17 +113,70 @@ time eksctl create cluster -f eksops-managed.yml
 From **kubectl**:
 
 ```bash
-  
+$ kubectl get nodes
+NAME                                                STATUS   ROLES    AGE   VERSION
+ip-192-168-11-255.ap-southeast-1.compute.internal   Ready    <none>   55m   v1.24.13-eks-0a21954
+ip-192-168-37-36.ap-southeast-1.compute.internal    Ready    <none>   55m   v1.24.13-eks-0a21954
+ip-192-168-82-53.ap-southeast-1.compute.internal    Ready    <none>   55m   v1.24.13-eks-0a21954  
 ```
 
 From the **AWS Management Console > Amazon EKS**:
+
+![](../../Images/058-managednodegroups.png)
 
 
 ## Combining both 
 
 We can also create an EKS Cluster that has a managed node group and an unmanaged nodegroup.
 
+```bash
+## eksops.yml 
+--- 
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
 
+metadata:
+    name: eksops-mixed
+    region: ap-southeast-1 
+    version: "1.24"
+
+nodeGroups:
+  - name: eksops-unmanaged
+    instanceType: t2.micro
+    minSize: 0
+    maxSize: 3
+    desiredCapacity: 3
+    ssh: 
+      publicKeyName: "k8s-kp"
+
+managedNodeGroups:
+  - name: eksops-managed
+    instanceType: t3.medium
+    minSize: 0
+    maxSize: 2
+    desiredCapacity: 2
+    volumeSize: 10
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/tst-kp-ubuntu.pub
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
+```
+
+To create the cluster:
+
+```bash
+time eksctl create cluster -f eksops.yml  
+```
+
+From the **AWS Management Console > Amazon EKS**:
+
+![](../../Images/057-mixedmanaged-and-unmanagednodegroups.png)
 
 
 ## Resources 
