@@ -12,7 +12,7 @@ We can assign RBAC directly to IAM entities and this will allow them access to t
 </p>
 
 
-**Worker Nodes**
+### Worker Nodes
 
 When create a worker node, it will join the cluster and be assigned an IAM role that authorize in RBAC to let them join:
 
@@ -30,7 +30,7 @@ $ kubectl edit -n kube-system configmap/aws-auth
 </p>
 
 
-**IAM Users**
+### IAM Users
 
 An example of users that we can create:
 

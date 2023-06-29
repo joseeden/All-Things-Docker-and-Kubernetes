@@ -65,13 +65,116 @@ These accounts represent identities used by processes running in pods and manage
   - service accounts are created using the service account API
 
 
-## Cluster Roles and Cluster Rolebindings
+## Roles 
 
-Role-based access control (RBAC) is a common way to control access to Kubernetes resources using roles. RBAC can be dynamically configured using the Kubernetes API and does not require modifying files compared to other user access control modules. Authorization, including RBAC, applies to both normal users and service accounts. You can also use RBAC on groups to simplify access control management. That is to say that normal users, service accounts, and groups are all valid subjects in RBAC.
+**Role-based access control** (RBAC) is a common way to control access to Kubernetes resources using roles. RBAC can be dynamically configured using the Kubernetes API and does not require modifying files compared to other user access control modules. Authorization, including RBAC, applies to both normal users and service accounts. You can also use RBAC on groups to simplify access control management. That is to say that normal users, service accounts, and groups are all valid subjects in RBAC.
 
-Roles can be bound to subjects within a specific namespace (role binding) or cluster-wide (cluster role binding). It is a best practice to authorize access to the minimal amount of resources required by any subject, following the principle of least privilege. If a subject only needs access to a subset of namespaces, they should not be bound to a role using a cluster role binding.
+To create a role:
 
-To list all of the cluster role bindings in the cluster:
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]  
+```
+
+In the role manifest above, we can see that the rules have three sections:
+
+- apiGroups - normally left blank for core group 
+- resources - objects that the role can access 
+- verbs - actions that the role can perform
+
+To allow developers to create ConfigMaps, we can also add it as a rule.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+rules:
+
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]  
+
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["ConfigMap"]
+  verbs: ["create"]  
+```
+
+Make sure to run the YAML file for the role to be created.
+
+```bash
+kubectl apply -f my-role.yml 
+```
+
+**Make the role more granular**
+
+To make the access more granular, we can specify the specific object in the role. As an example, instead of allowing access to all pods, we can just restrict the access to specific pods.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+rules:
+
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]  
+  resourceNames: ["podA", "podB"]
+```
+
+
+## Rolebindings
+
+Once the role is created, the next step is to link the user to the role. Roles can be bound to subjects within a:
+
+- specific namespace (role binding), or
+- cluster-wide (cluster role binding). 
+
+It is a best practice to authorize access to the minimal amount of resources required by any subject, following the principle of least privilege. If a subject only needs access to a subset of namespaces, they should not be bound to a role using a cluster role binding.
+
+To create a rolebinding, create the necessary YAML file. Make sure to run **kubectl apply**.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jane" to read pods in the "default" namespace.
+# You need to already have a Role named "pod-reader" in that namespace.
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jane # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io 
+```
+
+To list the roles:
+
+```bash
+kubectl get roles  
+```
+
+To get more details on a specific role:
+
+```bash
+kubectl describe role my-role 
+```
+
+## Cluster 
+To list all of the role bindings in the cluster:
 
 ```bash
 $ kubectl get rolebinding --all-namespaces
@@ -126,6 +229,34 @@ system:controller:cronjob-controller                   ClusterRole/system:contro
 ```
 
 Notice there are many **system:** bindings for each of the various controllers and components in the cluster. The controllers can be used with resources in any namespace, so it makes sense that they are cluster-wide role bindings. There are also a few cluster role bindings that are not prefixed with system:. For example, the **cluster-admin** binding is what gives the admin user in your current kubectl context access to all the resources in the cluster.
+
+## Can I? 
+
+As a user, we can also see if we have access to a resource by running:
+
+```bash
+kubectl auth can-i <action> <resource>
+```
+
+As an example, to check if I can created pods:
+
+```bash
+kubectl auth can-i delete pods  
+```
+
+## Check access of another user 
+
+If you are an administrator, you can also check if user has permissions on the object:
+
+```bash
+kubectl auth can-i <action> <object> --as <user>
+```
+
+As an example, to check if user Dave can create pods on the "dev" namespace:
+
+```bash
+kubectl auth can-i create pods --as dave --namespace dev
+```
 
 ## Cluster Admin Rolebinding
 
@@ -476,3 +607,5 @@ To see how Kubernetes clusters are secured using authentication and authorizatio
 ## Resources 
 
 - [CKA Certification Course – Certified Kubernetes Administrator](https://kodekloud.com/courses/certified-kubernetes-administrator-cka/)
+
+- [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)

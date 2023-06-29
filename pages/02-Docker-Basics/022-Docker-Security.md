@@ -1,5 +1,23 @@
 
-# Docker Security
+# Container Security
+
+
+## Security Risks 
+
+- Containers address the same kernel 
+- Containers running as root 
+- Public images may contain malicious software
+
+## Cloud Native Security 
+
+In Cloud Native Security, four layers are identified:
+
+- Cloud/Colocation/Corporate datacenter
+- Cluster
+- Container
+- Code
+
+## Docker Security 
 
 These are the security features that Docker uses under the hood.
 
@@ -28,3 +46,7 @@ These are the security features that Docker uses under the hood.
     ```bash
     docker secret 
     ```
+
+## Best Practices 
+
+To learn more about container security best practices, check out [Container Best Practices.](./023-Container-Best-Practices.md)

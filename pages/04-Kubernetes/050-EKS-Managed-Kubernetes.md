@@ -46,6 +46,8 @@ When you create you EKS cluster, AWS takes care of all of these under the hood:
 - API server talks to etcd using an ALB
 - the whole control plane is fronted by an NLB with fixed IP
 
-![](../../Images/eksintrocontrolplanedeeptive.png)  
+<p align=center>
+<img src="../../Images/eksintrocontrolplanedeeptive.png)" >
+</p>
 
 </details>

@@ -2,7 +2,92 @@
 
 # Kubernetes API
 
-The Kubernetes API is not a single API but rather a collection of APIs which defines the resources that can be used in the Kubernetes environment. The API information is what we'll use in the Kubernetes YAML file.
+- [Kubernetes API Server](#kubernetes-api-server)
+- [Kubernetes API](#kubernetes-api)
+- [API Resources](#api-resources)
+- [Resources](#resources)
+
+## Kubernetes API Server
+
+This is the main way to interact with the cluster. It is a RESTful API that runs over HTTP or HTTPS using JSON. 
+
+- composed of **API Objects**, which are a collection of primitives to represent your system's state
+
+- Enables to declaratively configuring the state, which means we define what we want the end result to look like instead of defining the individual steps.
+
+- information exchanged with the cluster are persisted and serialized to the data store
+
+
+## Kubernetes API 
+
+The Kubernetes API is not a single API but rather a collection of APIs which defines the resources that can be used in the Kubernetes environment. The API information is what we'll use in the Kubernetes YAML file. The Kubernetes API is composed of multiple groupings based on their purpose:
+
+     /version 
+     /healthz
+     /metrics 
+     /logs
+     /api
+     /apis
+
+The two APIs used for clsuter functionality are:
+
+- **/api** - core APi, represented by "v1"
+- **/apis** - named group
+
+The core groups is where all the core functionalities exist.
+
+<p align=center>
+<img width=400 src="../../Images/kubernetesapicoregroup.png">
+</p>
+
+The named group is where all the newer API features are added. The sample below are just a few.
+
+<p align=center>
+<img width=900 src="../../Images/kubernetesnamedapigroup.png">
+</p>
+
+
+To show the list of API groups (*localhost* assumes that Kubernetes cluster is deployed locally)
+
+```bash
+$ curl https://localhost:6443 -k  
+{
+  "paths": [
+     "/api",
+     "/api/v1",
+     "/apis",
+     "/apis/",
+     "/healthz",
+     "/logs",
+     "/metrics",
+     "/openapi/v2",
+```
+
+To show the resource group for a specific API group:
+
+```bash
+$ curl https://localhost:6443/apis -k  | grep "name"
+
+  "name": "extensions",
+  "name": "apps",
+  "name": "events.k8s.io",
+  "name": "authentication.k8s.io",
+  "name": "authorization.k8s.io",
+  "name": "autoscaling",
+  "name": "batch",
+```
+
+If you get an **Forbidden** error message, that means you don't have access to certain API. You will need to specify the certificate and key.
+
+```bash
+curl https://localhost:6443 -k \
+--cacert ca.crt \
+--cert admin.crt \
+--key admin.key 
+```
+
+
+## API Resources 
 
 To show the list of resources defined in the API:
 

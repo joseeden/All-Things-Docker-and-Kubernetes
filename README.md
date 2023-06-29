@@ -80,7 +80,9 @@ Containers are where it all starts.
 
 - [Docker Swarms](pages/02-Docker-Basics/021-Docker-Swarms.md) 
 
-- [Docker Security](pages/02-Docker-Basics/022-Docker-Security.md) 
+- [Container Security](pages/02-Docker-Basics/022-Docker-Security.md) 
+
+- [Container Best Practices](pages/02-Docker-Basics/023-Container-Best-Practices.md) 
 
 
 <!-- </details> -->
@@ -116,8 +118,6 @@ Kubernetes is indeed an entire universe in itself.
 - [Container Management Challenges](pages/04-Kubernetes/001-Container-Management-Challenges.md) 
 
 - [What is Kubernetes](pages/04-Kubernetes/002-What-is-Kubernetes.md) 
-
-- [Kubernetes API Server](pages/04-Kubernetes/003-Kubernetes-API-Server.md) 
 
 - [Kubernetes API Objects](pages/04-Kubernetes/004-Kubernetes-API-Objects.md) 
 
