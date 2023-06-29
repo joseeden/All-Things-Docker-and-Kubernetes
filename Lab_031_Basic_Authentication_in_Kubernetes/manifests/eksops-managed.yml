@@ -1,0 +1,26 @@
+# eksops-managed.yaml
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eksops-managed
+  region: ap-southeast-1
+
+managedNodeGroups:
+  - name: eksops-managed
+    instanceType: t2.micro
+    minSize: 0
+    maxSize: 5
+    desiredCapacity: 3
+    volumeSize: 10
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/tst-kp-ubuntu.pub
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true

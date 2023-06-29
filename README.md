@@ -229,7 +229,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Amazon EKS - Logging to CloudWatch ](pages/04-Kubernetes/055-EKS-Control-Plane-Logging-to-CloudWatch.md) 
 
-- [Amazon EKS - Persistent Volumes](pages/04-Kubernetes/056-EKS-Persistent-Volumes.md)
+- [Amazon EKS - Persistent Volumes](pages/04-Kubernetes/056-EKS-Persistent-Volumes.md)    
+
+- [Amazon EKS - Self-managed vs. Managed Nodegroups](pages/04-Kubernetes/057-EKS-Nodegroups.md)      
 
 - [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)
 

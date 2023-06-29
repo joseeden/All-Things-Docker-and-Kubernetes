@@ -3,12 +3,12 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-    version: "1.23"
-    name: eksops
+    version: "1.24"
+    name: eksops-unmanaged
     region: ap-southeast-1 
 nodeGroups:
-    -   name: ng-dover
-        instanceType: t3.large
+    -   name: eksops-unmanaged
+        instanceType: t3.micro
         minSize: 0
         maxSize: 5
         desiredCapacity: 3
