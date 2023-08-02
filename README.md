@@ -4,12 +4,17 @@
 
 This repository contains projects on containerization and orchestration that I'm currently working on in ~~2021~~ the present. 
 
-<!-- <p align=center>
-<img src="Images/docker-6.jpg" width=500>
-</p> -->
-<!-- <p align=center>
-<img src="Images/us-7-banner.png" width=900>
-</p> -->
+- [How to Use this Repo](#how-to-use-this-repo)
+- [Pre-requisites](#pre-requisites)
+- [Docker + Containers](#docker--containers)
+- [Cloud-Native](#cloud-native)
+- [Kubernetes](#kubernetes)
+- [Certification Exams](#certification-exams)
+- [Resources](#resources)
+
+
+----------------------------------------------
+
 
 ## How to Use this Repo
 
@@ -236,6 +241,20 @@ Kubernetes is indeed an entire universe in itself.
 - [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)   
 
 
+## Certification Exams 
+
+Notes: 
+
+- [Exam Tips](pages/05-Exams/001-Exam-tips.md)    
+
+Resources: 
+
+- [Open Source Curriculum for CNCF Certification Courses](https://github.com/cncf/curriculum)
+
+- [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
+
+- [Linux Foundation Certification Exam: Candidate Handbook](https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2)
+
 ## Resources
 
 Useful courses on Docker:
@@ -330,7 +349,6 @@ Github repositories:
 
 
 
-
 Metrics, Logging, Health Checks, and Tracing:
 
 - [Pattern: Health Check API](https://microservices.io/patterns/observability/health-check-api.html)
@@ -343,13 +361,7 @@ Metrics, Logging, Health Checks, and Tracing:
 
 - [Enabling Distributed Tracing for Microservices With Jaeger in Kubernetes](https://containerjournal.com/topics/container-ecosystems/enabling-distributed-tracing-for-microservices-with-jaeger-in-kubernetes/)
 
-CNCF Exams:
 
-- [Open Source Curriculum for CNCF Certification Courses](https://github.com/cncf/curriculum)
-
-- [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
-
-- [Linux Foundation Certification Exam: Candidate Handbook](https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2)
 
 Free DNS Service using [freedns](https://freedns.afraid.org/)
 
