@@ -1,11 +1,11 @@
-# Lab 57: Deploy a Stateful Application using EBS
+# Lab 057: Deploy a Stateful Application using EBS
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -37,7 +37,7 @@ In this lab, we'll be deploying a stateful Wordpress application and a MySQL dat
 ## The Application Architecture 
 
 <p align=center>
-<img width=600 src="../Images/lab57-archi-diag.png">
+<img width=600 src="../../Images/lab57-archi-diag.png">
 </p>
 
 Our sample application will be composed of two layers:
@@ -78,7 +78,7 @@ To properly deploy the application, the Wordpress Pods needs be able to share th
 So for this kind requirement, we will need to utilize **Amazon Elastic Filesystem (EFS)**. This is a drive that can be attached in multiple instances in multiple availability zones.
 
 <p align=center>
-<img width=700 src="../Images/lab57-ebs-efs.png">
+<img width=700 src="../../Images/lab57-ebs-efs.png">
 </p>
 
 We'll explore Stateful applications using EFS in the next lab where we'll deploy the application Pods across availability zones.
@@ -148,7 +148,7 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 
 ## Setup the Kubernetes Dashboard   
 
-The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
+The [previous lab](../../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
 
 Here's a summary of commands that we need to run:
 
@@ -292,7 +292,7 @@ NAME            PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      A
 gp2 (default)   kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  162m
 ```
 
-If it doesn't return a storageclass, you may check out the [StorageClass page](../pages/04-Kubernetes/017-StorageClass.md) to learn how to create one.
+If it doesn't return a storageclass, you may check out the [StorageClass page](../../pages/04-Kubernetes/017-StorageClass.md) to learn how to create one.
 
 
 ### Approach 1: Dynamic Provisioning using the default StorageClass
@@ -1044,7 +1044,7 @@ kubectl describe pvc -A
 
 Going to the AWS Management Console > EC2 > Volumes, we can see the EBS volumes have been automatically created.
 
-![](../Images/lab57pvcpvebscvlumesarenowcreated.png)  
+![](../../Images/lab57pvcpvebscvlumesarenowcreated.png)  
 
 In the **State** volume, we can see the two untagged EBS volumes are *available*. This means both are currently not attached to any instance.
 
@@ -1293,19 +1293,19 @@ wordpress-mysql-7998d99b8d-x4d5w   1/1     Running   0          66s   192.168.64
 
 Going to **AWS Management Console > EC2 > Volumes**, we can see the state of one of the untagged volumes have changed from *Available* to *In-use*, which means this persistent volume is now being used by the MySQL Pod. If we look at the **Attached instances** column, we see that this volume is attached to one of the node as a secondary volume (it's the only */dev/xvdba*, the rest are */dev/xvda*)
 
-![](../Images/lab57mysqlpodrunningattachedtoasecondaryvolumepvc.png)    
+![](../../Images/lab57mysqlpodrunningattachedtoasecondaryvolumepvc.png)    
 
 We can also verify the same in the Kubernetes dashboard. Click the **default** namespace dropdown bar and change to **ns-lab57**. Here we can see all the resources that's been created so far.
 
-![](../Images/lab57mysqlpodrunningasseeenink8sdashboard.png)  
+![](../../Images/lab57mysqlpodrunningasseeenink8sdashboard.png)  
 
 In the left panel, click the **Pods** then select the running MySQL Pod to show more details. We can see tabs for the container used, the environment variable for the MySQL password that's been passed to the Pod, and many more. 
 
-![](../Images/lab57moredetailsontherunningmysqlpodattachedtopv.png)  
+![](../../Images/lab57moredetailsontherunningmysqlpodattachedtopv.png)  
 
 To open a tab, click the arrow down icon at the left. Here we can see the series of events that occured inside the container.
 
-![](../Images/lab57mysqlrunningpodsereisofeventsinsidethecontainer.png)  
+![](../../Images/lab57mysqlrunningpodsereisofeventsinsidethecontainer.png)  
 
 ## Deploy Wordpress via Deployment
 
@@ -1405,21 +1405,21 @@ wordpress-mysql-7998d99b8d-x4d5w   1/1     Running   0             93m    192.16
 
 Checking the **AWS Management Console > EC2 > Volumes**, we can now see that 20GB volumes are now in *In-use* status.
 
-![](../Images/lab57wordpresspodrunningbothebsvolumenowinuse.png)  
+![](../../Images/lab57wordpresspodrunningbothebsvolumenowinuse.png)  
 
 Going back to the Kubernetes dashboard, we can also confirm that both the Wordpress and MySQL Pods are running.
 
-![](../Images/lab57bothmysqlandwordpresspodsarerunninghealthyink8sdashboard.png)  
+![](../../Images/lab57bothmysqlandwordpresspodsarerunninghealthyink8sdashboard.png)  
 
 Click the **Deployment** tab in the left panel to see the current deployments. Let's scale the wordpress deployment to two pods by clicking the three vertical dots in the left and selecting **Scale.**
 
-![](../Images/lab57wordpresseploymentscaleto2.png)  
+![](../../Images/lab57wordpresseploymentscaleto2.png)  
 
-![](../Images/lab57wordpressdeploymentscaleto2scale.png)  
+![](../../Images/lab57wordpressdeploymentscaleto2scale.png)  
 
 Click the **Pods** tab to confirm that there's now three Pods running.
 
-![](../Images/lab57wordpressdeploymenttherearenow3podsrunning.png)  
+![](../../Images/lab57wordpressdeploymenttherearenow3podsrunning.png)  
 
 Back at the terminal, we can see the same results.
 
@@ -1459,7 +1459,7 @@ Events:        <none>
 
 Going back to the Kubernetes dashboard, click **Services > Service**. Here we can see the Services for both the Wordpress and MySQL deployments. Click the **External Endpoint** for wordpress. 
 
-![](../Images/lab57kubedashboardexternalendpointworkingforwordpress.png)  
+![](../../Images/lab57kubedashboardexternalendpointworkingforwordpress.png)  
 
 The same external endpoint can also be seen from the terminal.
 
@@ -1472,7 +1472,7 @@ wordpress-mysql   ClusterIP      None            <none>                         
 
 Opening the external endpoint, you should see the welcome page for initial setup of the Wordpress installation.
 
-![](../Images/lab57wordpressinstallationwelcomepage.png)  
+![](../../Images/lab57wordpressinstallationwelcomepage.png)  
 
 Configure the Wordpress by selecting **English** as language then on the next pages, configure the following:
 
@@ -1483,15 +1483,15 @@ Configure the Wordpress by selecting **English** as language then on the next pa
 
 Afterwards, click **Install Wordpress**
 
-![](../Images/lab57wordpressinstallationconfiguresettings.png)  
+![](../../Images/lab57wordpressinstallationconfiguresettings.png)  
 
 It should show the *Success* message. Click **login**, then in the next page, enter your username and password.
 
-![](../Images/lab57wordpresssuccessclicklogin.png)  
+![](../../Images/lab57wordpresssuccessclicklogin.png)  
 
-![](../Images/lab57wordpressloginusernamepassword.png)  
+![](../../Images/lab57wordpressloginusernamepassword.png)  
 
-![](../Images/lab57wordpressloginsuccessmainpage.png)  
+![](../../Images/lab57wordpressloginsuccessmainpage.png)  
 
 
 ## Deploy Wordpress via StatefulSet
@@ -1595,31 +1595,31 @@ wordpress-statefulset-0            1/1     Running   0          4m23s
 
 We can verify this in the **AWS Management Console > EC2 > Volumes.** Here we can confirm that a new 10 Gi EBS volume has been created.
 
-![](../Images/lab57deploystatefulsetwordpress.png)  
+![](../../Images/lab57deploystatefulsetwordpress.png)  
 
 Similarly, we should be able to see the StatefulSet in Kubernetes dashboard.
 
-![](../Images/lab57deploystatefulsetshowinginkubedashboardscalenow.png)   
+![](../../Images/lab57deploystatefulsetshowinginkubedashboardscalenow.png)   
 
 Scale the StatefulSet by clicking the three vertical dots at the right and choose **Scale.** Set it to 3.
 
-![](../Images/lab57statefulsetscaleto3.png)  
+![](../../Images/lab57statefulsetscaleto3.png)  
 
 By clicking the StatefulSet, we can see more details about it. We can see that it's taking some time in provisioning the new EBS volumes. We can also notice that the Pods are distributed to each EC2 instances.
 
-![](../Images/lab57statefulsetsetscaleto3takingeffectnow.png)  
+![](../../Images/lab57statefulsetsetscaleto3takingeffectnow.png)  
 
 Going back to the AWS Management Console, we can see that two more 10 Gi EBS volumes have been created.
 
-![](../Images/lab57statefulsetscaledto33ebsvolumesnowcreated.png)  
+![](../../Images/lab57statefulsetscaledto33ebsvolumesnowcreated.png)  
 
 Back at the Kubernetes dashboard, go to the **Services** tab to see the new external endpoint. Click the link to open a new tab for the Wordpress page.
 
-![](../Images/lab57statefulsetdeployedcheckservicestoseeexternalendpoint.png)  
+![](../../Images/lab57statefulsetdeployedcheckservicestoseeexternalendpoint.png)  
 
 Would you look at that. It worked.
 
-![](../Images/lab57wordpresssitedisplayworkingforstatefulset.png)  
+![](../../Images/lab57wordpresssitedisplayworkingforstatefulset.png)  
 
 ## Cleanup
 

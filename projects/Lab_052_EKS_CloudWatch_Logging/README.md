@@ -1,11 +1,11 @@
-# Lab 52: EKS and CloudWatch Logging
+# Lab 052: EKS and CloudWatch Logging
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of sections for this lab.
@@ -28,7 +28,7 @@ For this lab, we'll be using ap-southeast-1 region (Singapore).
 
 Since the Control Plane is managed by AWS, we don't have access to the hosts that are serve the Control Plane and manages the logs. 
 
-We can access these logs thru CloudWatch by enabling which log type to send. To learn more, check out this [page](../README.md##kubernetes).
+We can access these logs thru CloudWatch by enabling which log type to send. To learn more, check out this [page](../../README.md##kubernetes).
 
 
 ## Enabling CloudWatch Logging through the Manifest
@@ -130,11 +130,11 @@ This should return the following output.
 
 Switch over to the CloudWatch dashboard in the AWS Management Console and go to Log groups. Click the newly create log group.
 
-![](../Images/lab52cwloggingstream1.png)  
+![](../../Images/lab52cwloggingstream1.png)  
 
 Inside this log group, we can see that the log streams have been created. Click the <code>kube-api-server-xxxx</code> log stream.
 
-![](../Images/lab52cwlogstreamapiserver.png)  
+![](../../Images/lab52cwlogstreamapiserver.png)  
 
 Scroll down to view the most recent event. Click the event to view it in JSON format.
 
@@ -151,9 +151,9 @@ The logging can also be enabled through the AWS Management Console.
 
 Here's a sample.
 
-![](../Images/lab52cwloggingoneksenabled.png)  
+![](../../Images/lab52cwloggingoneksenabled.png)  
 
-![](../Images/lab52cwenablesomeloggingtypes.png)  
+![](../../Images/lab52cwenablesomeloggingtypes.png)  
 
 As a reminder, CloudWatch logging adds costs on top of your EKS resources costs.
 
@@ -186,7 +186,7 @@ Similar with CloudWatch logging, enabling the metrics also adds costs to your bi
 
 To start with, go to IAM the dashboard and click **Roles** on the left menu. Search for "eksctl". Select the <code>NodeInstanceRole.</code>
 
-![](../Images/lab52cwmetrics1.png)  
+![](../../Images/lab52cwmetrics1.png)  
 
 Notice that there's a role for this node group. A role is created for each node group. If you have three node groups, then you'll see three NodeInstanceRole here.
 
@@ -194,11 +194,11 @@ This is important to know because we need to attach the policy to each node grou
 
 In the **Permisions** tab, click **Add permissions**.
 
-![](../Images/lab52cwmetrics2.png)  
+![](../../Images/lab52cwmetrics2.png)  
 
 Search for "cloudwatchagentserver", select the permission and click **Attach policies.**
 
-![](../Images/lab52cwmetrics3.png)  
+![](../../Images/lab52cwmetrics3.png)  
 
 
 ### Deploy the CloudWatch Agent
@@ -264,23 +264,23 @@ From the output above, we can see that 6 pods were created, and the CloudWatch a
 
 We can also verify this from the AWS Management Console. Go to the EKS dashboard, click the **Clusters** on the left menu, and select your cluster. Click the **Resources** tab and from the **All Namespace** dropdown bar, select **amazon-cloudwatch**.
 
-![](../Images/lab52cwmetricscontainerinsights.png)  
+![](../../Images/lab52cwmetricscontainerinsights.png)  
 
 ### View the Metrics
 
 In the AWS Management Console, go to the CloudWatch dashboard. Select **Metrics** > **All metrics**. Click the **ContainerInsights** metrics.
 
-![](../Images/lab52verifymetricsincwdboard.png)  
+![](../../Images/lab52verifymetricsincwdboard.png)  
 
-![](../Images/lab52cwametriccontainerinsihgts5metrics.png)  
+![](../../Images/lab52cwametriccontainerinsihgts5metrics.png)  
 
 In the left menu, click **Dashboards** > **Automatic dashboards** > **EKS cluster**.
 
-![](../Images/lab52cwametricsviewdashboards.png)  
+![](../../Images/lab52cwametricsviewdashboards.png)  
 
 This dashboard gives us a general overview of the cluster state. 
 
-![](../Images/lab52dashboardgraphforcwametricsekscluster.png)  
+![](../../Images/lab52dashboardgraphforcwametricsekscluster.png)  
 
 
 ### Generate Load 
@@ -433,7 +433,7 @@ To stop generating the load, go back to the second terminal and hit Ctrl-C.
 
 Next, go to the CloudWatch dashboard. We can see that the metrics are reporting the utilization of our cluster.
 
-![](../Images/lab52cwametricsgeneratedloadappearingincw.png)  
+![](../../Images/lab52cwametricsgeneratedloadappearingincw.png)  
 
 ## Cleanup
 

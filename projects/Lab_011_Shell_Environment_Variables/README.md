@@ -1,23 +1,17 @@
-## Lab 11: Shell Environment Variables 
+# Lab 011: Shell Environment Variables 
 
-Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+## Pre-requisites
 
-### Introduction
+  - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+
+## Introduction
   
 In this lab, we'll understand how to use shell environment variables. There are other ways to define variables in Docker such as defining through an environment file, a dockerfile, or a docker-compose file. 
 
 We'll containerize an application which will display a simple website that will change colors based on the color we passed on the terminal.
 
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_011_Shell_Env_Vars
-$ cd Lab_011_Shell_Env_Vars
-```
-
-### Create the files 
+## Create the files 
 
 Create the **templates** directory and the simple **hello.html** inside it.
 
@@ -163,7 +157,7 @@ $ tree
 1 directory, 3 files 
 ```
 
-### Build the Image 
+## Build the Image 
 
 Build the image from the dockerfile and give it the name "my-flask-app". It will take a few minutes to build the image since it will pull down the Python container image from Dockerhub. It will then use the Python image as the base image. You should see the "Successful built" returned once it's done.
 
@@ -184,7 +178,7 @@ my-flask-app   latest    d40b9ef9ada7   About a minute ago   913MB
 python         3.6       54260638d07c   6 months ago         902MB 
 ```
 
-### The Fun Part - Run the Container!
+## The Fun Part - Run the Container!
 
 Before we run the container, get the IP of your machine.
 
@@ -236,7 +230,7 @@ Open a web browser and navigate to the IP address followed by the port number, l
 You should see the website displayed.
 
 <p align=center>
-<img src="../Images/lab11appblue.png">
+<img src="../../Images/lab11appblue.png">
 </p>
 
 Back in your terminal, hit **Ctrl-C** to quit and run the container again. Specify "red" this time.
@@ -248,7 +242,7 @@ $ docker run -p 82:8080 -e APP_COLOR=red my-flask-app
 The website color should now change to red.
 
 <p align=center>
-<img src="../Images/lab11appred.png">
+<img src="../../Images/lab11appred.png">
 </p>
 
 Try running containers and use different colors. Note that the code only accepts eleven colors. If you specified a color that is not declared in the code, you'll get the error message below:
@@ -268,14 +262,14 @@ $ docker run -p 82:8080 my-flask-app
 ```
 
 <p align=center>
-<img src="../Images/lab11apprandomcolor.png">
+<img src="../../Images/lab11apprandomcolor.png">
 </p>
 
 As seen, the website will randomly choose a color from declared list of colors. Note that this catch-all is defined in the application code so that it won't return an error if it doesn't find any "color".
 
 In general, Docker will complain and return an error message if the environment variable doesn't have a value assigned to it.
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

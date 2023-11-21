@@ -1,9 +1,9 @@
-# Lab 21: Backup, Restore, and Upgrade a Kubernetes Cluster
+# Lab 021: Backup, Restore, and Upgrade a Kubernetes Cluster
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Lab 20-Create and Manage a Cluster using kubeadm](../Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
+- [Lab 20-Create and Manage a Cluster using kubeadm](../../Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
 
 
 Here's a breakdown of the sections for this lab.
@@ -25,7 +25,7 @@ In the previous lab, we installed kubeadm and all its dependencies on our three 
 
 Lastly, we'll also upgrade the Kubernetes cluster to the new version. 
 
-![](../Images/lab20ec2instances.png)  
+![](../../Images/lab20ec2instances.png)  
 
 
 ## Create a Simple Deployment

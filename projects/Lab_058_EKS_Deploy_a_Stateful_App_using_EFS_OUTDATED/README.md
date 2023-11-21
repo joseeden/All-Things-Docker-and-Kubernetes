@@ -1,5 +1,5 @@
 
-# Lab 58: Deploy a Stateful Application using EFS
+# Lab 058: Deploy a Stateful Application using EFS
 
 > ⚠  **NOTE**
 > The steps specified in this lab for installing the EFS driver is still valid as of June 2023.  
@@ -8,12 +8,12 @@
 
 ----------------------------------------------
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksct installed](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksct installed](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Sections:
 
@@ -35,14 +35,14 @@ Sections:
 ## Introduction
 
 This lab discusses how to deploy a stateful application using EFS. 
-The steps are similar with the previous [lab](../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md) but instead of a EBS CS driver, we will use an EFS driver.
+The steps are similar with the previous [lab](../../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md) but instead of a EBS CS driver, we will use an EFS driver.
 
 We'll be using **ap-southeast-1** region (Singapore).
 
 ## The Application Architecture 
 
 <p align=center>
-<img width=600 src="../Images/lab58.png">
+<img width=600 src="../../Images/lab58.png">
 </p>
 
 Our sample application will be composed of two layers:
@@ -104,7 +104,7 @@ Verify in the AWS Management Console. We should be able to see the cluster and t
 
 ## Setup the Kubernetes Dashboard   
 
-The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept of Kubernetes Dashboard and the steps to set it up. We can use a script that sets up the dashboard in one go. Make the script executable.
+The [previous lab](../../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept of Kubernetes Dashboard and the steps to set it up. We can use a script that sets up the dashboard in one go. Make the script executable.
 
 ```bash
 chmod +x scripts/setup_kube_dashboard.sh
@@ -257,16 +257,16 @@ Start with creating the EFS Filesystem in the AWS Management Console.
 Since the console UI is changing from time to time, better to follow the [official AWS Documentation](https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html) on how to create the EFS Filesystem. 
 
 <p align=center>
-<img src= "../Images/lab58efsreated.png">
+<img src= "../../Images/lab58efsreated.png">
 </p>
 
 We should see the "Success" message along with the filesystem created in the EFS main page. 
 
-![](../Images/lab58created%20efsfilesystem.png)  
+![](../../Images/lab58created%20efsfilesystem.png)  
 
 Click on the new filesystem and go to **Network** tab to see more details.
 
-![](../Images/lab58detailsonthenewefs.png)  
+![](../../Images/lab58detailsonthenewefs.png)  
 
 Save the EFS Filesystem ID to a variable.
 
@@ -302,7 +302,7 @@ Fields | Values |
 
 Both access points should be in the "Available" state. Take note of the Access Point ID of each.
 
-![](../Images/lab58efsaccesspoints.png)
+![](../../Images/lab58efsaccesspoints.png)
 
 ## Create the Namespace 
 

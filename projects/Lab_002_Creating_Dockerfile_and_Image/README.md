@@ -1,20 +1,15 @@
-## Lab 02: Creating the Dockerfile and the Image 
+# Lab 002: Creating the Dockerfile and the Image 
  
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Go](../../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
 
-### Introduction
+## Introduction
 
-In this lab, we'll run a lightweight container that runs a custom binary that we'll create. Let's start with creating the project directory where will create our files.
+In this lab, we'll run a lightweight container that runs a custom package.
 
-```bash
-$ mkdir Lab_002_Creating_Dockerfile_and_Image 
-$ cd Lab_002_Creating_Dockerfile_and_Image 
-```
-
-### Create the Files
+## Create the Files
 
 Here's a custom **hello-world.go** binary. This is the same code that was used in the pre-requisite section.
 
@@ -58,7 +53,7 @@ CMD ["/hello-world"]
 - **COPY** copies the hello-world files from our host onto a layer of the image.
 - Finally, the **CMD** tells the container the default command to run when the container is launched.
 
-### Build the Image
+## Build the Image
 
 Use the **build** command, followed by the directory where the dockerfile is.
 
@@ -121,7 +116,7 @@ REPOSITORY       TAG       IMAGE ID       CREATED              SIZE
 my-hello-world   latest    5635489bb18b   About a minute ago   1.77MB 
 ```
 
-### Run the container
+## Run the container
 
 ```bash
 $ docker run my-hello-world
@@ -142,7 +137,7 @@ CONTAINER ID   IMAGE            COMMAND          CREATED              STATUS    
 05d5dad77d2c   my-hello-world   "/hello-world"   About a minute ago   Exited (0) About a minute ago             wonderful_rhodes 
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

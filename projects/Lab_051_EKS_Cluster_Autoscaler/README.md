@@ -1,12 +1,12 @@
 
-# Lab 51: EKS Cluster Autoscaler
+# Lab 051: EKS Cluster Autoscaler
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -233,7 +233,7 @@ metadata:
 
 Check if the  [version release](https://github.com/kubernetes/autoscaler/releases) in the Kubernetes Cluster Autoscaler Github page. We'll be using version 1.22.3.
 
-![](../Images/lab51eksautoscalerrelease1223.png)  
+![](../../Images/lab51eksautoscalerrelease1223.png)  
 
 We will use the available [Cluster Autoscaler manifest](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml) from the Kubernetes Github repository. 
 

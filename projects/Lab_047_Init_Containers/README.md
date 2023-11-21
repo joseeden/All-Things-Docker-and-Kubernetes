@@ -1,9 +1,9 @@
 
-# Lab 47: Init Containers 
+# Lab 047: Init Containers 
 
-Pre-requisites:
+## Pre-requisites
 
-- [Lab 46: Probes](../Lab_046_Probes/README/md)
+- [Lab 46: Probes](../../Lab_046_Probes/README/md)
 
 Here's a breakdown of sections for this lab.
 
@@ -24,10 +24,10 @@ To do this, we can use **init containers** initialize the task before the main a
 We'll use the same application architecture from the previous lab, but we'll add an init container to App tier that will wait for Redis to start before starting the application
 
 <p align=center>
-<img width=700 src="../Images/lab42-service-discovery-diag.png">
+<img width=700 src="../../Images/lab42-service-discovery-diag.png">
 </p>
 
-To learn more about init containers, check out this [page](../pages/04-Kubernetes/020-Probes.md).
+To learn more about init containers, check out this [page](../../pages/04-Kubernetes/020-Probes.md).
 
 ## App Tier 
 

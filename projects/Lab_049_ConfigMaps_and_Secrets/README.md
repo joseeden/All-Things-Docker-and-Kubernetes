@@ -1,12 +1,12 @@
 
 # Lab 49: ConfigMaps and Secrets
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -32,10 +32,10 @@ We'll be using the same architecture from the previous labs but this time, we'll
 Our architecture looks like this:
 
 <p align=center>
-<img width=700 src="../Images/lab48-volumes-diagram.png">
+<img width=700 src="../../Images/lab48-volumes-diagram.png">
 </p>
 
-To learn more, check out [ConfigMaps and Secrets](../pages/04-Kubernetes/021-Configmaps.md) 
+To learn more, check out [ConfigMaps and Secrets](../../pages/04-Kubernetes/021-Configmaps.md) 
 
 
 ## Launch a Simple EKS Cluster

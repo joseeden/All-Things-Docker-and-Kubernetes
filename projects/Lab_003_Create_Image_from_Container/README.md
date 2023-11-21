@@ -1,21 +1,14 @@
-## Lab 03: Create an Image from an Existing Container
+# Lab 003: Create an Image from an Existing Container
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
-### Introduction
+## Introduction
 
-In the previous lab, we've create a dockerfile, build the image, and then run a container from that image. This time, we'll create an image from an existing container. 
+In the previous lab, we've create a dockerfile, build the image, and then run a container from that image. 
 
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_003_Create_Image_from_Container
-$ cd Lab_003_Create_Image_from_Container 
-```
-
-### Run the Container and Install Python
+## Run the Container and Install Python
 
 Recall the Ubuntu container that we run awhile back. We we're able to interact with it by using the "-it" flag.
 
@@ -50,7 +43,7 @@ root@80452f6f437e:/# which python
 /usr/bin/python
 ```
 
-### Create the New Image from the Running Container 
+## Create the New Image from the Running Container 
 
 We can now create a new Ubuntu image with Python installed.
 
@@ -84,7 +77,7 @@ my-hello-world   latest    5635489bb18b   31 minutes ago   1.77MB
 ubuntu           latest    27941809078c   2 weeks ago      77.8MB 
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

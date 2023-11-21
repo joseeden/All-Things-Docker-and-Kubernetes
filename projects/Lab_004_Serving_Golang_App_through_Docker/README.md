@@ -1,23 +1,16 @@
-## Lab 04: Serving a Golang Application through Docker 
+# Lab 004: Serving a Golang Application through Docker 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Go](../../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
 
 
-### Introduction
+## Introduction
 
-In this lab, we'll be deploying a website written in Go(golang) on a container. We'll also make sure that it is accesible from our machine. 
+In this lab, we'll be deploying a website written in Go(golang) on a container. 
 
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_004_Serving_Golang_App_through_Docker
-$ cd Lab_004_Serving_Golang_App_through_Docker/
-```
-
-### Create the Files 
+## Create the Files 
 
 Install Git.
 
@@ -64,7 +57,7 @@ EXPOSE 5000
 CMD [ "python", "src/app.py" ] 
 ```
 
-### Build the Image 
+## Build the Image 
 
 Build the image from the Dockerfile.
 
@@ -78,7 +71,7 @@ Get the IP of you machine. We will need this later.
 $ curl ipecho.net/plain; echo 
 ```
 
-### Run the Container
+## Run the Container
 
 Finally, run the container from the image.
 
@@ -89,11 +82,11 @@ $ docker run --name advisor -p 80:5000 flask-content-advisor
 Open an internet browser and navigate to the IP that you just saved.
 
 <p align=center>
-<img src="../Images/lab04flaskwebsiteworking.png">
+<img src="../../Images/lab04flaskwebsiteworking.png">
 </p>
 
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

@@ -1,14 +1,29 @@
-# Lab 59 - Deploy Prometheus and Grafana using Helm
+# Lab 059 - Deploy Prometheus and Grafana using Helm
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksct installed](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-- Helm
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksct installed](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+<!-- - Helm -->
 
-Sections:
+## Sections 
+
+- [Introduction](#introduction)
+- [Launch an EKS Cluster](#launch-an-eks-cluster)
+- [Create the Persistent Storage](#create-the-persistent-storage)
+    - [Using EFS as Prometheus storage](#using-efs-as-prometheus-storage)
+    - [Using EBS as Prometheus storage](#using-ebs-as-prometheus-storage)
+- [Create the Namespace](#create-the-namespace)
+- [Setup Prometheus](#setup-prometheus)
+- [Setup Grafana](#setup-grafana)
+- [Importing a Public Dashboard](#importing-a-public-dashboard)
+- [Troubleshooting](#troubleshooting)
+        - [Removing Prometheus](#removing-prometheus)
+        - [Prometheus stuck in Pending](#prometheus-stuck-in-pending)
+- [Resources](#resources)
+
 
 
 
@@ -100,7 +115,7 @@ I'm hesitant to remove my notes on my attempt to use EFS so I'll just leave it h
 <details><summary> Using EFS as Prometheus storage (Unsuccessful) </summary>
 
 
-~~We'll be using an EFS Filesystem for this lab~~. The detailed steps are provided in the [previous Lab 58](../Lab_058_EKS_Deploy_a_Stateful_App_using_EFS_OUTDATED/README.md). Here's the summary:
+~~We'll be using an EFS Filesystem for this lab~~. The detailed steps are provided in the [previous Lab 58](../../Lab_058_EKS_Deploy_a_Stateful_App_using_EFS_OUTDATED/README.md). Here's the summary:
 
 ```bash
 ### Verify that you an OIDC provider created. 
@@ -137,7 +152,7 @@ kubectl get pod -n kube-system -l "app.kubernetes.io/name=aws-efs-csi-driver,app
 
 Next, create the EFS Filesystem. Since the console UI is changing from time to time, better to follow the [official AWS Documentation](https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html) on how to create the EFS Filesystem. 
 
-![](../Images/lab58created%20efsfilesystem.png)  
+![](../../Images/lab58created%20efsfilesystem.png)  
 
 
 Next, create the access point by selecting the EFS filesystem and clicking the **Access Points** tab at the bottom. Click **Create access point** to create two access points:
@@ -167,7 +182,7 @@ Fields | Values |
 
 Both access points should be in the "Available" state. Take note of the Access Point ID of each.
 
-![](../Images/lab59accesspintforprometheus.png)
+![](../../Images/lab59accesspintforprometheus.png)
 
 Once we have the EFS driver and EFS Filesystem set up, the next step is to create the persistent volumes. We can use the [storageclass-pvc.yml](manifests/storageclass-pvc.yml). Make sure to edit the YAML file first and replace the **volumeHandle** with the correct *fsap* (access point) ID.
 
@@ -184,7 +199,7 @@ kubectl apply -f manifests/storageclass-pvc.yml
 
 ### Using EBS as Prometheus storage
 
-The detailed steps to install the EBS CSI provisioner can be found in the [previous Lab 057.](../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md). Here's the summary:
+The detailed steps to install the EBS CSI provisioner can be found in the [previous Lab 057.](../../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md). Here's the summary:
 
 ```bash
 MYREGION=ap-southeast-1     # Specify the region here
@@ -198,7 +213,7 @@ aws eks describe-cluster \
 --query "cluster.identity.oidc.issuer" --output text 
 ```
 
-If the **describe** command did not return anything, you will need to [create the OIDC provider](../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md).
+If the **describe** command did not return anything, you will need to [create the OIDC provider](../../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md).
 
 Create an IAM Policy and IAM role, and then attach the policy to the role.
 
@@ -389,11 +404,11 @@ https://grafana.com/grafana/dashboards/
 
 In the **Filter by** section, click the **Data Source** dropdown bar and select **Prometheus.**. In the search bar, type "Kubernetes". This will display all the available dashboards.
 
-![](../Images/lab58grafanapublicdashboards.png)
+![](../../Images/lab58grafanapublicdashboards.png)
 
 We'll use **Cluster Monitoring for Kubernetes** for this lab.
 
-![](../Images/lab58clustermonitoringforkubernetes.png)
+![](../../Images/lab58clustermonitoringforkubernetes.png)
 
 ## Troubleshooting 
 

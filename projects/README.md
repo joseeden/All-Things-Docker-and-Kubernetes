@@ -11,15 +11,15 @@
 
 Lab 001 - [Running Simple Containers](Lab_001_Running_Simple_Containers/README.md)
 
-Lab 002 - [Creating Dockerfile and Image](Lab_002_Creating_Dockerfile_and_Image/README.md)
+Lab 002 - [Creating a Dockerfile and Docker Image](Lab_002_Creating_Dockerfile_and_Image/README.md)
 
-Lab 003 - [Create Image from Container](Lab_003_Create_Image_from_Container/README.md)
+Lab 003 - [Create an Image from an Existing Container](Lab_003_Create_Image_from_Container/README.md)
 
-Lab 004 - [Serving Golang App through Docker](Lab_004_Serving_Golang_App_through_Docker/README.md)
+Lab 004 - [Serving a Golang Application through Docker](Lab_004_Serving_Golang_App_through_Docker/README.md)
 
-Lab 005 - [Deploy NodeJS Application](Lab_005_Deploy_NodeJS_Application/README.md)
+Lab 005 - [Deploy a NodeJS Application](Lab_005_Deploy_NodeJS_Application/README.md)
 
-Lab 006 - [Port Mapping Containerized App](Lab_006_Port_Mapping_Containerized_App/README.md)
+Lab 006 - [Port Mapping for a Containerized Application](Lab_006_Port_Mapping_Containerized_App/README.md)
 
 Lab 007 - [Container Networking](Lab_007_Container_Networking/README.md)
 
@@ -27,7 +27,7 @@ Lab 008 - [Persistent Storage](Lab_008_Persistent_Storage/README.md)
 
 Lab 009 - [Tagging Images](Lab_009_Tagging_Images/README.md)
 
-Lab 010 - [Running Jenkins Container](Lab_010_Running_Jenkins_Container/README.md)
+Lab 010 - [Running a Jenkins Container](Lab_010_Running_Jenkins_Container/README.md)
 
 Lab 011 - [Shell Environment Variables](Lab_011_Shell_Environment_Variables/README.md)
 
@@ -41,9 +41,10 @@ Lab 014 - [Big Project Part2 CICD with AWS](Lab_014_Big_Project_Part2_CICD_with_
 
 ## Kubernetes 
 
-Lab 020 - [Create and Manage Cluster using kubeadm](Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
+Lab 020 - [Create and Manage a Kubernetes Cluster using kubeadm](Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
 
-Lab 021 - [Backup Restore and Upgrade a Kubernetes Cluster](Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/READMEmd)
+Lab 021 - [Backup Restore and Upgrade a Kubernetes Cluster](Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
+
 
 Lab 022 - [Resource Requirements](Lab_022_Resource_Requirements/README.md)
 
@@ -55,7 +56,7 @@ Lab 025 - [Logging](Lab_025_Logging/README.md)
 
 Lab 026 - [Monitoring](Lab_026_Monitoring/README.md)
 
-Lab 027 - [Securing Kubernetes using Authentication and Authorization](Lab_027_Securing_Kubernetes_using_Authentication_and_Authorizatin/README.md)
+Lab 027 - [Securing Kubernetes using Authentication and Authorization](Lab_027_Securing_Kubernetes_using_Authentication_and_Authorization/README.md)
 
 Lab 028 - [Layer7 Network Policies using Cilium CNI](Lab_028_Layer7_Network_Policies_using_Cilium_CNI/README.md)
 

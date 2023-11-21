@@ -1,11 +1,11 @@
-# Lab 44: Horizontal Pod AutoScaler
+# Lab 044: Horizontal Pod AutoScaler
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -29,7 +29,7 @@ For collecting the metrics, we'll use **Metrics Server** which is a solution mai
 Here's the architecture that we'll use.
 
 <p align=center>
-<img width=700 src="../Images/lab44hpa-diag.png">
+<img width=700 src="../../Images/lab44hpa-diag.png">
 </p>
 
 ## Launch a Simple EKS Cluster

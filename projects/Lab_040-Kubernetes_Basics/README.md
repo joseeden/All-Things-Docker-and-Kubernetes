@@ -1,12 +1,12 @@
 
-# Lab 40: Kubernetes Basics
+# Lab 040: Kubernetes Basics
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -22,18 +22,18 @@ Here's a breakdown of sections for this lab.
 
 ## Introduction
 
-In this lab, we'll be working on simple manifests to understand the basics of Kubernetes. To learn more about the theory, check out the [Kubernetes section](../README.md#kubernetes) in the main page.
+In this lab, we'll be working on simple manifests to understand the basics of Kubernetes. To learn more about the theory, check out the [Kubernetes section](../../README.md#kubernetes) in the main page.
 
 This will be our setup. I'm currently using a laptop with  We'll be using a laptop with the necessary pre-requisites installed. We'll launch all our resources in the **ap-southeast-1** region (Singapore). To talk to our EKS cluster, we'll use kubectl.
 
 <p align=center>
-<img src="../Images/lab40kubebasicsdiag.png">
+<img src="../../Images/lab40kubebasicsdiag.png">
 </p>
 
 
 ## Launch a Simple EKS Cluster 
 
-We'll be utilizing an EKS cluster for this lab but you can setup your cluster locally or on another cloud platform. To learn more, check out [Setting up Kubernetes.](../pages/04-Kubernetes/008-Setting-up-Kubernetes.md)
+We'll be utilizing an EKS cluster for this lab but you can setup your cluster locally or on another cloud platform. To learn more, check out [Setting up Kubernetes.](../../pages/04-Kubernetes/008-Setting-up-Kubernetes.md)
 
 Let's first verify if we're using the correct IAM user's access keys. This should be the user we created from the **pre-requisites** section above.
 
@@ -96,7 +96,7 @@ ip-192-168-88-211.ap-southeast-1.compute.internal   Ready    <none>   114m   v1.
 
 ## Pods 
 
-We'll use the manifests below. To learn more about Pods, check out the [Pods](../pages/04-Kubernetes/009-Pods.md) page.
+We'll use the manifests below. To learn more about Pods, check out the [Pods](../../pages/04-Kubernetes/009-Pods.md) page.
 
 The YAML files are in the **manifests** directory:
 
@@ -263,7 +263,7 @@ QoS Class:                   Guaranteed
 
 Recall that a Pod will have 1 IP address regardless of how many containers are running inside it. Whenever a Pod is started, it will be assigned an IP from the available pool of IP addresses. When a Pod fails and is restarted, it may get a different IP address.
 
-To resolve the dilemma of changing Pod IP, we can use **[Services](../pages/04-Kubernetes/013-Services.md)**. This allows the Pod to be accesible from the internet.
+To resolve the dilemma of changing Pod IP, we can use **[Services](../../pages/04-Kubernetes/013-Services.md)**. This allows the Pod to be accesible from the internet.
 
 We'll use [basic-pod-5-service.yml.](manifests/basic-pod-5-service.yml). This used the same format but here we're specifying the **kind** as **Service**.
 

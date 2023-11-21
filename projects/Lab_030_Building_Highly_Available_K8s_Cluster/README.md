@@ -1,6 +1,9 @@
-# Lab 30: Building Highly-Available Kubernetes Cluster
+# Lab 030: Building Highly-Available Kubernetes Cluster
 
-Before we begin, make sure you've setup the following pre-requisites
+> TODO
+
+
+## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../README.md#kubernetes)
 - [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)

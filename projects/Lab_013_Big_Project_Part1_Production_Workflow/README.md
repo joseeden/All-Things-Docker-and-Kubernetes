@@ -1,26 +1,47 @@
-# Lab 13: Really Big Project - Part 1: Create a Production-Grade Workflow
-   
+# Lab 013: Really Big Project - Part 1: Create a Production-Grade Workflow
 
-Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Node and NPM](../pages/01-Pre-requisites/labs-optional-tools/02-Install-Nodejs-Npm.md)
-  <!-- - [Install Go](../README.md#pre-requisites) -->
+  - [Pre-requisites](#pre-requisites)
+  - [Introduction](#introduction)
+  - [The Workflow](#the-workflow)
+  - [The Project - Application](#the-project---application)
+      - [Running NPM Commands](#running-npm-commands)
+      - [Node modules are heavy files](#node-modules-are-heavy-files)
+      - [Multiple Dockerfiles](#multiple-dockerfiles)
+  - [Time to Go DEV](#time-to-go-dev)
+      - [Using the Dockerfile](#using-the-dockerfile)
+      - [Using Docker-compose](#using-docker-compose)
+      - [Run Tests inside the Container](#run-tests-inside-the-container)
+      - [Updating Test Files](#updating-test-files)
+          - [Method 1: Live Updating Tests](#method-1-live-updating-tests)
+          - [Method 2: Docker-Compose for Running Tests](#method-2-docker-compose-for-running-tests)
+  - [Time to Go Prod](#time-to-go-prod)
+      - [How Applications Runs in Different Environments](#how-applications-runs-in-different-environments)
+      - [Multi-Step Docker Builds](#multi-step-docker-builds)
+          - [Do we need to install all dependencies?](#do-we-need-to-install-all-dependencies)
+          - [Where do we get NGINX?](#where-do-we-get-nginx)
+      - [Using the Dockerfile](#using-the-dockerfile)
+      - [Run the Container](#run-the-container)
+  - [What's Next](#whats-next)
+  - [Issues Encountered on Windows-based Machines](#issues-encountered-on-windows-based-machines)
+      - [npm start doesn't detect changes](#npm-start-doesnt-detect-changes)
+      - [npm ERR - enoent ENOENT - no such file or directory](#npm-err---enoent-enoent---no-such-file-or-directory)
+
+
+
+## Pre-requisites
+
+  - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Install Node and NPM](../../pages/01-Pre-requisites/labs-optional-tools/02-Install-Nodejs-Npm.md)
+  <!-- - [Install Go](../../README.md#pre-requisites) -->
 
 ## Introduction
 
 In this lab, we'll walk through a production-grade workflow which will use Docker to deploy an application. Remember that an application will not be deployed just one time. Changes will be introduced to an application, additional features will be develop to improve the application, and we will need to re-deploy the changes made. This is why we need to follow a workflow that allows a continuous development, testing, and deployment.
 
 <p align="center">
-  <img src="../Images/lab13prodworkflow3.png">
+  <img src="../../Images/lab13prodworkflow3.png">
 </p>
-
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_013_Big_Project 
-$ cd Lab_013_Big_Project
-```
 
 You might find this entire lab to be exhaustingly long as there are a lot of steps to do here, lots of setups to build, and of course lots of stuff to break!
 
@@ -35,7 +56,7 @@ Before we get into the dirty work, let's understand first the development workfl
  
 
 <p align=center>
-<img src="../Images/lab13prodworkflowcorrectnumbered.png">
+<img src="../../Images/lab13prodworkflowcorrectnumbered.png">
 </p>
 
 1. We'll have a Github repository which will serve as the central source of truth. The repo will have two branches: 
@@ -52,7 +73,7 @@ Before we get into the dirty work, let's understand first the development workfl
 Here's another way to look at it:
 
 <p align="center">
-<img src="../Images/lab13prodworkflowflowchart2.png">
+<img src="../../Images/lab13prodworkflowflowchart2.png">
 </p>
  
 </details>
@@ -135,7 +156,7 @@ drwxrwxr-x 6 ubuntu ubuntu 4096 Jun 27 10:00 proj-eden-frontend
 
 </details>
 
-### 01 - Running NPM Commands 
+### Running NPM Commands 
 
 We'll be running these three commands multiple times during the whole project.
 
@@ -166,9 +187,9 @@ $ npm run test
 ```
 
 <p align=center>
-<img src="../Images/lab13npmruntest1.png">
+<img src="../../Images/lab13npmruntest1.png">
 </p><p align=center>
-<img src="../Images/lab13npmruntest2.png">
+<img src="../../Images/lab13npmruntest2.png">
 </p>
 
 #### npm run build 
@@ -248,12 +269,12 @@ Open your web browser and navigate to the IP address followed by port 3000, like
 You should now see the React page.
 
 <p align=center>
-<img src="../Images/lab13reactnpmrunbuild1.png">
+<img src="../../Images/lab13reactnpmrunbuild1.png">
 </p>
 
 </details>
 
-### 02 - Node modules are heavy files 
+### Node modules are heavy files 
 
 When we run the **tree** command inside the project directory, we saw that there are 4000+ files inside it. 
 
@@ -274,12 +295,12 @@ $ rm -r node_modules
 When you check in your browser again, you should now see error messages. This is alright as we'll run everything inside a container in the next steps.
 
 <p align=center>
-<img src="../Images/lab13reactappunreachable.png">
+<img src="../../Images/lab13reactappunreachable.png">
 </p>
 
 </details>
 
-### 03 - Multiple Dockerfiles
+### Multiple Dockerfiles
 
 Since we'll have a development and a production environment,  we will need to create separate dockerfiles for each.
 
@@ -288,7 +309,7 @@ Since we'll have a development and a production environment,  we will need to cr
 Here's what we'll try to do:
 
 <p align=center>
-<img src="../Images/lab13multidockerfile.png">
+<img src="../../Images/lab13multidockerfile.png">
 </p>
 
 </details>
@@ -304,7 +325,7 @@ We'll now start working on the code and deploy it inside a container in a develo
 To understand how our containerized application will work in a DEV environment,
 
 <p align=center>
-<img src="../Images/lab13howappwillworkindevenvironmeent.png">
+<img src="../../Images/lab13howappwillworkindevenvironmeent.png">
 </p>
 
 1. We will launch a development server inside our container which will receive requests from outside the container.
@@ -313,7 +334,7 @@ To understand how our containerized application will work in a DEV environment,
 
 </details>
 
-### 01 - Using the Dockerfile
+### Using the Dockerfile
 
 Let's start with creating the dockerfile for DEV inside our project directory.
 
@@ -390,7 +411,7 @@ $ curl ipecho.net/plain; echo
 Open your web browser and navigate to the IP address through port 4002. You should see the React app landing page.
 
 <p align=center>
-<img src="../Images/lab13containerizedreactapp.png">
+<img src="../../Images/lab13containerizedreactapp.png">
 </p>
 
 Going back to our dockerfile, notice that after copying the package.json, we also copied the rest of the other files onto the container, include the main javascript file and the HTML files that'll be served through the hosting provider.
@@ -438,7 +459,7 @@ Make changes, re-build the image, run new containers.
 To ensure that changes are immediately reflected to the application, we would need to isolate the project files from the container. This means that instead of copying the projects files to the container, we'll store it in a volume outside the container and then reference that volume when the container is ran.
 
 <p align>
-<img src="../Images/lab13mapvolumes.png">
+<img src="../../Images/lab13mapvolumes.png">
 </p>
 
 To map a directory inside the container to a directory on the local host(can be anywhere, as long as it's outside the container and the container can access it), we can use the commmand below:
@@ -447,7 +468,7 @@ To map a directory inside the container to a directory on the local host(can be 
 $ sudo docker run -d -p 4002:3000 -v /app/node_modules -v $(pwd):/app <image-id> 
 ```
 <p align=center>
-<img src="../Images/lab13mapvolumes2.png">
+<img src="../../Images/lab13mapvolumes2.png">
 </p>
 
 In the command above, we have following arguments:
@@ -469,7 +490,7 @@ $ sudo docker run -d -p 4002:3000 -v $(pwd):/app <image-id>
 It will look for the modules folder outside the container. It won't find any of the modules and this will return an error.
 
 <p align>
-<img src="../Images/lab13nodemodulenotfounderror2.png">
+<img src="../../Images/lab13nodemodulenotfounderror2.png">
 </p>
 
 To make sure that the container doesn't look for the **node_modules** folder outside the container and instead use the **node_modules** that will be installed inside the container, we add a "bookmark" to the modules directory inside the container,
@@ -549,7 +570,7 @@ Press the ESC tab and type the command below to save.
 Going back to the browser, do a refresh. We see that the change is not reflected on the application.
 
 <p align=center>
-<img src="../Images/lab13containerizedreactapp.png">
+<img src="../../Images/lab13containerizedreactapp.png">
 </p>
 
 As we've seen, the changes isn't applied because this application is still spun up from the first image.
@@ -576,7 +597,7 @@ $ sudo docker run -d -p 4003:3000 -v /app/node_modules -v $(pwd):/app proj-eden-
 Going back to the browser, navigate to your IP address through port 4003. It should now display the new message.
 
 <p align>
-<img src="../Images/lab13reactappneedforspeed.png">
+<img src="../../Images/lab13reactappneedforspeed.png">
 </p>
 
 Back in your terminal, edit the **src/App.js** again and change the message to:
@@ -586,7 +607,7 @@ To infinity and beyond!
 ```
 
 <p align=center>
-<img src="../Images/lab13reactappinfinityandbeyond.png">
+<img src="../../Images/lab13reactappinfinityandbeyond.png">
 </p>
 
 
@@ -599,7 +620,7 @@ $ sudo docker stop $(sudo docker ps) 2> /dev/null
 </details>
 
 
-### 02 - Using Docker-compose
+### Using Docker-compose
 
 We've managed to containerize the React application and map the volume to a directory inside the container. We've also isolated the Javascript file being served inside our browser so that it doesn't get copied onto the container. 
 
@@ -712,7 +733,7 @@ The answer is, we don't. We can remove the 'COPY . .' and the container would st
 
 </details>
 
-### 03 - Run Tests inside the Container 
+### Run Tests inside the Container 
 
 We've containerize the React App and manage to run the containers with both the dockerfile option and docker-compose. We'll now shift our focus on running tests on the project.
 
@@ -733,18 +754,18 @@ $ sudo docker run -it proj-eden-frontend npm run test
 You should see an interactive terminal returned. 
 
 <p align=center>
-<img src="../Images/lab13runtestsinsidethecontainerdocker.png">
+<img src="../../Images/lab13runtestsinsidethecontainerdocker.png">
 </p>
 
 Press "Enter" to trigger a test run. To quit, press 'q'.
 
 <p align=center>
-<img src="../Images/lab13runteststriggerruntests.png">
+<img src="../../Images/lab13runteststriggerruntests.png">
 </p>
 
 </details>
 
-### 04 - Updating Test Files
+### Updating Test Files
 
 We've run the provided tests on our application. Now let's check if we can modify the tests and see if this will affect the containers we ran.
 
@@ -774,7 +795,7 @@ $ sudo docker exec -it <container-id> npm run test
 'Enter' to trigger tests runs. It will show 'Tests: 1 passed'. 
 
 <p align=center>
-<img src="../Images/lab13runteststriggerruntests.png">
+<img src="../../Images/lab13runteststriggerruntests.png">
 </p>
 
 Open a third terminal and go inside the **proj-eden-frontend** directory again. The test file that we need to edit is "src/App.test.js".
@@ -805,17 +826,17 @@ test('renders learn react link', () => {
 Going back to your second terminal, press 'Enter' multiple times to trigger another test runs. It should now show two tests passed.
 
 <p align=center>
-<img src="../Images/lab13cheatedtestruns.png">
+<img src="../../Images/lab13cheatedtestruns.png">
 </p>
 
 Try adding 5 more tests to the **App.test.js** then reduce it to just 3 test. Then observe if there'll be changes to the ongoing test.
 
 <p align=center>
-<img src="../Images/lab13cheatedtest5.png">
+<img src="../../Images/lab13cheatedtest5.png">
 </p>
 
 <p align=center>>
-<img src="../Images/cheatedtest3.png">
+<img src="../../Images/cheatedtest3.png">
 </p>
 
 Note that this isn't the most efficient way to reflect the changes to the test files since you'll have to re-attach to the running container and run 'npm run test' again each time you modify the test files.
@@ -874,7 +895,7 @@ $ sudo docker-compose up --build
 You should see an output like this:
 
 <p align=center>
-<img src="../Images/lab13dockercompose2services.png">
+<img src="../../Images/lab13dockercompose2services.png">
 </p>
 
 On a second terminal, check the running containers. You should see two.
@@ -902,7 +923,7 @@ We achieved this by isolating the files outside the container and instructing th
 
 </details>
 
-### 01 - How Applications Runs in Different Environments
+### How Applications Runs in Different Environments
 
 We've discussed before how application runs in a DEV environment. To recap, the containerized application runs a dev server inside it which facilitates all the requests coming in and serving the project files. 
 
@@ -912,20 +933,20 @@ We've discussed before how application runs in a DEV environment. To recap, the 
 The dev server also exists to handle any changes being done on the project files
 
 <p align>
-<img src="../Images/lab13howappwillworkindevenvironmeent.png">
+<img src="../../Images/lab13howappwillworkindevenvironmeent.png">
 </p>
 
 In a production environment, the code is expected to be a final person which cannot be modified on the fly. This would mean that we will have to remove the dev server which handles all the code changes. The dev server will be replaced by an **Nginx web server** which will handle the incoming requests.
 
 <p align>
-<img src="../Images/lab13howappworksinprodenv.png">
+<img src="../../Images/lab13howappworksinprodenv.png">
 </p>
 
 We'll be creating a separate dockerfile for our production environment. This dockerfile will create a production container will start up an NGINX instance that will serve all the HTML and JS files.
 
 </details>
 
-### 02 - Multi-Step Docker Builds   
+### Multi-Step Docker Builds   
 
 We'll repeat the same steps that we did for our DEV environment, but with some slight adjustments. 
 
@@ -935,7 +956,7 @@ We'll repeat the same steps that we did for our DEV environment, but with some s
 But first, let's understand once again the steps that we'll have to do using this diagram. It's a pretty straightforward diagram and we have basic understanding on how we'll create the containers at this point. However, there will be some questions that we need to answer first.
 
 <p align>
-<img src="../Images/lab13prodflowchart.png">
+<img src="../../Images/lab13prodflowchart.png">
 </p>
 
 #### Do we need to install all dependencies?
@@ -957,16 +978,16 @@ drwxrwxr-x 2 ubuntu ubuntu 4096 Jun 28 04:12 src//
 We'll be using the [official NGINX container image from Dockerhub.](https://hub.docker.com/_/nginx).
 
 <p align>
-<img src="../Images/lab13wheredowegetnginx.png">
+<img src="../../Images/lab13wheredowegetnginx.png">
 </p>
 
 We'll now be using two base images: "node:alpine" and "nginx". To do this, we'll be doing a **Multi-step Docker Build.** We'll understand this more when we create our dockerfile for PRD.
 
 <p align>
-<img src="../Images/lab13multidockerbuild.png">
+<img src="../../Images/lab13multidockerbuild.png">
 </p>
 
-### 03 - Using the Dockerfile
+### Using the Dockerfile
 
 Let's create our **dockerfile.prd** file. Notice that we now have two "FROM" statements here. Consider one "FROM" block as a step, so after the first "FROM" block is done running, Docker will proceed with running the second "FROM" block.
 
@@ -1004,7 +1025,7 @@ The "/usr/share/nginx/html" is a default directory where NGINX checks for any ap
 
 </details>
 
-### 04 - Run the Container 
+### Run the Container 
 
 This is the final step for the Part 1 of "Really Big Project". It actually took me around three days to complete Part 1 but I've actually learned a lot during the whole process. While it is not completely done yet, I have gained a lot more insights about containerizing application.
 
@@ -1034,7 +1055,7 @@ $ sudo docker run -d -p 8080:80 proj-prd
 Open your web browser and navigate to your IP address through port 8080. You should now see the React page.
 
 <p align>
-<img src="../Images/lab13youvedonewell.png">
+<img src="../../Images/lab13youvedonewell.png">
 </p>
  
 </details>
@@ -1047,7 +1068,7 @@ Proceed to the next lab to deploy our containerized app to the outside world. Bu
 
 
 <p align=center>
-<img width=700 src="../Images/lab13cheers.png" >
+<img width=700 src="../../Images/lab13cheers.png" >
 </p>
 
 ----------------------------------------------

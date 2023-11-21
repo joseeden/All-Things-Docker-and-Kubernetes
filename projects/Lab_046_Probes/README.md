@@ -1,11 +1,11 @@
-# Lab 46: Probes
+# Lab 046: Probes
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -19,7 +19,7 @@ Here's a breakdown of sections for this lab.
 
 ## Introduction
 
-In this lab, we'll get to learn how probes helps in detecting if Pods are ready or if Pods needs to be restarted. We'll be using the same application architecture from the previous [labs](../Lab_043_Deployments/README.md).
+In this lab, we'll get to learn how probes helps in detecting if Pods are ready or if Pods needs to be restarted. We'll be using the same application architecture from the previous [labs](../../Lab_043_Deployments/README.md).
 
 We'll modify it a bit by adding probes to the Data tier (Redis):
 
@@ -34,10 +34,10 @@ Similarly, the  App Tier will have:
 - Readiness probe - api server is ready if it is online and has a connection to Redis (HTTP GET /probe/readiness)
 
 <p align=center>
-<img width=700 src="../Images/lab42-service-discovery-diag.png">
+<img width=700 src="../../Images/lab42-service-discovery-diag.png">
 </p>
 
-To learn more about probes, check out this [page](../pages/04-Kubernetes/020-Probes.md).
+To learn more about probes, check out this [page](../../pages/04-Kubernetes/020-Probes.md).
 
 ## Launch a Simple EKS Cluster
 
@@ -237,7 +237,7 @@ Mon, 03 Oct 2022 12:02:50 GMT express:application set "env" to 'development'
 
 ## Next Steps 
 
-Remember that probes only run AFTER the containers are started. To learn more on how to tests before the containers start, jump onto the next [lab](../Lab_047_Init_Containers/README.md)!
+Remember that probes only run AFTER the containers are started. To learn more on how to tests before the containers start, jump onto the next [lab](../../Lab_047_Init_Containers/README.md)!
 
 
 

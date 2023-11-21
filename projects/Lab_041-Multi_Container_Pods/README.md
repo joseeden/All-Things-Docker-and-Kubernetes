@@ -1,12 +1,12 @@
 
-# Lab 41: Multi-Container Pods
+# Lab 041: Multi-Container Pods
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -29,7 +29,7 @@ In this lab, we'll use a sample counter application that increments and prints a
 - **Support tier** - a poller that continuously makes GET requests and a counter that continuously makes POST requests
 
 <p align=center>
-<img width=700 src="../Images/lab41multicontainerpods-2.png">
+<img width=700 src="../../Images/lab41multicontainerpods-2.png">
 </p>
 
 ## Launch a Simple EKS Cluster

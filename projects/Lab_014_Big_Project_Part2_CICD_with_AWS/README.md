@@ -1,16 +1,31 @@
 # Lab 14: Really Big Project - Part 2: CICD with AWS
 
 
-Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Create a Github Account](../pages/01-Pre-requisites/labs-optional-tools/README.md)
-  - [Add your SSH keys to Github](../pages/01-Pre-requisites/labs-optional-tools/README.md)
-  - [Install Git locally](../pages/01-Pre-requisites/labs-optional-tools/README.md)
-  - [Configure Git](../pages/01-Pre-requisites/labs-optional-tools/README.md)
-  <!-- - [Install Go](../README.md#pre-requisites) -->
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Setup Git and Github](#setup-git-and-github)
+- [Setup Travis CI](#setup-travis-ci)
+- [Create IAM User and Access Keys](#create-iam-user-and-access-keys)
+- [Configure the Travis CI YAML file - Part 1](#configure-the-travis-ci-yaml-file---part-1)
+- [Automatic Build Creation](#automatic-build-creation)
+- [Setup Elastic Beanstalk](#setup-elastic-beanstalk)
+- [Configure the Travis CI YAML file - Part 2](#configure-the-travis-ci-yaml-file---part-2)
+- [Simulate a Dev Team](#simulate-a-dev-team)
+- [Cleanup](#cleanup)
 
-### Introduction
+
+
+## Pre-requisites
+
+  - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Create a Github Account](../../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  - [Add your SSH keys to Github](../../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  - [Install Git locally](../../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  - [Configure Git](../../pages/01-Pre-requisites/labs-optional-tools/README.md)
+  <!-- - [Install Go](../../README.md#pre-requisites) -->
+
+## Introduction
 
 In the previous lab, we setup production-grade workflow which uses Docker to deploy an application. In the DEV environment, we managed to:
 
@@ -45,11 +60,11 @@ Here are the steps that we'll follow:
 
 We'll be following this link on [how to setup a new public repository in Github](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository). I've created **testrepo2** for this lab.
 
-![](../Images/lab14testrepo2usrenasurena.png)  
+![](../../Images/lab14testrepo2usrenasurena.png)  
 
 Copy the SSH link. We'll be using this later.
 
-![](../Images/lab14testrepoworkinglink.png)  
+![](../../Images/lab14testrepoworkinglink.png)  
 
 In your terminal, go to the project directory used in the previous lab.
 
@@ -107,7 +122,7 @@ $ git push --set-upstream origin master
 
 Back at Github, refresh the page to see all the files pushed.
 
-![](../Images/lab14filespushed.png)  
+![](../../Images/lab14filespushed.png)  
 
 </details>
 
@@ -123,7 +138,7 @@ Once the code passed the test, Travis CI can automatically deploy our code to AW
 
 Go to the [Travis CI site](https://app.travis-ci.com/signup) and sign up using your SCM account. Choose **Sign up with Github**.
 
-![](../Images/lab14signuptravisci.png)  
+![](../../Images/lab14signuptravisci.png)  
 
 In the next page, choose **Authorize Travis CI.**
 You may need to confirm your account through the email sent to your email address.
@@ -132,11 +147,11 @@ In the upper right, click your profile avatar and select Settings.
 
 We will need to select a plan before we can use Travis CI. Choose the **Free Trial plan** and fill up your personal details. A valid credit/debit card number is also needed to proceed. 
 
-![](../Images/lab14selectfreeplantravisci.png)  
+![](../../Images/lab14selectfreeplantravisci.png)  
 
 In the Repositories tab, click the green **Activate** button to integrate Travis CI with your Github account. In the next page, click **Approve and install.**
 
-![](../Images/lab14travisciactivate.png)  
+![](../../Images/lab14travisciactivate.png)  
 
 Click on the Dashboard tab at the top to view all the Github repositories that are synced with Travis CI.
 
@@ -234,15 +249,15 @@ $ git add -A; git commit -m "Added travis yml file"; git push
 
 Back at the Travis CI dashboard, we'll see that a build is started. Click the repository name to see the build process.
 
-![](../Images/lab14buildsuccess.png)  
+![](../../Images/lab14buildsuccess.png)  
 
 We can see how long the build ran. We can also see logs in the **Job log** tab.
 
-![](../Images/lab14buildlogs.png)  
+![](../../Images/lab14buildlogs.png)  
 
 To check out the builds that was started, click **Build History**. I ran to an error during the first build because Travis CI can't find the package.json file in the repository. I previously excluded this file from being pushed to the Github by adding it in the .gitignore file.
 
-![](../Images/lab14buildhistory.png)  
+![](../../Images/lab14buildhistory.png)  
 
 </details>
 
@@ -277,11 +292,11 @@ Once you're done with the configuration, click **Create application**.
 
 Back at the Environments tab, we can see the environment that we just created. To view the sample application deployed, click the URL.
 
-![](../Images/lab14elasticbeanstalksampledeployapp.png)  
+![](../../Images/lab14elasticbeanstalksampledeployapp.png)  
 
 It should open a new tab with this display.
 
-![](../Images/lab14sampleappblueelasticbeanstalk.png)  
+![](../../Images/lab14sampleappblueelasticbeanstalk.png)  
 
 We've mentioned that Elastic Beanstalk also generates an S3 bucket for the binaries. If you've ran Elastic Beanstalk in the Singapore region before, then the S3 bucket already exists. 
 
@@ -289,7 +304,7 @@ Elastic Beanstalk doesn't create a new bucket for every environment. It only cre
 
 To check the S3 bucket created by Elastic Beanstalk, go to the S3 console > bucket, and search for "beanstalk". We will be using the bucket name when we configure the Travis CI YAML file again.
 
-![](../Images/lab14s3bucketname.png)  
+![](../../Images/lab14s3bucketname.png)  
 
 
 </details>
@@ -338,7 +353,7 @@ deploy:
 
 We will define this variables in the Travis CI console. Go to the Dashboard and select the repository. Then click the **More options** dropdown bar at the right and select **Settings.**
 
-![](../Images/lab14setenvvarintestrepo.png)  
+![](../../Images/lab14setenvvarintestrepo.png)  
 
 Scroll down to the **Environment variables** section and add the variables. Make sure untoggle the "DISPLAY VALUE IN BUILD LOG".
 
@@ -347,7 +362,7 @@ Name | Value | Branch
  AWS_ACCESS_KEY | AKIAxxxxxxxxx | master
  AWS_SECRET_KEY | ABCDxxxxxxxxx | master
 
-![](../Images/lab14envvarsetthetwokeys.png)  
+![](../../Images/lab14envvarsetthetwokeys.png)  
 
 Back at the terminal, commit the file and push it to Github.
 
@@ -357,15 +372,15 @@ $ git add -A; git commit m "Added fresh config"; git push
 
 Check the Travis CI again. A new build should be started. This will take a few minutes to run.
 
-![](../Images/lab14addedconfigpushedandtetedintravis.png)  
+![](../../Images/lab14addedconfigpushedandtetedintravis.png)  
 
 Scroll down at the Job log section. If the build finished successfully, you should see this message.
 
-![](../Images/lab14travisbuildscuess.png)  
+![](../../Images/lab14travisbuildscuess.png)  
 
 Yes, even though the Travis CI showed it successfully finished the build, the application was not actually deployed onto the Elastic Beanstalk environment.
 
-![](../Images/lab14ebstalkfaileddeployeveniftravispass.png)  
+![](../../Images/lab14ebstalkfaileddeployeveniftravispass.png)  
 
 </details>
 
@@ -420,15 +435,15 @@ $ git push origin feature-bob
 
 Go to your Github repo. You should see a new notification. Click Compare and pull request.
 
-![](../Images/lab14comparepush.png)  
+![](../../Images/lab14comparepush.png)  
 
 In the next page, we can add a comment. Once you're done, click Create pull request.
 
-![](../Images/lab14createpullrequest.png)  
+![](../../Images/lab14createpullrequest.png)  
 
 Back at the Travis CI, we'll see that the pull request was detected.
 
-![](../Images/lab14pullrequestpickedupbytravisci.png)  
+![](../../Images/lab14pullrequestpickedupbytravisci.png)  
 
 </details>
 
@@ -436,15 +451,15 @@ Back at the Travis CI, we'll see that the pull request was detected.
  
 Back at the Github repo, we can click the **Merge request** once the builds are done running.
 
-![](../Images/lab14goodtomerge.png)  
+![](../../Images/lab14goodtomerge.png)  
 
 We can now delete the branch.
 
-![](../Images/lab14mergeddeletebranchnow.png)  
+![](../../Images/lab14mergeddeletebranchnow.png)  
 
 Back at Travis CI, we see the new build.
 
-![](../Images/lab14traviscisucessbuildmerge.png)  
+![](../../Images/lab14traviscisucessbuildmerge.png)  
 
 </details>
 
@@ -453,6 +468,6 @@ Back at Travis CI, we see the new build.
 
 We just deployed our application to AWS Elastic Beanstalk and we did through Travis CI. Noice!
 
-![](../Images/lab14noice.png)  
+![](../../Images/lab14noice.png)  
 
 

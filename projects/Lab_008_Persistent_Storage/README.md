@@ -1,21 +1,16 @@
-## Lab 08: Persistent Storage
+# Lab 008: Persistent Storage
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+  - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Install Go](../../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
 
-### Introduction
+## Introduction
   
-In this lab, we'll explore the storage options available for Docker containers. Let's start with creating the project directory where we'll create our files.
+In this lab, we'll explore the storage options available for Docker containers.
 
-```bash
-$ mkdir Lab_008_Persistent_Storage
-$ cd Lab_008_Container_Networking
-```
-
-### Create the Files and Storage Directory
+## Create the Files and Storage Directory
 
 We have a **writedata.go** that will loop 50 times and write the hostname and loop counter to a file which we'll specify in the command line. Multiple containers can write data to the volume
 
@@ -95,7 +90,7 @@ COPY writedata /
 CMD ["/writedata", "/logs/myapp"] 
 ```
 
-### Build the Image
+## Build the Image
 
 Build the image from the dockerfile and give it a name, "lab08-storage".
 
@@ -114,12 +109,12 @@ Before we run the containers, let's confirm that there are no files inside the l
 $ ll /var/lab08/logs/
 total 8
 drwxr-xr-x 2 root root 4096 Jun 25 11:24 ./
-drwxr-xr-x 3 root root 4096 Jun 25 11:08 ../ 
+drwxr-xr-x 3 root root 4096 Jun 25 11:08 ../
 ```
 
-### Run the Containers and Specify the Storage
+## Run the Containers and Specify the Storage
 
-#### Storage: Bindmounts 
+### Storage: Bindmounts 
 
 We'll run four containers from the image and specify the mount type as "bind mounts". We also need to specify the source directory (src), which is the directory residing in our local machine that we want to mount and the destination directory (dst) is the path inside the container where the volume will be mounted to.
 
@@ -202,7 +197,7 @@ Host: ef6d100a98b9 - Loop Number: 49
 
 It's important to remember that with bindmounts, the user manages the volume, not Docker. This means you can specify the "source" directory which will serve as the persistent volume. 
 
-#### Storage: Volumes
+### Storage: Volumes
 
 Before we proceed with volumes, remove any existing container so that we have a fresh plate.
 
@@ -290,7 +285,7 @@ Host: 0e0bd1af70b4 - Loop Number: 48
 Host: 0e0bd1af70b4 - Loop Number: 49
 ```
 
-#### Storage: tmpfs
+### Storage: tmpfs
 
 With temporary file system (tmpfs), you can also create the volume when you run the container using the "--mount" flag. The difference is that it is an in-memory storage the data will be accesible as long as the container is running.
 
@@ -347,7 +342,7 @@ only exists in the
 tmpfs in container 1 
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

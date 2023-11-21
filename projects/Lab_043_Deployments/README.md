@@ -1,12 +1,12 @@
 
-# Lab 43: Deployments
+# Lab 043: Deployments
 
 Pre-requisites:
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -24,10 +24,10 @@ Here's a breakdown of sections for this lab.
 
 We've launched pods in the previous labs using pod manifests. However, Pods are not meant to be created directly. Instead they should be handled using deployments. This ensures that Kubernetes is able to leverage the scale functionality of deployments, as well as add useful features to the pods.
 
-We'll use the same architecture from the [previous lab](../Lab_042_Service_Discovery/README.md).
+We'll use the same architecture from the [previous lab](../../Lab_042_Service_Discovery/README.md).
 
 <p align=center>
-<img width=700 src="../Images/lab42-service-discovery-diag.png">
+<img width=700 src="../../Images/lab42-service-discovery-diag.png">
 </p>
 
 

@@ -1,12 +1,12 @@
 
-# Lab 48: Volumes 
+# Lab 048: Volumes 
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of sections for this lab.
 
@@ -24,13 +24,13 @@ Here's a breakdown of sections for this lab.
 
 In this lab, we'll get to see how we can use PersistentVolume for the sample data tier to preserve the data even after the Pod is deleted. 
 
-We'll also statically provision an Amazon Elastic Block Storage (EBS) for the underlying storage. We'll use the application architecture from a [previous lab](../Lab_041-Multi_Container_Pods/README.md):
+We'll also statically provision an Amazon Elastic Block Storage (EBS) for the underlying storage. We'll use the application architecture from a [previous lab](../../Lab_041-Multi_Container_Pods/README.md):
 
 <p align=center>
-<img width=700 src="../Images/lab48-volumes-diagram.png">
+<img width=700 src="../../Images/lab48-volumes-diagram.png">
 </p>
 
-To learn more, check out the [Volumes and StorageClass page.](../pages/04-Kubernetes/017-StorageClass.md)
+To learn more, check out the [Volumes and StorageClass page.](../../pages/04-Kubernetes/017-StorageClass.md)
 
 
 ## Launch a Simple EKS Cluster
@@ -209,7 +209,7 @@ This lab is based on the previous labs so if you've done the lab before this, th
 
 The difference is that each YAML files now have sections for **PersistentVolume**, which declares the storage capacity, access modes, and the EBS volume ID, and the **PersistentVolumeClaim**, which outlines how much storage the Pod will be requesting.
 
-As mentioned, an [EBS volume should be created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html) prior to this step. If you haven't done it yet, you can also run the command below to create an EBS volume through the [AWS CLI](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools).
+As mentioned, an [EBS volume should be created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html) prior to this step. If you haven't done it yet, you can also run the command below to create an EBS volume through the [AWS CLI](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools).
 
 ```bash
 aws ec2 create-volume \

@@ -1,14 +1,14 @@
 
-# Lab 55: Kubernetes Dashboard on EKS
+# Lab 055: Kubernetes Dashboard on EKS
 
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-- [JQ and Curl](../pages/01-Pre-requisites/labs-optional-tools/README.md#other-simple-cli-utilities) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [JQ and Curl](../../pages/01-Pre-requisites/labs-optional-tools/README.md#other-simple-cli-utilities) 
 
 Here's a breakdown of sections for this lab.
 
@@ -159,13 +159,13 @@ and search for the *Compatibility* table which shows the Kubernetes version that
 As an example, we can't use the dashboard version 2.6.1 because it may have compatibility issues with Kubernetes version 1.23.
 
 <p align=center>
-<img width=800 src="../Images/lab55kbversioncompatibility.png">
+<img width=800 src="../../Images/lab55kbversioncompatibility.png">
 </p>
 
 So we'll need to search for another older version that's compatible with Kubernetes 1.23. We'll use the Kubernetes dashboard **[v2.5.1](https://github.com/kubernetes/dashboard/releases/tag/v2.5.1)**.
 
 <p align=center>
-<img src="../Images/lab55kbcompatibleversion.png">
+<img src="../../Images/lab55kbcompatibleversion.png">
 </p>
 
 If in case you can't find a compatible release, you can opt for Kubernetes dashboard version that's compatible to an older Kubernetes version (Let's say you have Kubernetes v1.22, you can try the Kubernetes dashboard v2.4.0 which is compatible with Kubernetes v1.21)
@@ -289,23 +289,23 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 
 It should now display the login screen. Enter the bearer token and click **Sign-in.**
 
-![](../Images/lab55kdpageopen.png)  
+![](../../Images/lab55kdpageopen.png)  
 
 You should be able to see the Kubernetes dashboard overview page. Note that there maybe some differences in the UI since it may get updated from time to time.
 
-![](../Images/lab55kdblandingpage.png)  
+![](../../Images/lab55kdblandingpage.png)  
 
 In the dropdown bar, change **default** to **All namespaces**.
 
-![](../Images/lab55kdballnamespacesdisplay.png)  
+![](../../Images/lab55kdballnamespacesdisplay.png)  
 
 Let's check the current deployments.
 
-![](../Images/lab55kdbcurrentdeploymentsdisplay.png)  
+![](../../Images/lab55kdbcurrentdeploymentsdisplay.png)  
 
 We can also scale and edit the deployments by clicking the three vertical dots at the right.
 
-![](../Images/lab55kdbscaledeplyandedityamlfiles.png)  
+![](../../Images/lab55kdbscaledeplyandedityamlfiles.png)  
 
 
 ## Cleanup

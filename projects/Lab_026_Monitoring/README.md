@@ -1,12 +1,12 @@
-# Lab 26: Monitoring
+# Lab 026: Monitoring
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of the sections for this lab.
 
@@ -22,7 +22,7 @@ Here's a breakdown of the sections for this lab.
 
 ## Introduction
 
-We've covered the first pillar of observability in th [previous lab](../Lab_025_Logging/README.md), Logging. In this lab, we'll go through the second pillar, Monitoring, and learn how Kubernetes handles the monitoring of Pods through built-in mechanisms such as Probes, as well as available external monitoring systems.
+We've covered the first pillar of observability in th [previous lab](../../Lab_025_Logging/README.md), Logging. In this lab, we'll go through the second pillar, Monitoring, and learn how Kubernetes handles the monitoring of Pods through built-in mechanisms such as Probes, as well as available external monitoring systems.
 
 As an overview, there are three types of Probes:
 - **Readiness Probes** - checks if a Pod is ready to server traffic and handle requests.
@@ -33,7 +33,7 @@ A container can define up to one of each type of probe. All probes are also conf
 
 The main difference between the three is that Readiness and Liveness probes run for the entire lifetime of the container they are declared in, while Startng probes only run until they first succeed.
 
-To learn more about Probes, check out the [Probes page](../pages/04-Kubernetes/020-Probes.md).
+To learn more about Probes, check out the [Probes page](../../pages/04-Kubernetes/020-Probes.md).
 
 
 ## Launch a Simple EKS Cluster
@@ -408,7 +408,7 @@ coredns-6d4b75cb6d-dn29p   coredns   1m           11Mi
 coredns-6d4b75cb6d-xrdqh   coredns   1m           11Mi   
 ```
 
-Since this lab didn't dive deep into the Metric Server, you can check out another lab where we [installed the Metric Server and Kubernetes Dashboard.](../lab55_EKS_Kubernetes_Dashboard/README.md)
+Since this lab didn't dive deep into the Metric Server, you can check out another lab where we [installed the Metric Server and Kubernetes Dashboard.](../../lab55_EKS_Kubernetes_Dashboard/README.md)
 
 
 ## Cleanup 

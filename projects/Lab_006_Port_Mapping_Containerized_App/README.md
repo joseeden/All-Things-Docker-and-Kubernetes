@@ -1,22 +1,15 @@
-## Lab 06: Port Mapping for a Containerized Application
+# Lab 006: Port Mapping for a Containerized Application
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Go](../../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
 
-### Introduction
+## Introduction
 
 In this lab, we'll run a container that serves a basic website written in Go. We'll get to see how to map the container ports dynamically to ports on the local host. We'll also get to specify which ports on the local host to bind our container ports to.
 
-Start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_006_Port_Mapping_Containerized_App
-$ cd Lab_006_Port_Mapping_Containerized_App
-```
-
-### Create the Files 
+## Create the Files 
 
 Here's the code for our website.
 
@@ -88,7 +81,7 @@ EXPOSE 8080
 CMD ["/webapp"] 
 ```
 
-### Build the Image 
+## Build the Image 
 
 ```bash
 $ docker build -t "webapp" . 
@@ -99,7 +92,7 @@ REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 webapp       latest    35cc7454ab2d   3 seconds ago   6.14MB 
 ```
 
-### Dynamically bind the port and Run the Container
+## Dynamically bind the port and Run the Container
 
 Run the container in the background using the "-d" flag. To access the website, we should also map the local host's port to a port in the container.
 
@@ -128,10 +121,10 @@ $ curl ipecho.net/plain; echo
 Open your web browser and navigate to the IP, followed by the port.
 
 <p align=center>
-<img src="../Images/lab-5-bindportdynamic.png">
+<img src="../../Images/lab-5-bindportdynamic.png">
 </p>
 
-### Map to a Specific Port and Run the Container
+## Map to a Specific Port and Run the Container
 
 To specify the port on the localhost to which to bind the container port, use the "-p" flag.
 
@@ -161,7 +154,7 @@ docker: Error response from daemon: driver failed programming external connectiv
 Bind for 0.0.0.0:3000 failed: port is already allocated. 
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

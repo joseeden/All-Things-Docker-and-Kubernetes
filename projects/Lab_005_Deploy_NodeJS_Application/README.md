@@ -1,25 +1,19 @@
-## Lab 05: Deploy a NodeJS Application
+# Lab 005: Deploy a NodeJS Application
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
-### Introduction
+## Introduction
 
 In this lab, we'll be deploying a website written in NodeJS on a container. We'll also make sure that it is accesible from a browser running on our local machine. Here's an outline of the steps:
 
 <p align=center>
-<img src="../Images/lab05nodejssteps.png">
+<img src="../../Images/lab05nodejssteps.png">
 </p>
 
-Let's start with creating the project directory where we'll create our files.
 
-```bash
-$ mkdir Lab_005_Deploy_NodeJS_Application
-$ cd Lab_005_Deploy_NodeJS_Application
-```
-
-### Setup the Node Server
+## Setup the Node Server
 
 Create the **package.json**. This will contain the packages that needs to be installed and the scripts that we'll use to get the application up and running.
 
@@ -55,12 +49,12 @@ app.listen(8080, () => {
 });
 ```
 
-### Create the Dockerfile and .dockerignore
+## Create the Dockerfile and .dockerignore
 
 Here are the two commands that we need to know to install the dependencies and start the application. This is important to know since we have to define these steps in our dockerfile.
 
 <p align=center>
-<img src="../Images/runningnodejscommands.png">
+<img src="../../Images/runningnodejscommands.png">
 </p>
 
 Create the dockerfile. Note that for the base image, we can use **Alpine** image but it has limited functionalities and we'll encounter an issue like "npm not found" when we try to build the image from the dockerfile. 
@@ -68,11 +62,11 @@ Create the dockerfile. Note that for the base image, we can use **Alpine** image
 Having said, we could install the other dependencies need for npm or we can simply look for an existing docker image with Node pre-installed. A quick Google search shows us an [official Node image from Dockerhub](https://hub.docker.com/_/node).
 
 <p align=center>
-<img src="../Images/dockerhubnodeimage.png">
+<img src="../../Images/dockerhubnodeimage.png">
 </p>
 
 <p align=center>>
-<img src="../Images/dockerhubnodeimagetags.png">
+<img src="../../Images/dockerhubnodeimagetags.png">
 </p>
 
 We'll use this Node image, specifically version 16. When the image is build, it uses the base image, runs <code>npm install</code>, and looks for the package.json. This file currently only exists in our local machine and not inside the container. To copy the files onto the container, use the **COPY** instruction.
@@ -100,7 +94,7 @@ node_modules
 npm-debug.log 
 ```
 
-### Build the Image and Run the Container
+## Build the Image and Run the Container
 
 Build the image. Specify the dockerfile using the "-f" flag.
 
@@ -142,7 +136,7 @@ $ docker run nodejs-app
 Listening on port 8080 
 ```
 
-### Test it out
+## Test it out
 
 Confirm once again that container is running.
 
@@ -171,10 +165,10 @@ How are you doing
 Open a web browser and navigate to your machine's IP and add the port at the end.
 
 <p align=center>
-<img src="../Images/lab05nodejsappworking.png">
+<img src="../../Images/lab05nodejsappworking.png">
 </p>
 
-### Verify that the Working Directory is created
+## Verify that the Working Directory is created
 
 Recall that out dockerfile has WORKDIR which specifies the working directory to be created inside the container. The files copied from our local machine should also reside here.
 
@@ -201,7 +195,7 @@ drwxr-xr-x 59 root root  4096 Jun 25 08:22 node_modules
 -rw-rw-r--  1 root root   243 Jun 25 07:14 package.json 
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

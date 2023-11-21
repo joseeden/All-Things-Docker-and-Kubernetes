@@ -1,12 +1,12 @@
 
-# Lab 50: EKS Operations using eksctl and kubectl
+# Lab 050: EKS Operations using eksctl and kubectl
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of sections for this lab.
@@ -149,9 +149,9 @@ saved kubeconfig as "/home/joseeden/.kube/config
 
 At the AWS Console, go to the EKS page to verify if the cluster is created.
 
-![](../Images/labxx-working-eksops.png)  
+![](../../Images/labxx-working-eksops.png)  
 
-<!-- ![](../Images/labxx-eksctldone.png)   -->
+<!-- ![](../../Images/labxx-eksctldone.png)   -->
 
 To check the nodegroup and the running nodes, simply go to the Compute tab. If you can't see them, checkout 
 
@@ -161,13 +161,13 @@ EKS > Clusters > eksops > Click Compute tab
 
 Recall that Amazon EKS uses Cloudformation to provision the resources under the hood. You can see the stack created in the CloudFormation console.
 
-![](../Images/labxx-working-nodegroups.png)  
+![](../../Images/labxx-working-nodegroups.png)  
 
-<!-- ![](../Images/labxx-eksctl-cfdone.png)   -->
+<!-- ![](../../Images/labxx-eksctl-cfdone.png)   -->
 
 You should also see the nodes as running instances in the EC2 console.
 
-![](../Images/labxx-workingeks-nods.png)  
+![](../../Images/labxx-workingeks-nods.png)  
 
 Back at the terminal, check the running nodes.
 
@@ -347,15 +347,15 @@ $ eksctl get nodegroups --cluster $MYCLUSTER
 
 The next step is to create the scaling policy that the cluster will use. Log in to your AWS Management console and go to the EC2 dashboard > Auto scaling groups.
 
-![](../Images/labxx1asgcreatedworkerpools.png)  
+![](../../Images/labxx1asgcreatedworkerpools.png)  
 
 Search for the name of the new nodegroup and click the auto scaling group. Then click the **Automatic scaling** tab. In the next page, click **Create dynamic scaling policy**.
 
-![](../Images/labxx1createdynamicscalignpolicy.png)  
+![](../../Images/labxx1createdynamicscalignpolicy.png)  
 
 Use the default values. Click **Create.**
 
-![](../Images/labxx1defaulvaluesfordynamicscalingpolicy1.png)  
+![](../../Images/labxx1defaulvaluesfordynamicscalingpolicy1.png)  
 
 
 ## Assigning Labels to Nodes and Pools 

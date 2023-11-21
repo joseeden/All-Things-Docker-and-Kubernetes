@@ -1,22 +1,17 @@
-## Lab 01: Running Simple Containers
+# Lab 001: Running Simple Containers
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
 
 
-### Introduction
+## Introduction
 
-In this lab, we'll run the following simple containers. Let's start with creating the project directory where will create our files.
+In this lab, we'll run some simple containers. 
 
-```bash
-$ mkdir Lab_001_Running_Simple_Containers 
-$ cd Lab_001_Running_Simple_Containers 
-```
-
-### whalesay
+## whalesay
 
 Run the command below. It will pull the image from Dockerhub and run it locally.
 
@@ -63,13 +58,16 @@ $ sudo docker run docker/whalesay cowsay "Let's do this!"
         \    \        __/
           \____\______/ 
 ```
-### nyancat 
+
+
+## nyancat 
+
 Run the command below. It will pull the image from Dockerhub and run it locally.
 ```bash
 $ sudo docker run -it --rm --name nyancat 06kellyjac/nyancat
 ```
 <p align=center>
-<img src="../Images/0619nyancat.png">
+<img src="../../Images/0619nyancat.png">
 </p>
 To exit out of the animation, hit Ctrl-C.
 ### Running a Web server
@@ -171,12 +169,16 @@ OK
 127.0.0.1:6379> get testvalue
 "100" 
 ```
-### Removing Containers
+
+## Removing Containers
+
 To delete specific containers, use the **rm** command.
 ```bash
 $ docker rm <container-id>
 ```
-### Cleanup 
+
+## Cleanup 
+
 When you're done with the lab, you can stop all running containers by running the command below.
 ```bash
 $ docker stop $(docker ps) 

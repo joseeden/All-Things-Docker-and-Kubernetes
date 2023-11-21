@@ -1,24 +1,17 @@
-## Lab 07: Container Networking
+# Lab 007: Container Networking
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+- [Install Go](../../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
 
-### Introduction
+## Introduction
 
 In this lab, we'll run containers in the same host and test the connectivity between them. We'll also get to explore the threee type of networks in containers:
 - Bridge network
 - Host network
 
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_007_Container_Networking
-$ cd Lab_007_Container_Networking
-```
-
-### Create the Files
+## Create the Files
 
 Create the dockerfile. Besides using Ubuntu as base image, we're also installing some networking tools.
 
@@ -98,7 +91,7 @@ drwxr-x--- 9 ubuntu ubuntu    4096 Jun 23 10:34 ../
 -rw-rw-r-- 1 ubuntu ubuntu     700 Jun 23 10:44 webapp.go 
 ```
 
-### Build the Image
+## Build the Image
 
 ```bash
 $ docker build -t ubuntu_networking . 
@@ -111,7 +104,7 @@ ubuntu_networking   latest    b65babeff71b   11 seconds ago   229MB
 ubuntu              16.04     b6f507652425   9 months ago     135MB 
 ```
 
-### Bridge Network
+## Bridge Network
 
 Here we'll explore a new command, **docker network.**
 
@@ -277,7 +270,7 @@ Starting arp-scan 1.8.1 with 65536 hosts (http://www.nta-monitor.com/tools/arp-s
 172.17.0.4      02:42:ac:11:00:04       (Unknown) 
 ```
 
-### Host Network
+## Host Network
 
 Host networks add the container to the host network. This means that if the application inside your container is running on the container's port 8080, it will also be binded to the host's port 8080.
 
@@ -314,7 +307,7 @@ Content-Type: text/html; charset=utf-8
 <h1> Let's do this! </h1><br><a href='/host/'> Host info </a><br>
 ```
 
-### None Network
+## None Network
 
 The third type is **None** - which actually means the container doesn't belong in any network.
 
@@ -356,7 +349,7 @@ root@60e87613ae29:/# ping google.com
 ping: unknown host google.com 
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

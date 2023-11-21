@@ -1,22 +1,16 @@
-## Lab 09: Tagging Images
+# Lab 009: Tagging Images
 
-Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-  - [Install Go](../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+## Pre-requisites
 
-### Introduction
+  - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+  - [Install Go](../../pages/01-Pre-requisites/labs-optional-tools/README.md#install-go)
+
+## Introduction
 
 In this lab, we'll get to see how to use tagging for docker images. It is recommended to provide your images with tags and practice it early on since it'll be helpful when identifying versions and features of the images.
 
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_009_Tagging_Images 
-$ cd Lab_009_Tagging_Images
-```
-
-### Example 1: Single Tag
+## Example 1: Single Tag
 
 #### Create the File
 
@@ -49,16 +43,16 @@ centos-java-1   latest    f4da659e7493   25 seconds ago   939MB
 centos          7         eeb6ee3f44bd   9 months ago     204MB 
 ```
 
-### Example 2: Dockerhub Username and Image Name
+## Example 2: Dockerhub Username and Image Name
 
-#### Create an Account in Dockerhub
+### Create an Account in Dockerhub
 
 For this example, we would need to [create a free account in Dockerhub.](https://hub.docker.com/signup) You should also be able to link your Github account to it. 
 
 Once you have your account setup, create a repository. I'm using "centos-java-1" as my repository name.
 
 <p align=center>
-<img src="../Images/lab08-dockerhub100.png">
+<img src="../../Images/lab08-dockerhub100.png">
 </p>
 
 Back in your terminal, login to dockerhub. Enter your username and password.
@@ -71,7 +65,7 @@ Username: edenjose
 Password: 
 ```
 
-#### Using Docker Tag
+### Using Docker Tag
 
 We currently have these two images.
 
@@ -101,7 +95,7 @@ centos-java-1            latest    f4da659e7493   20 minutes ago   939MB
 centos                   7         eeb6ee3f44bd   9 months ago     204MB 
 ```
 
-#### Pushing the Image to the Registry
+### Pushing the Image to the Registry
 
 Now that it's prepped-up, we're ready to push it to our dockerhub repo.
 
@@ -115,14 +109,14 @@ $ sudo docker push edenjose/centos-java-1:v1
 Checking in Dockerhub,
 
 <p align=center>
-<img src="../Images/lab08-dockerhubcentosjava1.png">
+<img src="../../Images/lab08-dockerhubcentosjava1.png">
 </p>
 
 <p align=center>
-<img src="../Images/lab08-dockerhubcentosjava2.png">
+<img src="../../Images/lab08-dockerhubcentosjava2.png">
 </p>
 
-### Example 3: Multiple Tags
+## Example 3: Multiple Tags
 
 Let's build an image from the same dockerfile-1 in Example 1. These time we'll use "-t" for every tags we give to the image.
 
@@ -147,7 +141,7 @@ centos                   7                   eeb6ee3f44bd   9 months ago     204
 ```
 
 
-### Example 4: Versions
+## Example 4: Versions
 
 Remove the images created from the previous examples.
 
@@ -254,7 +248,7 @@ Version 2
 
 As expected, the "latest" and "v1" were built from the dockerfile with "Version 1" as the message. The message has been "baked" onto the image so that when the dockerfile was modified, the two images tagged with "latest" and "v1" were not affected.
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 

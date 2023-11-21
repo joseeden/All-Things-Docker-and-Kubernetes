@@ -1,12 +1,12 @@
-# Lab 27: Securing Kubernetes Clusters using Authentication and Authorization
+# Lab 027: Securing Kubernetes Clusters using Authentication and Authorization
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of the sections for this lab.
 
@@ -69,13 +69,13 @@ The process of creating a private key and CSR, then signing the CSR in Kubernete
 
 The environment used here is an empty Kubernetes cluster initialized with kubeadm and running on Ubuntu. The cluster is using a single control-plane node instance and two worker nodes that are deployed on AWS. To setup the environment, check out [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
 
-![](../Images/lab27-diagram.png)  
+![](../../Images/lab27-diagram.png)  
 
 To read more about security in Kubernetes, check out:
 
-- [Kubernetes Security - Authentication and Authorization](../pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) .
+- [Kubernetes Security - Authentication and Authorization](../../pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) .
 
-- [Kubernetes Security - Security Contexts](../pages/04-Kubernetes/028-Kubernetes-Security.md) 
+- [Kubernetes Security - Security Contexts](../../pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
 ## Create the Private key, CSR, and CSR Kubernetes resource
 

@@ -1,12 +1,12 @@
-# Lab 25: Logging
+# Lab 025: Logging
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of the sections for this lab.
 
@@ -180,11 +180,11 @@ webserver-logs   LoadBalancer   10.98.69.82   a4f8a15bb92ba4184830b0cc5d92adba-1
 
 Copy the DNS address in the **External-IP** column and navigate to these address another browser tab. Note that the page may not immediately load since the loadbalancer wil need to complete its health checks before it starts serving traffic to the pods, so you may need to wait a few minutes.
 
-![](../Images/lab25-dns-address.png)  
+![](../../Images/lab25-dns-address.png)  
 
 Try to append "/anotherpage" at the end of the URL and press enter. This will cause a "Not Found" error message to appear.
 
-![](../Images/lab25-notfound.png)  
+![](../../Images/lab25-notfound.png)  
 
 We can also appear the same request error appear as "404" in the application logs.
 
@@ -387,11 +387,11 @@ kubectl apply -f fluentd.yml
 
 Navigate to the S3 Bucket in the AWS Management Console. We should see a **logs** folder inside. This folder will contain the logs streamed from the sidecar every minute. Note that the logs may not be streamed to the bucket in real-time so we may need to wait for a few minutes for the logs to appear.
 
-![](../Images/lab25-logsins3.png)  
+![](../../Images/lab25-logsins3.png)  
 
 We should see the log files inside the **logs** folder. 
 
-![](../Images/lab25-logsins3streaming.png)  
+![](../../Images/lab25-logsins3streaming.png)  
 
 Select one of the file and click **Copy S3 URI** and go back to the terminal. Copy the log file onto the host by using the **aws s3 cp** command. Make sure to specify the "." at the end of the S3 URI.
 

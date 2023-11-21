@@ -1,12 +1,12 @@
-# Lab 20: Create and Manage a Kubernetes Cluster using kubeadm
+# Lab 020: Create and Manage a Kubernetes Cluster using kubeadm
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of the sections for this lab.
@@ -29,7 +29,7 @@ In this lab, we'll be using three EC2 instances to create a Kubernetes cluster. 
 
 Start with creating the EC2 instances (running Ubuntu 18.04) in the same VPC, region, and availability zone. Refer to the [AWS Documentation](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html) on how to launch the instances.
 
-![](../Images/lab20ec2instances.png)  
+![](../../Images/lab20ec2instances.png)  
 
 ## Install the Container Runtime
 
@@ -330,7 +330,7 @@ Accept-Ranges: bytes
 
 ## Next Step 
 
-Now that we have a working Kubernetes cluster, proceed to the [next lab](../Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md) to simulate a cluster failure and restore the cluster to its original state using a backup.
+Now that we have a working Kubernetes cluster, proceed to the [next lab](../../Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md) to simulate a cluster failure and restore the cluster to its original state using a backup.
 
 ## Resources
 

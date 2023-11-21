@@ -1,12 +1,12 @@
-# Lab 24: Service Accounts
+# Lab 024: Service Accounts
 
 
-Before we begin, make sure you've setup the following pre-requisites
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Here's a breakdown of the sections for this lab.
 
@@ -85,7 +85,7 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 
 
 
-## default ServiceAccount 
+## Default ServiceAccount 
 
 Run the get command to see the existing service accounts.
 
@@ -101,7 +101,7 @@ kubernetes-dashboard   default                              0         137d
 Each Namespace has a **default** ServiceAccount. The default ServiceAccount grants minimal access to APIs and cannot be used to get any cluster state information. Therefore, you should use custom ServiceAccounts when your application requires access to cluster state.
 
 
-## Using the default ServiceAccount 
+## Using the Default ServiceAccount 
 
 Use the [pod-default-sa.yml](./pod-default-sa.yml) to create a Pod that uses the default service account. We'll also create a new namespace called "serviceaccounts". Notice that we don't need to specify a service account here.
 

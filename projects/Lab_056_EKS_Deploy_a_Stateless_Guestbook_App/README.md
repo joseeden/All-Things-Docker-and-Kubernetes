@@ -1,11 +1,11 @@
-# Lab 56: Deploy a Stateless Guestbook Application
+# Lab 056: Deploy a Stateless Guestbook Application
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of sections for this lab.
@@ -34,7 +34,7 @@ Lastly, we will also get to use and test a publicly accesible AWS LoadBalancer w
 ## The Application Architecture 
 
 <p align=center>
-<img src="../Images/lab55-deploy-statelss-guestbook-app-diagram. (2).png">
+<img src="../../Images/lab55-deploy-statelss-guestbook-app-diagram. (2).png">
 </p>
 
 
@@ -309,9 +309,9 @@ redis-slave-566774f44b-hhpqn    1/1     Running   0          24s   192.168.91.94
 
 Notice that the Redis Master and *redis-slave-566774f44b-hhpqn* are both running in the same node, based on Node IP. We can also confirm this on the EC2 dashboard.
 
-<!-- ![](../Images/lab56redisnodesondashboard.png)   -->
+<!-- ![](../../Images/lab56redisnodesondashboard.png)   -->
 
-![](../Images/lab56redisnodessecondaryipaddresses.png)  
+![](../../Images/lab56redisnodessecondaryipaddresses.png)  
 
 We can see that an instance has multiple secondary IP addresses attached to the Elastic Network Interfaces (ENI), which in turn is attached to the EC2 instance.
 
@@ -441,16 +441,16 @@ kubectl describe service frontend
 
 We can also see this LoadBalancer created in **EC2** > **LoadBalancers**. In the **Description**, copy the **DNS Name.**
 
-![](../Images/lab56frontendloadbalancerdeployed.png)
+![](../../Images/lab56frontendloadbalancerdeployed.png)
 
 Open a new browser tab and paste the DNS name. You should now see the guestbook app. Type a message and click **Submit.**
 
-![](../Images/lab56frontendguestbookappsuccessfullydeployed.png)  
+![](../../Images/lab56frontendguestbookappsuccessfullydeployed.png)  
 
 
 ## Setup the Kubernetes Dashboard 
 
-The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
+The [previous lab](../../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
 
 Here's a summary of commands that we need to run:
 
@@ -597,9 +597,9 @@ kubectl apply -f frontend-app.yml
 
 Going back to the Kubernetes dashboard that's opened in our web browser, click the **Deployments** tab. We should see here the three resources that we created and their Pods.
 
-<!-- ![](../Images/lab56kdbshowing3resourcesdeployments.png)   -->
+<!-- ![](../../Images/lab56kdbshowing3resourcesdeployments.png)   -->
 
-![](../Images/lab56kdbfullpageshowing3resourcesdeployments.png)  
+![](../../Images/lab56kdbfullpageshowing3resourcesdeployments.png)  
 
 **NOTE:** We should only edit the Replicas, not the ReplicaSets.
 
@@ -617,13 +617,13 @@ The Controller defines the number of Pods based on the **Replicas** that are def
 
 We can also scale the number of Pods through Kubernetes dashboard. In the **Deployment** section, click the three vertical dots in the right and click **Scale.**
 
-![](../Images/lab56kdbscalethrukdb.png)  
+![](../../Images/lab56kdbscalethrukdb.png)  
 
 Let's try to scale the **redis-slave** Pods to 5.
 
-![](../Images/lab56kdbscaleredisslavesto5.png)  
+![](../../Images/lab56kdbscaleredisslavesto5.png)  
 
-![](../Images/lab56kdbscaledredisslavesto5showed.png)  
+![](../../Images/lab56kdbscaledredisslavesto5showed.png)  
 
 Back at the terminal, we could see that the changes have been applied.
 
@@ -714,7 +714,7 @@ redis-slave-566774f44b-jmjql    1/1     Running   0          87m    192.168.70.1
 
 The redis-master Pod is launched in the node with an IP address of "192.168.28.17" along with 1 frontend Pod and 1 redis-slave Pod. Let's try to kill this node by stopping the EC2 instance through the EC2 dashboard in the AWS Console.
 
-![](../Images/lab56killingnode1.png)  
+![](../../Images/lab56killingnode1.png)  
 
 Back at the terminal, we can now see that the Pods are now redistributed to the two remaining nodes.
 
@@ -742,7 +742,7 @@ ip-192-168-68-36.ap-southeast-1.compute.internal   Ready      <none>   3h12m   v
 
 It may appear that Kubernetes restarted the node when we stopped it. However, if we check the EC2 console again, we now see four nodes. The instance we stopped is not terminated by Kubernetes and a new one was launched as a replacement. Notice also that the new instance took over the same IP of the killed instance.
 
-![](../Images/lab56killingnodereplacedbyeks.png)  
+![](../../Images/lab56killingnodereplacedbyeks.png)  
 
 Checking the terminal again, we see that the Pods are redistributed to the three worker nodes once again.
 

@@ -1,14 +1,14 @@
-# Lab 31: Basic Authentication in Kubernetes_OBSOLETE
+# Lab 031: Basic Authentication in Kubernetes_OBSOLETE
 
 > *This approach is deprecated in Kubernetes version 1.19*
 > *The current version as of 2023 is Kubernetes version 1.25*
 
 Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 Sections:
 
@@ -32,9 +32,9 @@ Note that this is intended for lab purposes only.
 
 ## Setup Kubernetes cluster using kubeadm 
 
-In this lab, we'll be using three EC2 instances bootstrapped with the kubeadm tool which will allow us to easily manage the Kubernetes cluster. Check out [Creating and Managing Kubernetes Clusters using kubeadm](../Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md).
+In this lab, we'll be using three EC2 instances bootstrapped with the kubeadm tool which will allow us to easily manage the Kubernetes cluster. Check out [Creating and Managing Kubernetes Clusters using kubeadm](../../Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md).
 
-![](../Images/lab20ec2instances.png)  
+![](../../Images/lab20ec2instances.png)  
 
 The **instance-a** serves as the master node while the other two instances are worker nodes. We can also see this when we run the **kubectl** in the master node.
 

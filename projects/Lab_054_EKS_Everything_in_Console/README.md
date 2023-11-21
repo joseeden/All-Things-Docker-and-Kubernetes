@@ -1,11 +1,11 @@
-# Lab 54: Everything in Console
+# Lab 054: Everything in Console
 
-Pre-requisites:
+## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../README.md#kubernetes)
-- [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 Here's a breakdown of sections for this lab.
@@ -82,7 +82,7 @@ Next, we'll create the nodegroup.
 
 Back at the Stacks page, wait for the two stacks to finish setting up.
 
-![](../Images/lab542stacks.png)  
+![](../../Images/lab542stacks.png)  
 
 ## Create the EKS cluster 
 
@@ -100,7 +100,7 @@ Recall that the EKS has two planes, Management plabne and Contol Plane. Let's cr
 
 It will take a few minutes before the cluster is created.
 
-![](../Images/lab54clusterfinishcreating.png)  
+![](../../Images/lab54clusterfinishcreating.png)  
 
 ## Create the Worker Nodes 
 
@@ -108,7 +108,7 @@ It will take a few minutes before the cluster is created.
 2. Click the **Compute** tab. 
 3. In the **Node groups** section, click **Add node group.**
 
-    ![](../Images/lab54createnodegroup.png)  
+    ![](../../Images/lab54createnodegroup.png)  
 
 4. Give it a name: ***eks-buounavista-ng1***
 5. For the Node IAM Role, select the role that was created by Cloudformation: NodeInstanceRole
@@ -124,13 +124,13 @@ It will take a few minutes before the cluster is created.
 
 Back at the Compute tab, wait for the node to change status from **NotReady** to **Ready**.
 
-![](../Images/lab54workernodesready.png)  
+![](../../Images/lab54workernodesready.png)  
 
 ## Verify the Nodes 
 
 Go to the EC2 dashboard. We should see the nodes created for our EKS cluster.
 
-![](../Images/lab54ec2nodesrunning.png)  
+![](../../Images/lab54ec2nodesrunning.png)  
 
 ## Access the Cluster through CLI 
 
@@ -162,7 +162,7 @@ $ aws eks update-kubeconfig \
 
 If this doesn't solve the error, you may need to edit the <code>~/.kube/config</code> manually and add the cluster information. You can find all of these in the **Overview** tab of your cluster in the EKS dashboard.
 
-![](../Images/lab54eksoverviewtab.png)  
+![](../../Images/lab54eksoverviewtab.png)  
 
 Modify the kubeconfig file.
 
@@ -262,7 +262,7 @@ ip-192-168-220-9.ap-southeast-1.compute.internal     Ready    <none>   16m   v1.
 
 Verify if they're the same nodes in the EKS dashboard.
 
-![](../Images/lab54runningnodessamewithkubectl.png)  
+![](../../Images/lab54runningnodessamewithkubectl.png)  
 
 
 ## Deploy an NGINX pod 
@@ -304,11 +304,11 @@ Go back to the your cluster in the EKS dashboard and open the **Resources** tab.
 
 In the **All Namespaces** dropdown bar, select **default**. You should now see the NGINX pod running.
 
-![](../Images/lab54nginxrunningpod.png)  
+![](../../Images/lab54nginxrunningpod.png)  
 
 Click **nginx-demo** to see mroe information about the pod. Scroll down below to the **Events** section. If there are any errors hta occured, it will be displayed here.
 
-![](../Images/lab54events.png)  
+![](../../Images/lab54events.png)  
 
 
 ## Cleanup
@@ -316,34 +316,34 @@ Click **nginx-demo** to see mroe information about the pod. Scroll down below to
 Before we officially close this lab, make sure to destroy all resources to prevent incurring additional costs.
 Go to the EKS dashboard and delete the nodegroup, then the cluster.
 
-![](../Images/lab54deleteekscluster.png)  
+![](../../Images/lab54deleteekscluster.png)  
 
 Next, go to the Cloudformation dashboard and delete the two stacks.
 Note that when you delete your cluster, make sure to double check if the stacks are dropped cleanly.
 
-![](../Images/lab54cleanup.png)  
+![](../../Images/lab54cleanup.png)  
 
 It could encounter an error sometimes which causes the stack to fail.
 
-![](../Images/lab54failedtack.png)  
+![](../../Images/lab54failedtack.png)  
 
 In this cases, open the stack and go to the **Resources** tab. The **Status Reason** should display what caused the delete to fail.
 
-![](../Images/lab54failedstackresourcestab.png)  
+![](../../Images/lab54failedstackresourcestab.png)  
 
 For this error, we can simply click the link in the **Physical ID** and it should bring us to the role that we need to detach.
 
 Since we don't need the role anymore, we can simply delete it.
 
-![](../Images/lab54nodeinstanceroleissue.png)  
+![](../../Images/lab54nodeinstanceroleissue.png)  
 
 Go back to the Stacks page in Cloudformation and retry the delete again.
 
-![](../Images/lab54retrydeletestack.png)  
+![](../../Images/lab54retrydeletestack.png)  
 
 The delete should now succeed. Delete the other stack to completely remove all resources.
 
-![](../Images/lab54successdeletignremovenowtheotherstack.png)  
+![](../../Images/lab54successdeletignremovenowtheotherstack.png)  
 
 
 

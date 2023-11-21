@@ -1,6 +1,6 @@
 
 
-# All Things Docker and Kubernetes #
+# All Things Docker and Kubernetes 
 
 This repository contains projects on containerization and orchestration that I'm currently working on in ~~2021~~ the present. 
 
@@ -18,7 +18,13 @@ This repository contains projects on containerization and orchestration that I'm
 
 ## How to Use this Repo
 
-Each lab in this repo is equipped with easy-to-follow, detailed instructions. You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
+Each project in this repo is equipped with easy-to-follow, detailed instructions. 
+
+You can also go through each **Docker** and **Kubernetes** topics below for a quick walkthrough.
+
+## Projects
+
+The complete list of projects can be found [here](projects/README.md).
 
 
 ## Pre-requisites

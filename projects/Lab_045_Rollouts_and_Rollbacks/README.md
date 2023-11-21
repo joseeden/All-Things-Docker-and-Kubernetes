@@ -1,8 +1,8 @@
-# Lab 45: Rollouts and Rollbacks
+# Lab 045: Rollouts and Rollbacks
 
-Pre-requisites:
+## Pre-requisites
 
-- [Lab 44: Horizontal Pod AutoScaler](../Lab_044_Horizontal_Pod_AutoScaler/README.md)
+- [Lab 44: Horizontal Pod AutoScaler](../../Lab_044_Horizontal_Pod_AutoScaler/README.md)
 
 Here's a breakdown of sections for this lab.
 

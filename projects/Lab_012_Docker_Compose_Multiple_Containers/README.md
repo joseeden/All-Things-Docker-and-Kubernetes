@@ -1,38 +1,32 @@
-## Lab 12: Docker Compose for Multiple Local Containers
+# Lab 012: Docker Compose for Multiple Local Containers
 
-Before we begin, make sure you've setup the following pre-requisites
 
-  - [Install Docker](../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+## Pre-requisites
 
-### Introduction
+  - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+
+## Introduction
 
 In this lab, we'll containerize a web application that displays (inside a web browser) the number of visits it received. For this to work, we would need two components:
 
-- a web server running the Node application
-- a Redis server which will store the number of visits
+- A web server running the Node application
+- A Redis server which will store the number of visits
 
 For future scaling, we will use this architecture where we have multiple Node server connecting to a single instance of a Redis container.
 
 <p align=center>
-<img src="../Images/lab10-diagram.png">
+<img src="../../Images/lab10-diagram.png">
 </p>
 
-Let's start with creating the project directory where we'll create our files.
-
-```bash
-$ mkdir Lab_012_Docker_Compose_Multiple_Containers 
-$ cd Lab_012_Docker_Compose_Multiple_Containers
-```
-
-### Starting small
+## Starting small
 
 For the first iteration of this lab, we don't need to think about scaling just yet so we'll create a single container for the Node application and a single container for the Redis server.
 
 <p align=center>
-<img src="../Images/lab10-diagram-2.png">
+<img src="../../Images/lab10-diagram-2.png">
 </p>
 
-### Create the App Server code
+## Create the App Server code
 
 Create the **package.json**. We'll specify the dependencies and scripts  of our application here. The "redis" dependency is a Javascript client library for connecting to a Redis server.
 
@@ -79,7 +73,7 @@ app.listen(8081, () => {
 }); 
 ```
 
-### Create the Dockerfile for the Node App 
+## Create the Dockerfile for the Node App 
 
 Create the **dockerfile** for the Node server.
 
@@ -95,7 +89,7 @@ COPY . .
 CMD ["npm", "start"]
 ```
 
-### Build the Image
+## Build the Image
 
 Build the image from the dockerfile.
 
@@ -120,7 +114,7 @@ $ docker run -d redis
 
 **Now that we have a running Redis container, can we run the container for the Node App?** Nope. We'll still get an error because even though the Redis server is already up, the Node app doesn't have a way to communicate to the Redis instance. We would need to setup the networking.
 
-### Using Docker-Compose
+## Using Docker-Compose
 
 There are two options to setup the network connections between containers:
 
@@ -132,7 +126,7 @@ Of the two, docker-compose is mostly used since it's much easier to define the c
 Note that docker-compose isn't only used to setup networking between containers but it is extremely useful when you're starting up and managing multiple containers at the same time. 
 
 <p align=center>
-<img src="../Images/lab10-dockercompose.png">
+<img src="../../Images/lab10-dockercompose.png">
 </p>
 
 Create the **docker-compose.yml.** We define the "redis" and "node-app" as **services**. Since Redis has an available image from Dockerhub, we can use it.
@@ -220,7 +214,7 @@ Before we run the containers, make sure to get the IP address of your local mach
 $ curl ipecho.net/plain; echo  
 ```
 
-### Run the Containers
+## Run the Containers
 
 Now that we've created the necessary files, it's time to spin up the containers. Simply run the command below. This will look for a docker-compose.yml file in the working directory and create containers based on this file.
 
@@ -248,15 +242,15 @@ Open a web browser and navigate to the IP address followed by the port number, l
 You should see the "Number of visits" is initially set to 0. Refresh it a couple of time to see it updating.
 
 <p align=center>
-<img src="../Images/lab12visits0.png">
+<img src="../../Images/lab12visits0.png">
 </p>
 
 <p align=center>>
-<img src="../Images/lab12visits8.png">
+<img src="../../Images/lab12visits8.png">
 </p>
 
 <p align=center>>
-<img src="../Images/lab12visits20.png">
+<img src="../../Images/lab12visits20.png">
 </p>
 
 To run the containers in the background,
@@ -300,7 +294,7 @@ ERROR:
         Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml 
 ```
 
-### Crash the Containers
+## Crash the Containers
 
 To stop the containers, we can simply run the command below.
 
@@ -311,7 +305,7 @@ $ docker-compose down
 Let's say we intentionally want to cause an error by modifying the code. We're adding new variable called **process** and we'll force the code to return a "0" code whenever the site is visited. This is an exit status code.
 
 <p align=center>
-<img src="../Images/lab11statuscode0.png">
+<img src="../../Images/lab11statuscode0.png">
 </p>
 
 <details><summary> index.js </summary>
@@ -361,7 +355,7 @@ $ docker-compose up --build
 Open your web browser again and enter your local machine's IP address and port. It should display an error.
 
 <p align=center>
-<img src="../Images/lab12dockercomposecrashintended.png">
+<img src="../../Images/lab12dockercomposecrashintended.png">
 </p>
 
 Back in our terminal, we should see this message returned,
@@ -379,12 +373,12 @@ CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS       
 19cd6f6179ec   redis     "docker-entrypoint.s…"   18 seconds ago   Up 17 seconds   6379/tcp   lab12_docker_compose_multiple_containers_redis-server_1 
 ```
 
-### Add a Restart Policy 
+## Add a Restart Policy 
 
 To make sure that our containers will restart if it crashes, we can define a restart policy in the docker-compose file. As a recall, here are the restart policies that we can set:
 
 <p align=center>
-<img src="../Images/dockerbasics-restartpolicies.png">
+<img src="../../Images/dockerbasics-restartpolicies.png">
 </p>
 
 Set the **docker-compose.yml** to always restart when containers crash.
@@ -417,7 +411,7 @@ $ docker-compose up --build
 ```
 
 <p align=center>
-<img src="../Images/lab12dockercomposecrashintended.png">
+<img src="../../Images/lab12dockercomposecrashintended.png">
 </p>
 
 
@@ -441,7 +435,7 @@ node-app_1      |
 node-app_1      | Listening on port 4001
 ```
 
-### Cleanup 
+## Cleanup 
 
 When you're done with the lab, you can stop all running containers by running the command below.
 
