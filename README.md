@@ -4,13 +4,16 @@
 
 This repository contains projects on containerization and orchestration that I'm currently working on in ~~2021~~ the present. 
 
+
 - [How to Use this Repo](#how-to-use-this-repo)
+- [Projects](#projects)
 - [Pre-requisites](#pre-requisites)
 - [Docker + Containers](#docker--containers)
 - [Cloud-Native](#cloud-native)
 - [Kubernetes](#kubernetes)
 - [Certification Exams](#certification-exams)
 - [Resources](#resources)
+
 
 
 ----------------------------------------------
