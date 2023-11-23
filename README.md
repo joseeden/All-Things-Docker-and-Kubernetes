@@ -8,6 +8,10 @@ This repository contains projects on containerization and orchestration that I'm
 - [How to Use this Repo](#how-to-use-this-repo)
 - [Projects](#projects)
 - [Pre-requisites](#pre-requisites)
+- [Troubleshooting Guides](#troubleshooting-guides)
+
+Topics:
+
 - [Docker + Containers](#docker--containers)
 - [Cloud-Native](#cloud-native)
 - [Kubernetes](#kubernetes)
@@ -247,8 +251,14 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Amazon EKS - Self-managed vs. Managed Nodegroups](pages/04-Kubernetes/057-EKS-Nodegroups.md)      
 
-- [Error Guides](pages/04-Kubernetes/099-Error-Guide.md)   
 
+## Troubleshooting Guides 
+
+- Basic Troubleshooting 
+
+- [Error: Cannot View Kubernetes Nodes](pages/04-Kubernetes/099-Error-Guide.md)
+
+- [Error: Failing to Delete CloudFormation Stack](pages/04-Kubernetes/098-Error-Failing-to-delete-cloudformation-stack.md)
 
 ## Certification Exams 
 
