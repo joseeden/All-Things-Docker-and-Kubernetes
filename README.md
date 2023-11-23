@@ -254,11 +254,15 @@ Kubernetes is indeed an entire universe in itself.
 
 ## Troubleshooting Guides 
 
-- Basic Troubleshooting 
+- [Log Locations](pages/04-Kubernetes/097-Tshooting-basics.md) 
 
 - [Error: Cannot View Kubernetes Nodes](pages/04-Kubernetes/099-Error-Guide.md)
 
 - [Error: Failing to Delete CloudFormation Stack](pages/04-Kubernetes/098-Error-Failing-to-delete-cloudformation-stack.md)
+
+- [Default etcd port](pages/04-Kubernetes/097-etcd-default-server-port.md)
+
+
 
 ## Certification Exams 
 
