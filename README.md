@@ -19,7 +19,6 @@ Topics:
 - [Resources](#resources)
 
 
-
 ----------------------------------------------
 
 
@@ -261,7 +260,6 @@ Kubernetes is indeed an entire universe in itself.
 - [Error: Failing to Delete CloudFormation Stack](pages/04-Kubernetes/098-Error-Failing-to-delete-cloudformation-stack.md)
 
 - [Default etcd port](pages/04-Kubernetes/097-etcd-default-server-port.md)
-
 
 
 ## Certification Exams 
