@@ -1,14 +1,8 @@
 # Lab 001: Running Simple Containers
 
 
-## Pre-requisites
-
-- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
-
-## Introduction
-
-In this lab, we'll run some simple containers. 
-
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
 - [whalesay](#whalesay)
 - [nyancat](#nyancat)
 - [Running a Web server](#running-a-web-server)
@@ -16,6 +10,15 @@ In this lab, we'll run some simple containers.
 - [Executing Commands inside a Running Container](#executing-commands-inside-a-running-container)
 - [Removing Containers](#removing-containers)
 - [Cleanup](#cleanup)
+
+
+## Pre-requisites
+
+- [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
+
+## Introduction
+
+In this lab, we'll run some simple containers. 
 
 ## whalesay
 
