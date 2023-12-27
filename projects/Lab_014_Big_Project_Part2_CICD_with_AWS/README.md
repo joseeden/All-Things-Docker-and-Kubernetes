@@ -1,6 +1,4 @@
-# Lab 14: Really Big Project - Part 2: CICD with AWS
-
-
+# Part 2: CICD with AWS
 
 - [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)

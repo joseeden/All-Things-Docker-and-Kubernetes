@@ -1,5 +1,4 @@
-# Lab 013: Really Big Project - Part 1: Create a Production-Grade Workflow
-
+# Part 1: Create a Production-Grade Workflow
 
   - [Pre-requisites](#pre-requisites)
   - [Introduction](#introduction)
@@ -45,7 +44,9 @@ In this lab, we'll walk through a production-grade workflow which will use Docke
 
 You might find this entire lab to be exhaustingly long as there are a lot of steps to do here, lots of setups to build, and of course lots of stuff to break!
 
-I've condensed the pages and contained them into collapsible sections so you can easily jump from one section to another by clicking the ▶ button. Once you're done with one section, you can simply collapse it and move to the next one.
+I've condensed the pages and contained them into collapsible sections so you can easily jump from one section to another by clicking the ▶ button. 
+
+Once you're done with one section, you can simply collapse it and move to the next one.
 
 
 ## The Workflow
