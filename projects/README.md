@@ -33,9 +33,9 @@ Lab 011 - [Shell Environment Variables](Lab_011_Shell_Environment_Variables/READ
 
 Lab 012 - [Docker Compose Multiple Containers](Lab_012_Docker_Compose_Multiple_Containers/README.md)
 
-Lab 013 - [Big Project Part1 Production Workflow](Lab_013_Big_Project_Part1_Production_Workflow/README.md)
+Lab 013 - [Big Project - Part1 - Production Workflow](Lab_013_Big_Project_Part1_Production_Workflow/README.md)
 
-Lab 014 - [Big Project Part2 CICD with AWS](Lab_014_Big_Project_Part2_CICD_with_AWS/README.md)
+Lab 014 - [Big Project - Part2 - CICD with AWS](Lab_014_Big_Project_Part2_CICD_with_AWS/README.md)
 
 
 ## Kubernetes 
