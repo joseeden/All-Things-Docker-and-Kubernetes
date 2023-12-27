@@ -15,7 +15,6 @@
 - [Cleanup](#cleanup)
 
 
-
 ## Pre-requisites
 
   - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)

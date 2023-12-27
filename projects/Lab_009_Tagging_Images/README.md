@@ -1,5 +1,23 @@
 # Lab 009: Tagging Images
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Example 1: Single Tag](#example-1-single-tag)
+    - [Create the File](#create-the-file)
+    - [Build an Image with a Single Tag](#build-an-image-with-a-single-tag)
+- [Example 2: Dockerhub Username and Image Name](#example-2-dockerhub-username-and-image-name)
+    - [Create an Account in Dockerhub](#create-an-account-in-dockerhub)
+    - [Using Docker Tag](#using-docker-tag)
+    - [Pushing the Image to the Registry](#pushing-the-image-to-the-registry)
+- [Example 3: Multiple Tags](#example-3-multiple-tags)
+- [Example 4: Versions](#example-4-versions)
+    - [Create the File](#create-the-file)
+    - [Build the Image and Run the Container](#build-the-image-and-run-the-container)
+    - [Modify the Dockerfile and Build another Image](#modify-the-dockerfile-and-build-another-image)
+- [Cleanup](#cleanup)
+
+
+
 
 ## Pre-requisites
 
@@ -12,7 +30,7 @@ In this lab, we'll get to see how to use tagging for docker images. It is recomm
 
 ## Example 1: Single Tag
 
-#### Create the File
+### Create the File
 
 Create **dockerfile-1**. Here we're using CentOS version 7 as the base image and we're installing Java on top of it.
 
@@ -26,7 +44,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME 
 ```
 
-#### Build an Image with a Single Tag
+### Build an Image with a Single Tag
 
 Use the "-f" flag to specify the **dockerfile-1**.
 
@@ -149,7 +167,7 @@ Remove the images created from the previous examples.
 $ docker image prune --all --force
 ``` 
 
-#### Create the File 
+### Create the File 
 
 Create **dockerfile-2**. Here we're using Ubuntu version 16.04 as the base image. We're also creating a *demo* directory with a file named *message* inside. 
 
@@ -164,7 +182,7 @@ RUN mkdir -p /demo && \
 CMD ["/bin/cat", "/demo/message"]
 ```
 
-#### Build the Image and Run the Container 
+### Build the Image and Run the Container 
 
 Here we're not specifying a tag for the "lab08" image ID. Docker will automatically give the image a "latest" tag.
 
@@ -204,7 +222,7 @@ $ docker run lab08
 Version 1 
 ```
 
-#### Modify the Dockerfile and Build another Image
+### Modify the Dockerfile and Build another Image
 
 Edit the **dockerfile-2.**
 

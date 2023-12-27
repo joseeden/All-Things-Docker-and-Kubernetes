@@ -83,7 +83,7 @@ Open an internet browser and navigate to the IP that you just saved.
 
 <p align=center>
 <img src="../../Images/lab04flaskwebsiteworking.png">
-</p>
+</p> 
 
 
 ## Cleanup 

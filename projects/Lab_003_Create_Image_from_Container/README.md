@@ -1,5 +1,14 @@
 # Lab 003: Create an Image from an Existing Container
 
+
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Run the Container and Install Python](#run-the-container-and-install-python)
+- [Create the New Image from the Running Container](#create-the-new-image-from-the-running-container)
+- [Cleanup](#cleanup)
+
+
+
 ## Pre-requisites
 
 - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)

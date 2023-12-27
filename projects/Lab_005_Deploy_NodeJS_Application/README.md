@@ -1,5 +1,15 @@
 # Lab 005: Deploy a NodeJS Application
 
+  - [Pre-requisites](#pre-requisites)
+  - [Introduction](#introduction)
+  - [Setup the Node Server](#setup-the-node-server)
+  - [Create the Dockerfile and .dockerignore](#create-the-dockerfile-and-dockerignore)
+  - [Build the Image and Run the Container](#build-the-image-and-run-the-container)
+  - [Test it out](#test-it-out)
+  - [Verify that the Working Directory is created](#verify-that-the-working-directory-is-created)
+  - [Cleanup](#cleanup)
+
+
 ## Pre-requisites
 
 - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
@@ -65,7 +75,7 @@ Having said, we could install the other dependencies need for npm or we can simp
 <img src="../../Images/dockerhubnodeimage.png">
 </p>
 
-<p align=center>>
+<p align=center>
 <img src="../../Images/dockerhubnodeimagetags.png">
 </p>
 

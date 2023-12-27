@@ -1,5 +1,20 @@
 # Lab 007: Container Networking
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Create the Files](#create-the-files)
+- [Build the Image](#build-the-image)
+- [Bridge Network](#bridge-network)
+    - [Run the Container](#run-the-container)
+    - [Run three containers from the same image](#run-three-containers-from-the-same-image)
+    - [Test the networking between the three containers](#test-the-networking-between-the-three-containers)
+- [Host Network](#host-network)
+- [None Network](#none-network)
+- [Cleanup](#cleanup)
+
+<!-- /TOC -->
+
+
 ## Pre-requisites
 
 - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
@@ -120,7 +135,7 @@ cbc02a1260fb   none      null      local
 
 The **bridge** network is the default network that's used when you don't specify a network during the container startup.
 
-#### Run the Container
+### Run the Container
 
 Add the "-it" flag so that we can run shell commands on the container. We'll call this container 1.
 
@@ -174,7 +189,7 @@ CONTAINER ID   IMAGE               COMMAND       CREATED         STATUS         
 2c5606eb344c   ubuntu_networking   "/bin/bash"   2 minutes ago   Up 2 minutes             jolly_wing 
 ```
 
-#### Run three containers from the same image
+### Run three containers from the same image
 
 We've spin up the first container. Let's run a second one and see its IP address. We'll call this container 2. Click Ctrl-P,Q to detach.
 
@@ -216,7 +231,7 @@ CONTAINER ID   IMAGE               COMMAND       CREATED              STATUS    
 2c5606eb344c   ubuntu_networking   "/bin/bash"   6 minutes ago        Up 6 minutes                  jolly_wing 
 ```
 
-#### Test the networking between the three containers
+### Test the networking between the three containers
 
 Attach to container 1 which we spin up *6 minutes ago*.
 

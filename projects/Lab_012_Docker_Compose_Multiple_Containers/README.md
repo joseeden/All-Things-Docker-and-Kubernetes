@@ -1,6 +1,21 @@
 # Lab 012: Docker Compose for Multiple Local Containers
 
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Starting small](#starting-small)
+- [Create the App Server code](#create-the-app-server-code)
+- [Create the Dockerfile for the Node App](#create-the-dockerfile-for-the-node-app)
+- [Build the Image](#build-the-image)
+- [Using Docker-Compose](#using-docker-compose)
+- [Run the Containers](#run-the-containers)
+- [Crash the Containers](#crash-the-containers)
+- [Add a Restart Policy](#add-a-restart-policy)
+- [Cleanup](#cleanup)
+
+
+
+
 ## Pre-requisites
 
   - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)

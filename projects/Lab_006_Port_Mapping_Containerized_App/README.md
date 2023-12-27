@@ -1,5 +1,16 @@
 # Lab 006: Port Mapping for a Containerized Application
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Create the Files](#create-the-files)
+- [Build the Image](#build-the-image)
+- [Dynamically bind the port and Run the Container](#dynamically-bind-the-port-and-run-the-container)
+- [Map to a Specific Port and Run the Container](#map-to-a-specific-port-and-run-the-container)
+- [Cleanup](#cleanup)
+
+
+
+
 ## Pre-requisites
 
 - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)

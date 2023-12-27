@@ -1,5 +1,13 @@
 # Lab 011: Shell Environment Variables 
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Create the files](#create-the-files)
+- [Build the Image](#build-the-image)
+- [Run the Container](#run-the-container)
+- [Cleanup](#cleanup)
+
+
 
 ## Pre-requisites
 
@@ -44,7 +52,6 @@ $ vim templates/hello.html
 ```
 
 </details>
-<br>
 
 Here's the **app.py** written in Python.
 
@@ -126,7 +133,6 @@ if __name__ == "__main__":
 ```
 
 </details>
-<br>
 
 Next, create the **dockerfile.**
 
@@ -178,7 +184,7 @@ my-flask-app   latest    d40b9ef9ada7   About a minute ago   913MB
 python         3.6       54260638d07c   6 months ago         902MB 
 ```
 
-## The Fun Part - Run the Container!
+## Run the Container
 
 Before we run the container, get the IP of your machine.
 

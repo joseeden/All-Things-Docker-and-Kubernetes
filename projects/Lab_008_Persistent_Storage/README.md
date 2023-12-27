@@ -1,6 +1,18 @@
 # Lab 008: Persistent Storage
 
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Create the Files and Storage Directory](#create-the-files-and-storage-directory)
+- [Build the Image](#build-the-image)
+- [Run the Containers and Specify the Storage](#run-the-containers-and-specify-the-storage)
+	- [Bindmounts](#bindmounts)
+	- [Volumes](#volumes)
+	- [tmpfs](#tmpfs)
+- [Cleanup](#cleanup)
+
+
+
 ## Pre-requisites
 
   - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
@@ -114,7 +126,7 @@ drwxr-xr-x 3 root root 4096 Jun 25 11:08 ../
 
 ## Run the Containers and Specify the Storage
 
-### Storage: Bindmounts 
+### Bindmounts 
 
 We'll run four containers from the image and specify the mount type as "bind mounts". We also need to specify the source directory (src), which is the directory residing in our local machine that we want to mount and the destination directory (dst) is the path inside the container where the volume will be mounted to.
 
@@ -197,7 +209,7 @@ Host: ef6d100a98b9 - Loop Number: 49
 
 It's important to remember that with bindmounts, the user manages the volume, not Docker. This means you can specify the "source" directory which will serve as the persistent volume. 
 
-### Storage: Volumes
+### Volumes
 
 Before we proceed with volumes, remove any existing container so that we have a fresh plate.
 
@@ -285,7 +297,7 @@ Host: 0e0bd1af70b4 - Loop Number: 48
 Host: 0e0bd1af70b4 - Loop Number: 49
 ```
 
-### Storage: tmpfs
+### tmpfs
 
 With temporary file system (tmpfs), you can also create the volume when you run the container using the "--mount" flag. The difference is that it is an in-memory storage the data will be accesible as long as the container is running.
 
