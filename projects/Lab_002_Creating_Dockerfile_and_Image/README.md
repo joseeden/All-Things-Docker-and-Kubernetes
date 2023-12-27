@@ -1,5 +1,15 @@
 # Lab 002: Creating the Dockerfile and the Image 
  
+
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Create the Files](#create-the-files)
+- [Build the Image](#build-the-image)
+- [Run the container](#run-the-container)
+- [Cleanup](#cleanup)
+
+
+
 ## Pre-requisites
 
 - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
