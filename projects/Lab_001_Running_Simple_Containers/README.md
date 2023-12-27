@@ -5,11 +5,17 @@
 
 - [Install Docker](../../pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
-
-
 ## Introduction
 
 In this lab, we'll run some simple containers. 
+
+- [whalesay](#whalesay)
+- [nyancat](#nyancat)
+- [Running a Web server](#running-a-web-server)
+- [Interactive Ubuntu container](#interactive-ubuntu-container)
+- [Executing Commands inside a Running Container](#executing-commands-inside-a-running-container)
+- [Removing Containers](#removing-containers)
+- [Cleanup](#cleanup)
 
 ## whalesay
 
