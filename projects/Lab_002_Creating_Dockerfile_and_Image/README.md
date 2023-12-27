@@ -59,7 +59,7 @@ CMD ["/hello-world"]
 
 **A Few Notes on the dockerfile**
 
-- The **FROM**line specifies the base image tha we'll use. Here we're using a very minal image called "scratch".
+- The **FROM** line specifies the base image tha we'll use. Here we're using a very minal image called "scratch".
 - **COPY** copies the hello-world files from our host onto a layer of the image.
 - Finally, the **CMD** tells the container the default command to run when the container is launched.
 
