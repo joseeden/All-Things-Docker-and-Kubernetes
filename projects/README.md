@@ -38,13 +38,11 @@ Lab 013 - [Big Project Part1 Production Workflow](Lab_013_Big_Project_Part1_Prod
 Lab 014 - [Big Project Part2 CICD with AWS](Lab_014_Big_Project_Part2_CICD_with_AWS/README.md)
 
 
-
 ## Kubernetes 
 
 Lab 020 - [Create and Manage a Kubernetes Cluster using kubeadm](Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
 
 Lab 021 - [Backup Restore and Upgrade a Kubernetes Cluster](Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
-
 
 Lab 022 - [Resource Requirements](Lab_022_Resource_Requirements/README.md)
 
