@@ -1,5 +1,18 @@
 # Lab 052: EKS and CloudWatch Logging
 
+  - [Pre-requisites](#pre-requisites)
+  - [Introduction](#introduction)
+  - [Enabling CloudWatch Logging through the Manifest](#enabling-cloudwatch-logging-through-the-manifest)
+  - [Enabling CloudWatch Logging through the Console](#enabling-cloudwatch-logging-through-the-console)
+  - [Disable CloudWatch Logging](#disable-cloudwatch-logging)
+  - [CloudWatch Metrics - Container Insights](#cloudwatch-metrics---container-insights)
+      - [Attach IAM Policy to Nodegroup Role](#attach-iam-policy-to-nodegroup-role)
+      - [Deploy the CloudWatch Agent](#deploy-the-cloudwatch-agent)
+      - [View the Metrics](#view-the-metrics)
+      - [Generate Load](#generate-load)
+  - [Cleanup](#cleanup)
+
+
 ## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)
@@ -8,21 +21,6 @@
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
-Here's a breakdown of sections for this lab.
-
-- [Introduction](#introduction)
-- [Enabling CloudWatch Logging through the Manifest](#enabling-cloudwatch-logging-through-the-manifest)
-- [Enabling CloudWatch Logging through the Console](#enabling-cloudwatch-logging-through-the-console)
-- [Disable CloudWatch Logging](#disable-cloudwatch-logging)
-- [CloudWatch Metrics - Container Insights](#cloudwatch-metrics---container-insights)
-    - [Attach IAM Policy to Nodegroup Role](#attach-iam-policy-to-nodegroup-role)
-    - [Deploy the CloudWatch Agent](#deploy-the-cloudwatch-agent)
-    - [View the Metrics](#view-the-metrics)
-    - [Generate Load](#generate-load)
-- [Cleanup](#cleanup)
-
-For this lab, we'll be using ap-southeast-1 region (Singapore).
-
 
 ## Introduction
 
@@ -30,6 +28,7 @@ Since the Control Plane is managed by AWS, we don't have access to the hosts tha
 
 We can access these logs thru CloudWatch by enabling which log type to send. To learn more, check out this [page](../../README.md##kubernetes).
 
+For this lab, we'll be using ap-southeast-1 region (Singapore).
 
 ## Enabling CloudWatch Logging through the Manifest
 

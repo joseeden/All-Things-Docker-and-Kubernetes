@@ -8,15 +8,7 @@
 
 ----------------------------------------------
 
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksct installed](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Sections:
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [The Application Architecture](#the-application-architecture)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
@@ -26,18 +18,24 @@ Sections:
     - [Install the EFS Driver](#install-the-efs-driver)
 - [Create the EFS Filesystem](#create-the-efs-filesystem)
 - [Create the Namespace](#create-the-namespace)
-- [Create the StorageClass and PersistenVolumeClaims](#create-the-storageclass-and-persistenvolumeclaims)
+- [Create the StorageClass and PersistentVolumeClaims](#create-the-storageclass-and-persistentvolumeclaims)
 - [Deploy MySQL and Wordpress](#deploy-mysql-and-wordpress)
 - [Cleanup](#cleanup)
 - [Resources](#resources)
 
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksct installed](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 
 ## Introduction
 
-This lab discusses how to deploy a stateful application using EFS. 
-The steps are similar with the previous [lab](../../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md) but instead of a EBS CS driver, we will use an EFS driver.
+This lab discusses how to deploy a stateful application using EFS. The steps are similar with the previous [previous lab](../Lab_057_EKS_Deploy_a_Stateful_App_using_EBS/README.md) but instead of a EBS CS driver, we will use an EFS driver.
 
-We'll be using **ap-southeast-1** region (Singapore).
+For this lab, we'll use **ap-southeast-1** region (Singapore).
 
 ## The Application Architecture 
 
@@ -104,7 +102,7 @@ Verify in the AWS Management Console. We should be able to see the cluster and t
 
 ## Setup the Kubernetes Dashboard   
 
-The [previous lab](../../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept of Kubernetes Dashboard and the steps to set it up. We can use a script that sets up the dashboard in one go. Make the script executable.
+The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept of Kubernetes Dashboard and the steps to set it up. We can use a script that sets up the dashboard in one go. Make the script executable.
 
 ```bash
 chmod +x scripts/setup_kube_dashboard.sh

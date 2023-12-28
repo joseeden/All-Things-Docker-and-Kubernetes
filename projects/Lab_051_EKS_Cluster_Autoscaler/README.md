@@ -1,15 +1,8 @@
 
 # Lab 051: EKS Cluster Autoscaler
 
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
+- [What we will do](#what-we-will-do)
 - [Create Nodegroups with Autoscaling](#create-nodegroups-with-autoscaling)
 - [Deploy the Cluster Autoscaler](#deploy-the-cluster-autoscaler)
 - [Create NGINX Deployment](#create-nginx-deployment)
@@ -20,12 +13,19 @@ Here's a breakdown of sections for this lab.
 - [Cleanup](#cleanup)
 
 
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 ## What we will do
 
 We'll be creating dedicated nodegroups with autoscaling enabled:
 
-- for stateful workloads, 2 nodegroups with single AZ 
-- for stateless workloads, 1 nodegroup across 3 AZs
+- For stateful workloads, 2 nodegroups with single AZ 
+- For stateless workloads, 1 nodegroup across 3 AZs
 
 Then, we'll deploy the autoscaler.
 

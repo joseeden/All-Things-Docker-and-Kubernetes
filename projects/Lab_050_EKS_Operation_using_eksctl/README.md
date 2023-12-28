@@ -1,16 +1,7 @@
 
 # Lab 050: EKS Operations using eksctl and kubectl
 
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Create an EKS cluster using eksctl](#create-an-eks-cluster-using-eksctl)
 - [Create kubeconfig file automatically](#create-kubeconfig-file-automatically)
 - [Create an EKS cluster using a YAML file](#create-an-eks-cluster-using-a-yaml-file)
@@ -20,13 +11,23 @@ Here's a breakdown of sections for this lab.
 - [Worker Pools](#worker-pools)
 - [Assigning Labels to Nodes and Pools](#assigning-labels-to-nodes-and-pools)
 - [Deleting a Nodegroup](#deleting-a-nodegroup)
-- [Deleting the Cluster](#deleting-the-cluster)
+- [Cleanup - Deleting the Cluster](#cleanup---deleting-the-cluster)
 
-For this lab, we'll be using **ap-southeast-1** region (Singapore).
+
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 
 ----------------------------------------------
 
 ## Create an EKS cluster using eksctl
+
+For this lab, we'll be using **ap-southeast-1** region (Singapore).
 
 Create first the project directory.
 

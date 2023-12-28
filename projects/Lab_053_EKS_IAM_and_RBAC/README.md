@@ -1,16 +1,9 @@
 # Lab 053: IAM and RBAC on EKS
 
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Before we start](#before-we-start)
-    - [IAM Requirements](#iam)
+    - [IAM](#iam)
     - [CLI Tools](#cli-tools)
     - [Launch a Simple Cluster](#launch-a-simple-cluster)
 - [Part 1: Create the Users](#part-1-create-the-users)
@@ -29,6 +22,13 @@ Here's a breakdown of sections for this lab.
     - [Map the Read-only User](#map-the-read-only-user)
     - [Test Read-only Access](#test-read-only-access)
 - [Cleanup](#cleanup)
+
+
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 
 
 ## Introduction 

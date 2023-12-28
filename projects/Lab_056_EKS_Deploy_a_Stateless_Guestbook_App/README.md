@@ -1,16 +1,7 @@
 # Lab 056: Deploy a Stateless Guestbook Application
 
-## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-
-Here's a breakdown of sections for this lab.
-
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [The Application Architecture](#the-application-architecture)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
@@ -22,7 +13,13 @@ Here's a breakdown of sections for this lab.
 - [Cleanup](#cleanup)
 
 
-We'll be using **ap-southeast-1** region (Singapore).
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 
 
 ## Introduction
@@ -30,6 +27,9 @@ We'll be using **ap-southeast-1** region (Singapore).
 In this lab, we'll deploy an EKS cluster and then deploy a simple guestbook application that uses a Redis database. We'll also scale up and down our Pods and see the results. 
 
 Lastly, we will also get to use and test a publicly accesible AWS LoadBalancer with our Kubernetes cluster.
+
+For this lab, we'll **ap-southeast-1** region (Singapore).
+
 
 ## The Application Architecture 
 
@@ -450,7 +450,7 @@ Open a new browser tab and paste the DNS name. You should now see the guestbook 
 
 ## Setup the Kubernetes Dashboard 
 
-The [previous lab](../../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
+The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
 
 Here's a summary of commands that we need to run:
 

@@ -1,15 +1,7 @@
 # Lab 054: Everything in Console
 
-## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Create the EKSClusterRole](#create-the-eksclusterrole)
 - [Create the VPC through CloudFormation](#create-the-vpc-through-cloudformation)
@@ -18,15 +10,27 @@ Here's a breakdown of sections for this lab.
 - [Create the Worker Nodes](#create-the-worker-nodes)
 - [Verify the Nodes](#verify-the-nodes)
 - [Access the Cluster through CLI](#access-the-cluster-through-cli)
+    - [Clusters](#clusters)
+    - [Contexts](#contexts)
+    - [Users](#users)
 - [Deploy an NGINX pod](#deploy-an-nginx-pod)
 - [Cleanup](#cleanup)
 
-For this lab, we'll be using **ap-southeast-1** region (Singapore).
+
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 ## Introduction
 
 In this lab, we'll be creating the cluster through the EKS dahsboard in AWS Management Console.
+
+For this lab, we'll be using **ap-southeast-1** region (Singapore).
 
 ## Create the EKSClusterRole 
 
@@ -170,7 +174,7 @@ Modify the kubeconfig file.
 $ vim ~/.kube/config  
 ```
 
-#### Clusters
+### Clusters
 
 Start with the **cluster block**. You need to add the:
 - certificate-authority-data
@@ -187,7 +191,7 @@ clusters:
 
 
 
-#### Contexts 
+### Contexts 
 
 Next is the **Context** block.
 
@@ -199,7 +203,7 @@ contexts:
   name: eks-buonavista 
 ```
 
-#### Users
+### Users
 
 Finally, configure the **Users** block.
 
@@ -252,7 +256,8 @@ $ aws eks list-clusters
         "eks-bounavista"
     ]
 }
-``
+```
+
 ```bash
 $ kubectl get nodes
 NAME                                                 STATUS   ROLES    AGE   VERSION

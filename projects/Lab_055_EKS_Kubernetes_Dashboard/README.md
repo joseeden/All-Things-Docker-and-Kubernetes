@@ -2,6 +2,16 @@
 # Lab 055: Kubernetes Dashboard on EKS
 
 
+  - [Pre-requisites](#pre-requisites)
+  - [Introduction](#introduction)
+  - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+  - [Install the Metrics Server](#install-the-metrics-server)
+  - [Deploy the Kubernetes Dashboard](#deploy-the-kubernetes-dashboard)
+  - [Create the Service Account](#create-the-service-account)
+  - [Explore the Kubernetes Dashboard](#explore-the-kubernetes-dashboard)
+  - [Cleanup](#cleanup)
+
+
 ## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)
@@ -10,24 +20,13 @@
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 - [JQ and Curl](../../pages/01-Pre-requisites/labs-optional-tools/README.md#other-simple-cli-utilities) 
 
-Here's a breakdown of sections for this lab.
-
-
-- [Introduction](#introduction)
-- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
-- [Install the Metrics Server](#install-the-metrics-server)
-- [Deploy the Kubernetes Dashboard](#deploy-the-kubernetes-dashboard)
-- [Create the Service Account](#create-the-service-account)
-- [Explore the Kubernetes Dashboard](#explore-the-kubernetes-dashboard)
-- [Cleanup](#cleanup)
-
-
-We will be using **ap-southeast-1** region (Singapore).
 
 
 ## Introduction
 
 In this lab, we'll be setting up the Kubernetes Dashboard on our Amazon EKS cluster. 
+
+For this lab, we'll use **ap-southeast-1** region (Singapore).
 
 ## Launch a Simple EKS Cluster
 

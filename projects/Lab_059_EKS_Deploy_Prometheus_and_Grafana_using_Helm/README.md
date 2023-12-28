@@ -1,15 +1,7 @@
 # Lab 059 - Deploy Prometheus and Grafana using Helm
 
-## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksct installed](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-<!-- - Helm -->
-
-## Sections 
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Launch an EKS Cluster](#launch-an-eks-cluster)
 - [Create the Persistent Storage](#create-the-persistent-storage)
@@ -20,12 +12,20 @@
 - [Setup Grafana](#setup-grafana)
 - [Importing a Public Dashboard](#importing-a-public-dashboard)
 - [Troubleshooting](#troubleshooting)
-        - [Removing Prometheus](#removing-prometheus)
-        - [Prometheus stuck in Pending](#prometheus-stuck-in-pending)
+    - [Removing Prometheus](#removing-prometheus)
+    - [Prometheus stuck in Pending](#prometheus-stuck-in-pending)
 - [Resources](#resources)
 
+<!-- /TOC -->
 
 
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksct installed](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+<!-- - Helm -->
 
 
 ## Introduction
@@ -113,9 +113,9 @@ There are some sources online that mentioned that they were able to make it work
 I'm hesitant to remove my notes on my attempt to use EFS so I'll just leave it here in case there will be a support for EFS in the distant future.
 
 <details><summary> Using EFS as Prometheus storage (Unsuccessful) </summary>
+<br>
 
-
-~~We'll be using an EFS Filesystem for this lab~~. The detailed steps are provided in the [previous Lab 58](../../Lab_058_EKS_Deploy_a_Stateful_App_using_EFS_OUTDATED/README.md). Here's the summary:
+~~We'll be using an EFS Filesystem for this lab~~. The detailed steps are provided in the [previous Lab](../Lab_058_EKS_Deploy_a_Stateful_App_using_EFS_OUTDATED/README.md). Here's the summary:
 
 ```bash
 ### Verify that you an OIDC provider created. 
@@ -412,7 +412,7 @@ We'll use **Cluster Monitoring for Kubernetes** for this lab.
 
 ## Troubleshooting 
 
-#### Removing Prometheus 
+### Removing Prometheus 
 
 If you encountered some issues and you need to delete the Prometheus pod, simply run the following commands. Note that the **list** command may
 
@@ -421,7 +421,7 @@ helm list -n prometheus
 helm uninstall prometheus -n prometheus  
 ```
 
-#### Prometheus stuck in Pending 
+### Prometheus stuck in Pending 
 
 You might find that two pods are stuck in Pending state 
 

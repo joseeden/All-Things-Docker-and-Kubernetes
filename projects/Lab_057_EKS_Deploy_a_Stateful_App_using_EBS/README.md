@@ -1,16 +1,7 @@
 # Lab 057: Deploy a Stateful Application using EBS
 
-## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of sections for this lab.
-
-<!-- TOC -->
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [The Application Architecture](#the-application-architecture)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
@@ -27,12 +18,19 @@ Here's a breakdown of sections for this lab.
 - [Cleanup](#cleanup)
 
 
-We'll be using **ap-southeast-1** region (Singapore).
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 ## Introduction
 
 In this lab, we'll be deploying a stateful Wordpress application and a MySQL database. We will also deploy the application using EBS volumes
+
+For this lab, we'll use **ap-southeast-1** region (Singapore).
 
 ## The Application Architecture 
 
@@ -148,7 +146,7 @@ MYAWSID=$(aws sts get-caller-identity | python3 -c "import sys,json; print (json
 
 ## Setup the Kubernetes Dashboard   
 
-The [previous lab](../../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
+The [previous lab](../Lab_055_EKS_Kubernetes_Dashboard/README.md) explained the concept and uses of Kubernetes Dashboard so we'll not be diving into that here. I do recommend that you check it out since the Kubernetes dashboard is one helpful utility tool which you can use when managing your Kubernetes clusters.
 
 Here's a summary of commands that we need to run:
 
