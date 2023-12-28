@@ -272,6 +272,12 @@ Resources:
 
 - [Open Source Curriculum for CNCF Certification Courses](https://github.com/cncf/curriculum)
 
+- [Certified Kubernetes Administrator (CKA)](https://www.cncf.io/certification/cka/)
+
+- [Certified Kubernetes Application Developer (CKAD)](https://www.cncf.io/training/certification/ckad/)
+
+- [Certified Kubernetes Security Specialist (CKS)](https://www.cncf.io/training/certification/cks/)
+
 - [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
 
 - [Linux Foundation Certification Exam: Candidate Handbook](https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2)
