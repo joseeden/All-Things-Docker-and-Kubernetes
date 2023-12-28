@@ -58,23 +58,23 @@
 ### Checkin process:
 
 - ID check and camera scan
-- clean your testing area
-- one monitor
-- don't stress
+- Clean your testing area
+- One monitor
+- Don't stress
 
 ### Moved to remote desktop environment in June 2022:
 
 - XFCE, Firefox
-- expect some lag
-- multiple terminals and browser tabs allowed
-- keyboard layout preserved
+- Expect some lag
+- Multiple terminals and browser tabs allowed
+- Keyboard layout preserved
 
 ### Copy/paste:
 
-- right click menu
-- ctrl-shift-(c|v)
-- one-click copy from instructions (recommended to avoid typos)
-- copying from firefox will trigger a warning (and maybe miss a character)
+- Right click menu
+- Ctrl-shift-(c|v)
+- One-click copy from instructions (recommended to avoid typos)
+- Copying from firefox will trigger a warning (and maybe miss a character)
 
 ### Terminal:
 
@@ -89,9 +89,9 @@
 
 ### Miscellaneous recommendations:
 
-- use a big screen
-- hide the PSI top bar
-- maximize your comfort
+- Use a big screen
+- Hide the PSI top bar
+- Maximize your comfort
 
 ### Use shortnames and aliases/variables:
 
@@ -102,12 +102,12 @@
     echo "source <(kubectl completion bash)" >> ~/.bashrc 
     ```
 
-- never type out a full resource name if you can help it, example: 
+- Never type out a full resource name if you can help it, example: 
 
     - cm -> configmap
     - pvc -> persistentvolumeclaim
 
-- useful aliases:
+- Useful aliases:
 
     ```bash
     ## create yaml on-the-fly faster
@@ -136,7 +136,7 @@
     ## For dry-run 
     export do="--dry-run=client -o yaml"
     ```
-- check all shortnames with:
+- Check all shortnames with:
 
     ```bash
     k api-resources
@@ -216,7 +216,7 @@ Then we can do the following:
 
 ```bash
 k run nginx --image=nginx --dry-run=client -oyaml > pod.yaml
-vi pod.yaml //添加 resource limit 设置
+vi pod.yaml 
 k create -f pod.yaml 
 ```
 
@@ -261,8 +261,9 @@ If you don't see a command prompt, try pressing enter.
 
 ## Useful links that can be opened during exam 
 
-API overview 
-- can be accessed through:
+API Overview 
+
+- Can be accessed through:
     ```bash
     https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/  
     ```
