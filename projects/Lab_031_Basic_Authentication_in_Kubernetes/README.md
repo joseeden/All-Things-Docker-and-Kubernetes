@@ -3,19 +3,21 @@
 > *This approach is deprecated in Kubernetes version 1.19*
 > *The current version as of 2023 is Kubernetes version 1.25*
 
-Pre-requisites
+  - [Pre-requisites](#pre-requisites)
+  - [Introduction](#introduction)
+  - [Setup Kubernetes cluster using kubeadm](#setup-kubernetes-cluster-using-kubeadm)
+  - [Setup Basic Authentication](#setup-basic-authentication)
+  - [Cleanup](#cleanup)
+  - [Resources](#resources)
+
+
+
+## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)
 - [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Sections:
-
-- [Introduction](#introduction)
-- [Setup Kubernetes cluster using kubeadm](#setup-kubernetes-cluster-using-kubeadm)
-- [Setup Basic Authentication](#setup-basic-authentication)
-- [Cleanup](#cleanup)
 
 
 ## Introduction

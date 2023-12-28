@@ -1,15 +1,8 @@
 
 # Lab 040: Kubernetes Basics
 
-## Pre-requisites
 
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
 - [Pods](#pods)
@@ -19,6 +12,14 @@ Here's a breakdown of sections for this lab.
 - [Services](#services)
 - [Cleanup](#cleanup)
 - [Next step](#next-step)
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 
 ## Introduction
 

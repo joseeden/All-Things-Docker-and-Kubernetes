@@ -1,5 +1,15 @@
 # Lab 024: Service Accounts
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+- [Default ServiceAccount](#default-serviceaccount)
+- [Using the Default ServiceAccount](#using-the-default-serviceaccount)
+- [Using a Custom ServiceAccount](#using-a-custom-serviceaccount)
+- [Cleanup](#cleanup)
+- [Resources](#resources)
+
+
 
 ## Pre-requisites
 
@@ -7,16 +17,6 @@
 - [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of the sections for this lab.
-
-- [Introduction](#introduction)
-- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
-- [default ServiceAccount](#default-serviceaccount)
-- [Using the default ServiceAccount](#using-the-default-serviceaccount)
-- [Using a Custom ServiceAccount](#using-a-custom-serviceaccount)
-- [Cleanup](#cleanup)
-- [Resources](#resources)
 
 
 ## Introduction

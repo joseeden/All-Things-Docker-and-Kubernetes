@@ -1,17 +1,17 @@
 # Lab 045: Rollouts and Rollbacks
 
-## Pre-requisites
-
-- [Lab 44: Horizontal Pod AutoScaler](../../Lab_044_Horizontal_Pod_AutoScaler/README.md)
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Set the Replicas](#set-the-replicas)
 - [Trigger a Rollout](#trigger-a-rollout)
 - [Rollback](#rollback)
 - [Rollout History](#rollout-history)
 - [Cleanup](#cleanup)
+
+
+## Pre-requisites
+
+- [Lab 44: Horizontal Pod AutoScaler](../Lab_044_Horizontal_Pod_AutoScaler/README.md)
 
 ## Introduction
 

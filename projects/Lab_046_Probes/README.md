@@ -1,20 +1,23 @@
 # Lab 046: Probes
 
+
+  - [Pre-requisites](#pre-requisites)
+  - [Introduction](#introduction)
+  - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
+  - [Create the Namespace](#create-the-namespace)
+  - [Support Tier](#support-tier)
+  - [Data Tier](#data-tier)
+  - [App Tier](#app-tier)
+  - [Next Steps](#next-steps)
+
+
+
 ## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)
 - [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of sections for this lab.
-
-- [Introduction](#introduction)
-- [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
-- [Create the Namespace](#create-the-namespace)
-- [Data Tier](#data-tier)
-- [App Tier](#app-tier)
-- [Next Steps](#next-steps)
 
 
 ## Introduction

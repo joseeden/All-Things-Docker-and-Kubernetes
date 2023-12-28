@@ -1,26 +1,27 @@
 # Lab 020: Create and Manage a Kubernetes Cluster using kubeadm
 
 
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Install the Container Runtime](#install-the-container-runtime)
+- [Install kubeadm and its dependencies](#install-kubeadm-and-its-dependencies)
+- [Repeat the same steps for the other instances](#repeat-the-same-steps-for-the-other-instances)
+- [No default network plugin](#no-default-network-plugin)
+- [Initialize the Master Node](#initialize-the-master-node)
+- [Create the Calico Plugin](#create-the-calico-plugin)
+- [Join the Worker Nodes](#join-the-worker-nodes)
+- [Create a Simple Deployment](#create-a-simple-deployment)
+- [Next Step](#next-step)
+- [Resources](#resources)
+
+
+
 ## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)
 - [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-
-Here's a breakdown of the sections for this lab.
-
-- [Introduction](#introduction)
-- [Install the Container Runtime](#install-the-container-runtime)
-- [Intsall kubeadm and its dependencies](#intsall-kubeadm-and-its-dependencies)
-- [Repeat the same steps for the other instances](#repeat-the-same-steps-for-the-other-instances)
-- [No default network plugin](#no-default-network-plugin)
-- [Initialize the Master Node](#initialize-the-master-node)
-- [Create the Calico Plugin](#create-the-calico-plugin)
-- [Join the Worker Nodes](#join-the-worker-nodes)
-- [Create a simple deployment](#create-a-simple-deployment)
-- [Resources](#resources)
 
 
 ## Introduction
@@ -330,7 +331,7 @@ Accept-Ranges: bytes
 
 ## Next Step 
 
-Now that we have a working Kubernetes cluster, proceed to the [next lab](../../Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md) to simulate a cluster failure and restore the cluster to its original state using a backup.
+Now that we have a working Kubernetes cluster, proceed to the [next lab](../Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md) to simulate a cluster failure and restore the cluster to its original state using a backup.
 
 ## Resources
 

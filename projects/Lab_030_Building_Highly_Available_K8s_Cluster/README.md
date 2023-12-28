@@ -10,14 +10,9 @@
 - [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
-Additional CLI utilities:
-
-- [yq](https://github.com/mikefarah/yq) 
-- [jq](https://stedolan.github.io/jq/download/)
-
-Here's a breakdown of the sections for this lab.
-
-
+- [Additional CLI utilities]():
+    - [yq](https://github.com/mikefarah/yq) 
+    - [jq](https://stedolan.github.io/jq/download/)
 
 
 ## Introduction
@@ -31,7 +26,7 @@ The main goals for this lab are:
 - Set up the worker node 
 - Learn to manage the Kubernetes cluster 
 
-System Requirements;
+**System Requirements:**
 
 Ensure that the networking is set up and that all the virtual machines can talk to each other.
 
@@ -42,8 +37,9 @@ Ensure that the networking is set up and that all the virtual machines can talk 
 
 ## Lab Environment
 
-The environment used here is an empty Kubernetes cluster managed through minikube. The cluster is using a single node EC2 instance in AWS. To setup the environment, check out [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
-
+- Kubernetes cluster managed through **minikube**. 
+- The cluster is using a single node EC2 instance in AWS. 
+- To setup, follow: [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
 
 
 

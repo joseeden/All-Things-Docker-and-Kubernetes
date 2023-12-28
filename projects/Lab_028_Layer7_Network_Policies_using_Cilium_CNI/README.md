@@ -1,22 +1,25 @@
-# Lab 029: Create Layer-7 Network Policies using Cilium CNI
+# Lab 028: Create Layer-7 Network Policies using Cilium CNI
 
-Before we begin, make sure you've setup the following pre-requisites
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Setup kubeadm and kubectl](#setup-kubeadm-and-kubectl)
+- [Install Cilium CNI](#install-cilium-cni)
+- [Star Wars API Pods](#star-wars-api-pods)
+- [How the Star Wars API works](#how-the-star-wars-api-works)
+- [Secure the API with Layer-7 Network Policy](#secure-the-api-with-layer-7-network-policy)
+- [Verify](#verify)
+- [Cleanup](#cleanup)
+- [Resources](#resources)
+
+
+
+
+## Pre-requisites 
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)
 - [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of the sections for this lab.
-
-- [Introduction](#introduction)
-- [Setup kubeadm and kubectl](#setup-kubeadm-and-kubectl)
-- [Install Cilium CNI](#install-cilium-cni)
-- [Star Wars API Pods](#star-wars-api-pods)
-- [Secure the API with Layer-7 Network Policy](#secure-the-api-with-layer-7-network-policy)
-- [Verify](#verify)
-- [Cleanup](#cleanup)
-- [Resources](#resources)
 
 
 ## Introduction
@@ -220,7 +223,7 @@ deathstar    ClusterIP   10.102.68.194   <none>        80/TCP    52s
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   32m
 ```
 
-#### How the Star Wars API works
+## How the Star Wars API works
 
 The mechanics of this Star Wars API is that there are two factions involved, each with their own alliances:
 

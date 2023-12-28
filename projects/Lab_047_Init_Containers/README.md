@@ -1,16 +1,16 @@
 
 # Lab 047: Init Containers 
 
-## Pre-requisites
 
-- [Lab 46: Probes](../../Lab_046_Probes/README/md)
-
-Here's a breakdown of sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [App Tier](#app-tier)
 - [Cleanup](#cleanup)
 
+
+## Pre-requisites
+
+- [Lab 46: Probes](../Lab_046_Probes/README.md)
 
 
 ## Introduction

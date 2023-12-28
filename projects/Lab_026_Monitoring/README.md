@@ -1,15 +1,7 @@
 # Lab 026: Monitoring
 
 
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of the sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
 - [Readiness Probes](#readiness-probes)
@@ -20,11 +12,22 @@ Here's a breakdown of the sections for this lab.
 - [Resources](#resources)
 
 
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
+
 ## Introduction
 
-We've covered the first pillar of observability in th [previous lab](../../Lab_025_Logging/README.md), Logging. In this lab, we'll go through the second pillar, Monitoring, and learn how Kubernetes handles the monitoring of Pods through built-in mechanisms such as Probes, as well as available external monitoring systems.
+We've covered the first pillar of observability in th [previous lab](../Lab_025_Logging/README.md), **Logging**. 
+
+In this lab, we'll go through the second pillar, **Monitoring**, and learn how Kubernetes handles the monitoring of Pods through built-in mechanisms such as Probes, as well as available external monitoring systems.
 
 As an overview, there are three types of Probes:
+
 - **Readiness Probes** - checks if a Pod is ready to server traffic and handle requests.
 - **Liveness Probes** - detects if a Pod enters a broken state where it can no longer serve traffic.
 - **Startup Probes** - Used when an application starts slowly and may otherwise be killed due to failed liveness probes

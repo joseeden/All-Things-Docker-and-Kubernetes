@@ -42,22 +42,6 @@
 
 - [Backup Restore and Upgrade a Kubernetes Cluster](Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
 
-- [Resource Requirements](Lab_022_Resource_Requirements/README.md)
-
-- [Security Contexts](Lab_023_Security_Contexts/README.md)
-
-- [Service Accounts](Lab_024_Service_Accounts/README.md)
-
-- [Logging](Lab_025_Logging/README.md)
-
-- [Monitoring](Lab_026_Monitoring/README.md)
-
-- [Securing Kubernetes using Authentication and Authorization](Lab_027_Securing_Kubernetes_using_Authentication_and_Authorization/README.md)
-
-- [Layer7 Network Policies using Cilium CNI](Lab_028_Layer7_Network_Policies_using_Cilium_CNI/README.md)
-
-- [Nginx Ingress Controller for External API Traffic](Lab_029_Nginx_Ingress_Controller_for_External_API_Traffic/READMEmd)
-
 - [Building Highly Available Kubernetes Cluster](Lab_030_Building_Highly_Available_K8s_Cluster/README.md)
 
 - [Basic Authentication in Kubernetes](Lab_031_Basic_Authentication_in_Kubernetes/README.md)
@@ -80,7 +64,24 @@
 
 - [Volumes](Lab_048_Volumes/README.md)
 
+- [Resource Requirements](Lab_022_Resource_Requirements/README.md)
+
+- [Service Accounts](Lab_024_Service_Accounts/README.md)
+
+- [Authentication and Authorization](Lab_027_Securing_Kubernetes_using_Authentication_and_Authorization/README.md)
+
 - [ConfigMaps and Secrets](Lab_049_ConfigMaps_and_Secrets/README.md)
+
+- [Security Contexts](Lab_023_Security_Contexts/README.md)
+
+- [Logging](Lab_025_Logging/README.md)
+
+- [Monitoring](Lab_026_Monitoring/README.md)
+
+- [Layer7 Network Policies using Cilium CNI](Lab_028_Layer7_Network_Policies_using_Cilium_CNI/README.md)
+
+- [Nginx Ingress Controller for External API Traffic](Lab_029_Nginx_Ingress_Controller_for_External_API_Traffic/README.md)
+
 
 ## KodeKloud Labs on Kubernetes 
 
@@ -169,11 +170,11 @@
 - [Deploy Redis Deployment on Kubernetes](https://github.com/joseeden/KodeKloud_Engineer_Labs?tab=readme-ov-file#kubernetes)          
 
 - [Deploy MySQL on Kubernetes](https://github.com/joseeden/KodeKloud_Engineer_Labs?tab=readme-ov-file#kubernetes)        
-   
+
 - [Kubernetes Nginx and PhpFPM Setup](https://github.com/joseeden/KodeKloud_Engineer_Labs?tab=readme-ov-file#kubernetes)         
- 
+
 - [Deploy Drupal App on Kubernetes](https://github.com/joseeden/KodeKloud_Engineer_Labs?tab=readme-ov-file#kubernetes)        
-   
+
 - [Deploy Guest Book App on Kubernetes](https://github.com/joseeden/KodeKloud_Engineer_Labs?tab=readme-ov-file#kubernetes)          
 
 

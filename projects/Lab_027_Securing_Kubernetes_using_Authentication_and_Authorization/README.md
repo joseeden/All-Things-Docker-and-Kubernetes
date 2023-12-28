@@ -1,15 +1,6 @@
 # Lab 027: Securing Kubernetes Clusters using Authentication and Authorization
 
-
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of the sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Lab Environment](#lab-environment)
 - [Create the Private key, CSR, and CSR Kubernetes resource](#create-the-private-key-csr-and-csr-kubernetes-resource)
@@ -22,6 +13,15 @@ Here's a breakdown of the sections for this lab.
 - [Verify](#verify)
 - [Cleanup](#cleanup)
 - [Resources](#resources)
+
+
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 ## Introduction

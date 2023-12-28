@@ -1,27 +1,28 @@
 # Lab 021: Backup, Restore, and Upgrade a Kubernetes Cluster
 
 
-## Pre-requisites
-
-- [Lab 20-Create and Manage a Cluster using kubeadm](../../Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
-
-
-Here's a breakdown of the sections for this lab.
-
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
 - [Create a Simple Deployment](#create-a-simple-deployment)
 - [Backing Up the Cluster](#backing-up-the-cluster)
 - [Simulate a Cluster Failure](#simulate-a-cluster-failure)
 - [Restore the Cluster](#restore-the-cluster)
 - [Upgrading the Cluster](#upgrading-the-cluster)
-    - [Upgrade the Master Node](#upgrade-the-master-node)
-    - [Upgrade the Worker Node](#upgrade-the-worker-node)
+     - [Upgrade the Master Node](#upgrade-the-master-node)
+     - [Upgrade the Worker Node](#upgrade-the-worker-node)
 - [Cleanup](#cleanup)
 - [Resources](#resources)
 
 
+## Pre-requisites
+
+- [Lab 20-Create and Manage a Cluster using kubeadm](../Lab_020_Create_and_Manage_Cluster_using_kubeadm/README.md)
+
 ## Introduction
 
-In the previous lab, we installed kubeadm and all its dependencies on our three EC2 instances. We then initialize the master nodes and joined the other two nodes into the cluster. We'll now try to backup the cluster and simulate a failure by deleting the data files in the etcd data store. We should be able to restore the cluster from the backup we created.
+In the previous lab, we installed kubeadm and all its dependencies on our three EC2 instances. We then initialize the master nodes and joined the other two nodes into the cluster. 
+
+We'll now try to backup the cluster and simulate a failure by deleting the data files in the etcd data store. We should be able to restore the cluster from the backup we created.
 
 Lastly, we'll also upgrade the Kubernetes cluster to the new version. 
 

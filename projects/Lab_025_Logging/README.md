@@ -1,16 +1,6 @@
 # Lab 025: Logging
 
-
-## Pre-requisites
-
-- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
-- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
-- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
-- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Here's a breakdown of the sections for this lab.
-
-
+- [Pre-requisites](#pre-requisites)
 - [Introduction](#introduction)
 - [Launch a Simple EKS Cluster](#launch-a-simple-eks-cluster)
 - [Container Logging](#container-logging)
@@ -18,6 +8,15 @@ Here's a breakdown of the sections for this lab.
 - [Using a Logging Agent and a Sidecar Pattern](#using-a-logging-agent-and-a-sidecar-pattern)
 - [Cleanup](#cleanup)
 - [Resources](#resources)
+
+
+
+## Pre-requisites
+
+- [Basic Understanding of Kubernetes](../../README.md#kubernetes)
+- [AWS account](../../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
+- [AWS IAM Requirements](../../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
+- [AWS CLI, kubectl, and eksctl](../../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
 
 
 ## Introduction

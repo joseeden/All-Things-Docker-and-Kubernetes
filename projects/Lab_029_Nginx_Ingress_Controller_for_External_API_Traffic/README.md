@@ -1,31 +1,27 @@
 # Lab 29: Create Kubernetes Nginx Ingress Controller for External API Traffic
 
-Before we begin, make sure you've setup the following pre-requisites
+- [Pre-requisites](#pre-requisites)
+- [Introduction](#introduction)
+- [Lab Environment](#lab-environment)
+- [Install Cilium CNI](#install-cilium-cni)
+- [Install NGINX Ingress Controller](#install-nginx-ingress-controller)
+- [Allow internet inbound traffic](#allow-internet-inbound-traffic)
+- [Deploy the API Deployment and Service](#deploy-the-api-deployment-and-service)
+- [Deploy the API Ingress Resource](#deploy-the-api-ingress-resource)
+- [Perform end-to-end API Test](#perform-end-to-end-api-test)
+- [Cleanup](#cleanup)
+- [Resources](#resources)
+
+
+## Pre-requisites 
 
 - [Basic Understanding of Kubernetes](../README.md#kubernetes)
 - [AWS account](../pages/01-Pre-requisites/labs-optional-tools/README.md#create-an-aws-account)
 - [AWS IAM Requirements](../pages/01-Pre-requisites/labs-optional-tools/01-AWS-IAM-requirements.md)
 - [AWS CLI, kubectl, and eksctl](../pages/01-Pre-requisites/labs-kubernetes-pre-requisites/README.md#install-cli-tools) 
-
-Additional CLI utilities:
-
-- [yq](https://github.com/mikefarah/yq) 
-- [jq](https://stedolan.github.io/jq/download/)
-
-Here's a breakdown of the sections for this lab.
-
-
-  - [Introduction](#introduction)
-  - [Lab Environment](#lab-environment)
-  - [Install Cilium CNI](#install-cilium-cni)
-  - [Install NGINX Ingress Controller](#install-nginx-ingress-controller)
-  - [Allow internet inbound traffic](#allow-internet-inbound-traffic)
-  - [Deploy the API Deployment and Service](#deploy-the-api-deployment-and-service)
-  - [Deploy the API Ingress Resource](#deploy-the-api-ingress-resource)
-  - [Perform end-to-end API Test](#perform-end-to-end-api-test)
-  - [Cleanup](#cleanup)
-  - [Resources](#resources)
-
+- [Additional CLI utilities]():
+  - [yq](https://github.com/mikefarah/yq) 
+  - [jq](https://stedolan.github.io/jq/download/)
 
 
 ## Introduction
@@ -44,7 +40,9 @@ Steps:
 
 ## Lab Environment
 
-The environment used here is an empty Kubernetes cluster managed through minikube. The cluster is using a single node EC2 instance in AWS. To setup the environment, check out [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
+- Kubernetes cluster managed through **minikube**. 
+- The cluster is using a single node EC2 instance in AWS. 
+- To setup, follow: [Using Minikube to Create a Cluster.](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
 
 ## Install Cilium CNI 
 
