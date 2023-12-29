@@ -1,4 +1,3 @@
-
 # Practice Test: CKA 
 
 > *Some of the scenario questions here are based on Kodekloud's [CKA course labs](https://kodekloud.com/courses/ultimate-certified-kubernetes-administrator-cka-mock-exam/).*
@@ -15,3 +14,26 @@
 - [Troubleshooting](012-Practice-Test-CKA-Troubleshooting.md)
 - [Other Topics](013-Practice-Test-CKA-Other-Topics.md)
 - [Mock Exam](014-Practice-Test-CKA-Mock-Exam.md)
+
+
+## Application Lifecycle Management
+
+
+
+<details><summary> Answer </summary>
+ 
+```bash
+ 
+```
+ 
+</details>
+</br>
+
+
+
+
+
+
+
+
+[Back to the top](#practice-test-cka)    

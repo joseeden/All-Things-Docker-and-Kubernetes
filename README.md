@@ -21,7 +21,7 @@ Topics:
 Practice Tests:
 
 - [Certified Kubernetes Administrator (CKA)](pages/05-Exams/002-Practice-Test-CKA.md)
-- [Certified Kubernetes Application Developer (CKAD)](pages/05-Exams/003-Practice-Test-CKAD.md)
+- [Certified Kubernetes Application Developer (CKAD)](pages/05-Exams/010-Practice-Test-CKAD.md)
 
 ----------------------------------------------
 
