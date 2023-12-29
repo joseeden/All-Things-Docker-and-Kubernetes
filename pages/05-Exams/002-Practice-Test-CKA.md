@@ -27,6 +27,7 @@
     ```
 
     </details>
+    <br>
 
 2. What is the state of the container agentx in the pod webapp?
 
@@ -980,7 +981,7 @@
     ```
 
     </details>
-
+    <br>
 
 ## Labels and Selectors
 
@@ -1074,6 +1075,7 @@
     app-1-zzxdf   1/1     Running   0          6m43s    
     ```
     </details>
+    <br> 
 
 ## Taints and Tolerations
 
@@ -1187,7 +1189,7 @@
     Taints:             <none>
     ```
     </details>
-
+    <br>
 
 ## Node Affinity
 
