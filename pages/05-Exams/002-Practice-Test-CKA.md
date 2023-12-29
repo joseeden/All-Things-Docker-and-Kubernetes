@@ -15,7 +15,6 @@
 - [Node Affinity](#node-affinity)
 
 
-
 ## Pods 
 
 1. Create a new pod with the nginx image.

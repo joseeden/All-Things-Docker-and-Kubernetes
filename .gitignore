@@ -42,3 +42,6 @@ yarn-error.log*
 ## Terraform
 terraform* 
 .terraform* 
+
+## Practice Tests
+000-Draft-Practice-Test-*
