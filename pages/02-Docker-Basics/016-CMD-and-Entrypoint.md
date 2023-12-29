@@ -4,7 +4,9 @@ Containers are not meant to host operating systems. Thus when you launch a conta
 
 However if it doesn't detect any terminal, it just stops the process which also stops the container.
 
-If you want to define a command or instruction to run besides the bash when the container is ran, you can specify it in the dockerfile using the CMD keyword.
+### CMD
+
+If you want to define a default command or instruction to run besides the bash when the container is ran, you can specify it in the dockerfile using the CMD keyword.
 
 As an example, we can set the container to sleep for 60 seconds when it is ran by:
 
@@ -28,6 +30,8 @@ CMD <command> <parameter1>
 CMD ["<command>", "<parameter1>"]                   <<< JSON format
 ```
 
+### ENTRYPOINT
+
 We can also use a parameter from the commandline itself. This can be done by using ENTRYPOINT in the **dockerfile**.
 
 ```bash 
@@ -50,6 +54,8 @@ FROM ubuntu
 ENTRYPOINT ["sleep"]
 CMD ["60"]
 ```
+
+**Overriding ENTRYPOINT**
 
 You can also override the entrypoint during runtime by using the "--entrypoint" flag
 

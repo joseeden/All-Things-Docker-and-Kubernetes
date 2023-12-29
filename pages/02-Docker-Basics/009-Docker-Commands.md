@@ -176,9 +176,8 @@ $ sudo docker run ubuntu <command>
 $ sudo docker run ubuntu cat /etc/hosts
 ```
 
-
 <p align=center>
-<img src="../../Images/dockerexecexplained.png">
+<img src="../../Images/all-things-docker-k8s-docker-exec.png">
 </p>
 
 
