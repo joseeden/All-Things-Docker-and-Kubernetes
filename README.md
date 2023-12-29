@@ -212,7 +212,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Cluster Maintenance](pages/04-Kubernetes/037-Cluster-maintenance.md)
 
-- [Back Up, Restore and Upgrade Clusters](./Lab21_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
+- [Back Up, Restore and Upgrade Clusters](projects/Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
 
 - [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
 
