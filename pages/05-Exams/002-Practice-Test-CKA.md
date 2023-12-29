@@ -27,7 +27,6 @@
     ```
 
     </details>
-    <br>
 
 2. What is the state of the container agentx in the pod webapp?
 
@@ -148,7 +147,7 @@
     nginx   0/1     Pending   0          4s    
     ```
     </details>
-
+    <br>
 
 ## ReplicaSets 
 
@@ -467,7 +466,7 @@
     new-replica-set   5         5         5       118s 
     ```
     </details>
-
+    <br>
 
 ## Deployments 
 
@@ -624,6 +623,7 @@
     redis-deploy   2/2     2            2           18s    
     ```
     </details>
+    <br>
 
 ## Namespaces
 
@@ -638,7 +638,6 @@
     dna-2   0/1     CrashLoopBackOff   3 (17s ago)   71s
     ```
     </details>
-    <br>
 
 2. Create a POD in the finance namespace.
     - Name: redis
@@ -741,7 +740,7 @@
     dev-ns            Active   49s    
     ```
     </details>
-    
+    <br>
 
 ## Services 
 
@@ -891,6 +890,7 @@
     httpd           ClusterIP   10.43.129.55    <none>        80/TCP     6s
     ```
     </details>
+    <br> 
 
 ## Scheduling 
 
