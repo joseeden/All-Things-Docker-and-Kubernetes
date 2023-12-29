@@ -1032,11 +1032,6 @@ We have already given a configMap definition file called my-scheduler-configmap.
 
 30. Modify the nginx-pod.yml file POD to create a POD with the new custom scheduler.
 
-
-
-
-[Back to the top](#practice-test-cka)    
-
     <details><summary> Answer </summary>
     
     ```bash
@@ -1085,3 +1080,6 @@ We have already given a configMap definition file called my-scheduler-configmap.
     ```
     </details>
     </br>
+
+[Back to the top](#practice-test-cka)    
+
