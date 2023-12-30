@@ -91,13 +91,15 @@
 
 3. A user - USER5 - has expressed concerns accessing the application. Identify the cause of the issue.
 
-    <details><summary> Answer </summary>
-    
     ```bash
     controlplane ~ ➜  k get po
     NAME       READY   STATUS    RESTARTS   AGE
-    webapp-1   1/1     Running   0          108s
+    webapp-1   1/1     Running   0          108s 
+    ```
 
+    <details><summary> Answer </summary>
+    
+    ```bash
     controlplane ~ ✖ k logs webapp-1 | grep WARNING
     [2023-12-29 08:49:33,717] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
     [2023-12-29 08:49:36,719] WARNING in event-simulator: USER7 Order failed as the item is OUT OF STOCK.
@@ -110,14 +112,16 @@
 
 4. A user is reporting issues while trying to purchase an item. Identify the user and the cause of the issue. Inspect the logs of the webapp-2 in the POD
 
-    <details><summary> Answer </summary>
-    
     ```bash
     controlplane ~ ➜  k get po 
     NAME       READY   STATUS    RESTARTS   AGE
     webapp-1   1/1     Running   0          2m53s
-    webapp-2   2/2     Running   0          17s
+    webapp-2   2/2     Running   0          17s 
+    ```
 
+    <details><summary> Answer </summary>
+    
+    ```bash
     controlplane ~ ➜  k logs webapp-2 | grep WARNING
     Defaulted container "simple-webapp" out of: simple-webapp, db
     [2023-12-29 08:52:05,219] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.

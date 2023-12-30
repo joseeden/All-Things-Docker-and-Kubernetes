@@ -72,6 +72,12 @@
 
 4. Delete the webapp Pod.
 
+    ```bash
+    controlplane ~ ➜  k get po
+    NAME            READY   STATUS             RESTARTS   AGE
+    webapp          1/2     ImagePullBackOff   0          3m41s
+    ```
+
     <details><summary> Answer </summary>
 
     ```bash
@@ -131,11 +137,11 @@
     apiVersion: v1
     kind: Pod
     metadata:
-    name: nginx
+      name: nginx
     spec:
-    containers:
-    -  image: nginx
-        name: nginx  
+      containers:
+      -  image: nginx
+         name: nginx  
     ```
 
     <details><summary> Answer </summary>
@@ -154,16 +160,18 @@
 
 8. What is the image used to create the pods in the new-replica-set?
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get po
     NAME                    READY   STATUS             RESTARTS   AGE
     new-replica-set-988qh   0/1     ImagePullBackOff   0          84s
     new-replica-set-b4blf   0/1     ImagePullBackOff   0          84s
     new-replica-set-fqlg2   0/1     ImagePullBackOff   0          84s
-    new-replica-set-9qn8h   0/1     ImagePullBackOff   0          84s
+    new-replica-set-9qn8h   0/1     ImagePullBackOff   0          84s 
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k get rs
     NAME              DESIRED   CURRENT   READY   AGE
     new-replica-set   4         4         0       86s
@@ -176,6 +184,15 @@
 
 
 9. Why do you think the PODs are not ready?
+
+    ```bash
+    controlplane ~ ➜  k get po
+    NAME                    READY   STATUS             RESTARTS   AGE
+    new-replica-set-988qh   0/1     ImagePullBackOff   0          84s
+    new-replica-set-b4blf   0/1     ImagePullBackOff   0          84s
+    new-replica-set-fqlg2   0/1     ImagePullBackOff   0          84s
+    new-replica-set-9qn8h   0/1     ImagePullBackOff   0          84s 
+    ```
 
     <details><summary> Answer </summary>
 
@@ -207,19 +224,19 @@
     apiVersion: v1
     kind: ReplicaSet
     metadata:
-    name: replicaset-1
+      name: replicaset-1
     spec:
-    replicas: 2
-    selector:
+      replicas: 2
+      selector:
         matchLabels:
         tier: frontend
-    template:
+      template:
         metadata:
-        labels:
+          labels:
             tier: frontend
         spec:
-        containers:
-        - name: nginx
+          containers:
+          - name: nginx
             image: nginx
     ```
     <details><summary> Answer </summary>
@@ -236,24 +253,24 @@
 
     Fix apiVersion then apply.
 
-    ```bash
+    ```yaml
     apiVersion: apps/v1
     kind: ReplicaSet
     metadata:
-    name: replicaset-1
+      name: replicaset-1
     spec:
-    replicas: 2
-    selector:
+      replicas: 2
+      selector:
         matchLabels:
         tier: frontend
-    template:
+      template:
         metadata:
-        labels:
+          labels:
             tier: frontend
         spec:
-        containers:
-        - name: nginx
-            image: nginx  
+          containers:
+          - name: nginx
+            image: nginx
     ```
     ```bash
     controlplane ~ ➜  k apply -f replicaset-definition-1.yaml 
@@ -334,15 +351,17 @@
 
 12. Delete the two newly created ReplicaSets - replicaset-1 and replicaset-2.
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get rs
     NAME              DESIRED   CURRENT   READY   AGE
     new-replica-set   4         4         0       12m
     replicaset-1      2         2         2       3m22s
     replicaset-2      2         2         2       66s
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k delete rs replicaset-1
     replicaset.apps "replicaset-1" deleted
 
@@ -357,7 +376,7 @@
     <br>
 
 
-13. Fix the original replica set new-replica-set to use the correct busybox image.
+13. Fix the original replica set **new-replica-set** to use the correct busybox image.
 
     <details><summary> Answer </summary>
 
@@ -448,13 +467,15 @@
 
 14. Scale the ReplicaSet to 5 PODs.
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get rs
     NAME              DESIRED   CURRENT   READY   AGE
-    new-replica-set   4         4         4       33s
+    new-replica-set   4         4         4       33s 
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k edit rs new-replica-set 
     ```
     ```bash
@@ -471,13 +492,16 @@
 
 15. What is the image used to create the pods in the new deployment?
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get deploy
     NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
-    frontend-deployment   0/4     4            0           103s
+    frontend-deployment   0/4     4            0           103s 
+    ```
 
+
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k get po
     NAME                                   READY   STATUS             RESTARTS   AGE
     frontend-deployment-577494fd6f-kcjjq   0/1     ImagePullBackOff   0          107s
@@ -494,15 +518,17 @@
 
 16. Why do you think the deployment is not ready?
 
+    ```bash
+    controlplane ~ ➜  k get deploy
+    NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+    frontend-deployment   0/4     4            0           103s 
+    ```
+
     <details><summary> Answer </summary>
 
     The image BUSYBOX888 doesn't exist
 
     ```bash
-    controlplane ~ ➜  k get deploy
-    NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
-    frontend-deployment   0/4     4            0           103s
-
     controlplane ~ ➜  k get po
     NAME                                   READY   STATUS             RESTARTS   AGE
     frontend-deployment-577494fd6f-kcjjq   0/1     ImagePullBackOff   0          107s
@@ -529,19 +555,19 @@
     apiVersion: apps/v1
     kind: deployment
     metadata:
-    name: deployment-1
+      name: deployment-1
     spec:
-    replicas: 2
-    selector:
+      replicas: 2
+      selector:
         matchLabels:
-        name: busybox-pod
-    template:
+          name: busybox-pod
+      template:
         metadata:
-        labels:
+          labels:
             name: busybox-pod
         spec:
-        containers:
-        - name: busybox-container
+          containers:
+          - name: busybox-container
             image: busybox888
             command:
             - sh
@@ -636,6 +662,7 @@
     dna-2   0/1     CrashLoopBackOff   3 (17s ago)   71s
     ```
     </details>
+    <br>
 
 21. Create a POD in the finance namespace.
     - Name: redis
@@ -743,13 +770,15 @@
 
 26. What is the targetPort configured on the kubernetes service? 
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get svc
     NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-    kubernetes   ClusterIP   10.43.0.1    <none>        443/TCP   6m33s
+    kubernetes   ClusterIP   10.43.0.1    <none>        443/TCP   6m33s 
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k describe svc kubernetes
     Name:              kubernetes
     Namespace:         default
@@ -786,7 +815,7 @@
 
     Create the file and apply. 
 
-    ```bash
+    ```yaml
     apiVersion: v1
     kind: Service
     metadata:

@@ -1,16 +1,15 @@
 
 # Probes and Init Containers 
 
-
 - [Probes](#probes)
     - [Readiness Probes](#readiness-probes)
     - [Liveness Probes](#liveness-probes)
     - [Startup Probes](#startup-probes)
 - [Declaring Probes](#declaring-probes)
 - [Multi-container Pod](#multi-container-pod)
+- [Sidecar Containers](#sidecar-containers)
 - [InitContainers](#initcontainers)
-- [Configuring InitContainers](#configuring-initcontainers)
-
+- [Sidecar vs. InitContainers](#sidecar-vs-initcontainers)
 
 
 ## Probes
@@ -80,7 +79,15 @@ Both the containers are expected to stay alive at all times. The process running
 
 But at times we may want to run a process that runs to completion in a container. For example a process that pulls a code or binary from a repository that will be used by the main web application. This task will be run only one time when the pod is first created. 
 
+The primary purpose of a multi-container Pod is to support co-located, co-managed helper processes for a primary application. The second container which "helps" the main container is called a **Sidecar container.**
+
 This could also be a process that waits for an external service or database to be up before the actual application starts. That's where **initContainers** comes in.
+
+## Sidecar Containers 
+
+Sidecar containers helps the main container. Some examples include log or data change watchers, monitoring adapters, and so on.
+
+Kubernetes itself does not know anything about sidecars. Sidecar-Containers are a pattern to solve some use-cases. Usually, Kubernetes distinguishes between Init-Containers and Containers running inside your Pod.
 
 ## InitContainers
 
@@ -98,10 +105,40 @@ To do this, we can use **init containers** to initialize the task before the mai
 
 Note that init containers are ran **EVERY TIME** a Pod is created. This means Init containers will also run if Pods are restarted.
 
-## Configuring InitContainers
-An initContainer is configured in a pod like all other containers, except that it is specified inside a initContainers section,  like this:
+## Sidecar vs. InitContainers
 
-```bash
+
+Main difference between sidecar and initcontainers:
+
+- Init containers run and exit before your main application starts
+- Sidecars run side-by-side with your main container(s) and provide some kind of service for them.
+
+**Sidecar containers configuration:**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: app
+  name: app
+spec:
+  containers:
+  - image: event-simulator
+    name: app
+    volumeMounts:
+    - mountPath: /log
+      name: log-volume
+  - name: sidecar
+    image: filebeat-configured
+    volumeMounts:
+    - name: log-volume
+      mountPath: /var/log/event-simulator/  
+```
+
+**Init containers configuration:**
+
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -144,6 +181,6 @@ spec:
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;'] 
 ```
 
-To see init containers in actions check out this [lab](../../Lab47_Init_Containers/README.md).
+To see init containers in actions check out this [lab](../../projects/Lab_047_Init_Containers/README.md).
 
 

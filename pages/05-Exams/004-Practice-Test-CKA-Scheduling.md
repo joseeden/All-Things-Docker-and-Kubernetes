@@ -31,10 +31,10 @@
     apiVersion: v1
     kind: Pod
     metadata:
-    name: nginx
+      name: nginx
     spec:
-    containers:
-    -  image: nginx
+      containers:
+      - image: nginx
         name: nginx  
     ```
 
@@ -110,8 +110,6 @@
 
 2. We have deployed a number of PODs. They are labelled with tier, env and bu. How many PODs exist in the dev environment (env)?
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get po
     NAME          READY   STATUS    RESTARTS   AGE
@@ -125,8 +123,12 @@
     app-1-zzxdf   1/1     Running   0          106s
     app-2-wdhp9   1/1     Running   0          107s
     db-1-8nlqw    1/1     Running   0          106s
-    db-2-ds4b8    1/1     Running   0          106s
+    db-2-ds4b8    1/1     Running   0          106s 
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k get po --show-labels=true
     NAME          READY   STATUS    RESTARTS   AGE    LABELS
     app-1-whhgk   1/1     Running   0          111s   bu=finance,env=dev,tier=frontend
@@ -243,14 +245,17 @@
 
 8. Do any taints exist on node01 node?
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get no
     NAME           STATUS   ROLES           AGE   VERSION
     controlplane   Ready    control-plane   21m   v1.27.0
     node01         Ready    <none>          20m   v1.27.0
+    ```
 
+
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k describe no node01 | grep Taints
     Taints:             <none>  
     ```
@@ -333,14 +338,16 @@
 
 11. Remove the taint on controlplane.
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get no
     NAME           STATUS   ROLES           AGE   VERSION
     controlplane   Ready    control-plane   35m   v1.27.0
-    node01         Ready    <none>          34m   v1.27.0
+    node01         Ready    <none>          34m   v1.27.0 
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k describe no controlplane | grep Taint
     Taints:             node-role.kubernetes.io/control-plane:NoSchedule 
 
@@ -357,6 +364,7 @@
 12. Set Node Affinity to the deployment to place the pods on node01 only.
 
     <details><summary> Answer </summary>
+
     Get the YAML file and modify by adding the parameters for the node affinity. See K8s docs for format.
 
     ```bash
@@ -366,32 +374,32 @@
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-    creationTimestamp: null
-    labels:
+      creationTimestamp: null
+      labels:
         app: blue
     name: blue
     spec:
-    replicas: 3
-    selector:
+      replicas: 3
+      selector:
         matchLabels:
         app: blue
-    strategy: {}
-    template:
+      strategy: {}
+      template:
         metadata:
-        creationTimestamp: null
-        labels:
+          creationTimestamp: null
+          labels:
             app: blue
         spec:
-        containers:
-        - image: nginx
+          containers:
+          - image: nginx
             name: nginx
             resources: {}
-        affinity:
+          affinity:
             nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
+              requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                 - matchExpressions:
-                - key: color
+                  - key: color
                     operator: In
                     values:
                     - blue
@@ -444,32 +452,32 @@
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-    creationTimestamp: null
-    labels:
+      creationTimestamp: null
+      labels:
         app: red
     name: red
     spec:
-    replicas: 2
-    selector:
+      replicas: 2
+      selector:
         matchLabels:
         app: red
-    strategy: {}
-    template:
+      strategy: {}
+      template:
         metadata:
-        creationTimestamp: null
-        labels:
+          creationTimestamp: null
+          labels:
             app: red
         spec:
-        containers:
-        - image: nginx
+          containers:
+          - image: nginx
             name: nginx
             resources: {}
-        affinity:
+          affinity:
             nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
+              requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                 - matchExpressions:
-                - key: node-role.kubernetes.io/control-plane
+                  - key: node-role.kubernetes.io/control-plane
                     operator: Exists
     ```
 
@@ -488,13 +496,15 @@
 
 14. A pod called rabbit is deployed. Identify the CPU requirements set on the Pod.
 
-    <details><summary> Answer </summary>
-
     ```bash
     controlplane ~ ➜  k get po
     NAME     READY   STATUS             RESTARTS      AGE
-    rabbit   0/1     CrashLoopBackOff   4 (31s ago)   118s
+    rabbit   0/1     CrashLoopBackOff   4 (31s ago)   118s 
+    ```
 
+    <details><summary> Answer </summary>
+
+    ```bash
     controlplane ~ ➜  k describe po rabbit | grep -A 5 -i requests
         Requests:
         cpu:        1    
@@ -504,15 +514,17 @@
 
 15. Another pod called elephant has been deployed in the default namespace. It fails to get to a running state. Inspect this pod and identify the Reason why it is not running.
 
-    <details><summary> Answer </summary>
-
     ```bash
-    The status OOMKilled indicates that it is failing because the pod ran out of memory. Identify the memory limit set on the POD. 
-
     controlplane ~ ➜  k get po
     NAME       READY   STATUS             RESTARTS      AGE
     elephant   0/1     CrashLoopBackOff   3 (33s ago)   86s
+    ```
 
+    <details><summary> Answer </summary>
+
+    The status OOMKilled indicates that it is failing because the pod ran out of memory. Identify the memory limit set on the POD. 
+
+    ```bash
     controlplane ~ ➜  k describe pod elephant | grep -A 5 State
         State:          Terminated
         Reason:       OOMKilled
@@ -530,6 +542,12 @@
     <br>
 
 16. The elephant pod runs a process that consumes 15Mi of memory. Increase the limit of the elephant pod to 20Mi.
+
+    ```bash
+    controlplane ~ ➜  k get po
+    NAME       READY   STATUS             RESTARTS      AGE
+    elephant   0/1     CrashLoopBackOff   3 (33s ago)   86s
+    ```
 
     <details><summary> Answer </summary>
 
@@ -999,17 +1017,17 @@ We have already given a configMap definition file called my-scheduler-configmap.
     apiVersion: v1
     kind: Pod
     metadata:
-    labels:
+      labels:
         run: my-scheduler
     name: my-scheduler
     namespace: kube-system
     spec:
-    serviceAccountName: my-scheduler
-    containers:
-    - command:
+      serviceAccountName: my-scheduler
+      containers:
+      - image: registry.k8s.io/kube-scheduler:v1.27.0
+        command:
         - /usr/local/bin/kube-scheduler
         - --config=/etc/kubernetes/my-scheduler/my-scheduler-config.yaml
-        image: registry.k8s.io/kube-scheduler:v1.27.0
     ```
 
     ```bash
@@ -1054,11 +1072,11 @@ We have already given a configMap definition file called my-scheduler-configmap.
     apiVersion: v1
     kind: Pod
     metadata:
-    name: nginx
+      name: nginx
     spec:
-    schedulerName: my-scheduler
-    containers:
-    - image: nginx
+      schedulerName: my-scheduler
+      containers:
+      - image: nginx
         name: nginx 
     ```
     ```bash
