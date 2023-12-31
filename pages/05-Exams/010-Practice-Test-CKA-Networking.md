@@ -291,14 +291,49 @@
     </br>
 
 
-<details><summary> Answer </summary>
- 
-```bash
- 
-```
- 
-</details>
-</br>
+13. Deploy weave-net networking solution to the cluster.
+
+    NOTE: - We already have provided a weave manifest file under the /root/weave directory.
+
+    <details><summary> Answer </summary>
+
+    The pod cannot start because networking is not yet configured. 
+
+    ```bash
+    controlplane ~ ➜  k get po
+    NAME   READY   STATUS              RESTARTS   AGE
+    app    1/1     ContainerCreating   0          3m7s 
+    ```
+
+    Install weavenet via the weave manifest. 
+
+    ```bash
+    controlplane ~ ➜  ls -la /root/weave/
+    total 20
+    drwxr-xr-x 2 root root 4096 Dec 30 20:21 .
+    drwx------ 1 root root 4096 Dec 30 20:20 ..
+    -rw-r--r-- 1 root root 6259 Dec 30 20:21 weave-daemonset-k8s.yaml
+
+    controlplane ~ ➜  k apply -f /root/weave/
+    serviceaccount/weave-net created
+    clusterrole.rbac.authorization.k8s.io/weave-net created
+    clusterrolebinding.rbac.authorization.k8s.io/weave-net created
+    role.rbac.authorization.k8s.io/weave-net created
+    rolebinding.rbac.authorization.k8s.io/weave-net created
+    daemonset.apps/weave-net created
+    
+    ```
+
+    The app should now be able to run. 
+
+    ```bash
+    controlplane ~ ➜  k get po
+    NAME   READY   STATUS    RESTARTS   AGE
+    app    1/1     Running   0          3m7s 
+    ```
+
+    </details>
+    </br>
 
 
 <details><summary> Answer </summary>
