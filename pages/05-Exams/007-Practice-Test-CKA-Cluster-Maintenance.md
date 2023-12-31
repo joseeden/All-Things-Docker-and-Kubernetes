@@ -760,6 +760,7 @@
     controlplane ~ ➜  cd /etc/kubernetes/manifests/
     ```
     ```yaml
+    ## etcd.yaml
     apiVersion: v1
     kind: Pod
     metadata:

@@ -202,6 +202,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## ubuntu-sleeper-2.yaml 
     apiVersion: v1
     kind: Pod 
     metadata:
@@ -233,6 +234,7 @@
 7. Create a pod using the file named ubuntu-sleeper-3.yaml. There is something wrong with it. Try to fix it
 
     ```yaml
+    ## ubuntu-sleeper-3.yaml
     apiVersion: v1 
     kind: Pod 
     metadata:
@@ -251,6 +253,7 @@
     Commands should be enclosed in quotes. 
 
     ```bash
+    ## ubuntu-sleeper-3.yaml
     apiVersion: v1
     kind: Pod 
     metadata:
@@ -295,6 +298,7 @@
     controlplane ~ ✦2 ➜  k run webapp-green --image  kodekloud/webapp-color $do -o yaml > green.yml
     ```
     ```bash
+    ## green.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -413,6 +417,7 @@
     controlplane ~ ✦ ➜  k create cm webapp-config-map $do > webapp-color.yml
     ```
     ```bash
+    ## webapp-color.yml
     apiVersion: v1
     kind: ConfigMap
     metadata:
@@ -498,6 +503,7 @@
     Follow the K8s docs on how to configure pods to use configmaps.
     
     ```bash
+    ## color.yml 
     apiVersion: v1
     kind: Pod
     metadata:
@@ -649,6 +655,7 @@
     Follow steps on how to configure all key-value pairs in a Secret as container environment variables from K8S docs. 
 
     ```bash
+    ## webapp-pod.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -787,6 +794,7 @@
     controlplane ~ ➜  k run yellow --image busybox $do > yellow.yml 
     ```
     ```yaml
+    ## yellow.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -818,6 +826,7 @@
     yellow      1/2     CrashLoopBackOff   1 (4s ago)   7s
     ```
     ```bash
+    ## yellow.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1019,6 +1028,7 @@
 
     Add a sidecar container to the YAML file. Follow K8S docs for steps.
     ```yaml
+    ## elastic-app.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1173,6 +1183,7 @@
 
     Add the initContainer in the YAML file. Follow K8s docs for steps.
     ```yaml
+    ## red.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1265,6 +1276,7 @@
     Inspect the YAML file. We can see that the command is wrong.
 
     ```yaml 
+    ## orange.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1311,6 +1323,7 @@
     Fix the command in initcontainer. 
 
     ```yaml 
+    ## orange.yml
     apiVersion: v1
     kind: Pod
     metadata:

@@ -28,6 +28,7 @@
     ```
 
     ```yaml
+    ## nginx.yaml 
     apiVersion: v1
     kind: Pod
     metadata:
@@ -85,6 +86,7 @@
     To manually schedule, modify the YAML file and apply.
 
     ```yaml
+    ## nginx.yaml 
     apiVersion: v1
     kind: Pod
     metadata:
@@ -302,6 +304,7 @@
     Search on the k8s docs the paramters for tolerations and add it to the YAML file. Apply afterwards.
 
     ```yaml
+    ## bee.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -371,6 +374,7 @@
     controlplane ~ ➜  k get deployments.apps blue -o yaml > blue.yml     
     ```
     ```bash
+    ## blue.yml  
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -449,6 +453,7 @@
     controlplane ~ ➜  k create deployment red --image nginx --replicas 2 $do > red.yml
     ```
     ```bash
+    ## red.yml
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -559,6 +564,7 @@
     ```
 
     ```bash
+    ## el.yaml
     apiVersion: v1
     items:
     - apiVersion: v1
@@ -648,6 +654,7 @@
     Copy the FluentD YAML from K8S docs and modify. Apply afterwards.
 
     ```bash
+    ## fluentd.yml
     apiVersion: apps/v1
     kind: DaemonSet
     metadata:
@@ -834,6 +841,7 @@
     Add the command parameter and apply afterwards.
 
     ```bash
+    ## /etc/kubernetes/manifests/static-busybox.yml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1014,6 +1022,7 @@ We have already given a configMap definition file called my-scheduler-configmap.
     ```
 
     ```bash
+    ## my-scheduler.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1069,6 +1078,7 @@ We have already given a configMap definition file called my-scheduler-configmap.
     Add the new custom scheduler. 
 
     ```yaml
+    ## nginx-pod.yaml
     apiVersion: v1
     kind: Pod
     metadata:

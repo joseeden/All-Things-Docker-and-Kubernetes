@@ -133,6 +133,7 @@
 7. A pod definition file nginx.yaml is given. Create a pod using the file.
 
     ```yaml 
+    ## nginx.yaml
     ---
     apiVersion: v1
     kind: Pod
@@ -221,6 +222,7 @@
 10. Create a ReplicaSet using the replicaset-definition-1.yaml file located at /root/. There is an issue with the file, so try to fix it.
 
     ```yaml
+    ## replicaset-definition-1.yaml
     apiVersion: v1
     kind: ReplicaSet
     metadata:
@@ -254,6 +256,7 @@
     Fix apiVersion then apply.
 
     ```yaml
+    ## replicaset-definition-1.yaml
     apiVersion: apps/v1
     kind: ReplicaSet
     metadata:
@@ -287,6 +290,7 @@
 11. Fix the issue in the replicaset-definition-2.yaml file and create a ReplicaSet using it.
 
     ```yaml
+    ## replicaset-definition-2.yaml 
     apiVersion: apps/v1
     kind: ReplicaSet
     metadata:
@@ -316,6 +320,7 @@
     Fix labels and apply.
 
     ```bash
+    ## replicaset-definition-2.yaml 
     apiVersion: apps/v1
     kind: ReplicaSet
     metadata:
@@ -392,6 +397,7 @@
     ```
     ```bash
     controlplane ~ ➜  cat new-rs.yml 
+    ## new-rs.yml 
     apiVersion: apps/v1
     kind: ReplicaSet
     metadata:
@@ -551,6 +557,7 @@
 17. Create a new Deployment using the deployment-definition-1.yaml file located at /root/. There is an issue with the file, so try to fix it.
 
     ```yaml
+    ## deployment-definition-1.yaml 
     ---
     apiVersion: apps/v1
     kind: deployment
@@ -587,6 +594,7 @@
     Fix kind and apply.
 
     ```bash
+    ## deployment-definition-1.yaml 
     ---
     apiVersion: apps/v1
     kind: Deployment
@@ -816,6 +824,7 @@
     Create the file and apply. 
 
     ```yaml
+    ## service-definition-1.yaml 
     apiVersion: v1
     kind: Service
     metadata:

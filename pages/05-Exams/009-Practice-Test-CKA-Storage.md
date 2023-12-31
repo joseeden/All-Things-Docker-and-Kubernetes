@@ -76,6 +76,7 @@
     Add the volume and volumemount in the YAML file. Follow K8S docs. 
 
     ```bash
+    ## webapp.yml 
     apiVersion: v1
     kind: Pod
     metadata:
@@ -136,6 +137,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## pv-log.yaml
     apiVersion: v1
     kind: PersistentVolume
     metadata:
@@ -175,6 +177,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## pvc-log.yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
@@ -234,6 +237,7 @@
     Just need to modify the volume sectino:
 
     ```yaml
+    ## webapp.yml 
     apiVersion: v1
     kind: Pod
     metadata:
@@ -385,6 +389,7 @@
     Events:    <none>
     ```
     ```yaml
+    ## local-pvc.yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
@@ -431,6 +436,7 @@
     ```
 
     ```bash
+    ## nginx.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -485,6 +491,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## delayed-volume-sc.yaml 
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     metadata:

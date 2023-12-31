@@ -497,6 +497,7 @@
     Follow: https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/#create-a-certificatesigningrequest-object-to-send-to-the-kubernetes-api
 
     ```bash
+    ## akshay-csr.yaml 
     apiVersion: certificates.k8s.io/v1
     kind: CertificateSigningRequest
     metadata:
@@ -983,6 +984,7 @@
     <details><summary> Answer </summary>
     
     ```yaml
+    ## role-rolebinding.yaml 
     apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
     metadata:
@@ -1057,6 +1059,7 @@
     Check the role. Here we can see that the resource name is incorrect. 
 
     ```bash
+    ## blue-dev-rolebinding.yaml
     apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
     metadata:
@@ -1082,6 +1085,7 @@
     Fix it. 
 
     ```bash
+    ## blue-dev-rolebinding.yaml
     apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
     metadata:
@@ -1137,6 +1141,7 @@
     Add a new api-group in the YAML file.
 
     ```bash
+    ## blue-dev-role.yaml
     apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
     metadata:
@@ -1263,6 +1268,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## michelle-clusterrole.yaml 
     apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRole
     metadata:
@@ -1277,6 +1283,7 @@
     ```
     
     ```bash
+    ## michelle-clusterrolebinding.yaml 
     apiVersion: rbac.authorization.k8s.io/v1
     # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
     kind: ClusterRoleBinding
@@ -1333,6 +1340,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## storage-admin-clusterrole.yaml 
     apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRole
     metadata:
@@ -1353,6 +1361,7 @@
       - "*" 
     ```
     ```bash
+    ## storage-admin-clusterrolebinding.yaml 
     apiVersion: rbac.authorization.k8s.io/v1
     # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
     kind: ClusterRoleBinding
@@ -1454,6 +1463,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## dashboard-sa.yaml 
     apiVersion: v1
     kind: ServiceAccount
     metadata:
@@ -1753,6 +1763,7 @@
     ```
     
     ```bash
+    ## ubuntu-sleeper.yaml 
     apiVersion: v1
     kind: Pod
     metadata:
@@ -1817,6 +1828,7 @@
     ```
     
     ```bash
+    ## ubuntu-sleeper.yaml 
     ---
     apiVersion: v1
     kind: Pod
@@ -1920,6 +1932,7 @@
     <details><summary> Answer </summary>
     
     ```bash
+    ## internal-policy.yaml
     apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:
