@@ -11,8 +11,6 @@
 - [Storage](009-Practice-Test-CKA-Storage.md) 
 - [Networking](010-Practice-Test-CKA-Networking.md)
 - [Kubernetes-the-hard-way](011-Practice-Test-CKA-K8S-The-Hard-Way.md)
-- [Troubleshooting](012-Practice-Test-CKA-Troubleshooting.md)
-- [Other Topics](013-Practice-Test-CKA-Other-Topics.md)
 - [Mock Exam](014-Practice-Test-CKA-Mock-Exam.md)
 
 
@@ -926,6 +924,19 @@
     ```
     </details>
     <br>     
+
+31. Get the list of nodes in JSON format and store it in a file at /opt/outputs/nodes.json.
+
+        <details><summary> Answer </summary>
+        
+        ```bash
+        controlplane ~ ➜  k get no -o json > /opt/outputs/nodes.json
+        ```
+        
+        </details>
+        </br>
+
+
 
 
 [Back to the top](#practice-test-cka)    
