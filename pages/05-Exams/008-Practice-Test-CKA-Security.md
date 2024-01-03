@@ -12,8 +12,6 @@
 - [Storage](009-Practice-Test-CKA-Storage.md) 
 - [Networking](010-Practice-Test-CKA-Networking.md)
 - [Kubernetes-the-hard-way](011-Practice-Test-CKA-K8S-The-Hard-Way.md)
-- [Mock Exam](014-Practice-Test-CKA-Mock-Exam.md)
-
 
 ## Security 
 
