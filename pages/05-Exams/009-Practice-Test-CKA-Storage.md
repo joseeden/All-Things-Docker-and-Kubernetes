@@ -196,7 +196,7 @@
         - ReadWriteMany
       resources:
         requests:
-        storage: 50Mi
+          storage: 50Mi
     ```
     ```bash
     controlplane ~ ➜  k apply -f pvc-log.yaml 
@@ -410,7 +410,7 @@
       storageClassName: local-storage
       resources:
         requests:
-        storage: 500Mi 
+          storage: 500Mi 
     ```
     ```bash
     controlplane ~ ➜  k apply -f local-pvc.yaml 
@@ -452,7 +452,7 @@
       creationTimestamp: null
       labels:
         run: nginx
-    name: nginx
+      name: nginx
     spec:
       containers:
       - image: nginx:alpine
@@ -461,10 +461,8 @@
         volumeMounts:
         - mountPath: "/var/www/html"
           name: local-pv
-    dnsPolicy: ClusterFirst
-    restartPolicy: Always
-    volumes:
-    - name: local-pv
+      volumes:
+      - name: local-pv
         persistentVolumeClaim:
             claimName: local-pvc
     status: {} 

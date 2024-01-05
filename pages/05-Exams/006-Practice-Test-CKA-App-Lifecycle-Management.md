@@ -1218,8 +1218,8 @@
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-        name: kube-api-access-r4zhp
-        readOnly: true 
+          name: kube-api-access-r4zhp
+          readOnly: true 
     ```
     ```bash
     controlplane ~ ✦ ➜  k delete -f red.yml $now
@@ -1278,7 +1278,7 @@
     Defaulted container "orange-container" out of: orange-container, init-myservice (init)
     Error from server (BadRequest): container "orange-container" in pod "orange" is waiting to start: PodInitializing
 
-    controlplane ~ ✦2 ✖ k get po orange -o yaml > orange.yml
+    controlplane ~ ✦2 ➜ k get po orange -o yaml > orange.yml
     ```
 
     Inspect the YAML file. We can see that the command is wrong.

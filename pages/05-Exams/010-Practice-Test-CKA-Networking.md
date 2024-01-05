@@ -1327,6 +1327,9 @@
     controlplane ~ ➜  k create sa ingress-nginx-admission --namespace ingress-nginx
     serviceaccount/ingress-nginx-admission created
 
+    controlplane ~ ➜  k create sa ingress-nginx --namespace ingress-nginx
+    serviceaccount/ingress-nginx-admission created
+
     controlplane ~ ➜  k get sa -n ingress-nginx 
     NAME                      SECRETS   AGE
     default                   0         8m53s

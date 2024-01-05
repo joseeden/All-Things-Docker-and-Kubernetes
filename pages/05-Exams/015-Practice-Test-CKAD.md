@@ -17,4 +17,9 @@
 
 - [Mock Exams](022-Practice-Test-CKAD-Mock-Exams.md) 
 
+**Note:**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKA practice tests.](./002-Practice-Test-CKA.md)
+
 

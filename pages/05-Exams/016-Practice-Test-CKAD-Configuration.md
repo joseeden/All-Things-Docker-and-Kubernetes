@@ -20,6 +20,13 @@
 
 ## Configuration 
 
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKA practice tests.](./002-Practice-Test-CKA.md)
+
+**Shortcuts**
+
 First run the two commands below for shortcuts.
 
 ```bash
@@ -27,7 +34,7 @@ export do="--dry-run=client -o yaml"
 export now="--force --grace-period=0" 
 ```
 
-Questions: 
+**Questions** 
 
 1. Create a pod with the ubuntu image to run a container to sleep for 5000 seconds. 
 
