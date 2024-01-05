@@ -20,6 +20,14 @@
 
 ## Services and Networking 
 
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+Questions: 
 
 <details><summary> Answer </summary>
  
