@@ -7,39 +7,35 @@ This repository contains projects on containerization and orchestration that I'm
 
 - [How to Use this Repo](#how-to-use-this-repo)
 - [Projects](#projects)
-- [Pre-requisites](#pre-requisites)
-- [Troubleshooting Guides](#troubleshooting-guides)
-
-Topics:
-
-- [Docker + Containers](#docker--containers)
-- [Cloud-Native](#cloud-native)
-- [Kubernetes](#kubernetes)
+    - [Pre-requisites](#pre-requisites)
+    - [Project List](#project-list)
+- [Notes](#notes)    
+    - [Docker + Containers](#docker--containers)
+    - [Cloud-Native](#cloud-native)
+    - [Kubernetes](#kubernetes)
+    - [Kubernetes Security](#kubernetes-security)
+    - [Helm](#helm)
+    - [Amazon Elastic Kubernetes Service (EKS)](#amazon-elastic-kubernetes-service)
+    - [Azure Kubernetes Service (AKS)](#azure-kubernetes-service)
+    - [Google Kubernetes Engine (GKE)](#google-kubernetes-engine)
+    - [Troubleshooting Guides](#troubleshooting-guides)
 - [Certification Exams](#certification-exams)
+    - [Practice Tests](#practice-tests) 
+    - [Links](#links) 
 - [Resources](#resources)
-
-Practice Tests:
-
-- [Certified Kubernetes Administrator (CKA)](pages/05-Exams/002-Practice-Test-CKA.md)
-- [Certified Kubernetes Application Developer (CKAD)](pages/05-Exams/010-Practice-Test-CKAD.md)
-
-----------------------------------------------
 
 
 ## How to Use this Repo
 
 - Each project in this repo is equipped with easy-to-follow, detailed instructions. 
 
-- You can also go through the **Docker** and **Kubernetes** topics below for a quick walkthrough.
+- You can also go through the **Docker** and **Kubernetes** notes below for a quick walkthrough.
 
 ## Projects
 
-The complete list of projects can be found [here](projects/README.md).
+### Pre-requisites
 
-
-## Pre-requisites
-
-Here are some pre-requisites before we can perform the labs. 
+Here are some pre-requisites before we can perform the projects and labs. 
 
 - [For Docker Labs](pages/01-Pre-requisites/labs-docker-pre-requisites/README.md)
 
@@ -47,8 +43,13 @@ Here are some pre-requisites before we can perform the labs.
  
 - [Optional Tools](pages/01-Pre-requisites/labs-optional-tools/README.md)
 
+### Project List 
 
-## Docker + Containers
+The complete list of projects can be found [here](projects/README.md).
+
+## Notes 
+
+### Docker + Containers
 
 Containers are where it all starts.
 
@@ -109,7 +110,7 @@ Containers are where it all starts.
 <!-- </details> -->
 
 
-## Cloud-Native
+### Cloud-Native
 
 When you have containers, you have cloud-native applications. 
 
@@ -132,7 +133,7 @@ When you have containers, you have cloud-native applications.
 - [Product is Released, What's Next?](pages/03-Cloud-Native/009-Product-is-Released-Whats-Next.md) 
 
 
-## Kubernetes
+### Kubernetes
 
 Kubernetes is indeed an entire universe in itself. 
 
@@ -153,6 +154,12 @@ Kubernetes is indeed an entire universe in itself.
 - [Kubeconfig file](pages/04-Kubernetes/009-kubeconfig-files.md)
 
 - [Kubernetes API](pages/04-Kubernetes/040-kubernetes-api.md)
+
+- [Enabling API versions for API Groups](pages/04-Kubernetes/041-enabling-api-versions.md)
+
+- [Changing deprecated API versions using kubectl convert](pages/04-Kubernetes/042-changing-deprecated-apo-versions.md)
+
+- [Custom Resources](pages/04-Kubernetes/043-custom-resource.md)
 
 - [Manifests](pages/04-Kubernetes/018-Manifests.md)
 
@@ -216,6 +223,15 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Kubernetes Ecosystem](pages/04-Kubernetes/026-kubernetes-ecosystem.md)
 
+- [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md)
+
+- [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
+
+- [Kubernetes Patterns for Application Developers](pages/04-Kubernetes/033-Kubernetes-patterns.md) 
+
+
+### Kubernetes Security 
+
 - [Kubernetes Security - Security Primitives](pages/04-Kubernetes/028-Kubernetes-Security-primitives.md)
 
 - [Kubernetes Security - Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
@@ -224,9 +240,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Kubernetes Security - Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
-- [Kubernetes in the Cloud](pages/04-Kubernetes/039-Kubernetes-in-the-Cloud.md) 
 
-- [CNCF Projects](pages/04-Kubernetes/029-CNCF-Projects.md)
+### Helm 
 
 - [Helm Package Manager](pages/04-Kubernetes/030-Helm-Package-Manager.md) 
 
@@ -234,7 +249,9 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Helm Commands](pages/04-Kubernetes/031-Helm-commands.md)
 
-- [Kubernetes Patterns for Application Developers](pages/04-Kubernetes/033-Kubernetes-patterns.md) 
+
+
+### Amazon Elastic Kubernetes Service 
 
 - [Amazon EKS - Managed Kubernetes](pages/04-Kubernetes/050-EKS-Managed-Kubernetes.md) 
 
@@ -255,7 +272,17 @@ Kubernetes is indeed an entire universe in itself.
 - [Amazon EKS - Self-managed vs. Managed Nodegroups](pages/04-Kubernetes/057-EKS-Nodegroups.md)      
 
 
-## Troubleshooting Guides 
+
+<!-- ### Azure Kubernetes Service 
+
+
+
+### Google Kubernetes Engine -->
+
+
+
+
+### Troubleshooting Guides 
 
 - [Log Locations](pages/04-Kubernetes/097-Tshooting-basics.md) 
 
@@ -268,11 +295,14 @@ Kubernetes is indeed an entire universe in itself.
 
 ## Certification Exams 
 
-Notes: 
+### Practice Tests
+
+- [Certified Kubernetes Administrator (CKA)](pages/05-Exams/002-Practice-Test-CKA.md)
+- [Certified Kubernetes Application Developer (CKAD)](pages/05-Exams/010-Practice-Test-CKAD.md)
+
+### Links  
 
 - [Exam Tips](pages/05-Exams/001-Exam-tips.md)    
-
-Resources: 
 
 - [Open Source Curriculum for CNCF Certification Courses](https://github.com/cncf/curriculum)
 
