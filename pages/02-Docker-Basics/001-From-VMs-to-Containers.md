@@ -27,5 +27,6 @@ Overall, the benefits of containers are:
 - develop applications that run consistently across platforms
 - can be managed to scale well
 
+<br>
 
 [Back to first page](../../README.md#docker--containers)
