@@ -601,7 +601,7 @@ From the description and operationId, we can see that the GET verb on /api/v1/po
 
 ## Authentication and Authorization in Action 
 
-To see how Kubernetes clusters are secured using authentication and authorization, check out this [lab](../../Lab27_Securing_Kubernetes_using_Authentication_and_Authorization/README.md).
+To see how Kubernetes clusters are secured using authentication and authorization, check out this [lab](../../projects/Lab_027_Securing_Kubernetes_using_Authentication_and_Authorization/README.md).
 
 
 ## Resources 
@@ -609,3 +609,9 @@ To see how Kubernetes clusters are secured using authentication and authorizatio
 - [CKA Certification Course – Certified Kubernetes Administrator](https://kodekloud.com/courses/certified-kubernetes-administrator-cka/)
 
 - [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes-security)

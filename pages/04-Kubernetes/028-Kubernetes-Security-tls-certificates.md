@@ -484,3 +484,9 @@ If kubectl doesn't work due to the core components being down, we can also use t
 ## Resources 
 
 - [CKA Certification Course – Certified Kubernetes Administrator](https://kodekloud.com/courses/certified-kubernetes-administrator-cka/)
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes-security)
