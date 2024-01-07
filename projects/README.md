@@ -4,7 +4,8 @@
 
 - [Containers](#containers)
 - [Kubernetes](#kubernetes)
-- [KodeKloud Labs on Kubernetes](#kodekloud-labs-on-kubernetes)
+- [KodeKloud Engineer - Kubernetes Labs](#kodekloud-engineer---kubernetes-labs)
+- [KodeKloud - Kubernetes Challenges](#kodekloud---kubernetes-challenges)
 - [Amazon EKS (Elastic Kubernetes Service)](#amazon-eks-elastic-kubernetes-service)
 - [Projects](#projects)
 
@@ -83,7 +84,7 @@
 - [Nginx Ingress Controller for External API Traffic](Lab_029_Nginx_Ingress_Controller_for_External_API_Traffic/README.md)
 
 
-## KodeKloud Labs on Kubernetes 
+## KodeKloud Engineer - Kubernetes Labs
 
 **Level 1** 
 
@@ -177,6 +178,14 @@
 
 - [Deploy Guest Book App on Kubernetes](https://github.com/joseeden/KodeKloud_Engineer_Labs?tab=readme-ov-file#kubernetes)          
 
+
+## KodeKloud - Kubernetes Challenges 
+
+- [Challenge 1](Lab_200_KodeKloud_Kubernetes_Challenges/challenge_1/README.md)
+- [Challenge 2](Lab_200_KodeKloud_Kubernetes_Challenges/challenge_2/README.md)
+- [Challenge 1](Lab_200_KodeKloud_Kubernetes_Challenges/challenge_3/README.md)
+- [Challenge 1](Lab_200_KodeKloud_Kubernetes_Challenges/challenge_4/README.md)
+- [Challenge 5](Lab_200_KodeKloud_Kubernetes_Challenges/challenge_1/README.md)
 
 
 ## Amazon EKS (Elastic Kubernetes Service) 

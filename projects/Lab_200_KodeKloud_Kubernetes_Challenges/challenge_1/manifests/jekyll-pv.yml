@@ -1,0 +1,26 @@
+## pv-kjekyll.yml
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jekyll-site
+  finalizers:
+  - kubernetes.io/pv-protection
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi
+  local:
+    path: /site
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - node01
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  volumeMode: Filesystem
