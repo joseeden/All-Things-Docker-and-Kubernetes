@@ -33,3 +33,9 @@ Every manifest has the same set of top-level properties:
 - **kind** - indicates the resource to be created
 - **metadata** - details about the resource
 - **spec** - specifications of the declared resource
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

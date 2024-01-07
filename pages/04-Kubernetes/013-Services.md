@@ -85,3 +85,9 @@ A load balancer type creates a **cluster IP** and a **node port** for the servic
 Kubernetes also provides **Ingress Controller** which serves as a layer 7 service abstraction. These controllers are run as normal pods in the cluster, making it different from most controllers that are automatically run as part of the kube-controller manager.
 
 Once we have an ingress controller in place, we can leverage the ingress to define rules for inbound connections to services. This support SSL termination, load balaancing, and path-based routing.
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

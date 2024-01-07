@@ -68,3 +68,9 @@ Storage objects serves as persistent storage to keep the data.
 - **Persistent Volume**, a Pod-independent storage defined at the cluster level using a *Persistent Volume Claim*
 
 </details>
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

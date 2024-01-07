@@ -216,3 +216,8 @@ Check the taint:
 $ kubectl describe node ip-192-168-81-3.ap-southeast-1.compute.internal | grep Taint
 Taints:             <none> 
 ```
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

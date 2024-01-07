@@ -146,4 +146,10 @@ systemctl daemon-reload
 systemctl restart etcd 
 ```
 
-To see a backup and restore in action, check out this [lab](../../Lab21_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
+To see a backup and restore in action, check out this [lab](../../projects/Lab_021_Backup_Restore_and_Upgrade_a_Kubernetes_Cluster/README.md)
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

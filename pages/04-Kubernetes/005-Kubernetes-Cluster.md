@@ -147,3 +147,8 @@ These are Pods that provide special services to the cluster.
 - IP of DNS Pod is in the network configuration
 - DNS Pod is used for service discovery inside of the cluster
 - other examples are ingres controllers and dashboard for web-based administration
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

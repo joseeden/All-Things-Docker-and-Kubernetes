@@ -190,3 +190,9 @@ This command display all the available api-resources and their shortnames. Some 
 ## Resources 
 
 - [Kubernetes Patterns for Application Developers](https://cloudacademy.com/course/kubernetes-patterns-for-application-developers/introduction/)
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

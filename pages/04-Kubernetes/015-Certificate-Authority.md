@@ -14,3 +14,8 @@ The CA files will be stored in:
 ```bash
 $ /etc/kubernetes/pki  
 ```
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

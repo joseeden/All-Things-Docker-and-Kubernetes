@@ -229,4 +229,10 @@ Mount the secret as a volume to the container
 
 ## ConfigMaps and Secrets in Action
 
-To see ConfigMaps and Secrets in actions check out this [lab](../../Lab49_ConfigMaps_and_Secrets/README.md).
+To see ConfigMaps and Secrets in actions check out this [lab](../../projects/Lab_049_ConfigMaps_and_Secrets/README.md).
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

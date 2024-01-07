@@ -169,3 +169,8 @@ Apply.
 ```bash
 kubectl apply -f https://k8s.io/examples/pods/pod-nginx-preferred-affinity.yaml
 ```
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

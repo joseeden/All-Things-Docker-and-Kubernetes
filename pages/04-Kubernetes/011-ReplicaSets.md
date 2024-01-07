@@ -26,3 +26,9 @@ $ kubectl get rs -n kube-system
 ```
 
 To learn more, check out [ReplicaSets in Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/).
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

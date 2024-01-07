@@ -36,3 +36,9 @@ Now, if you decide to go for Fargate, here are some important reminders:
 - mapping also consumes 250M cores, and 512Mi memory
 
 </details>
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

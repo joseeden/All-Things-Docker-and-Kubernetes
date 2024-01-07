@@ -18,3 +18,9 @@ Includes traditional databases such as PostgreSQL and MySQL which have database 
 - cannot horizontally scale
 - can be ran on a single container and scale vertically
 - use volumes to save data
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

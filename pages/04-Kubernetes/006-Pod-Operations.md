@@ -24,3 +24,9 @@ Let's say Node 2 goes down.
 2. The Controller Manager send another request to the Scheduler.
 3. The Scheduler checks the number of nodes on which to spin up the two pods, which in this case will be Node 1.
 4. The kubelet in node1 seees a state change which will then spin up the two additional Pods. 
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

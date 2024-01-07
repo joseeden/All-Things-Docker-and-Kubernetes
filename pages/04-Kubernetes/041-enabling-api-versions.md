@@ -91,3 +91,8 @@ kube-proxy-p24r9                       1/1     Running   0             33m
 kube-scheduler-controlplane            1/1     Running   2 (41s ago)   33m 
 ```
 
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

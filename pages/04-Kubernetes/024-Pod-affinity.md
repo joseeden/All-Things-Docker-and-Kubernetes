@@ -24,3 +24,9 @@ However, the conditions are specific for the Pod labels, not the node labels. Th
 - since pods are namespaced, their labels are also namespaced
 
 After the conditions are evaluated, the **topology key** is used in deciding the node in which the pod will be scheduled on. This key usually corresponds to a physical domain such as datacenter, region, server rack, etc.
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

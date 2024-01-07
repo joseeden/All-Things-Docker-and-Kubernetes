@@ -208,3 +208,9 @@ $ kubectl get pods
 NAME      READY   STATUS    RESTARTS   AGE
 myapp     1/1     Pending   0          4h52m 
 ```
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

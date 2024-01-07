@@ -221,3 +221,9 @@ Annotations:  cni.projectcalico.org/podIP: 192.168.23.130/32
 ## Resources 
 
 - [Kubernetes Pod Design for Application Developers: Labels, Selectors, and Annotations](https://cloudacademy.com/lab/kubernetes-pod-design-application-developers-labels-selectors-and-annotations/?context_id=888&context_resource=lp)
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

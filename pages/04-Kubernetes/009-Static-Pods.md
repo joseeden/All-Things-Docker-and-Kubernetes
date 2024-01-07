@@ -72,3 +72,9 @@ ExecStart=/usr/bin/kubelet \
     
 staticPodPath: /etc/kubernetes/manifests
 ```
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

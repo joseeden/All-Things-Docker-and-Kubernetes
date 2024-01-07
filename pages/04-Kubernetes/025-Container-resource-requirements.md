@@ -54,3 +54,9 @@ FIELDS:
 ```
 
 To see resource requirements in action, check out this [lab](../../Lab21-Resource_Requirements/README.md).
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

@@ -124,3 +124,9 @@ spec:
 
 
 To learn more, check out [DaemonSets in Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/).
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

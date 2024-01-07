@@ -120,3 +120,9 @@ To see deployments in action, check out this [lab](../../Lab43_Deployments/READM
 
 To learn more about Deployments and StatefulSets using Persistent Volumes in AWS, check out [Amazon EKS - Persistent Volumes](pages/04-Kubernetes/056-EKS-Persistent-Volumes.md) page.
 
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

@@ -105,3 +105,8 @@ We'll use kubeadm to create our cluster. The phases include:
 9. kubeadm starts **Add-on Pods: DNS and kube-proxy**
 
 Note that the process defined above can be customized by specifying parameters.
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

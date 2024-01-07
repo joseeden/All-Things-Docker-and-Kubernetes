@@ -216,3 +216,9 @@ type <string>
 - https://kubernetes.io/docs/concepts/overview/kubernetes-api/
 
 - https://stackoverflow.com/questions/52711326/kubernetes-how-to-know-latest-supported-api-version
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

@@ -389,3 +389,9 @@ To cleanup the resources, simply delete the EC2 instances from the AWS Managemen
 ## Resources
 
 - [Backup, Restore, and Upgrade a Kubernetes Cluster](https://cloudacademy.com/lab/backup-restore-and-upgrade-kubernetes-cluster/connecting-kubernetes-cluster/?context_id=888) 
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)

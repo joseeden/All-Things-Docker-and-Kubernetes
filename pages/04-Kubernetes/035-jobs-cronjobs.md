@@ -210,3 +210,9 @@ pod-fail                   0/6           2m54s      2m54s
 ## Resource
 
 - [Kubernetes Pod Design for Application Developers: Jobs and CronJobs](https://cloudacademy.com/lab/kubernetes-pod-design-application-developers-jobs-and-cronjobs/?context_id=888&context_resource=lp)
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes)
