@@ -69,5 +69,10 @@ Applications running inside the cluster can access each other's Pods by default 
 
 ![](../../Images/networkpoliciessamplediagram.png)  
 
-## Resources
+
+
+
+<br>
+
+[Back to first page](../../README.md#kubernetes-security)
 
