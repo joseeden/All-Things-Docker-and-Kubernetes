@@ -173,3 +173,8 @@ To learn more, check out these links:
 - [View Kubernetes resources](https://docs.aws.amazon.com/eks/latest/userguide/view-kubernetes-resources.html#view-kubernetes-resources-permissions)
 
 
+
+<br>
+
+[Back to first page](../../README.md#troubleshooting-guides)
+
