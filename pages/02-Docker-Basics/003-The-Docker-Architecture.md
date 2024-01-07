@@ -79,3 +79,8 @@ This is the default implementataion defined by OCI runtime specs. It's responsib
 This is a code originally from the daemon but is removed.
 - manages container operations (start, stop,pause, remove, etc.)
 - works with runc and daemon
+
+
+<br>
+
+[Back to first page](../../README.md#docker--containers)

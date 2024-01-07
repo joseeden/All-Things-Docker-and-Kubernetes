@@ -103,3 +103,9 @@ Define the image to be used and then the service will run the container for you.
 - *replicate mode* by default, containers are distributed evenly 
 - *global mode*, a single replica on each node
 - scaling up/down
+
+
+
+<br>
+
+[Back to first page](../../README.md#docker--containers)

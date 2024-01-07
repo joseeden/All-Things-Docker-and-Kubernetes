@@ -17,3 +17,10 @@ To learn more about variables, you check these resources:
 
 - [Substitute environment variables in Compose files](https://docs.docker.com/compose/environment-variables/)
 - [Exploring Docker Compose Environment variable behaviour](https://www.profit4cloud.nl/blog/exploring-docker-compose-environment-variable-behaviour/#:~:text=Environment%20variables%20can%20be%20defined%20in%20the%20Dockerfile.,the%20resulting%20image%20and%20container.)
+
+
+
+
+<br>
+
+[Back to first page](../../README.md#docker--containers)

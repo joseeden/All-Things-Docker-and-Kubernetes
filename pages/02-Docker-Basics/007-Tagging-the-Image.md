@@ -20,3 +20,9 @@ Docker images can have multiple tags assigned to them. It may appear as differen
 ### Tag before pushing the image to a container registry
 
 It is highly recommended to tag the image first before pushing an image to a Docker registry. Without the tagging, the image would be allocated with a random ID during the build stage.
+
+
+
+<br>
+
+[Back to first page](../../README.md#docker--containers)
