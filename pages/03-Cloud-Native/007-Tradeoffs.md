@@ -13,6 +13,7 @@ Depending on which model we choose, each one will have their own set of tradeoff
 **Reliability** | Reliability captures practices for an application to recover from failure and tools to monitor an application.| <ul><li>in a failure scenario, the entire stack needs to be recovered</li><li>the visibility into each functionality is low, since all the logs and metrics are aggregated together</li></ul> | <ul><li>in a failure scenario, only the failed unit needs to be recovered</li><li>there is high visibility into the logs and metrics for each unit</li></ul>
 
 
+
 <br>
 
-[Back to first page](../../README.md##cloud-native)
+[Back to first page](../../README.md#cloud-native)
