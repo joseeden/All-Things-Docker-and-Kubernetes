@@ -52,3 +52,9 @@ Nov 23 05:50:59 controlplane kubelet[25086]: I1123 05:50:59.049880   25086 statu
 Nov 23 05:50:59 controlplane kubelet[25086]: E1123 05:50:59.050085   25086 mirror_client.go:138] "Failed deleting a mirror pod" err="Delete \"https://172.30.1.2:6443/api/v1/namespaces/kube-system/pods/kube-apiserver-controlplane\": dial tcp 172.30.1.2:6443: connect: connection refused" pod="kube-system/kube-apiserver-controlplane"
 Nov 23 05:50:59 controlplane kubelet[25086]: E1123 05:50:59.050595   25086 pod_workers.go:1300] "Error syncing pod, skipping" err="failed to \"StartContainer\" for \"kube-apiserver\" with CrashLoopBackOff: \"back-off 40s restarting failed container=kube-apiserver pod=kube-apiserver-controlplane_kube-system(5adc793c6b0fca0b07ed510f4d741def)\"" pod="kube-system/kube-apiserver-controlplane" podUID="5adc793c6b0fca0b07ed510f4d741def"
 ```
+
+
+
+<br>
+
+[Back to first page](../../README.md#troubleshooting-guides)
