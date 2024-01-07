@@ -39,6 +39,12 @@ An example of users that we can create:
 - **read-only user** - limited to a dedicated namespace
 
 We can also assign a more fine-grained policy for the user. 
-To learn more, check out this [lab](lab53_EKS_IAM_and_RBAC/README.md).
+To learn more, check out this [lab](../../projects/Lab_053_EKS_IAM_and_RBAC/README.md).
 
 You can also take a look at [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+
+
+
+<br>
+
+[Back to first page](../../README.md#amazon-elastic-kubernetes-service)

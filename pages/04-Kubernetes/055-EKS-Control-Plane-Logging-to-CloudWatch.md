@@ -16,3 +16,9 @@ We can access the logs by going to the CloudWatch dashboard in the AWS Managemen
 - each log type creates its own CloudWatch log stream 
 - prefixed with <code>/aws/eks/cluster-name</code>
 - this adds [additional costs](https://aws.amazon.com/cloudwatch/pricing/) for storage and collection
+
+
+
+<br>
+
+[Back to first page](../../README.md#amazon-elastic-kubernetes-service)

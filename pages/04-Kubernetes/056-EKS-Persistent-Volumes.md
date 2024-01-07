@@ -62,3 +62,9 @@ Once we use EFS as the persistent storage for our cluster, we can no launch the 
 
 - EFS is mounted onto the worker nodes
 - instances can start sharing state config files
+
+
+
+<br>
+
+[Back to first page](../../README.md#amazon-elastic-kubernetes-service)

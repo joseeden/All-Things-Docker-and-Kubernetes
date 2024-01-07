@@ -184,3 +184,9 @@ From the **AWS Management Console > Amazon EKS**:
 - https://eksctl.io/usage/eks-managed-nodes/
 
 - https://repost.aws/questions/QU3b7kgBtFSCGtWW88a3fiMQ/difference-between-eks-managed-node-group-and-self-managed-node-group
+
+
+
+<br>
+
+[Back to first page](../../README.md#amazon-elastic-kubernetes-service)
