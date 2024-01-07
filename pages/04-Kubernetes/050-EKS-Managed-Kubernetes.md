@@ -47,7 +47,7 @@ When you create you EKS cluster, AWS takes care of all of these under the hood:
 - the whole control plane is fronted by an NLB with fixed IP
 
 <p align=center>
-<img src="../../Images/eksintrocontrolplanedeeptive.png)" >
+<img src="../../Images/eksintrocontrolplanedeeptive.png" >
 </p>
 
 </details>
