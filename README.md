@@ -110,7 +110,7 @@ Containers are where it all starts.
 <!-- </details> -->
 
 
-### Cloud-Native
+### Cloud Native
 
 When you have containers, you have cloud-native applications. 
 
