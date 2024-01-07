@@ -27,6 +27,23 @@
 
 ## Cluster Maintenance 
 
+
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKAD practice tests.](./015-Practice-Test-CKAD.md)
+
+**Shortcuts**
+
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+**Questions** 
+
 1. We need to take node01 out for maintenance. Empty the node of all applications and mark it unschedulable.
 
     ```bash

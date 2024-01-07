@@ -27,6 +27,22 @@
 ## Logging and Monitoring 
 
 
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKAD practice tests.](./015-Practice-Test-CKAD.md)
+
+**Shortcuts**
+
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+**Questions** 
+
 1. Deploy metrics-server to monitor the PODs and Nodes.
 
     <details><summary> Answer </summary>

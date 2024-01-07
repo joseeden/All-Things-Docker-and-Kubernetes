@@ -27,6 +27,23 @@
 
 ## Security 
 
+
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKAD practice tests.](./015-Practice-Test-CKAD.md)
+
+**Shortcuts**
+
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+**Questions** 
+
 1. Identify the certificate file used for the kube-api server.
 
     <details><summary> Answer </summary>
@@ -1055,10 +1072,6 @@
     ```
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-
     controlplane ~ ➜  k get role -n blue developer -o yaml > blue-dev-role.yaml
 
     controlplane ~ ➜  k get rolebindings.rbac.authorization.k8s.io -n blue dev-user-binding -o yaml > blue-dev-rolebinding.yaml
@@ -1674,13 +1687,7 @@
     ```
 
     <details><summary> Answer </summary>
-    
-    ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
 
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-    ```
-    
     ```bash
     root@controlplane ~ ➜  k get deployments.apps web -o yaml > web.yaml
 
@@ -1754,12 +1761,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-    ```
-    
-    ```bash
     controlplane ~ ➜  k get po ubuntu-sleeper -o yaml > ubuntu-sleeper.yaml
 
     controlplane ~ ✦ ➜  k delete po ubuntu-sleeper $now
@@ -1821,10 +1822,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0"
-
     controlplane ~ ➜  k get po ubuntu-sleeper -o yaml > ubuntu-sleeper.yaml
 
     controlplane ~ ➜  k delete po ubuntu-sleeper $now

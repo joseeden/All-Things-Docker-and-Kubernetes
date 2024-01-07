@@ -28,6 +28,23 @@
 
 ## Storage 
 
+
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKAD practice tests.](./015-Practice-Test-CKAD.md)
+
+**Shortcuts**
+
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+**Questions** 
+
 1. Configure a volume to store the webapp logs (stored at /log/app.log) at /var/log/webapp on the host. Use the spec provided below.
 
     - Name: webapp
@@ -54,11 +71,6 @@
     [2023-12-30 11:51:44,298] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS. 
     ```
 
-    ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0"  
-    ```
 
     Generate a YAML file first and then delete the pod. 
 
@@ -236,10 +248,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-
     controlplane ~ ➜  k get po webapp -o yaml > webapp.yml 
     ```
 
@@ -437,10 +445,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-
     controlplane ~ ➜  k run nginx --image nginx:alpine $do > nginx.yaml
     ```
 

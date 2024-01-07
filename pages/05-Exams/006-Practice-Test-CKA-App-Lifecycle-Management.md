@@ -26,6 +26,24 @@
 
 ## Application Lifecycle Management
 
+
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKAD practice tests.](./015-Practice-Test-CKAD.md)
+
+**Shortcuts**
+
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+**Questions** 
+
+
 1. Inspect the current deployment and determine the strategy used.
 
     ```bash
@@ -299,10 +317,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-
     controlplane ~ ✦2 ➜  k run webapp-green --image  kodekloud/webapp-color $do -o yaml > green.yml
     ```
     ```bash
@@ -418,10 +432,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-
     controlplane ~ ✦ ➜  k create cm webapp-config-map $do > webapp-color.yml
     ```
     ```bash
@@ -482,13 +492,7 @@
 
 
     <details><summary> Answer </summary>
-    
-    ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
 
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-    ```
-    
     ```bash
     controlplane ~ ✦ ➜  k get cm
     NAME                DATA   AGE
@@ -590,12 +594,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0"
-    
-    ```
-    ```bash
     controlplane ~ ➜  kubectl create secret generic db-secret \
         --from-literal='DB_Host=sql01' \
         --from-literal='DB_User=root' \
@@ -640,10 +638,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0"
-
     controlplane ~ ➜  k get po
     NAME         READY   STATUS    RESTARTS   AGE
     webapp-pod   1/1     Running   0          6m55s
@@ -1027,10 +1021,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0"
-
     controlplane ~ ➜  k get po app -n elastic-stack -o yaml > elastic-app.yml 
     ```
 
@@ -1182,10 +1172,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0" 
-
     controlplane ~ ➜  k get po red  -o yaml > red.yml
     ```
 
@@ -1270,10 +1256,6 @@
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export do="--dry-run=client -o yaml"
-
-    controlplane ~ ➜  export now="--force --grace-period 0"
-
     controlplane ~ ✦2 ➜  k logs orange 
     Defaulted container "orange-container" out of: orange-container, init-myservice (init)
     Error from server (BadRequest): container "orange-container" in pod "orange" is waiting to start: PodInitializing

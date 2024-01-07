@@ -27,6 +27,23 @@
 
 # Mock Exams
 
+
+**Note**
+
+CKAD and CKA can have similar scenario questions. 
+It is recommended to go through the [CKAD practice tests.](./015-Practice-Test-CKAD.md)
+
+**Shortcuts**
+
+First run the two commands below for shortcuts.
+
+```bash
+export do="--dry-run=client -o yaml" 
+export now="--force --grace-period=0" 
+```
+
+**Questions** 
+
 1. Upgrade the current version of kubernetes from 1.26.0 to 1.27.0 exactly using the kubeadm utility. Make sure that the upgrade is carried out one node at a time starting with the controlplane node. To minimize downtime, the deployment gold-nginx should be rescheduled on an alternate node before upgrading each node.
 
     Upgrade controlplane node first and drain node node01 before upgrading it. Pods for gold-nginx should run on the controlplane node subsequently.
@@ -1368,10 +1385,6 @@ Next, create a pod called pvviewer with the image: redis and serviceAccount: pvv
     <details><summary> Answer </summary>
 
     ```bash
-    controlplane ~ ➜  export now="--force --grace-period=0"
-
-    controlplane ~ ➜  export do="--dry-run=client -o yaml" 
-
     controlplane ~ ➜  k create sa pvviewer --dry-run=client -o yaml > pvviewer.yml
 
     controlplane ~ ➜  ls -l
@@ -1575,10 +1588,6 @@ Next, create a pod called pvviewer with the image: redis and serviceAccount: pvv
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export now="--force --grace-period=0"
-
-    controlplane ~ ➜  export do="--dry-run=client -o yaml" 
-
     controlplane ~ ➜  k run multi-pod --image nginx $do > multi-pod.yml
 
     controlplane ~ ➜  ls -l
@@ -1675,10 +1684,6 @@ Next, create a pod called pvviewer with the image: redis and serviceAccount: pvv
     <details><summary> Answer </summary>
     
     ```bash
-    controlplane ~ ➜  export now="--force --grace-period=0"
-
-    controlplane ~ ➜  export do="--dry-run=client -o yaml" 
-
     controlplane ~ ➜  k run non-root-pod --image redis:alpine $do > non-root-pod.yml
     ```
     ```bash
