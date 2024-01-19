@@ -11,7 +11,6 @@
   - [Next Steps](#next-steps)
 
 
-
 ## Pre-requisites
 
 - [Basic Understanding of Kubernetes](../../README.md#kubernetes)

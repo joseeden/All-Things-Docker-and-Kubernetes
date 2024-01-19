@@ -29,7 +29,8 @@ The Kubernetes API is not a single API but rather a collection of APIs which def
      /api
      /apis
 
-The two APIs used for clsuter functionality are:
+
+The two APIs used for cluster functionality are:
 
 - **/api** - core APi, represented by "v1"
 - **/apis** - named group
@@ -61,6 +62,7 @@ $ curl https://localhost:6443 -k
      "/logs",
      "/metrics",
      "/openapi/v2",
+     "/version
 ```
 
 To show the resource group for a specific API group:

@@ -1,13 +1,11 @@
 
-# Kubernetes Security - Security Primitives 
+# Security Primitives 
 
 
 - [Secure Hosts](#secure-hosts)
 - [API Server](#api-server)
 - [TLS Certificates](#tls-certificates)
 - [Network Policies](#network-policies)
-- [Resources](#resources)
-
 
 ## Secure Hosts 
 
@@ -20,7 +18,7 @@ Starting with the hosts or nodes that form the cluster itself. They are the firs
 ![](../../Images/securehosts.png)  
 
 
-## API Server
+## API Server 
 
 At the center of all operations in Kubernetes is the API server. Basically all operations can be performed once we have access to it. To secure the API Server access, there are two questions to ask:
 

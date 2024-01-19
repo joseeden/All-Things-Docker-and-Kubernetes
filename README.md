@@ -232,13 +232,36 @@ Kubernetes is indeed an entire universe in itself.
 
 ### Kubernetes Security 
 
-- [Kubernetes Security - Security Primitives](pages/04-Kubernetes/028-Kubernetes-Security-primitives.md)
+- [The 4Cs of Cloud Native Security](pages/04-Kubernetes/028-Kubernetes-Security-4cs.md)
 
-- [Kubernetes Security - Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
+- [CIS Security Benchmarks](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
 
-- [Kubernetes Security - TLS Certificates](pages/04-Kubernetes/028-Kubernetes-Security-tls-certificates.md)
+- [CIS-CAT Pro Assessor](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
 
-- [Kubernetes Security - Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
+- [Kube-bench](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
+
+- [Security Primitives](pages/04-Kubernetes/028-Kubernetes-Security-primitives.md)
+
+- [Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
+
+- [Authentication Mechanisms](pages/04-Kubernetes/028-Kubernetes-Security-authentication-mechanisms.md) 
+
+- [Authorization Mechanisms](pages/04-Kubernetes/028-Kubernetes-Security-authorization-mechanisms.md) 
+
+- [Role-Based Access Control](pages/04-Kubernetes/028-Kubernetes-Security-roles-and-rolebindings.md) 
+
+- [Service Accounts](pages/04-Kubernetes/028-Kubernetes-Security-Service-Accounts.md)
+
+- [TLS Certificates](pages/04-Kubernetes/028-Kubernetes-Security-tls-certificates.md)
+
+- [Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
+
+- [Kubelet Security](pages/04-Kubernetes/028-Kubernetes-Security-Kubelet.md) 
+
+- [Kubectl Proxy and Port Forwarding](pages/04-Kubernetes/028-Kubernetes-Security-Kubectl-Port-Forwarding.md) 
+
+- [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
+
 
 
 ### Helm 

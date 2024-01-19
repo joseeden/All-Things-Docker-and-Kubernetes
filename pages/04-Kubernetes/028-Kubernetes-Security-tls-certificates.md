@@ -1,5 +1,5 @@
 
-# Kubernetes Security - TLS Certificates
+# TLS Certificates
 
 
 - [TLS Certificates - Basics](#tls-certificates---basics)
@@ -8,21 +8,20 @@
     - [Client Certificates](#client-certificates)
     - [Key Naming Convention](#key-naming-convention)
 - [TLS in Kubernetes](#tls-in-kubernetes)
-        - [Server Certificates for Servers](#server-certificates-for-servers)
-        - [Client Certificates](#client-certificates)
-        - [Root Server CA](#root-server-ca)
+    - [Server Certificates for Servers](#server-certificates-for-servers)
+    - [Client Certificates](#client-certificates)
+    - [Root Server CA](#root-server-ca)
 - [Generating the Certificates](#generating-the-certificates)
-        - [Certificate Authority CA Certificates](#certificate-authority-ca-certificates)
-        - [Client Certificates](#client-certificates)
-        - [Other Client Certificates](#other-client-certificates)
-        - [Server Certificates](#server-certificates)
+    - [Certificate Authority CA Certificates](#certificate-authority-ca-certificates)
+    - [Client Certificates](#client-certificates)
+    - [Other Client Certificates](#other-client-certificates)
+    - [Server Certificates](#server-certificates)
 - [How to use the certificates](#how-to-use-the-certificates)
 - [View Certificate Details](#view-certificate-details)
 - [Certificates API](#certificates-api)
 - [Controller-Manager handles all](#controller-manager-handles-all)
 - [Inspect Logs](#inspect-logs)
 - [Resources](#resources)
-
 
 
 ## TLS Certificates - Basics 
@@ -117,7 +116,7 @@ The TLS client certificates are not generally implemented on web servers or they
  
 ## TLS in Kubernetes 
 
-To secure the Kubernetes clsuter, we need to encrypt the following:
+To secure the Kubernetes cluster, we need to encrypt the following:
 
 - Communication between the master and worker nodes 
 - Communication between client(user) and the cluster
@@ -131,8 +130,7 @@ There are actually three sets of certificates that we need:
 - Client certificates
 
 
-
-#### Server Certificates for Servers
+### Server Certificates for Servers
 
 For self-managed Kubernetes clusters which could be setup using kubeadm, the following keypairs needs to be generated: 
 
@@ -140,7 +138,7 @@ For self-managed Kubernetes clusters which could be setup using kubeadm, the fol
 <img width=500 src="../../Images/servercertsforservers.png">
 </p>
 
-#### Client Certificates 
+### Client Certificates 
 
 For the client's side, there's actually four clients that talks to the kube-apiserver.
 
@@ -153,7 +151,7 @@ For the client's side, there's actually four clients that talks to the kube-apis
 <img width=500 src="../../Images/cleintcertificatesforkubernetes.png">
 </p>
 
-#### Root Server (CA)
+### Root Server (CA)
 
 In a Kubernetes setup, the CA is simply a pair of key and certificate files. The server where these files are securely stored are called the CA server. These certificates can also be placed in the master node, which makes the master node a CA server.
 
@@ -166,7 +164,7 @@ We can use the following tools to generate the certificates
 - CFSSL
 
 
-#### Certificate Authority (CA) Certificates
+### Certificate Authority (CA) Certificates
 
 Start with the CA Certificates by generating a private key:
 
@@ -187,8 +185,9 @@ Finally, sign the certificate.
 openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
 ```
 
-#### Client Certificates 
+Going forward, we can use this CA key pair to sign all other certificates. 
 
+### Client Certificates 
 
 Generate a private key:
 
@@ -199,8 +198,9 @@ openssl genrsa -out admin.key 2048             # admin.key
 Using the private key, generate a CSR. Note that for admin users, we need to add the "O=system:master". For any other users, we ignore it.
 
 ```bash
-openssl req -new -key admin.key -subj \           # admin.csr
-    "/CN=kube-admin/O=system:master" -out admin.csr               # "kube-admin" can be different name
+openssl req -new -key admin.key  \
+-subj "/CN=kube-admin/O=system:master" \
+-out admin.csr
 ```
 
 Finally, sign the certificate.
@@ -209,7 +209,7 @@ Finally, sign the certificate.
 openssl x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt 
 ```
 
-#### Other Client Certificates 
+### Other Client Certificates 
 
 The same steps is followed for generating the other client certificates:
 
@@ -223,7 +223,7 @@ The other server certificates need to be generated (for self-managed Kubernetes 
 - kube-controller manager
 - kube-proxy
 
-#### Server Certificates 
+### Server Certificates 
 
 The same steps is followed for generating the other client certificates:
 

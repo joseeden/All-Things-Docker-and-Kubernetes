@@ -1,8 +1,6 @@
 
 # Kubernetes Patterns for Application Developers
 
-Learning Kubernetes patterns has became more essential as more organization shifts to production-ready containers, especially for application developers. We'll explore the following Kubernetes patterns:
-
 
 - [Multi-container Patterns](#multi-container-patterns)
     - [Sidecar-container Pattern](#sidecar-container-pattern)
@@ -13,7 +11,6 @@ Learning Kubernetes patterns has became more essential as more organization shif
     - [Services](#services)
     - [Network Policies](#network-policies)
     - [Isolated vs. Non-Isolated Pods](#isolated-vs-non-isolated-pods)
-- [Service Accounts](#service-accounts)
 - [Leveraging kubectl](#leveraging-kubectl)
 
 
@@ -124,18 +121,6 @@ Network Policies are similar to security groups for virtual machines because the
 ### Isolated vs. Non-Isolated Pods 
 
 The default behavior of a Pod is to allow traffic from any source, making it a non-isolated Pod. Once a pod is selected by a network policy it becomes isolated. The pods are selected using labels, which are the core grouping primitive in Kubernetes.
-
-## Service Accounts 
-
-Service accounts provide an identity to pods running in a cluster. Unlike user accounts whicha re managed by an external entity and are intended for humans, service accounts are made to be used by Pods.
-
-- used for authenticating the Pods
-- compatible with RBAC (role-based access control)
-- useful for storing image pull secrets when working with private container image registries
-
-Pods have a token that is automatically mounted on a volume that can be used to authenticate requests. Every namespace also has a **default** service account token which has no additional permissions than an unauthenticated user.
-
-To learn more, check out the [Service Accounts page.](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/)
 
 ## Leveraging kubectl 
 
