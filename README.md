@@ -234,33 +234,81 @@ Kubernetes is indeed an entire universe in itself.
 
 - [The 4Cs of Cloud Native Security](pages/04-Kubernetes/028-Kubernetes-Security-4cs.md)
 
-- [CIS Security Benchmarks](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
+- [Cluster Hardening](.)
 
-- [CIS-CAT Pro Assessor](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
+    - [CIS Security Benchmarks](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
 
-- [Kube-bench](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
+    - [CIS-CAT Pro Assessor](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
 
-- [Security Primitives](pages/04-Kubernetes/028-Kubernetes-Security-primitives.md)
+    - [Kube-bench](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
 
-- [Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
+    - [Security Primitives](pages/04-Kubernetes/028-Kubernetes-Security-primitives.md)
 
-- [Authentication Mechanisms](pages/04-Kubernetes/028-Kubernetes-Security-authentication-mechanisms.md) 
+    - [Authentication and Authorization](pages/04-Kubernetes/028-Kubernetes-Security-authentication-authorization.md) 
 
-- [Authorization Mechanisms](pages/04-Kubernetes/028-Kubernetes-Security-authorization-mechanisms.md) 
+    - [Authentication Mechanisms](pages/04-Kubernetes/028-Kubernetes-Security-authentication-mechanisms.md) 
 
-- [Role-Based Access Control](pages/04-Kubernetes/028-Kubernetes-Security-roles-and-rolebindings.md) 
+    - [Authorization Mechanisms](pages/04-Kubernetes/028-Kubernetes-Security-authorization-mechanisms.md) 
 
-- [Service Accounts](pages/04-Kubernetes/028-Kubernetes-Security-Service-Accounts.md)
+    - [Role-Based Access Control](pages/04-Kubernetes/028-Kubernetes-Security-roles-and-rolebindings.md) 
 
-- [TLS Certificates](pages/04-Kubernetes/028-Kubernetes-Security-tls-certificates.md)
+    - [Service Accounts](pages/04-Kubernetes/028-Kubernetes-Security-Service-Accounts.md)
 
-- [Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
+    - [TLS Certificates](pages/04-Kubernetes/028-Kubernetes-Security-tls-certificates.md)
 
-- [Kubelet Security](pages/04-Kubernetes/028-Kubernetes-Security-Kubelet.md) 
+    - [Security Contexts](pages/04-Kubernetes/028-Kubernetes-Security.md) 
 
-- [Kubectl Proxy and Port Forwarding](pages/04-Kubernetes/028-Kubernetes-Security-Kubectl-Port-Forwarding.md) 
+    - [Kubelet Security](pages/04-Kubernetes/028-Kubernetes-Security-Kubelet.md) 
 
-- [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
+    - [Kubectl Proxy and Port Forwarding](pages/04-Kubernetes/028-Kubernetes-Security-Kubectl-Port-Forwarding.md) 
+
+    - [Kubernetes Dashboard](pages/04-Kubernetes/027-Kubernetes-Dashboard.md)
+
+    - [Network Policy](pages/04-Kubernetes/027-Kubernetes-Security-Network-Policy.md)
+
+    - [Ingress](pages/04-Kubernetes/027-Kubernetes-Security-Ingress.md)
+
+    - [Securing the Docker Daemon](pages/04-Kubernetes/027-Kubernetes-Security-Docker-Service-Configurations.md)
+
+    - [Securing Control Plane Communications with Ciphers](pages/04-Kubernetes/027-Kubernetes-Security-securing-controlplane-comms.md)
+
+- [System Hardening](.)
+
+    - [Least Privilege Principle](pages/04-Kubernetes/028-Least-Privilege-Principle.md)
+
+    - [Limit Node Access](pages/04-Kubernetes/028-Limit-node-access.md)
+    
+    - [SSH Hardening](pages/04-Kubernetes/028-SSH-Hardening.md)
+
+    - [Linux Privilege Escalation](pages/04-Kubernetes/028-Linux-Privilege-Escalation.md)
+
+    - [Remove Obsolete Packages and Services](pages/04-Kubernetes/028-Remove-Obsolete-Packages.md)
+
+    - [Restrict Kernel Modules](pages/04-Kubernetes/028-Restrict-Kernel-Modules.md)
+
+    - [Identify and Disable Open Ports](pages/04-Kubernetes/028-Identify-and-disable-open-ports.md)
+
+    - [Minimize IAM Roles](pages/04-Kubernetes/028-Minimize-IAM-Roles.md)
+
+    - [Restrict Network Access](pages/04-Kubernetes/028-Restrict-Network-Access.md)
+
+    - [Tracing Linux Syscalls](pages/04-Kubernetes/028-Linux-syscalls.md)
+
+    - [Restricting Linux Syscalls through Seccomp](pages/04-Kubernetes/028-Seccomp.md)
+
+    - [AppArmor](pages/04-Kubernetes/028-AppArmor.md)
+
+    - [Linux Capabilities](pages/04-Kubernetes/028-Linux-Capabilities.md)
+
+- [Minimize Microservice Vulnerabilities](.)
+
+    - [Admission Controllers](pages/04-Kubernetes/028-Admission-Controllers.md)
+
+    - [Pod Security](pages/04-Kubernetes/028-Pod-Security.md)
+
+    - [Managing Kubernetes Secrets](pages/04-Kubernetes/021-Configmaps.md)
+
+    - [Open Policy Agent](pages/04-Kubernetes/028-Open-Policy-Agent.md)
 
 
 

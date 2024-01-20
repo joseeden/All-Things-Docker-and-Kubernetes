@@ -94,6 +94,10 @@ To provide the token, we must first create a user and then provide it role-based
 
 - https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
 
+
+
+
+
 <br>
 
 [Back to first page](../../README.md#kubernetes)

@@ -1,7 +1,6 @@
 
 # ConfigMaps and Secrets 
 
-
 - [ConfigMaps](#configmaps)
     - [Inject the ConfigMap](#inject-the-configmap)
 - [Secrets](#secrets)
@@ -10,8 +9,15 @@
     - [How Kubernetes handles secrets](#how-kubernetes-handles-secrets)
     - [Ways to create a secret](#ways-to-create-a-secret)
     - [Inject the Secrets](#inject-the-secrets)
+- [Notes on Secrets](#notes-on-secrets)
 - [ConfigMaps and Secrets in Action](#configmaps-and-secrets-in-action)
 
+
+----- 
+
+This page appears in both the Kubernetes section and Kubernetes Security section.
+
+-----
 
 
 ## ConfigMaps 
@@ -117,6 +123,7 @@ Secrets are not encrypted, so it is not safer in that sense. However, some best 
 By following the pattern of storing sensitive data in Secrets, users of the cluster can be denied access to Secrets but granted access to ConfigMaps using Kubernetes access control mechanisms. 
 
 ### How Kubernetes handles secrets
+
 Kubernetes also handles secrets in various ways:
 
 - A secret is only sent to a node if a pod on that node requires it.
@@ -226,6 +233,24 @@ Mount the secret as a volume to the container
 ```
 
 
+## Notes on Secrets 
+
+Best practices around using secrets
+
+- Secrets are not encrypted, only encoded.
+- Do not check-in Secret objects to SCM along with the code.
+- Secrets are not encrypted in ETCD. 
+- Consider encrypting secrets at rest. 
+  See [Encrypting Confidential Data at Rest.](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+- Anyone able to create pods/deployments in the same namespace can access the secrets.
+- Configure least-privilege access to secrets
+- Consider third-party secrets store providers like AWS, Azure, GCP, and Vault.
+
+Also the way kubernetes handles secrets. Such as:
+
+- A secret is only sent to a node if a pod on that node requires it.
+- Kubelet stores the secret into a tmpfs so that the secret is not written to disk storage.
+- Once the Pod that depends on the secret is deleted, kubelet will delete its local copy of the secret data as well.
 
 ## ConfigMaps and Secrets in Action
 
