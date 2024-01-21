@@ -132,7 +132,7 @@ For more information, please see [Pod Security Standards.](https://kubernetes.io
 
 PSA is configured in the namespace level.
 
-![](../../Image/configuring-psa-at-namespace-levels.png)
+![](../../Images/configuring-psa-at-namespace-levels.png)
 
 
 Namespace labels play a crucial role in implementing PSA. They determine the policy level that applies to all Pods within a specific namespace. 

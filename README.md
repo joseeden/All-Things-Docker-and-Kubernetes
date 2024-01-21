@@ -310,6 +310,34 @@ Kubernetes is indeed an entire universe in itself.
 
     - [Open Policy Agent](pages/04-Kubernetes/028-Open-Policy-Agent.md)
 
+    - [Container Sandboxing](pages/04-Kubernetes/028-Container-sandboxing.md)
+
+    - [One-way SSL and Mutual SSL](pages/04-Kubernetes/028-Mutual-SSL.md)
+
+- [Supply Chain Security](.)
+
+    - [Image Security and Best Practices](pages/04-Kubernetes/028-Minimize-base-image-footprint.md)
+
+    - [Whitelist Allowed Registries](pages/04-Kubernetes/028-Whitelist-allowed-registries.md)
+
+    - [Static Analysis of User Workloads](pages/04-Kubernetes/028-Static-Analysis-of-User-Workloads.md)
+
+    - [Scan images for known vulnerabilities](pages/04-Kubernetes/028-Scan-images-for-known-vulerabilities.md)
+
+
+- [Monitoring, Logging, and Runtime Security](.)
+
+    - [Perform behavioral analytics of syscall process](pages/04-Kubernetes/028-Perform-behavioral-analytics-of-syscall-process.md)
+   
+    - [Falco](pages/04-Kubernetes/028-Falco.md)
+
+    - [Mutable and Immutable Infrastructure](pages/04-Kubernetes/028-Mutable-and-Immutable-Infrastructure.md)
+   
+    - [Use Audit Logs to monitor access](pages/04-Kubernetes/028-Use-audit-logs-to-monitor-access.md)
+
+
+
+
 
 
 ### Helm 

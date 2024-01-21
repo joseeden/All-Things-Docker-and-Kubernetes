@@ -253,7 +253,7 @@ authentication:
 
 The metrics API allows read-only access which doesn't need any authentication or authorization. 
 
-![](../../kubelet-security-readonly-port-metrics-api.png)
+![](../../Images/kubelet-security-readonly-port-metrics-api.png)
 
 This is enabled when the read-only-port flag is set to non-zero number in the kubelet service file. 
 
