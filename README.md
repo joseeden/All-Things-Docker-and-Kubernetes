@@ -234,7 +234,7 @@ Kubernetes is indeed an entire universe in itself.
 
 - [The 4Cs of Cloud Native Security](pages/04-Kubernetes/028-Kubernetes-Security-4cs.md)
 
-- [Cluster Hardening](.)
+- [Cluster Hardening](#kubernetes-security)
 
     - [CIS Security Benchmarks](pages/04-Kubernetes/028-Kubernetes-Security-Security-Benchmarks.md)
 
@@ -272,7 +272,7 @@ Kubernetes is indeed an entire universe in itself.
 
     - [Securing Control Plane Communications with Ciphers](pages/04-Kubernetes/027-Kubernetes-Security-securing-controlplane-comms.md)
 
-- [System Hardening](.)
+- [System Hardening](#kubernetes-security)
 
     - [Least Privilege Principle](pages/04-Kubernetes/028-Least-Privilege-Principle.md)
 
@@ -300,7 +300,7 @@ Kubernetes is indeed an entire universe in itself.
 
     - [Linux Capabilities](pages/04-Kubernetes/028-Linux-Capabilities.md)
 
-- [Minimize Microservice Vulnerabilities](.)
+- [Minimize Microservice Vulnerabilities](#kubernetes-security)
 
     - [Admission Controllers](pages/04-Kubernetes/028-Admission-Controllers.md)
 
@@ -314,7 +314,7 @@ Kubernetes is indeed an entire universe in itself.
 
     - [One-way SSL and Mutual SSL](pages/04-Kubernetes/028-Mutual-SSL.md)
 
-- [Supply Chain Security](.)
+- [Supply Chain Security](#kubernetes-security)
 
     - [Image Security and Best Practices](pages/04-Kubernetes/028-Minimize-base-image-footprint.md)
 
@@ -325,7 +325,7 @@ Kubernetes is indeed an entire universe in itself.
     - [Scan images for known vulnerabilities](pages/04-Kubernetes/028-Scan-images-for-known-vulerabilities.md)
 
 
-- [Monitoring, Logging, and Runtime Security](.)
+- [Monitoring, Logging, and Runtime Security](#kubernetes-security)
 
     - [Perform behavioral analytics of syscall process](pages/04-Kubernetes/028-Perform-behavioral-analytics-of-syscall-process.md)
    
