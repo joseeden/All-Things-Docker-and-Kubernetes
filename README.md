@@ -327,8 +327,8 @@ Kubernetes is indeed an entire universe in itself.
 
 - [Monitoring, Logging, and Runtime Security](#kubernetes-security)
 
-    - [Perform behavioral analytics of syscall process](pages/04-Kubernetes/028-Perform-behavioral-analytics-of-syscall-process.md)
-   
+    <!-- - [Perform behavioral analytics of syscall process](pages/04-Kubernetes/028-Perform-behavioral-analytics-of-syscall-process.md)
+    -->
     - [Falco](pages/04-Kubernetes/028-Falco.md)
 
     - [Mutable and Immutable Infrastructure](pages/04-Kubernetes/028-Mutable-and-Immutable-Infrastructure.md)
