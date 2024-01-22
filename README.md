@@ -50,8 +50,8 @@ The complete list of projects can be found [here](projects/README.md).
 ## Notes 
 
 ### Docker + Containers
-
-Containers are where it all starts.
+<!-- 
+Containers are where it all starts. -->
 
 <!-- <details><summary> Read more.. 
 <br> -->
@@ -111,8 +111,8 @@ Containers are where it all starts.
 
 
 ### Cloud Native
-
-When you have containers, you have cloud-native applications. 
+<!-- 
+When you have containers, you have cloud-native applications.  -->
 
 - [What is Cloud Native?](pages/03-Cloud-Native/001-What-is-Cloud-Native.md) 
  
@@ -134,8 +134,8 @@ When you have containers, you have cloud-native applications.
 
 
 ### Kubernetes
-
-Kubernetes is indeed an entire universe in itself. 
+<!-- 
+Kubernetes is indeed an entire universe in itself.  -->
 
 - [Container Management Challenges](pages/04-Kubernetes/001-Container-Management-Challenges.md) 
 
