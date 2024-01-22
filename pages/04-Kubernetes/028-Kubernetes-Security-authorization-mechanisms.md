@@ -179,7 +179,7 @@ As an example, if the modes are specified in this order:
 Then any API requests will go through Node authorizer first, then RBAC, then Webhook. 
 
 - If the first one denies, it forwards the request to the second mode. 
-- As soon as one mode approves, no additional checks are done and reqeust is granted.
+- As soon as one mode approves, no additional checks are done and request is granted.
 - If none of the mode approves, then the request is denied
 
 

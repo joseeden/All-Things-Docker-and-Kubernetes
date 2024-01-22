@@ -15,7 +15,7 @@ Kubernetes provides auditing and it is handled by the kube-apiserver. However, w
 1. Request is sent to kube-apiserver.
 2. It goes through **RequestReceived** stage. In this stage, events are generated regardless if requests are approved or not.
 3. For requests that take some time to complete, they go through **RequestStarted.**
-4. Once reqeust is completed, it goes through **RequestComplete.** In this stage, a response body is returned.
+4. Once request is completed, it goes through **RequestComplete.** In this stage, a response body is returned.
 5. For invalid requests or errors, the request goes through **Panic** stage.
 
 If we record all events generated for every stage, we would end up with thousands of logs within no time. TO record specific events, we can create a **Policy** object. 

@@ -19,7 +19,7 @@ Refers to the status of the application and ensuring the expected behavior to ta
 
 Measures the performance of an application.
 - include statistics collected on the services 
-- number of logins, number of active users, number of reqeusts handled, CPU utilization, memory, etc.
+- number of logins, number of active users, number of requests handled, CPU utilization, memory, etc.
 - usually  returned via an HTTP endpoint such as <code>/metrics</code>.
 
 ## Logs
